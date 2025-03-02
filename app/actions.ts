@@ -658,13 +658,13 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
   const activeQueues: ActiveQueue[] = data.map(entry => ({
     id: entry.id,
     space_id: entry.space_id,
-    space_name: entry.spaces?.name || 'Unknown Space',
-    space_slug: entry.spaces?.slug || '',
+    space_name: entry.spaces[0]?.name || 'Unknown Space',
+    space_slug: entry.spaces[0]?.slug || '',
     position: entry.position,
     is_current_speaker: entry.is_current_speaker,
     is_paused: entry.is_paused,
     message: entry.message,
-    active_since: entry.spaces?.activated_at || null,
+    active_since: entry.spaces[0]?.activated_at || null,
   }));
 
   return activeQueues;
