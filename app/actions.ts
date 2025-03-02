@@ -307,7 +307,7 @@ export async function getQueueForSpace(spaceId: string): Promise<QueueUser[]> {
     return {
       ...item,
       email: user?.email || null,
-      full_name: user?.user_profiles?.[0]?.full_name || null
+      full_name: user?.full_name || null
     };
   }));
 
