@@ -1,18 +1,21 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { QueueUser } from '@/app/actions'
-import { promoteNextSpeaker } from '@/app/actions'
+import { QueueUser, leaveQueue, promoteNextSpeaker, togglePauseStatus } from "@/app/actions";
+import { useState, useEffect } from "react";
 
 interface CurrentSpeakerProps {
-  speaker: QueueUser
-  isOwner: boolean
-  spaceId: string
+  speaker: QueueUser;
+  isOwner: boolean;
+  spaceId: string;
 }
 
-export default function CurrentSpeaker({ speaker, isOwner, spaceId }: CurrentSpeakerProps) {
+export default function CurrentSpeaker({ 
+  speaker, 
+  isOwner, 
+  spaceId 
+}: CurrentSpeakerProps) {
+  const [isLoading, setIsLoading] = useState<Record<string, boolean>>({});
   const [speakingTime, setSpeakingTime] = useState<string>('00:00')
-  const [isPromoting, setIsPromoting] = useState(false)
   
   useEffect(() => {
     if (!speaker.started_speaking_at) return
@@ -34,56 +37,96 @@ export default function CurrentSpeaker({ speaker, isOwner, spaceId }: CurrentSpe
     
     return () => clearInterval(interval)
   }, [speaker.started_speaking_at])
-  
-  const handlePromoteNext = async () => {
-    setIsPromoting(true)
-    
+
+  const handleNextSpeaker = async () => {
+    setIsLoading(prev => ({ ...prev, next: true }));
     try {
-      await promoteNextSpeaker(speaker.id, spaceId)
+      await promoteNextSpeaker(speaker.id, spaceId);
     } catch (error) {
-      console.error('Error promoting next speaker:', error)
+      console.error("Error promoting next speaker:", error);
     } finally {
-      setIsPromoting(false)
+      setIsLoading(prev => ({ ...prev, next: false }));
     }
-  }
-  
+  };
+
+  const handleLeaveQueue = async () => {
+    setIsLoading(prev => ({ ...prev, leave: true }));
+    try {
+      await leaveQueue(speaker.id, spaceId);
+    } catch (error) {
+      console.error("Error leaving queue:", error);
+    } finally {
+      setIsLoading(prev => ({ ...prev, leave: false }));
+    }
+  };
+
+  const handleTogglePause = async () => {
+    setIsLoading(prev => ({ ...prev, pause: true }));
+    try {
+      await togglePauseStatus(speaker.id, spaceId, !speaker.is_paused);
+    } catch (error) {
+      console.error("Error toggling pause status:", error);
+    } finally {
+      setIsLoading(prev => ({ ...prev, pause: false }));
+    }
+  };
+
   return (
-    <div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-6 rounded-lg">
-      <div className="flex flex-col md:flex-row justify-between">
-        <div className="mb-4 md:mb-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="inline-block w-3 h-3 bg-green-500 rounded-full"></span>
-            <span className="font-medium">Currently Speaking</span>
-          </div>
-          
-          <h3 className="text-xl font-bold mt-2">
-            {speaker.full_name || speaker.email || 'Anonymous'}
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 rounded-lg">
+      <div className="flex justify-between items-start">
+        <div>
+          <h3 className="text-lg font-medium">
+            {speaker.full_name || speaker.email || "Anonymous"}
           </h3>
-          
           {speaker.message && (
-            <div className="mt-3 text-gray-600 dark:text-gray-300">
-              <p className="italic">{speaker.message}</p>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
+              {speaker.message}
+            </p>
+          )}
+          {speaker.is_paused && (
+            <div className="mt-2 px-3 py-1 inline-block text-sm bg-yellow-100 text-yellow-800 rounded">
+              Speaking Paused
             </div>
           )}
         </div>
-        
-        <div className="flex flex-col items-end gap-2">
-          <div className="bg-white dark:bg-gray-800 px-3 py-2 rounded-md shadow-sm">
-            <div className="text-xs text-gray-500 dark:text-gray-400">Speaking Time</div>
-            <div className="font-mono text-xl font-medium">{speakingTime}</div>
-          </div>
-          
+
+        <div className="flex space-x-2">
+          {/* Controls for admins or the current speaker */}
           {isOwner && (
             <button
-              onClick={handlePromoteNext}
-              disabled={isPromoting}
+              onClick={handleNextSpeaker}
+              disabled={isLoading.next}
               className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
             >
-              {isPromoting ? 'Processing...' : 'Next Speaker'}
+              {isLoading.next ? "Processing..." : "Next Speaker"}
             </button>
+          )}
+          
+          {(isOwner || speaker.user_id === speaker.user_id) && (
+            <>
+              <button
+                onClick={handleTogglePause}
+                disabled={isLoading.pause}
+                className={`px-4 py-2 rounded-md ${
+                  speaker.is_paused
+                    ? "bg-green-100 text-green-800 hover:bg-green-200"
+                    : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                }`}
+              >
+                {isLoading.pause ? "..." : speaker.is_paused ? "Resume" : "Pause"}
+              </button>
+              
+              <button
+                onClick={handleLeaveQueue}
+                disabled={isLoading.leave}
+                className="px-4 py-2 bg-red-100 text-red-800 hover:bg-red-200 rounded-md"
+              >
+                {isLoading.leave ? "..." : "Leave"}
+              </button>
+            </>
           )}
         </div>
       </div>
     </div>
-  )
+  );
 }

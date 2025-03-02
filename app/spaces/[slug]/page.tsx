@@ -88,8 +88,8 @@ export default async function SpaceDetailsPage({
                 </div>
             )}
             
-            {/* Join queue button - only for active spaces and non-owners */}
-            {space.is_active && !space.is_owner && (
+            {/* Join queue button - only for active spaces and non-owners who aren't already in queue */}
+            {space.is_active && !space.is_owner && !isUserInQueue && (
                 <div className="mt-8">
                     <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
                         <JoinQueueButton 

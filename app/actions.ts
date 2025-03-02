@@ -538,16 +538,20 @@ async function reorderQueuePositions(spaceId: string) {
 export async function clearQueueOnDeactivation(spaceId: string) {
   const supabase = await createClient();
 
-  const { error } = await supabase
+  console.log(`Clearing queue for space ${spaceId}`);
+  
+  const { data, error } = await supabase
     .from('queue')
     .delete()
-    .eq('space_id', spaceId);
+    .eq('space_id', spaceId)
+    .select();
 
   if (error) {
     console.error('Error clearing queue:', error);
     throw new Error('Failed to clear queue');
   }
 
+  console.log(`Successfully cleared ${data?.length || 0} queue entries`);
   return { success: true };
 }
 
@@ -571,7 +575,11 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
       });
   } else {
     // If deactivating, clear the queue
-    await clearQueueOnDeactivation(spaceId);
+    try {
+      await clearQueueOnDeactivation(spaceId);
+    } catch (error) {
+      console.error('Failed to clear queue during space deactivation:', error);
+    }
 
     // Update the session record
     const { data: session, error: sessionError } = await supabase
@@ -605,4 +613,59 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
   revalidatePath('/dashboard');
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true };
+}
+
+// Interface for the active queues that a user is part of
+export interface ActiveQueue {
+  id: string;
+  space_id: string;
+  space_name: string;
+  space_slug: string;
+  position: number;
+  is_current_speaker: boolean;
+  is_paused: boolean;
+  message: string | null;
+  active_since: string | null;
+}
+
+export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]> {
+  const supabase = await createClient();
+
+  // Get all queue entries for this user with space information
+  const { data, error } = await supabase
+    .from('queue')
+    .select(`
+      id,
+      position,
+      is_current_speaker,
+      is_paused,
+      message,
+      space_id,
+      spaces:space_id (
+        name,
+        slug,
+        activated_at
+      )
+    `)
+    .eq('user_id', userId);
+
+  if (error) {
+    console.error('Error fetching active queues:', error);
+    return [];
+  }
+
+  // Transform the data to match the ActiveQueue interface
+  const activeQueues: ActiveQueue[] = data.map(entry => ({
+    id: entry.id,
+    space_id: entry.space_id,
+    space_name: entry.spaces?.name || 'Unknown Space',
+    space_slug: entry.spaces?.slug || '',
+    position: entry.position,
+    is_current_speaker: entry.is_current_speaker,
+    is_paused: entry.is_paused,
+    message: entry.message,
+    active_since: entry.spaces?.activated_at || null,
+  }));
+
+  return activeQueues;
 }
