@@ -83,7 +83,8 @@ export default function SpaceHeader({
             <p className="text-gray-600 dark:text-gray-300 mt-1">{space.subject}</p>
           )}
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            Created by {space.user?.full_name || space.user?.email || 'Unknown'}
+            {/* Created by {space.user?.full_name || space.user?.email || 'Unknown'} */}
+            Created by {'Unknown'}
           </p>
         </div>
         
