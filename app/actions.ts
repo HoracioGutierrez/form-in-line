@@ -147,20 +147,20 @@ export interface Space {
   activated_at: string | null;
 }
 
-export async function createSpace({ 
-  name, 
-  subject, 
-  userId 
-}: { 
-  name: string; 
-  subject?: string; 
+export async function createSpace({
+  name,
+  subject,
+  userId
+}: {
+  name: string;
+  subject?: string;
   userId: string;
 }) {
   const supabase = await createClient();
-  
+
   // Create a random slug (URL-friendly ID)
   const slug = nanoid(10);
-  
+
   const { error } = await supabase
     .from('spaces')
     .insert({
@@ -182,18 +182,18 @@ export async function createSpace({
 
 export async function getUserSpaces(userId: string): Promise<Space[]> {
   const supabase = await createClient();
-  
+
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
-  
+
   if (error) {
     console.error('Error fetching spaces:', error);
     throw new Error('Failed to fetch spaces');
   }
-  
+
   return data as Space[];
 }
 
@@ -223,7 +223,7 @@ export interface SpaceWithUser extends Space {
 
 export async function getSpaceBySlug(slug: string, userId: string): Promise<SpaceWithUser | null> {
   const supabase = await createClient();
-  
+
   const { data: space, error: spaceError } = await supabase
     .from('spaces')
     .select('*')
@@ -240,7 +240,7 @@ export async function getSpaceBySlug(slug: string, userId: string): Promise<Spac
       `)
       .eq('id', space.user_id)
       .single();
-      
+
     if (user) {
       space.user = {
         email: user.email,
@@ -248,12 +248,12 @@ export async function getSpaceBySlug(slug: string, userId: string): Promise<Spac
       };
     }
   }
-  
+
   if (spaceError || !space) {
     console.error('Error fetching space:', spaceError);
     return null;
   }
-  
+
   // Flatten user data
   const spaceWithUser = {
     ...space,
@@ -264,37 +264,37 @@ export async function getSpaceBySlug(slug: string, userId: string): Promise<Spac
     is_owner: space.user_id === userId,
     active_since: space.activated_at
   };
-  
+
   return spaceWithUser as SpaceWithUser;
 }
 
 export async function getQueueForSpace(spaceId: string): Promise<QueueUser[]> {
   const supabase = await createClient();
-  
+
   // First, get the queue entries
   const { data: queueEntries, error: queueError } = await supabase
     .from('queue')
     .select('*')
     .eq('space_id', spaceId)
     .order('position', { ascending: true });
-  
+
   if (queueError || !queueEntries) {
     console.error('Error fetching queue:', queueError);
     return [];
   }
-  
+
   // Then fetch user data for each queue entry
   const queueUsers = await Promise.all(queueEntries.map(async (item) => {
     // Get user data for this queue entry
     const { data: user, error: userError } = await supabase
-      .from('auth.users')
+      .from('user_profiles_view')
       .select(`
         email,
-        user_profiles(full_name)
+        full_name
       `)
       .eq('id', item.user_id)
       .single();
-      
+
     if (userError) {
       console.error('Error fetching user data:', userError);
       return {
@@ -303,20 +303,20 @@ export async function getQueueForSpace(spaceId: string): Promise<QueueUser[]> {
         full_name: null
       };
     }
-    
+
     return {
       ...item,
       email: user?.email || null,
       full_name: user?.user_profiles?.[0]?.full_name || null
     };
   }));
-  
+
   return queueUsers as QueueUser[];
 }
 
 export async function joinQueue(spaceId: string, userId: string, message?: string) {
   const supabase = await createClient();
-  
+
   // Get the current highest position
   const { data: maxPositionData, error: posError } = await supabase
     .from('queue')
@@ -324,26 +324,26 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
     .eq('space_id', spaceId)
     .order('position', { ascending: false })
     .limit(1);
-  
+
   if (posError) {
     console.error('Error getting max position:', posError);
     throw new Error('Failed to join queue');
   }
-  
+
   const nextPosition = maxPositionData.length > 0 ? maxPositionData[0].position + 1 : 1;
-  
+
   // Check if user is already in the queue
   const { data: existingUser, error: checkError } = await supabase
     .from('queue')
     .select('id')
     .eq('space_id', spaceId)
     .eq('user_id', userId);
-  
+
   if (checkError) {
     console.error('Error checking queue:', checkError);
     throw new Error('Failed to join queue');
   }
-  
+
   if (existingUser.length > 0) {
     // User is already in queue, update their message if provided
     if (message) {
@@ -352,7 +352,7 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
         .update({ message })
         .eq('space_id', spaceId)
         .eq('user_id', userId);
-      
+
       if (updateError) {
         console.error('Error updating queue message:', updateError);
         throw new Error('Failed to update message');
@@ -360,7 +360,7 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
     }
     return { success: true, alreadyInQueue: true };
   }
-  
+
   // Add user to the queue
   const { error } = await supabase
     .from('queue')
@@ -372,86 +372,86 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
       is_paused: false,
       is_current_speaker: nextPosition === 1 && maxPositionData.length === 0
     });
-  
+
   if (error) {
     console.error('Error joining queue:', error);
     throw new Error('Failed to join queue');
   }
-  
+
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true, alreadyInQueue: false };
 }
 
 export async function leaveQueue(queueId: string, spaceId: string) {
   const supabase = await createClient();
-  
+
   // Get the current entry to check if it's the current speaker
   const { data: entry, error: getError } = await supabase
     .from('queue')
     .select('position, is_current_speaker')
     .eq('id', queueId)
     .single();
-  
+
   if (getError) {
     console.error('Error getting queue entry:', getError);
     throw new Error('Failed to leave queue');
   }
-  
+
   // Delete the entry
   const { error } = await supabase
     .from('queue')
     .delete()
     .eq('id', queueId);
-  
+
   if (error) {
     console.error('Error leaving queue:', error);
     throw new Error('Failed to leave queue');
   }
-  
+
   // If this was the current speaker, promote the next in line
   if (entry.is_current_speaker) {
     await promoteNextInLine(spaceId);
   }
-  
+
   // Reorder positions for remaining entries
   await reorderQueuePositions(spaceId);
-  
+
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true };
 }
 
 export async function togglePauseStatus(queueId: string, spaceId: string, isPaused: boolean) {
   const supabase = await createClient();
-  
+
   const { error } = await supabase
     .from('queue')
     .update({ is_paused: isPaused })
     .eq('id', queueId);
-  
+
   if (error) {
     console.error('Error updating pause status:', error);
     throw new Error('Failed to update pause status');
   }
-  
+
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true };
 }
 
 export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: string) {
   const supabase = await createClient();
-  
+
   // End current speaker's session and record time
   const { data: currentSpeaker, error: csError } = await supabase
     .from('queue')
     .select('started_speaking_at')
     .eq('id', currentSpeakerId)
     .single();
-  
+
   if (!csError && currentSpeaker.started_speaking_at) {
     const startedAt = new Date(currentSpeaker.started_speaking_at);
     const endedAt = new Date();
     const speakingTimeSeconds = Math.floor((endedAt.getTime() - startedAt.getTime()) / 1000);
-    
+
     await supabase
       .from('queue')
       .update({
@@ -459,11 +459,11 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
         total_speaking_time: speakingTimeSeconds
       })
       .eq('id', currentSpeakerId);
-    
+
     // Remove from queue
     await leaveQueue(currentSpeakerId, spaceId);
   }
-  
+
   // Find and promote the next available speaker
   return await promoteNextInLine(spaceId);
 }
@@ -471,7 +471,7 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
 // Make promoteNextInLine available as an exported function
 export async function promoteNextInLine(spaceId: string) {
   const supabase = await createClient();
-  
+
   // Find the next non-paused user in the queue
   const { data: nextSpeaker, error: nsError } = await supabase
     .from('queue')
@@ -480,12 +480,12 @@ export async function promoteNextInLine(spaceId: string) {
     .eq('is_paused', false)
     .order('position', { ascending: true })
     .limit(1);
-  
+
   if (nsError || nextSpeaker.length === 0) {
     console.log('No next speaker available');
     return { success: true, nextSpeakerId: null };
   }
-  
+
   // Update this user to be the current speaker
   const { error } = await supabase
     .from('queue')
@@ -494,12 +494,12 @@ export async function promoteNextInLine(spaceId: string) {
       started_speaking_at: new Date().toISOString()
     })
     .eq('id', nextSpeaker[0].id);
-  
+
   if (error) {
     console.error('Error promoting next speaker:', error);
     throw new Error('Failed to promote next speaker');
   }
-  
+
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true, nextSpeakerId: nextSpeaker[0].id };
 }
@@ -512,19 +512,19 @@ async function _promoteNextInLine(spaceId: string) {
 // Helper function to reorder positions after removal
 async function reorderQueuePositions(spaceId: string) {
   const supabase = await createClient();
-  
+
   // Get all remaining entries ordered by position
   const { data: entries, error: getError } = await supabase
     .from('queue')
     .select('id')
     .eq('space_id', spaceId)
     .order('position', { ascending: true });
-  
+
   if (getError) {
     console.error('Error fetching queue entries:', getError);
     return;
   }
-  
+
   // Update positions
   for (let i = 0; i < entries.length; i++) {
     await supabase
@@ -537,30 +537,30 @@ async function reorderQueuePositions(spaceId: string) {
 // When a space is deactivated, remove all users from the queue
 export async function clearQueueOnDeactivation(spaceId: string) {
   const supabase = await createClient();
-  
+
   const { error } = await supabase
     .from('queue')
     .delete()
     .eq('space_id', spaceId);
-  
+
   if (error) {
     console.error('Error clearing queue:', error);
     throw new Error('Failed to clear queue');
   }
-  
+
   return { success: true };
 }
 
 // Extend the toggleSpaceStatus function to handle queue clearing
 export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
   const supabase = await createClient();
-  
+
   const updates: any = { is_active: isActive };
-  
+
   // If activating the space, set the activated_at timestamp
   if (isActive) {
     updates.activated_at = new Date().toISOString();
-    
+
     // Create a new session record
     await supabase
       .from('space_sessions')
@@ -572,7 +572,7 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
   } else {
     // If deactivating, clear the queue
     await clearQueueOnDeactivation(spaceId);
-    
+
     // Update the session record
     const { data: session, error: sessionError } = await supabase
       .from('space_sessions')
@@ -581,7 +581,7 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
       .is('deactivated_at', null)
       .order('activated_at', { ascending: false })
       .limit(1);
-    
+
     if (!sessionError && session.length > 0) {
       await supabase
         .from('space_sessions')
@@ -591,17 +591,17 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
         .eq('id', session[0].id);
     }
   }
-  
+
   const { error } = await supabase
     .from('spaces')
     .update(updates)
     .eq('id', spaceId);
-  
+
   if (error) {
     console.error('Error updating space status:', error);
     throw new Error('Failed to update space status');
   }
-  
+
   revalidatePath('/dashboard');
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true };

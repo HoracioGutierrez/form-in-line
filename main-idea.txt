@@ -11,7 +11,7 @@ Spaces are a place that :
 - the queue is to organize people so they can know who get's to ask a question next
 - users in line can write a message once they join a waiting line, that's the preview question they will be asking
 
-Add a button somewhere so users can click it, a modal opens , they can write an alias (the input has to be prefilled with the user's email address), there's a confirmation text saying "you are about to join the waiting queue" and a buton to confirm it. Once they click it, the logged user joins the queue and shows up in the list.
+Add a list like the SpaceList but showing any active waiting list the logged user might be, not just the ones that were created by that user
 
 Try to keep everything in a server component using Suspense and custom skeleton components
 
