@@ -1,0 +1,17 @@
+Spaces are a place that : 
+
+- can be activated and deactivated 
+- users can join if logged in and if the place is active
+- users will see the option to wait in line (a button to join the waiting line), 
+- users will see the current queue user's list
+- users will see the name of the space and the time that space has been active so far
+- once the space is deactivated every user waiting in line will be removed from the queue
+- each active session will be saved for future history development (how much time spent in a given space, how many users joined in the queue of that space, the user that activated the space)
+- users waiting in line can pause their waiting so other users can be next
+- the queue is to organize people so they can know who get's to ask a question next
+- users in line can write a message once they join a waiting line, that's the preview question they will be asking
+
+Add a button to create a new "space". The button should open a modal with a form that has an input for the name and subject for that new space. The form's submit button should have a loading state changing it's text. The space should be created in DB with name, subject (optional) and a random slug that will be used for the url path of that space so users can open it in a browser. 
+Show a list of the logged user's created spaces as cards that refreshes if the user submit's a new space. Try to keep everything in a server component using Suspense and custom skeleton components for the space's cards. The button should be in a separate component, as well as the space's cards and card list and the modal. Try to accomodate the modal in a "global" place so it can be reused in the future.
+
+The supabase query, if any, should be saved in the #file:actions.ts file.

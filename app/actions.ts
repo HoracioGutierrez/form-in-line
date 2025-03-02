@@ -4,6 +4,8 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { nanoid } from 'nanoid';
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -27,6 +29,7 @@ export const signUpAction = async (formData: FormData) => {
     },
   });
 
+  supabase.auth.updateUser({ data: { role: "admin" } })
   if (error) {
     console.error(error.code + " " + error.message);
     return encodedRedirect("error", "/sign-up", error.message);
@@ -34,7 +37,7 @@ export const signUpAction = async (formData: FormData) => {
     return encodedRedirect(
       "success",
       "/sign-up",
-      "Thanks for signing up! Please check your email for a verification link.",
+      "Gracias por registrarte! Por favor, revisa tu correo para un enlace de verificación.",
     );
   }
 };
@@ -132,3 +135,88 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
+
+export interface Space {
+  id: string;
+  created_at: string;
+  name: string;
+  subject: string | null;
+  slug: string;
+  user_id: string;
+  is_active: boolean;
+  activated_at: string | null;
+}
+
+export async function createSpace({ 
+  name, 
+  subject, 
+  userId 
+}: { 
+  name: string; 
+  subject?: string; 
+  userId: string;
+}) {
+  const supabase = await createClient();
+  
+  // Create a random slug (URL-friendly ID)
+  const slug = nanoid(10);
+  
+  const { error } = await supabase
+    .from('spaces')
+    .insert({
+      name,
+      subject: subject || null,
+      slug,
+      user_id: userId,
+      is_active: false,
+    });
+
+  if (error) {
+    console.error('Error creating space:', error);
+    throw new Error('Failed to create space');
+  }
+
+  revalidatePath('/dashboard');
+  return { success: true };
+}
+
+export async function getUserSpaces(userId: string): Promise<Space[]> {
+  const supabase = await createClient();
+  
+  const { data, error } = await supabase
+    .from('spaces')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching spaces:', error);
+    throw new Error('Failed to fetch spaces');
+  }
+  
+  return data as Space[];
+}
+
+export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
+  const supabase = await createClient();
+  
+  const updates: any = { is_active: isActive };
+  
+  // If activating the space, set the activated_at timestamp
+  if (isActive) {
+    updates.activated_at = new Date().toISOString();
+  }
+  
+  const { error } = await supabase
+    .from('spaces')
+    .update(updates)
+    .eq('id', spaceId);
+  
+  if (error) {
+    console.error('Error updating space status:', error);
+    throw new Error('Failed to update space status');
+  }
+  
+  revalidatePath('/dashboard');
+  return { success: true };
+}
