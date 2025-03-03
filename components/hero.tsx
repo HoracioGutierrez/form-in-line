@@ -9,6 +9,7 @@ export default function Header() {
         La forma más fácil de organizar personas.
       </p>
       <div className="w-full p-[1px] bg-linear-to-r from-transparent via-foreground/10 to-transparent my-8" />
+      
     </div>
   );
 }
