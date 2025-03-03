@@ -41,7 +41,7 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
   if (isAlreadyInQueue) {
     return (
       <Button disabled variant="outline" className="w-full">
-        You're already in the queue
+        Ya estás en la fila de espera
       </Button>
     );
   }
@@ -53,49 +53,49 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
         className="w-full"
         variant="default"
       >
-        Join Waiting Line
+        Unirse a la Fila de Espera
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Join the Waiting Line</DialogTitle>
+            <DialogTitle>Unirse a la Fila de Espera</DialogTitle>
             <DialogDescription>
-              You are about to join the waiting queue. Please provide your information.
+              Estás a punto de unirte a la fila de espera. Por favor proporciona tu información.
             </DialogDescription>
           </DialogHeader>
           
           <form onSubmit={handleSubmit} className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="alias">Your Name/Alias</Label>
+              <Label htmlFor="alias">Tu Nombre/Alias</Label>
               <Input
                 id="alias"
                 value={alias}
                 onChange={(e) => setAlias(e.target.value)}
-                placeholder="Your name or alias"
+                placeholder="Tu nombre o alias"
                 disabled
               />
-              <p className="text-xs text-gray-500">This will be visible to others in the queue</p>
+              <p className="text-xs text-gray-500">Esto será visible para otros en la fila</p>
             </div>
             
             <div className="grid gap-2">
-              <Label htmlFor="message">Your Question/Topic</Label>
+              <Label htmlFor="message">Tu Pregunta/Tema</Label>
               <Textarea
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder="What would you like to discuss?"
+                placeholder="¿Qué te gustaría discutir?"
                 className="min-h-[100px]"
               />
-              <p className="text-xs text-gray-500">Briefly describe what you want to talk about (optional)</p>
+              <p className="text-xs text-gray-500">Describe brevemente de qué quieres hablar (opcional)</p>
             </div>
             
             <div className="flex justify-end gap-2 mt-4">
               <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Joining..." : "Join Queue"}
+                {isSubmitting ? "Uniéndose..." : "Unirse a la Fila"}
               </Button>
             </div>
           </form>

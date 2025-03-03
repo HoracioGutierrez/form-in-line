@@ -106,7 +106,7 @@ export default function SpaceHeader({
               variant={space.is_active ? 'destructive' : 'outline'}
               className='flex items-center gap-2'
             >
-              {isTogglingStatus ? <Loader/> : space.is_active ? <Ban/> : <ListCheck/>}
+              {isTogglingStatus ? <Loader className="animate-spin"/> : space.is_active ? <Ban/> : <ListCheck/>}
               {isTogglingStatus
                 ? 'Processing...'
                 : space.is_active
@@ -118,7 +118,7 @@ export default function SpaceHeader({
             space.is_active && !showMessageForm && (
               <Button onClick={() => setShowMessageForm(true)} variant={"outline"} className="flex items-center gap-2">
                 <ListPlus />
-                Join Waiting List
+                Unirse a la lista de espera
               </Button>
             )
           )}
@@ -161,7 +161,7 @@ export default function SpaceHeader({
                 Cancelar
               </Button>
               <Button type="submit" disabled={isJoining} variant={"outline"} className='flex items-center gap-2'>
-                {isJoining ? <Loader /> : <ListPlus />}
+                {isJoining ? <Loader className="animate-spin"/> : <ListPlus />}
                 {isJoining ? 'Uniendo...' : 'Unirse'}
               </Button>
             </div>

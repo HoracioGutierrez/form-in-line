@@ -75,7 +75,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
             />
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
             <Button onClick={() => setIsModalOpen(false)} variant="outline" className="flex items-center gap-2">
               Cancelar
             </Button>

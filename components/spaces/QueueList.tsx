@@ -2,6 +2,8 @@
 
 import { QueueUser, leaveQueue, togglePauseStatus } from "@/app/actions";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { Loader, Pause, Play, Trash } from "lucide-react";
 
 interface QueueListProps {
   users: QueueUser[];
@@ -50,11 +52,10 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
       {users.map((user) => (
         <div
           key={user.id}
-          className={`p-4 rounded-lg border ${
-            user.is_paused
-              ? "bg-gray-100 dark:bg-muted/30 border-gray-300 dark:border-gray-700"
-              : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
-          }`}
+          className={`p-4 rounded-lg border ${user.is_paused
+            ? "bg-gray-100 dark:bg-muted/30 border-gray-300 dark:border-gray-700"
+            : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
+            }`}
         >
           <div className="flex justify-between items-center">
             <div>
@@ -77,30 +78,31 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                 </p>
               )}
             </div>
-            
+
             <div className="flex space-x-2">
               {/* Show controls for own entry or if admin */}
               {(isOwner || user.user_id === currentUserId) && (
                 <>
-                  <button
+                  <Button
                     onClick={() => handleTogglePause(user.id, user.is_paused)}
                     disabled={isLoading[`pause_${user.id}`]}
-                    className={`px-3 py-1 text-sm rounded-md ${
-                      user.is_paused
-                        ? "bg-green-100 text-green-800 hover:bg-green-200"
-                        : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
-                    }`}
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    size={"sm"}
                   >
+                    {isLoading[`pause_${user.id}`] ? <Loader className="animate-spin"/> : user.is_paused ? <Play /> : <Pause />}
                     {isLoading[`pause_${user.id}`] ? "..." : (user.is_paused ? "Reanudar" : "Pausar")}
-                  </button>
-                  
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleLeaveQueue(user.id)}
                     disabled={isLoading[user.id]}
-                    className="px-3 py-1 text-sm bg-red-100 text-red-800 hover:bg-red-200 rounded-md"
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    size={"sm"}
                   >
-                    {isLoading[user.id] ? "..." : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
-                  </button>
+                    {isLoading[user.id] ? <Loader className="animate-spin"/> : <Trash />}
+                    {isLoading[user.id] ? <Loader className="animate-spin"/> : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
+                  </Button>
                 </>
               )}
             </div>

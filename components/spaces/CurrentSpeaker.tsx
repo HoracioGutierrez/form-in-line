@@ -87,7 +87,7 @@ export default function CurrentSpeaker({
           )}
           {speaker.is_paused && (
             <div className="mt-2 px-3 py-1 inline-block text-sm bg-yellow-100 text-yellow-800 rounded">
-              Speaking Paused
+              En pausa
             </div>
           )}
         </div>
@@ -101,7 +101,7 @@ export default function CurrentSpeaker({
               variant="outline"
               className="flex items-center gap-2"
             >
-              {isLoading.next ? <Loader /> : <ArrowRight />}
+              {isLoading.next ? <Loader className="animate-spin"/> : <ArrowRight />}
               {isLoading.next ? "Procesando..." : "Siguiente Orador"}
             </Button>
           )}
@@ -114,7 +114,7 @@ export default function CurrentSpeaker({
                 variant="outline"
                 className="flex items-center gap-2"
               >
-                {isLoading.pause ? <Loader /> : speaker.is_paused ? <Play /> : <Pause />}
+                {isLoading.pause ? <Loader className="animate-spin"/> : speaker.is_paused ? <Play /> : <Pause />}
                 {isLoading.pause ? "Procesando..." : speaker.is_paused ? "Reanudar" : "Pausar"}
               </Button>
             </>
