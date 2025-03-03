@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Space } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
+import { Button } from '../ui/button'
+import { Ban, Eye, ListCheck, Loader } from 'lucide-react'
 
 interface SpaceCardProps {
   space: Space
@@ -26,7 +28,7 @@ export default function SpaceCard({ space }: SpaceCardProps) {
   }
 
   return (
-    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-800 dark:border-gray-700">
+    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-muted dark:border-muted-foreground">
       <div className="p-4">
         <div className="flex justify-between items-start">
           <div>
@@ -35,36 +37,35 @@ export default function SpaceCard({ space }: SpaceCardProps) {
               <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{space.subject}</p>
             )}
           </div>
-          <span 
-            className={`px-2 py-1 text-xs rounded ${
-              isActive 
-                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
-            }`}
+          <span
+            className={`px-2 py-1 text-xs rounded ${isActive
+              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+              : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+              }`}
           >
             {isActive ? 'Active' : 'Inactive'}
           </span>
         </div>
-        
+
         <div className="flex gap-2 mt-4">
-          <button
+          <Button
             onClick={handleToggleStatus}
             disabled={isLoading}
-            className={`px-3 py-1 text-sm rounded-md ${
-              isActive
-                ? 'bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-800'
-                : 'bg-green-100 text-green-800 hover:bg-green-200 dark:bg-green-900 dark:text-green-200 dark:hover:bg-green-800'
-            } disabled:opacity-50`}
+            variant={isActive ? 'destructive' : 'outline'}
+            className='flex items-center gap-2'
           >
-            {isLoading ? '...' : isActive ? 'Deactivate' : 'Activate'}
-          </button>
-          
-          <Link 
-            href={`/spaces/${space.slug}`} 
-            className="px-3 py-1 text-sm bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-md dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800"
-          >
-            View Space
-          </Link>
+            {isLoading ? <Loader className='animate-spin' /> : isActive ? <Ban /> : <ListCheck />}
+            {isLoading ? 'Cargando ...' : isActive ? 'Deactivate' : 'Activate'}
+          </Button>
+          <Button asChild variant="outline">
+            <Link
+              href={`/spaces/${space.slug}`}
+              className="flex items-center gap-2"
+            >
+              <Eye />
+              View Space
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
