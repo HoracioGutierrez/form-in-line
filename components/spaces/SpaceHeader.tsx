@@ -7,6 +7,7 @@ import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
 import { Ban, ListCheck, ListPlus, Loader } from 'lucide-react'
 import JoinQueueButton from './JoinQueueButton'
+import { User } from '@supabase/supabase-js'
 
 interface SpaceHeaderProps {
   space: SpaceWithUser
