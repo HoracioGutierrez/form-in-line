@@ -647,7 +647,7 @@ export interface ActiveQueue {
   id: string;
   space_id: string;
   space_name: string;
-  space_slug: string;
+  slug: string;
   position: number;
   is_current_speaker: boolean;
   is_paused: boolean;
