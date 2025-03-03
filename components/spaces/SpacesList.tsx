@@ -13,8 +13,8 @@ export default async function SpacesList({ userId }: SpacesListProps) {
     return (
       <div className="text-center py-12 bg-gray-50 dark:bg-muted rounded-lg">
         <p className="text-gray-500 dark:text-white/50">
-          You haven't created any spaces yet. 
-          Create your first space to get started!
+          Aún no has creado ningún espacio.
+          ¡Crea tu primer espacio para comenzar!
         </p>
       </div>
     )

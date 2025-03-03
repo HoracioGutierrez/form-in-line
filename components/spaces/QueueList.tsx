@@ -37,9 +37,9 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
 
   if (users.length === 0) {
     return (
-      <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
-        <p className="text-center text-gray-500 dark:text-gray-400">
-          No one is waiting in the queue.
+      <div className="bg-gray-50 dark:bg-muted/30 p-6 rounded-lg">
+        <p className="text-center text-gray-500 dark:text-muted-foreground/30">
+          Nadie está esperando en la cola.
         </p>
       </div>
     );
@@ -52,7 +52,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
           key={user.id}
           className={`p-4 rounded-lg border ${
             user.is_paused
-              ? "bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700"
+              ? "bg-gray-100 dark:bg-muted/30 border-gray-300 dark:border-gray-700"
               : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
           }`}
         >
@@ -64,7 +64,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                 </div>
                 {user.is_paused && (
                   <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded">
-                    Paused
+                    En pausa
                   </span>
                 )}
                 <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded">
@@ -91,7 +91,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                         : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
                     }`}
                   >
-                    {isLoading[`pause_${user.id}`] ? "..." : user.is_paused ? "Resume" : "Pause"}
+                    {isLoading[`pause_${user.id}`] ? "..." : (user.is_paused ? "Reanudar" : "Pausar")}
                   </button>
                   
                   <button
@@ -99,7 +99,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                     disabled={isLoading[user.id]}
                     className="px-3 py-1 text-sm bg-red-100 text-red-800 hover:bg-red-200 rounded-md"
                   >
-                    {isLoading[user.id] ? "..." : (user.user_id === currentUserId ? "Leave" : "Remove")}
+                    {isLoading[user.id] ? "..." : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
                   </button>
                 </>
               )}

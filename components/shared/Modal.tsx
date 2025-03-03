@@ -1,6 +1,8 @@
 'use client'
 
+import { X } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
+import { Button } from '../ui/button'
 /* import { XMarkIcon } from '@heroicons/react/24/outline' */
 
 export interface ModalProps {
@@ -28,12 +30,12 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') handleClose()
     }
-    
+
     if (isShown) {
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', handleEsc)
     }
-    
+
     return () => {
       document.body.style.overflow = 'auto'
       window.removeEventListener('keydown', handleEsc)
@@ -43,26 +45,21 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
   if (!isOpen) return null
 
   return (
-    <div 
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 transition-opacity duration-300 ${
-        isShown ? 'opacity-100' : 'opacity-0'
-      }`}
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 bg-opacity-50 transition-opacity duration-300 backdrop-blur-xs ${isShown ? 'opacity-100' : 'opacity-0'
+        }`}
       onClick={handleClose}
     >
-      <div 
-        className={`bg-white dark:bg-gray-800 rounded-lg w-full max-w-md transition-all duration-300 ${
-          isShown ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-        }`}
+      <div
+        className={`bg-white dark:bg-muted rounded-lg w-full max-w-md transition-all duration-300 ${isShown ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
+          }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex justify-between items-center p-4 border-b border-muted-foreground dark:border-gray-700">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <button
-            className="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-            onClick={handleClose}
-          >
-            {/* <XMarkIcon className="h-5 w-5" /> */}
-          </button>
+          <Button variant={'outline'} onClick={handleClose} size={"icon"}>
+            <X />
+          </Button>
         </div>
         <div className="p-4">
           {children}

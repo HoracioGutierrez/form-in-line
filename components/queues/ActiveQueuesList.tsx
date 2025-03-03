@@ -8,7 +8,7 @@ export default async function ActiveQueuesList({ userId }: { userId: string }) {
   if (activeQueues.length === 0) {
     return (
       <div className="text-center py-8 bg-gray-50 rounded-lg">
-        <p className="text-gray-500">You are not currently in any active queues.</p>
+        <p className="text-gray-500">Actualmente no estás en ninguna cola activa.</p>
       </div>
     );
   }
@@ -43,7 +43,7 @@ function QueueCard({ queue }: { queue: ActiveQueue }) {
 
         {queue.message && (
           <div className="mt-2">
-            <p className="text-sm font-medium text-gray-700">Your message:</p>
+            <p className="text-sm font-medium text-gray-700">Tu mensaje:</p>
             <p className="text-sm text-gray-600 italic">{queue.message}</p>
           </div>
         )}
@@ -51,14 +51,14 @@ function QueueCard({ queue }: { queue: ActiveQueue }) {
         <div className="flex items-center mt-4 space-x-2">
           {queue.is_paused && (
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-              Paused
+              En pausa
             </span>
           )}
           <Link
             href={`/spaces/${queue.slug}`}
             className="text-sm text-blue-600 hover:text-blue-800"
           >
-            Go to space →
+            Ir al espacio →
           </Link>
         </div>
       </div>

@@ -36,19 +36,19 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)} variant="outline" className="flex items-center gap-2">
-        <PlusIcon className='size-4'/>
+        <PlusIcon className='size-4' />
         Crear Espacio
       </Button>
 
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Create New Space"
+        title="Crear Nuevo Espacio"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Name *
+              Nombre del Espacio *
             </label>
             <input
               id="name"
@@ -56,40 +56,32 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900"
-              placeholder="Space name"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+              placeholder="Nombre del Espacio"
             />
           </div>
 
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Subject (optional)
+              Tema del Espacio (opcional)
             </label>
             <input
               id="subject"
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900"
-              placeholder="What is this space about?"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+              placeholder="¿De qué se trata este espacio?"
             />
           </div>
 
           <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="mr-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md disabled:opacity-75"
-            >
-              {isLoading ? 'Creating...' : 'Create Space'}
-            </button>
+            <Button onClick={() => setIsModalOpen(false)} variant="outline" className="flex items-center gap-2">
+              Cancelar
+            </Button>
+            <Button type="submit" disabled={isLoading} className="flex items-center gap-2" variant="outline">
+              {isLoading ? 'Creando...' : 'Crear Espacio'}
+            </Button>
           </div>
         </form>
       </Modal>

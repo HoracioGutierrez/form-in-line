@@ -5,7 +5,7 @@ import { SpaceWithUser, Space } from '@/app/actions'
 import { joinQueue } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
-import { Ban, ListPlus, Loader } from 'lucide-react'
+import { Ban, ListCheck, ListPlus, Loader } from 'lucide-react'
 
 interface SpaceHeaderProps {
   space: Space
@@ -100,21 +100,20 @@ export default function SpaceHeader({
           )}
 
           {isOwner ? (
-            <button
+            <Button
               onClick={handleToggleStatus}
               disabled={isTogglingStatus}
-              className={`px-4 py-2 rounded-md ${space.is_active
-                ? 'bg-red-600 hover:bg-red-700 text-white'
-                : 'bg-green-600 hover:bg-green-700 text-white'
-                }`}
+              variant={space.is_active ? 'destructive' : 'outline'}
+              className='flex items-center gap-2'
             >
+              {isTogglingStatus ? <Loader/> : space.is_active ? <Ban/> : <ListCheck/>}
               {isTogglingStatus
                 ? 'Processing...'
                 : space.is_active
                   ? 'Deactivate Space'
                   : 'Activate Space'
               }
-            </button>
+            </Button>
           ) : (
             space.is_active && !showMessageForm && (
               <Button onClick={() => setShowMessageForm(true)} variant={"outline"} className="flex items-center gap-2">

@@ -24,7 +24,7 @@ export default async function DashboardPage() {
             
             <div className="mb-10">
                 <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-xl font-semibold">Your Active Queues</h2>
+                    <h2 className="text-xl font-semibold">Tus Espacios activos</h2>
                 </div>
                 <Suspense fallback={<ActiveQueuesSkeleton />}>
                     <ActiveQueuesList userId={user.id} />
@@ -32,7 +32,7 @@ export default async function DashboardPage() {
             </div>
             
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Your Spaces</h2>
+                <h2 className="text-xl font-semibold">Tus Espacios</h2>
                 <CreateSpaceButton userId={user.id} />
             </div>
             

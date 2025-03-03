@@ -2,6 +2,8 @@
 
 import { QueueUser, leaveQueue, promoteNextSpeaker, togglePauseStatus } from "@/app/actions";
 import { useState, useEffect } from "react";
+import { Button } from "../ui/button";
+import { ArrowRight, Loader, Pause, Play } from "lucide-react";
 
 interface CurrentSpeakerProps {
   speaker: QueueUser;
@@ -9,32 +11,32 @@ interface CurrentSpeakerProps {
   spaceId: string;
 }
 
-export default function CurrentSpeaker({ 
-  speaker, 
-  isOwner, 
-  spaceId 
+export default function CurrentSpeaker({
+  speaker,
+  isOwner,
+  spaceId
 }: CurrentSpeakerProps) {
   const [isLoading, setIsLoading] = useState<Record<string, boolean>>({});
   const [speakingTime, setSpeakingTime] = useState<string>('00:00')
-  
+
   useEffect(() => {
     if (!speaker.started_speaking_at) return
-    
+
     const startedAt = new Date(speaker.started_speaking_at)
-    
+
     const updateTimer = () => {
       const now = new Date()
       const diff = Math.floor((now.getTime() - startedAt.getTime()) / 1000)
-      
+
       const minutes = Math.floor(diff / 60).toString().padStart(2, '0')
       const seconds = (diff % 60).toString().padStart(2, '0')
-      
+
       setSpeakingTime(`${minutes}:${seconds}`)
     }
-    
+
     updateTimer()
     const interval = setInterval(updateTimer, 1000)
-    
+
     return () => clearInterval(interval)
   }, [speaker.started_speaking_at])
 
@@ -93,36 +95,28 @@ export default function CurrentSpeaker({
         <div className="flex space-x-2">
           {/* Controls for admins or the current speaker */}
           {isOwner && (
-            <button
+            <Button
               onClick={handleNextSpeaker}
               disabled={isLoading.next}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+              variant="outline"
+              className="flex items-center gap-2"
             >
-              {isLoading.next ? "Processing..." : "Next Speaker"}
-            </button>
+              {isLoading.next ? <Loader /> : <ArrowRight />}
+              {isLoading.next ? "Procesando..." : "Siguiente Orador"}
+            </Button>
           )}
-          
+
           {(isOwner || speaker.user_id === speaker.user_id) && (
             <>
-              <button
+              <Button
                 onClick={handleTogglePause}
                 disabled={isLoading.pause}
-                className={`px-4 py-2 rounded-md ${
-                  speaker.is_paused
-                    ? "bg-green-100 text-green-800 hover:bg-green-200"
-                    : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
-                }`}
+                variant="outline"
+                className="flex items-center gap-2"
               >
-                {isLoading.pause ? "..." : speaker.is_paused ? "Resume" : "Pause"}
-              </button>
-              
-              <button
-                onClick={handleLeaveQueue}
-                disabled={isLoading.leave}
-                className="px-4 py-2 bg-red-100 text-red-800 hover:bg-red-200 rounded-md"
-              >
-                {isLoading.leave ? "..." : "Leave"}
-              </button>
+                {isLoading.pause ? <Loader /> : speaker.is_paused ? <Play /> : <Pause />}
+                {isLoading.pause ? "Procesando..." : speaker.is_paused ? "Reanudar" : "Pausar"}
+              </Button>
             </>
           )}
         </div>
