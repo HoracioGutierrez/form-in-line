@@ -1,104 +1,89 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase Starter Kit</h1>
-</a>
+# FormInLine
 
-<p align="center">
- The fastest way to build apps with Next.js and Supabase
-</p>
+![FormInLine](https://img.shields.io/badge/FormInLine-Online-success)
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#demo"><strong>Demo</strong></a> ·
-  <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-  <a href="#more-supabase-examples"><strong>More Examples</strong></a>
-</p>
-<br/>
+## 📝 Description
 
-## Features
+Form-In-Line is a modern, responsive user's queue management application designed to streamline the process waiting to ask in an online space. Originally created as a helper project for the Web Development course at [Tripleten](https://tripleten.com/) to handle students in a Discord voice channel, FormInLine offers an intuitive interface for creating, sharing, and analyzing form responses in turn.
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Middleware
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
+**[Live Demo](https://forminline.vercel.app/)**
 
-## Demo
+## 🛠️ Tech Stack
 
-You can view a fully working demo at [demo-nextjs-with-supabase.vercel.app](https://demo-nextjs-with-supabase.vercel.app/).
+- **Frontend**:
+  - React.js
+  - Next.js
+  - Tailwind
+  - ShadCN
+  - Framer Motion (for background animations)
+  
+- **Backend**:
+  - Next.js API Routes
+  - Supabase (for data storage and authentication)
+  
+- **Deployment**:
+  - Vercel
 
-## Deploy to Vercel
+- **Tools & Utilities**:
+  - ESLint (code quality)
+  - Prettier (code formatting)
+  - Git (version control)
 
-Vercel deployment will guide you through creating a Supabase account and project.
+## ✨ Features
 
-After installation of the Supabase integration, all relevant environment variables will be assigned to the project so the deployment is fully functioning.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&project-name=nextjs-with-supabase&repository-name=nextjs-with-supabase&demo-title=nextjs-with-supabase&demo-description=This+starter+configures+Supabase+Auth+to+use+cookies%2C+making+the+user%27s+session+available+throughout+the+entire+Next.js+app+-+Client+Components%2C+Server+Components%2C+Route+Handlers%2C+Server+Actions+and+Middleware.&demo-url=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2F&external-id=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-supabase&demo-image=https%3A%2F%2Fdemo-nextjs-with-supabase.vercel.app%2Fopengraph-image.png)
+- **Analytics Dashboard**: View submission statistics and insights
+- **User Authentication**: Secure login and user management system
+- **Dynamic Spaces**: Create and share as many spaces as you want with anyone
+- **User Queue**: View and manage the current user queue in a space
 
-The above will also clone the Starter kit to your GitHub, you can clone that locally and develop locally.
+## 🚀 Usage
 
-If you wish to just develop locally and not deploy to Vercel, [follow the steps below](#clone-and-run-locally).
+### Installation
 
-## Clone and run locally
+```bash
+# Clone the repository
+git clone https://github.com/HoracioGutierrez/form-in-line-2.git
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+# Navigate to the project directory
+cd form-in-line-2
 
-2. Create a Next.js app using the Supabase Starter template npx command
+# Install dependencies
+npm install
 
-   ```bash
-   npx create-next-app --example with-supabase with-supabase-app
-   ```
+# Run the development server
+npm run dev
+```
 
-   ```bash
-   yarn create next-app --example with-supabase with-supabase-app
-   ```
+### Creating a Space
 
-   ```bash
-   pnpm create next-app --example with-supabase with-supabase-app
-   ```
+1. Log in to your account
+2. Click on "Create New Space"
+3. Use the form builder to add questions and customize settings
+4. Click "Save"
+5. Share the generated link with your audience
 
-3. Use `cd` to change into the app's directory
+### Viewing Questiopns
 
-   ```bash
-   cd with-supabase-app
-   ```
+1. Navigate to "Dashboard"
+2. Select the Space you want to view questions for
+3. Analyze data or export as needed
 
-4. Rename `.env.example` to `.env.local` and update the following:
+## 📋 To Do
 
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
+- [ ] **Enhanced Analytics**: Implement advanced data visualization tools
+- [ ] **Form Logic**: Add conditional logic to show/hide questions based on previous answers
+- [ ] **API Integration**: Allow forms to connect with third-party services
+- [ ] **Multilingual Support**: Make forms available in multiple languages
+- [ ] **Offline Mode**: Enable form creation and submission without internet connection
+- [ ] **PDF Export**: Generate PDF reports from form responses
+- [ ] **Enhanced Security**: Add additional security features like encryption and compliance with data protection regulations
+- [ ] **AI Integration**: Allow AI to optimistically generate a response based on your question
 
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
+## 👨‍💻 Contributors
 
-5. You can now run the Next.js local development server:
+This project was developed as a helper project for the Web Development course at Tripleten.
 
-   ```bash
-   npm run dev
-   ```
+---
 
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-6. This template comes with the default shadcn/ui style initialized. If you instead want other ui.shadcn styles, delete `components.json` and [re-install shadcn/ui](https://ui.shadcn.com/docs/installation/next)
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Feedback and issues
-
-Please file feedback and issues over on the [Supabase GitHub org](https://github.com/supabase/supabase/issues/new/choose).
-
-## More Supabase examples
-
-- [Next.js Subscription Payments Starter](https://github.com/vercel/nextjs-subscription-payments)
-- [Cookie-based Auth and the Next.js 13 App Router (free course)](https://youtube.com/playlist?list=PL5S4mPUpp4OtMhpnp93EFSo42iQ40XjbF)
-- [Supabase Auth and the Next.js App Router](https://github.com/supabase/supabase/tree/master/examples/auth/nextjs)
+Feel free to reach out with questions, suggestions, or feedback!
