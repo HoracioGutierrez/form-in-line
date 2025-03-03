@@ -57,7 +57,7 @@ npm run dev
 
 ### Windows Desktop App
 
-Download the [Windows Desktop App](https://github.com/HoracioGutierrez/form-in-line/Forminline.msi) and install it on your local machine.
+Download the [Windows Desktop App](https://github.com/HoracioGutierrez/form-in-line/blob/main/Forminline.msi) and install it on your local machine.
 
 ### Creating a Space
 
