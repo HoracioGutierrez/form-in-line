@@ -14,7 +14,7 @@ interface SpaceHeaderProps {
   currentUserId: string
   activeDuration?: string | null
   isUserInQueue?: boolean
-  user?: { id: string, email: string, full_name: string }
+  user?: { id: string, email: string }
 }
 
 export default function SpaceHeader({
