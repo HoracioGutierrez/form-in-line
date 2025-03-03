@@ -17,7 +17,6 @@ interface JoinQueueButtonProps {
 }
 
 export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQueue }: JoinQueueButtonProps) {
-  console.log("🚀 ~ JoinQueueButton ~ isAlreadyInQueue:", isAlreadyInQueue)
   const [isOpen, setIsOpen] = useState(false);
   const [alias, setAlias] = useState(email || "");
   const [message, setMessage] = useState("");
