@@ -9,7 +9,7 @@ import { Ban, ListCheck, ListPlus, Loader } from 'lucide-react'
 import JoinQueueButton from './JoinQueueButton'
 
 interface SpaceHeaderProps {
-  space: Space
+  space: SpaceWithUser
   isOwner: boolean
   currentUserId: string
   activeDuration?: string | null
