@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Modal from '@/components/shared/Modal'
 import { createSpace } from '@/app/actions'
+import { Button } from '../ui/button'
+import { PlusIcon } from 'lucide-react'
 /* import { PlusIcon } from '@heroicons/react/24/outline' */
 
 interface CreateSpaceButtonProps {
@@ -18,7 +20,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    
+
     try {
       await createSpace({ name, subject, userId })
       setName('')
@@ -33,13 +35,10 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
 
   return (
     <>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
-      >
-        {/* <PlusIcon className="h-5 w-5" /> */}
-        <span>Create Space</span>
-      </button>
+      <Button onClick={() => setIsModalOpen(true)} variant="outline" className="flex items-center gap-2">
+        <PlusIcon/>
+        Crear Espacio
+      </Button>
 
       <Modal
         isOpen={isModalOpen}
@@ -61,7 +60,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
               placeholder="Space name"
             />
           </div>
-          
+
           <div>
             <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Subject (optional)
@@ -75,7 +74,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
               placeholder="What is this space about?"
             />
           </div>
-          
+
           <div className="flex justify-end">
             <button
               type="button"
