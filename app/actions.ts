@@ -361,6 +361,9 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
     return { success: true, alreadyInQueue: true };
   }
 
+  // Determine if this user will be the current speaker
+  const isCurrentSpeaker = nextPosition === 1 && maxPositionData.length === 0;
+
   // Add user to the queue
   const { error } = await supabase
     .from('queue')
@@ -370,7 +373,9 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
       message: message || null,
       position: nextPosition,
       is_paused: false,
-      is_current_speaker: nextPosition === 1 && maxPositionData.length === 0
+      is_current_speaker: isCurrentSpeaker,
+      // Set started_speaking_at if this user is the current speaker
+      started_speaking_at: isCurrentSpeaker ? new Date().toISOString() : null
     });
 
   if (error) {
@@ -392,16 +397,18 @@ export async function leaveQueue(queueId: string, spaceId: string) {
     .eq('id', queueId)
     .single();
 
+
   if (getError) {
     console.error('Error getting queue entry:', getError);
     throw new Error('Failed to leave queue');
   }
 
   // Delete the entry
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('queue')
     .delete()
     .eq('id', queueId);
+
 
   if (error) {
     console.error('Error leaving queue:', error);
@@ -447,22 +454,43 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
     .eq('id', currentSpeakerId)
     .single();
 
-  if (!csError && currentSpeaker.started_speaking_at) {
+  // Only calculate speaking time if started_speaking_at exists
+  if (!csError && currentSpeaker && currentSpeaker.started_speaking_at) {
     const startedAt = new Date(currentSpeaker.started_speaking_at);
     const endedAt = new Date();
     const speakingTimeSeconds = Math.floor((endedAt.getTime() - startedAt.getTime()) / 1000);
 
-    await supabase
+    const { data, error, status } = await supabase
       .from('queue')
       .update({
         is_current_speaker: false,
         total_speaking_time: speakingTimeSeconds
       })
-      .eq('id', currentSpeakerId);
-
-    // Remove from queue
-    await leaveQueue(currentSpeakerId, spaceId);
+      .eq('id', currentSpeakerId)
+      //.select(); // Add this to return the updated data
+    
+  } else {
+    // Just mark as not current speaker if we don't have a start time
+    const { data, error } = await supabase
+      .from('queue')
+      .update({
+        is_current_speaker: false
+      })
+      .eq('id', currentSpeakerId)
+      //.select(); // Add this to return the updated data
+    
   }
+
+  // Fetch the updated data to confirm changes
+  const { data: currentSpeakerData, error: csdError } = await supabase
+    .from('queue')
+    .select('*')
+    .eq('id', currentSpeakerId)
+    .single();
+
+  
+  // Remove from queue
+  await leaveQueue(currentSpeakerId, spaceId);
 
   // Find and promote the next available speaker
   return await promoteNextInLine(spaceId);
@@ -478,11 +506,12 @@ export async function promoteNextInLine(spaceId: string) {
     .select('id')
     .eq('space_id', spaceId)
     .eq('is_paused', false)
+    .eq('is_current_speaker', false)
     .order('position', { ascending: true })
     .limit(1);
 
+
   if (nsError || nextSpeaker.length === 0) {
-    console.log('No next speaker available');
     return { success: true, nextSpeakerId: null };
   }
 
@@ -538,8 +567,7 @@ async function reorderQueuePositions(spaceId: string) {
 export async function clearQueueOnDeactivation(spaceId: string) {
   const supabase = await createClient();
 
-  console.log(`Clearing queue for space ${spaceId}`);
-  
+
   const { data, error } = await supabase
     .from('queue')
     .delete()
@@ -551,7 +579,6 @@ export async function clearQueueOnDeactivation(spaceId: string) {
     throw new Error('Failed to clear queue');
   }
 
-  console.log(`Successfully cleared ${data?.length || 0} queue entries`);
   return { success: true };
 }
 

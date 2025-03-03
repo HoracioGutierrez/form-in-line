@@ -79,7 +79,12 @@ export default async function SpaceDetailsPage({
                                 No one is currently speaking.
                             </p>
                             {queue.length > 0 && space.is_owner && (
-                                <button className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
+                                <button 
+                                    className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+                                    onClick={async () => {
+                                        // This is just a placeholder - we'll create a client component instead
+                                    }}
+                                >
                                     Call next speaker
                                 </button>
                             )}
@@ -115,7 +120,7 @@ export default async function SpaceDetailsPage({
                 <div className="mt-8">
                     <h2 className="text-xl font-semibold mb-4">Waiting List</h2>
                     <QueueList 
-                        users={waitingUsers} 
+                        users={queue} // Pass all users including current speaker
                         isOwner={space.is_owner} 
                         currentUserId={user.id}
                         spaceId={space.id}
