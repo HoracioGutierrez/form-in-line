@@ -123,9 +123,9 @@ export default function SpaceHeader({
             space.is_active && !space.is_owner && !isUserInQueue && (
               <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
                 <JoinQueueButton
-                  spaceId={space.id}
-                  userId={user.id || ''}
-                  email={user.email || ''}
+                  spaceId={space?.id}
+                  userId={user?.id || ''}
+                  email={user?.email || ''}
                   isAlreadyInQueue={isUserInQueue}
                 />
               </Suspense>
