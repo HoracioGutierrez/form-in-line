@@ -657,21 +657,7 @@ export interface ActiveQueue {
 
 export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]> {
   const supabase = await createClient();
-
-  interface QueueWithSpace {
-    id: string;
-    position: number;
-    is_current_speaker: boolean;
-    is_paused: boolean;
-    message: string | null;
-    space_id: string;
-    spaces: {
-      name: string;
-      slug: string;
-      activated_at: string | null;
-    };
-  }
-
+  
   // Get all queue entries for this user with space information
   const { data, error } = await supabase
     .from('queue')
@@ -686,28 +672,34 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
         name,
         slug,
         activated_at
-        )
-        `)
+      )
+    `)
     .eq('user_id', userId);
 
-  console.log("🚀 ~ getUserActiveQueues ~ data:", data)
   if (error) {
     console.error('Error fetching active queues:', error);
     return [];
   }
 
   // Transform the data to match the ActiveQueue interface
-  const activeQueues: ActiveQueue[] = (data as QueueWithSpace[]).map(entry => ({
-    id: entry.id,
-    space_id: entry.space_id,
-    space_name: entry.spaces?.name || 'Unknown Space',
-    slug: entry.spaces?.slug || '',
-    position: entry.position,
-    is_current_speaker: entry.is_current_speaker,
-    is_paused: entry.is_paused,
-    message: entry.message,
-    active_since: entry.spaces?.activated_at || null,
-  }));
+  const activeQueues: ActiveQueue[] = (data || []).map(entry => {
+    // Safely access space data with fallbacks
+    const spaceData = Array.isArray(entry.spaces) 
+      ? entry.spaces[0] || {} 
+      : (entry.spaces || {});
+      
+    return {
+      id: entry.id,
+      space_id: entry.space_id,
+      space_name: spaceData.name || 'Unknown Space',
+      slug: spaceData.slug || '',
+      position: entry.position,
+      is_current_speaker: entry.is_current_speaker,
+      is_paused: entry.is_paused,
+      message: entry.message,
+      active_since: spaceData.activated_at || null,
+    };
+  });
 
   return activeQueues;
 }
