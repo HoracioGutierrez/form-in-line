@@ -36,17 +36,17 @@ Form-In-Line is a modern, responsive user's queue management application designe
 - **User Authentication**: Secure login and user management system
 - **Dynamic Spaces**: Create and share as many spaces as you want with anyone
 - **User Queue**: View and manage the current user queue in a space
-
+- **Windows Desktop App**: Install the app on your Windows local machine 
 ## 🚀 Usage
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/HoracioGutierrez/form-in-line-2.git
+git clone https://github.com/HoracioGutierrez/form-in-line.git
 
 # Navigate to the project directory
-cd form-in-line-2
+cd form-in-line
 
 # Install dependencies
 npm install
@@ -54,6 +54,10 @@ npm install
 # Run the development server
 npm run dev
 ```
+
+### Windows Desktop App
+
+Download the [Windows Desktop App](https://github.com/HoracioGutierrez/form-in-line/Forminline.msi) and install it on your local machine.
 
 ### Creating a Space
 
