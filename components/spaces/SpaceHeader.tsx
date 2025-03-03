@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { SpaceWithUser, Space } from '@/app/actions'
 import { joinQueue } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
+import { Button } from '../ui/button'
+import { Ban, ListPlus, Loader } from 'lucide-react'
 
 interface SpaceHeaderProps {
   space: Space
@@ -12,11 +14,11 @@ interface SpaceHeaderProps {
   activeDuration?: string | null
 }
 
-export default function SpaceHeader({ 
-  space, 
-  isOwner, 
-  currentUserId, 
-  activeDuration 
+export default function SpaceHeader({
+  space,
+  isOwner,
+  currentUserId,
+  activeDuration
 }: SpaceHeaderProps) {
   const [elapsedTime, setElapsedTime] = useState<string>('00:00:00')
   const [isJoining, setIsJoining] = useState(false)
@@ -26,31 +28,31 @@ export default function SpaceHeader({
 
   useEffect(() => {
     if (!space.is_active || !space.activated_at) return
-    
+
     // Calculate and display elapsed time
     const activatedAt = new Date(space.activated_at)
-    
+
     const updateTimer = () => {
       const now = new Date()
       const diff = Math.floor((now.getTime() - activatedAt.getTime()) / 1000)
-      
+
       const hours = Math.floor(diff / 3600).toString().padStart(2, '0')
       const minutes = Math.floor((diff % 3600) / 60).toString().padStart(2, '0')
       const seconds = (diff % 60).toString().padStart(2, '0')
-      
+
       setElapsedTime(`${hours}:${minutes}:${seconds}`)
     }
-    
+
     updateTimer()
     const interval = setInterval(updateTimer, 1000)
-    
+
     return () => clearInterval(interval)
   }, [space.is_active, space.activated_at])
-  
+
   const handleJoinQueue = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsJoining(true)
-    
+
     try {
       await joinQueue(space.id, currentUserId, message)
       setShowMessageForm(false)
@@ -61,10 +63,10 @@ export default function SpaceHeader({
       setIsJoining(false)
     }
   }
-  
+
   const handleToggleStatus = async () => {
     setIsTogglingStatus(true)
-    
+
     try {
       await toggleSpaceStatus(space.id, !space.is_active)
     } catch (error) {
@@ -75,8 +77,8 @@ export default function SpaceHeader({
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div className="bg-white dark:bg-muted/30 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-muted">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">{space.name}</h1>
           {space.subject && (
@@ -87,90 +89,89 @@ export default function SpaceHeader({
             Created by {'Unknown'}
           </p>
         </div>
-        
+
         <div className="flex flex-col md:flex-row items-end md:items-center gap-3">
           {space.is_active && (
-            <div className="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-md">
+            <div className="flex items-center px-4">
               <span className="font-mono font-medium">
                 {elapsedTime}
               </span>
             </div>
           )}
-          
+
           {isOwner ? (
-            <button 
+            <button
               onClick={handleToggleStatus}
               disabled={isTogglingStatus}
-              className={`px-4 py-2 rounded-md ${
-                space.is_active 
-                  ? 'bg-red-600 hover:bg-red-700 text-white' 
-                  : 'bg-green-600 hover:bg-green-700 text-white'
-              }`}
+              className={`px-4 py-2 rounded-md ${space.is_active
+                ? 'bg-red-600 hover:bg-red-700 text-white'
+                : 'bg-green-600 hover:bg-green-700 text-white'
+                }`}
             >
-              {isTogglingStatus 
-                ? 'Processing...' 
-                : space.is_active 
-                  ? 'Deactivate Space' 
+              {isTogglingStatus
+                ? 'Processing...'
+                : space.is_active
+                  ? 'Deactivate Space'
                   : 'Activate Space'
               }
             </button>
           ) : (
             space.is_active && !showMessageForm && (
-              <button
-                onClick={() => setShowMessageForm(true)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
-              >
+              <Button onClick={() => setShowMessageForm(true)} variant={"outline"} className="flex items-center gap-2">
+                <ListPlus />
                 Join Waiting List
-              </button>
+              </Button>
             )
           )}
         </div>
       </div>
-      
+
+      {showMessageForm && (<hr className="my-6 border-t border-gray-200 dark:border-muted" />)}
+
       {/* Join queue form */}
       {showMessageForm && (
-        <form onSubmit={handleJoinQueue} className="mt-6 p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-          <h3 className="text-lg font-medium mb-2">Join Waiting List</h3>
+        <form onSubmit={handleJoinQueue} className="mt-6 rounded-lg">
+          {/* <h3 className="text-lg font-medium mb-2">Join Waiting List</h3> */}
+          <h3 className="text-lg font-medium mb-4">Unirse a la lista de espera</h3>
           <div className="mb-4">
-            <label htmlFor="message" className="block text-sm font-medium mb-1">
-              Message / Question (optional)
+            <label htmlFor="message" className="block text-sm font-medium mb-2 text-muted-foreground/50">
+              {/* Message / Question (optional) */}
+              Mensaje / Pregunta (opcional)
             </label>
             <textarea
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="What would you like to ask or discuss?"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700"
+              /* placeholder="What would you like to ask or discuss?" */
+              placeholder="¿Qué te gustaría preguntar o discutir?"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white dark:focus:ring-black dark:bg-muted/30"
               rows={3}
             />
           </div>
-          <div className="flex justify-end space-x-2">
-            <button
-              type="button"
-              onClick={() => setShowMessageForm(false)}
-              className="px-4 py-2 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isJoining}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md"
-            >
-              {isJoining ? 'Joining...' : 'Join Queue'}
-            </button>
+          <div className="flex justify-between items-center">
+            <div className={` inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
+        ${space.is_active
+                ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+              }`}>
+              {space.is_active ? 'Activo' : 'Inactivo'}
+            </div>
+            <div className="flex gap-2">
+              <Button onClick={() => setShowMessageForm(false)} variant={"outline"} className="flex items-center gap-2">
+                <Ban />
+                Cancelar
+              </Button>
+              <Button type="submit" disabled={isJoining} variant={"outline"} className='flex items-center gap-2'>
+                {isJoining ? <Loader /> : <ListPlus />}
+                {isJoining ? 'Uniendo...' : 'Unirse'}
+              </Button>
+            </div>
           </div>
         </form>
       )}
-      
+
       {/* Status indicator */}
-      <div className={`mt-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium 
-        ${space.is_active 
-          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-          : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-        }`}>
-        {space.is_active ? 'Active' : 'Inactive'}
-      </div>
+
     </div>
   )
 }

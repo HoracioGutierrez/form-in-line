@@ -11,8 +11,8 @@ export default async function SpacesList({ userId }: SpacesListProps) {
 
   if (spaces.length === 0) {
     return (
-      <div className="text-center py-12 bg-gray-50 dark:bg-gray-900 rounded-lg">
-        <p className="text-gray-500 dark:text-gray-400">
+      <div className="text-center py-12 bg-gray-50 dark:bg-muted rounded-lg">
+        <p className="text-gray-500 dark:text-white/50">
           You haven't created any spaces yet. 
           Create your first space to get started!
         </p>

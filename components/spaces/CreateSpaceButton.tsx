@@ -36,7 +36,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)} variant="outline" className="flex items-center gap-2">
-        <PlusIcon/>
+        <PlusIcon className='size-4'/>
         Crear Espacio
       </Button>
 
