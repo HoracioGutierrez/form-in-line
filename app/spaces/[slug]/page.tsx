@@ -61,6 +61,8 @@ export default async function SpaceDetailsPage({
                 isOwner={space.is_owner}
                 currentUserId={user.id}
                 activeDuration={activeDuration}
+                isUserInQueue={isUserInQueue}
+                user={user}
             />
 
             {/* Current speaker section - only shown when space is active */}
@@ -95,7 +97,7 @@ export default async function SpaceDetailsPage({
             )}
 
             {/* Join queue button - only for active spaces and non-owners who aren't already in queue */}
-            {space.is_active && !space.is_owner && !isUserInQueue && (
+            {/* {space.is_active && !space.is_owner && !isUserInQueue && (
                 <div className="mt-8">
                     <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
                         <JoinQueueButton
@@ -106,7 +108,7 @@ export default async function SpaceDetailsPage({
                         />
                     </Suspense>
                 </div>
-            )}
+            )} */}
 
             {/* Owner controls - only shown to space owner */}
             {space.is_owner && (
@@ -119,7 +121,7 @@ export default async function SpaceDetailsPage({
             {/* Queue list - only shown when space is active */}
             {space.is_active && (
                 <div className="mt-8">
-                    <h2 className="text-xl font-semibold mb-4">Waiting List</h2>
+                    <h2 className="text-xl font-semibold mb-4">Lista de Espera</h2>
                     <QueueList
                         users={queue} // Pass all users including current speaker
                         isOwner={space.is_owner}

@@ -30,7 +30,7 @@ export default function SpaceCard({ space }: SpaceCardProps) {
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-muted dark:border-muted-foreground">
       <div className="p-4">
-        <div className="flex justify-between items-start">
+        <div className="flex justify-between items-start mb-8">
           <div>
             <h3 className="text-lg font-semibold">{space.name}</h3>
             {space.subject && (
@@ -43,7 +43,7 @@ export default function SpaceCard({ space }: SpaceCardProps) {
               : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
               }`}
           >
-            {isActive ? 'Active' : 'Inactive'}
+            {isActive ? 'Activo' : 'Inactivo'}
           </span>
         </div>
 
@@ -53,17 +53,18 @@ export default function SpaceCard({ space }: SpaceCardProps) {
             disabled={isLoading}
             variant={isActive ? 'destructive' : 'outline'}
             className='flex items-center gap-2'
+            size="sm"
           >
             {isLoading ? <Loader className='animate-spin' /> : isActive ? <Ban /> : <ListCheck />}
-            {isLoading ? 'Cargando ...' : isActive ? 'Deactivate' : 'Activate'}
+            {isLoading ? 'Cargando ...' : isActive ? 'Desactivar' : 'Activar'}
           </Button>
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" size="sm">
             <Link
               href={`/spaces/${space.slug}`}
               className="flex items-center gap-2"
             >
               <Eye />
-              View Space
+              Ver Espacio
             </Link>
           </Button>
         </div>

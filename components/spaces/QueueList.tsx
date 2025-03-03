@@ -54,7 +54,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
           key={user.id}
           className={`p-4 rounded-lg border ${user.is_paused
             ? "bg-gray-100 dark:bg-muted/30 border-gray-300 dark:border-gray-700"
-            : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
+            : "bg-white dark:bg-background border-gray-200 dark:border-muted"
             }`}
         >
           <div className="flex justify-between items-center">

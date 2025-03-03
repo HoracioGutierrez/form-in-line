@@ -1,24 +1,29 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { SpaceWithUser, Space } from '@/app/actions'
 import { joinQueue } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
 import { Ban, ListCheck, ListPlus, Loader } from 'lucide-react'
+import JoinQueueButton from './JoinQueueButton'
 
 interface SpaceHeaderProps {
   space: Space
   isOwner: boolean
   currentUserId: string
   activeDuration?: string | null
+  isUserInQueue?: boolean
+  user?: object
 }
 
 export default function SpaceHeader({
   space,
   isOwner,
   currentUserId,
-  activeDuration
+  activeDuration,
+  isUserInQueue,
+  user
 }: SpaceHeaderProps) {
   const [elapsedTime, setElapsedTime] = useState<string>('00:00:00')
   const [isJoining, setIsJoining] = useState(false)
@@ -86,7 +91,7 @@ export default function SpaceHeader({
           )}
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
             {/* Created by {space.user?.full_name || space.user?.email || 'Unknown'} */}
-            Created by {'Unknown'}
+            Creado por {'Unknown'}
           </p>
         </div>
 
@@ -106,20 +111,24 @@ export default function SpaceHeader({
               variant={space.is_active ? 'destructive' : 'outline'}
               className='flex items-center gap-2'
             >
-              {isTogglingStatus ? <Loader className="animate-spin"/> : space.is_active ? <Ban/> : <ListCheck/>}
+              {isTogglingStatus ? <Loader className="animate-spin" /> : space.is_active ? <Ban /> : <ListCheck />}
               {isTogglingStatus
-                ? 'Processing...'
+                ? 'Procesando ...'
                 : space.is_active
-                  ? 'Deactivate Space'
-                  : 'Activate Space'
+                  ? 'Desactivar Espacio'
+                  : 'Activar Espacio'
               }
             </Button>
           ) : (
-            space.is_active && !showMessageForm && (
-              <Button onClick={() => setShowMessageForm(true)} variant={"outline"} className="flex items-center gap-2">
-                <ListPlus />
-                Unirse a la lista de espera
-              </Button>
+            space.is_active && !space.is_owner && !isUserInQueue && (
+              <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
+                <JoinQueueButton
+                  spaceId={space.id}
+                  userId={user.id}
+                  email={user.email || ''}
+                  isAlreadyInQueue={isUserInQueue}
+                />
+              </Suspense>
             )
           )}
         </div>
@@ -130,18 +139,15 @@ export default function SpaceHeader({
       {/* Join queue form */}
       {showMessageForm && (
         <form onSubmit={handleJoinQueue} className="mt-6 rounded-lg">
-          {/* <h3 className="text-lg font-medium mb-2">Join Waiting List</h3> */}
           <h3 className="text-lg font-medium mb-4">Unirse a la lista de espera</h3>
           <div className="mb-4">
             <label htmlFor="message" className="block text-sm font-medium mb-2 text-muted-foreground/50">
-              {/* Message / Question (optional) */}
               Mensaje / Pregunta (opcional)
             </label>
             <textarea
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              /* placeholder="What would you like to ask or discuss?" */
               placeholder="¿Qué te gustaría preguntar o discutir?"
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-white dark:focus:ring-black dark:bg-muted/30"
               rows={3}
@@ -161,7 +167,7 @@ export default function SpaceHeader({
                 Cancelar
               </Button>
               <Button type="submit" disabled={isJoining} variant={"outline"} className='flex items-center gap-2'>
-                {isJoining ? <Loader className="animate-spin"/> : <ListPlus />}
+                {isJoining ? <Loader className="animate-spin" /> : <ListPlus />}
                 {isJoining ? 'Uniendo...' : 'Unirse'}
               </Button>
             </div>
