@@ -74,7 +74,7 @@ export default function CurrentSpeaker({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 rounded-lg">
+    <div className="bg-white dark:bg-muted border border-gray-200 dark:border-muted-foreground p-6 rounded-lg">
       <div className="flex justify-between items-start">
         <div>
           <h3 className="text-lg font-medium">
@@ -106,7 +106,7 @@ export default function CurrentSpeaker({
             </Button>
           )}
 
-          {(isOwner || speaker.user_id === speaker.user_id) && (
+          {(isOwner) && (
             <>
               <Button
                 onClick={handleTogglePause}

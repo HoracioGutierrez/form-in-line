@@ -82,7 +82,7 @@ export default function SpaceHeader({
   }
 
   return (
-    <div className="bg-white dark:bg-muted/30 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-muted">
+    <div className="p-6">
       <div className="flex flex-col md:flex-row justify-between items-start gap-4">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">{space.name}</h1>
