@@ -7,8 +7,8 @@ export default async function ActiveQueuesList({ userId }: { userId: string }) {
 
   if (activeQueues.length === 0) {
     return (
-      <div className="text-center py-8 bg-gray-50 rounded-lg">
-        <p className="text-gray-500">Actualmente no estás en ninguna cola activa.</p>
+      <div className="text-center py-8 border-dashed dark:border-muted border-2 rounded-lg">
+        <p className="text-gray-500 dark:text-muted-foreground/50 text-sm">Actualmente no estás en ninguna cola activa.</p>
       </div>
     );
   }
