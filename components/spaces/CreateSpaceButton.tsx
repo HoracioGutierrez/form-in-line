@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Modal from '@/components/shared/Modal'
 import { createSpace } from '@/app/actions'
 import { Button } from '../ui/button'
-import { PlusIcon } from 'lucide-react'
+import { Ban, Loader, PlusIcon } from 'lucide-react'
 /* import { PlusIcon } from '@heroicons/react/24/outline' */
 
 interface CreateSpaceButtonProps {
@@ -47,7 +47,7 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-muted-foreground/50 mb-1">
               Nombre del Espacio *
             </label>
             <input
@@ -56,13 +56,13 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-muted-foreground rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
               placeholder="Nombre del Espacio"
             />
           </div>
 
           <div>
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-muted-foreground/50 mb-1">
               Tema del Espacio (opcional)
             </label>
             <input
@@ -70,16 +70,18 @@ export default function CreateSpaceButton({ userId }: CreateSpaceButtonProps) {
               type="text"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-muted-foreground rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
               placeholder="¿De qué se trata este espacio?"
             />
           </div>
 
           <div className="flex justify-end gap-2">
             <Button onClick={() => setIsModalOpen(false)} variant="outline" className="flex items-center gap-2">
+              <Ban className='size-5'/>
               Cancelar
             </Button>
             <Button type="submit" disabled={isLoading} className="flex items-center gap-2" variant="outline">
+              {isLoading ? <Loader className='animate-spin'/> : <PlusIcon/>}
               {isLoading ? 'Creando...' : 'Crear Espacio'}
             </Button>
           </div>
