@@ -467,8 +467,8 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
         total_speaking_time: speakingTimeSeconds
       })
       .eq('id', currentSpeakerId)
-      //.select(); // Add this to return the updated data
-    
+    //.select(); // Add this to return the updated data
+
   } else {
     // Just mark as not current speaker if we don't have a start time
     const { data, error } = await supabase
@@ -477,8 +477,8 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
         is_current_speaker: false
       })
       .eq('id', currentSpeakerId)
-      //.select(); // Add this to return the updated data
-    
+    //.select(); // Add this to return the updated data
+
   }
 
   // Fetch the updated data to confirm changes
@@ -488,7 +488,7 @@ export async function promoteNextSpeaker(currentSpeakerId: string, spaceId: stri
     .eq('id', currentSpeakerId)
     .single();
 
-  
+
   // Remove from queue
   await leaveQueue(currentSpeakerId, spaceId);
 
@@ -672,10 +672,11 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
         name,
         slug,
         activated_at
-      )
-    `)
+        )
+        `)
     .eq('user_id', userId);
 
+  console.log("🚀 ~ getUserActiveQueues ~ data:", data)
   if (error) {
     console.error('Error fetching active queues:', error);
     return [];
@@ -685,13 +686,13 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
   const activeQueues: ActiveQueue[] = data.map(entry => ({
     id: entry.id,
     space_id: entry.space_id,
-    space_name: entry.spaces[0]?.name || 'Unknown Space',
-    space_slug: entry.spaces[0]?.slug || '',
+    space_name: entry.spaces?.name || 'Unknown Space',
+    slug: entry.spaces?.slug || '',
     position: entry.position,
     is_current_speaker: entry.is_current_speaker,
     is_paused: entry.is_paused,
     message: entry.message,
-    active_since: entry.spaces[0]?.activated_at || null,
+    active_since: entry.spaces?.activated_at || null,
   }));
 
   return activeQueues;
