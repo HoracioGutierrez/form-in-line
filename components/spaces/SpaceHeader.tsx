@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
-import { SpaceWithUser, Space } from '@/app/actions'
+import { SpaceWithUser } from '@/app/actions'
 import { joinQueue } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
@@ -14,7 +14,7 @@ interface SpaceHeaderProps {
   currentUserId: string
   activeDuration?: string | null
   isUserInQueue?: boolean
-  user?: { id: string, email: string }
+  user?: User
 }
 
 export default function SpaceHeader({
