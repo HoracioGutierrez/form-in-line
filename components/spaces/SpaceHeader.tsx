@@ -14,7 +14,7 @@ interface SpaceHeaderProps {
   isOwner: boolean
   currentUserId: string
   activeDuration?: string | null
-  isUserInQueue?: boolean
+  isUserInQueue: boolean
   user?: User
 }
 
