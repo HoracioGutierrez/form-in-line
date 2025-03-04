@@ -161,7 +161,8 @@ export async function createSpace({
   // Create a random slug (URL-friendly ID)
   const slug = nanoid(10);
 
-  const { error } = await supabase
+  // Insert into spaces table
+  const { data: spaceData, error } = await supabase
     .from('spaces')
     .insert({
       name,
@@ -169,11 +170,29 @@ export async function createSpace({
       slug,
       user_id: userId,
       is_active: false,
-    });
+    })
+    .select()
+    .single();
 
   if (error) {
     console.error('Error creating space:', error);
     throw new Error('Failed to create space');
+  }
+
+  // Create a record in spaces_history
+  const { error: historyError } = await supabase
+    .from('spaces_history')
+    .insert({
+      space_id: spaceData.id,
+      space_name: name,
+      slug: slug,
+      created_by: userId,
+      queue_count: 0
+    });
+
+  if (historyError) {
+    console.error('Error recording space history:', historyError);
+    // Continue anyway since the space was created
   }
 
   revalidatePath('/dashboard');
@@ -383,6 +402,38 @@ export async function joinQueue(spaceId: string, userId: string, message?: strin
     throw new Error('Failed to join queue');
   }
 
+  // Update queue count in current active session
+  const { data: activeSession, error: sessionError } = await supabase
+    .from('space_sessions')
+    .select('id, queue_count')
+    .eq('space_id', spaceId)
+    .is('deactivated_at', null)
+    .single();
+
+  if (!sessionError && activeSession) {
+    const newCount = (activeSession.queue_count || 0) + 1;
+    await supabase
+      .from('space_sessions')
+      .update({ queue_count: newCount })
+      .eq('id', activeSession.id);
+  }
+
+  // Also update the queue_count in spaces_history
+  const { data: spaceHistory, error: historyError } = await supabase
+    .from('spaces_history')
+    .select('id, queue_count')
+    .eq('space_id', spaceId)
+    .is('deleted_at', null)
+    .single();
+
+  if (!historyError && spaceHistory) {
+    const newHistoryCount = (spaceHistory.queue_count || 0) + 1;
+    await supabase
+      .from('spaces_history')
+      .update({ queue_count: newHistoryCount })
+      .eq('id', spaceHistory.id);
+  }
+
   revalidatePath(`/spaces/${spaceId}`);
   return { success: true, alreadyInQueue: false };
 }
@@ -582,23 +633,39 @@ export async function clearQueueOnDeactivation(spaceId: string) {
   return { success: true };
 }
 
-// Extend the toggleSpaceStatus function to handle queue clearing
+// Extend the toggleSpaceStatus function to handle queue clearing and session tracking
 export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
   const supabase = await createClient();
+  
+  // Get space details for recording in history
+  const { data: space, error: spaceError } = await supabase
+    .from('spaces')
+    .select('name, slug')
+    .eq('id', spaceId)
+    .single();
+  
+  if (spaceError) {
+    console.error('Error fetching space details:', spaceError);
+    throw new Error('Failed to update space status');
+  }
 
   const updates: any = { is_active: isActive };
+  const userId = (await supabase.auth.getUser()).data.user?.id;
 
   // If activating the space, set the activated_at timestamp
   if (isActive) {
     updates.activated_at = new Date().toISOString();
 
-    // Create a new session record
+    // Create a new session record with queue_count initialized to 0
     await supabase
       .from('space_sessions')
       .insert({
         space_id: spaceId,
-        activated_by: (await supabase.auth.getUser()).data.user?.id,
-        activated_at: updates.activated_at
+        space_name: space.name,
+        space_slug: space.slug,
+        activated_by: userId,
+        activated_at: updates.activated_at,
+        queue_count: 0
       });
   } else {
     // If deactivating, clear the queue
@@ -614,16 +681,15 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
       .select('id')
       .eq('space_id', spaceId)
       .is('deactivated_at', null)
-      .order('activated_at', { ascending: false })
-      .limit(1);
+      .single();
 
-    if (!sessionError && session.length > 0) {
+    if (!sessionError && session) {
       await supabase
         .from('space_sessions')
         .update({
           deactivated_at: new Date().toISOString()
         })
-        .eq('id', session[0].id);
+        .eq('id', session.id);
     }
   }
 
@@ -639,6 +705,7 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
 
   revalidatePath('/dashboard');
   revalidatePath(`/spaces/${spaceId}`);
+  revalidatePath('/history'); 
   return { success: true };
 }
 
@@ -702,4 +769,168 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
   });
 
   return activeQueues;
+}
+
+// Add new interface for session history
+export interface SessionHistory {
+  id: string;
+  space_id: string;
+  space_name: string;
+  space_slug: string;
+  activated_at: string;
+  deactivated_at: string | null;
+  activated_by: string;
+  activated_by_email: string | null;
+  activated_by_name: string | null;
+  queue_count: number;
+  duration_minutes: number;
+}
+
+// Add new function to get session history
+export async function getSessionHistory(
+  userId: string,
+  page: number = 1,
+  pageSize: number = 10
+): Promise<{ data: SessionHistory[], total: number }> {
+  const supabase = await createClient();
+  
+  // Get total count for pagination
+  const { count, error: countError } = await supabase
+    .from('session_history_view')
+    .select('*', { count: 'exact', head: true })
+    .or(`activated_by.eq.${userId},space_id.in.(select id from spaces where user_id = '${userId}')`);
+    
+    console.log("🚀 ~ countError:", countError)
+  if (countError) {
+    console.error('Error counting sessions:', countError);
+    throw new Error('Failed to fetch session history');
+  }
+  
+  // Get paginated data
+  const { data, error } = await supabase
+    .from('session_history_view')
+    .select('*')
+    .or(`activated_by.eq.${userId},space_id.in.(select id from spaces where user_id = '${userId}')`)
+    .order('activated_at', { ascending: false })
+    .range((page - 1) * pageSize, page * pageSize - 1);
+  
+  if (error) {
+    console.error('Error fetching session history:', error);
+    throw new Error('Failed to fetch session history');
+  }
+  
+  return { 
+    data: data as SessionHistory[], 
+    total: count || 0 
+  };
+}
+
+// Add new interfaces for session and space history
+export interface SpaceHistory {
+  id: string;
+  space_id: string;
+  space_name: string;
+  slug: string;
+  created_at: string;
+  deleted_at: string | null;
+  created_by: string;
+  queue_count: number;
+}
+
+export interface SessionHistory {
+  id: string;
+  space_id: string;
+  space_name: string;
+  space_slug: string;
+  activated_at: string;
+  deactivated_at: string | null;
+  activated_by: string;
+  queue_count: number;
+  duration_minutes: number; // Calculated field
+}
+
+// New function to get history data
+export async function getHistoryData(
+  userId: string,
+  page: number = 1,
+  pageSize: number = 10
+): Promise<{ sessions: SessionHistory[], spaces: SpaceHistory[], total: number }> {
+  const supabase = await createClient();
+  
+  // Get sessions data with proper filter syntax - Fix the OR syntax
+  const { data: sessionsData, error: sessionsError, count: sessionsCount } = await supabase
+    .from('space_sessions')
+    .select('*, spaces!inner(user_id)', { count: 'exact' })
+    .filter('activated_by', 'eq', userId)
+    .range((page - 1) * pageSize, page * pageSize - 1)
+    .order('activated_at', { ascending: false });
+  
+  if (sessionsError) {
+    console.error('Error fetching sessions history:', sessionsError);
+    throw new Error('Failed to fetch history data');
+  }
+  
+  // Get additional sessions where the user is the space owner
+  const { data: ownerSessionsData, error: ownerSessionsError } = await supabase
+    .from('space_sessions')
+    .select('*, spaces!inner(user_id)')
+    .eq('spaces.user_id', userId)
+    .not('activated_by', 'eq', userId) // Avoid duplicates
+    .order('activated_at', { ascending: false })
+    .range((page - 1) * pageSize, page * pageSize - 1);
+  
+  if (ownerSessionsError) {
+    console.error('Error fetching owner sessions history:', ownerSessionsError);
+    // Continue with what we have
+  }
+  
+  // Combine both result sets
+  const allSessions = [...sessionsData, ...(ownerSessionsData || [])];
+  
+  // Sort combined results by activated_at
+  allSessions.sort((a, b) => 
+    new Date(b.activated_at).getTime() - new Date(a.activated_at).getTime()
+  );
+  
+  // Limit to pageSize after combining
+  const paginatedSessions = allSessions.slice(0, pageSize);
+  
+  // Calculate duration for each session
+  const sessions = paginatedSessions.map(session => {
+    const startTime = new Date(session.activated_at).getTime();
+    const endTime = session.deactivated_at 
+      ? new Date(session.deactivated_at).getTime() 
+      : new Date().getTime();
+    
+    const durationMinutes = Math.round((endTime - startTime) / (1000 * 60));
+    
+    return {
+      ...session,
+      duration_minutes: durationMinutes
+    };
+  });
+  
+  // Get spaces history
+  const { data: spacesData, error: spacesError } = await supabase
+    .from('spaces_history')
+    .select('*')
+    .eq('created_by', userId)
+    .order('created_at', { ascending: false })
+    .limit(pageSize);
+  
+  if (spacesError) {
+    console.error('Error fetching spaces history:', spacesError);
+    // Continue and return sessions at least
+  }
+  
+  // For pagination, we'd ideally want the total count of all sessions matching our criteria
+  // Since we're doing two queries and combining, this is a bit tricky
+  // For now, we'll use the count from the first query + the length of the second query
+  const approximateTotalCount = (sessionsCount || 0) + (ownerSessionsData?.length || 0);
+  
+  return { 
+    sessions: sessions as SessionHistory[],
+    spaces: (spacesData || []) as SpaceHistory[],
+    total: approximateTotalCount
+  };
 }
