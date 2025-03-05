@@ -636,14 +636,14 @@ export async function clearQueueOnDeactivation(spaceId: string) {
 // Extend the toggleSpaceStatus function to handle queue clearing and session tracking
 export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
   const supabase = await createClient();
-  
+
   // Get space details for recording in history
   const { data: space, error: spaceError } = await supabase
     .from('spaces')
     .select('name, slug')
     .eq('id', spaceId)
     .single();
-  
+
   if (spaceError) {
     console.error('Error fetching space details:', spaceError);
     throw new Error('Failed to update space status');
@@ -705,7 +705,7 @@ export async function toggleSpaceStatus(spaceId: string, isActive: boolean) {
 
   revalidatePath('/dashboard');
   revalidatePath(`/spaces/${spaceId}`);
-  revalidatePath('/history'); 
+  revalidatePath('/history');
   return { success: true };
 }
 
@@ -724,7 +724,7 @@ export interface ActiveQueue {
 
 export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]> {
   const supabase = await createClient();
-  
+
   // Get all queue entries for this user with space information
   const { data, error } = await supabase
     .from('queue')
@@ -751,10 +751,10 @@ export async function getUserActiveQueues(userId: string): Promise<ActiveQueue[]
   // Transform the data to match the ActiveQueue interface
   const activeQueues: ActiveQueue[] = (data || []).map(entry => {
     // Safely access space data with fallbacks
-    const spaceData = Array.isArray(entry.spaces) 
-      ? entry.spaces[0] || {} 
+    const spaceData = Array.isArray(entry.spaces)
+      ? entry.spaces[0] || {}
       : (entry.spaces || {});
-      
+
     return {
       id: entry.id,
       space_id: entry.space_id,
@@ -793,19 +793,18 @@ export async function getSessionHistory(
   pageSize: number = 10
 ): Promise<{ data: SessionHistory[], total: number }> {
   const supabase = await createClient();
-  
+
   // Get total count for pagination
   const { count, error: countError } = await supabase
     .from('session_history_view')
     .select('*', { count: 'exact', head: true })
     .or(`activated_by.eq.${userId},space_id.in.(select id from spaces where user_id = '${userId}')`);
-    
-    console.log("🚀 ~ countError:", countError)
+
   if (countError) {
     console.error('Error counting sessions:', countError);
     throw new Error('Failed to fetch session history');
   }
-  
+
   // Get paginated data
   const { data, error } = await supabase
     .from('session_history_view')
@@ -813,15 +812,15 @@ export async function getSessionHistory(
     .or(`activated_by.eq.${userId},space_id.in.(select id from spaces where user_id = '${userId}')`)
     .order('activated_at', { ascending: false })
     .range((page - 1) * pageSize, page * pageSize - 1);
-  
+
   if (error) {
     console.error('Error fetching session history:', error);
     throw new Error('Failed to fetch session history');
   }
-  
-  return { 
-    data: data as SessionHistory[], 
-    total: count || 0 
+
+  return {
+    data: data as SessionHistory[],
+    total: count || 0
   };
 }
 
@@ -856,7 +855,7 @@ export async function getHistoryData(
   pageSize: number = 10
 ): Promise<{ sessions: SessionHistory[], spaces: SpaceHistory[], total: number }> {
   const supabase = await createClient();
-  
+
   // Get sessions data with proper filter syntax - Fix the OR syntax
   const { data: sessionsData, error: sessionsError, count: sessionsCount } = await supabase
     .from('space_sessions')
@@ -864,12 +863,12 @@ export async function getHistoryData(
     .filter('activated_by', 'eq', userId)
     .range((page - 1) * pageSize, page * pageSize - 1)
     .order('activated_at', { ascending: false });
-  
+
   if (sessionsError) {
     console.error('Error fetching sessions history:', sessionsError);
     throw new Error('Failed to fetch history data');
   }
-  
+
   // Get additional sessions where the user is the space owner
   const { data: ownerSessionsData, error: ownerSessionsError } = await supabase
     .from('space_sessions')
@@ -878,38 +877,38 @@ export async function getHistoryData(
     .not('activated_by', 'eq', userId) // Avoid duplicates
     .order('activated_at', { ascending: false })
     .range((page - 1) * pageSize, page * pageSize - 1);
-  
+
   if (ownerSessionsError) {
     console.error('Error fetching owner sessions history:', ownerSessionsError);
     // Continue with what we have
   }
-  
+
   // Combine both result sets
   const allSessions = [...sessionsData, ...(ownerSessionsData || [])];
-  
+
   // Sort combined results by activated_at
-  allSessions.sort((a, b) => 
+  allSessions.sort((a, b) =>
     new Date(b.activated_at).getTime() - new Date(a.activated_at).getTime()
   );
-  
+
   // Limit to pageSize after combining
   const paginatedSessions = allSessions.slice(0, pageSize);
-  
+
   // Calculate duration for each session
   const sessions = paginatedSessions.map(session => {
     const startTime = new Date(session.activated_at).getTime();
-    const endTime = session.deactivated_at 
-      ? new Date(session.deactivated_at).getTime() 
+    const endTime = session.deactivated_at
+      ? new Date(session.deactivated_at).getTime()
       : new Date().getTime();
-    
+
     const durationMinutes = Math.round((endTime - startTime) / (1000 * 60));
-    
+
     return {
       ...session,
       duration_minutes: durationMinutes
     };
   });
-  
+
   // Get spaces history
   const { data: spacesData, error: spacesError } = await supabase
     .from('spaces_history')
@@ -917,20 +916,35 @@ export async function getHistoryData(
     .eq('created_by', userId)
     .order('created_at', { ascending: false })
     .limit(pageSize);
-  
+
   if (spacesError) {
     console.error('Error fetching spaces history:', spacesError);
     // Continue and return sessions at least
   }
-  
+
   // For pagination, we'd ideally want the total count of all sessions matching our criteria
   // Since we're doing two queries and combining, this is a bit tricky
   // For now, we'll use the count from the first query + the length of the second query
   const approximateTotalCount = (sessionsCount || 0) + (ownerSessionsData?.length || 0);
-  
-  return { 
+
+  return {
     sessions: sessions as SessionHistory[],
     spaces: (spacesData || []) as SpaceHistory[],
     total: approximateTotalCount
   };
+}
+
+export async function updateUserName(name: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.updateUser({
+    data: { full_name: name }
+  });
+
+  if (error) {
+    console.error('Error updating user name:', error);
+    throw new Error('Failed to update user name');
+  }
+
+  revalidatePath('/account')
+  return { success: true };
 }
