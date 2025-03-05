@@ -948,3 +948,19 @@ export async function updateUserName(name: string) {
   /* revalidatePath('/account') */
   return { success: true };
 }
+
+
+//get all spaces
+export async function getAllSpaces() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('spaces')
+    .select('*');
+
+  if (error) {
+    console.error('Error fetching spaces:', error);
+    throw new Error('Failed to fetch spaces');
+  }
+
+  return data as Space[];
+}

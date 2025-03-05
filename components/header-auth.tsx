@@ -2,7 +2,7 @@ import { signOutAction } from "@/app/actions";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/server";
-import { LogOut, History, List, User } from "lucide-react";
+import { LogOut, History, List, User, Settings } from "lucide-react";
 
 export default async function AuthButton() {
   const supabase = await createClient();
@@ -13,7 +13,12 @@ export default async function AuthButton() {
 
   return user ? (
     <div className="flex items-center gap-2">
-      Hola, {user.email}!
+      <Link href="/spaces">
+        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer" size="sm">
+          <List className="size-4" />
+          Espacios
+        </Button>
+      </Link>
       <Link href="/history">
         <Button variant="ghost" className="flex items-center gap-2 cursor-pointer" size="sm">
           <History className="size-4" />
@@ -22,7 +27,7 @@ export default async function AuthButton() {
       </Link>
       <Link href="/dashboard" >
         <Button variant="ghost" className="flex items-center gap-2 cursor-pointer" size="sm">
-          <List className="size-4" />
+          <Settings className="size-4" />
           Dashboard
         </Button>
       </Link>

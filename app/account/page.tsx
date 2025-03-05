@@ -23,7 +23,8 @@ export default async function AccountPage() {
     }
 
     return (
-        <div>
+        <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8">Cuenta</h1>
             <form action={handleSubmit} className="grid gap-4 py-4">
                 <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
