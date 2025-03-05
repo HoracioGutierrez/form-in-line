@@ -18,10 +18,11 @@ async function getPageNumber(searchParams: { page?: string }): Promise<number> {
 export default async function SessionHistoryPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams : Promise<{ page?: string }>;
 }) {
   const supabase = await createClient();
-  const page = await getPageNumber(searchParams);
+  const params = await searchParams;
+  const page = await getPageNumber(params);
   const pageSize = 10;
 
   const {
