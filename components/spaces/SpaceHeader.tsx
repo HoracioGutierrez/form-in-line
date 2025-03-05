@@ -126,7 +126,7 @@ export default function SpaceHeader({
                 <JoinQueueButton
                   spaceId={space?.id}
                   userId={user?.id || ''}
-                  email={user?.email || ''}
+                  email={user?.user_metadata.full_name || user?.email || ''}
                   isAlreadyInQueue={isUserInQueue}
                 />
               </Suspense>

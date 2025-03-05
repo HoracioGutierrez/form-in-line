@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
 import { updateUserName } from "../actions";
 import UpdateUserButton from "@/components/account/UpdateUserButton";
+import { revalidatePath } from "next/cache";
 
 export default async function AccountPage() {
 
@@ -21,6 +22,7 @@ export default async function AccountPage() {
         "use server";
         const nombre = data.get("nombre");
         updateUserName(nombre as string);
+        revalidatePath("/account");
     }
 
     return (

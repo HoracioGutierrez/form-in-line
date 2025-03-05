@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Ban, ListCheck, Loader } from "lucide-react";
+import Link from "next/link";
 
 interface JoinQueueButtonProps {
   spaceId: string;
@@ -29,7 +30,7 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
     setIsSubmitting(true);
 
     try {
-      await joinQueue(spaceId, userId, message);
+      await joinQueue(spaceId, userId, message, alias);
       setIsOpen(false);
       router.refresh();
     } catch (error) {
@@ -76,7 +77,7 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
                 placeholder="Tu nombre o alias"
                 disabled
               />
-              <p className="text-xs text-gray-500">Esto será visible para otros en la fila</p>
+              <p className="text-xs text-gray-500">Para cambiar su alias puede dirigirse a la pagina de <Link href="/account" className="text-blue-500">cuenta</Link></p>
             </div>
 
             <div className="grid gap-2">
@@ -97,7 +98,7 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
                 Cancelar
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? <Loader className="animate-spin"/> : <ListCheck/>}
+                {isSubmitting ? <Loader className="animate-spin" /> : <ListCheck />}
                 {isSubmitting ? "Uniéndose..." : "Unirse a la Fila"}
               </Button>
             </div>

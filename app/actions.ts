@@ -333,7 +333,7 @@ export async function getQueueForSpace(spaceId: string): Promise<QueueUser[]> {
   return queueUsers as QueueUser[];
 }
 
-export async function joinQueue(spaceId: string, userId: string, message?: string) {
+export async function joinQueue(spaceId: string, userId: string, message?: string, alias?: string) {
   const supabase = await createClient();
 
   // Get the current highest position
@@ -945,6 +945,6 @@ export async function updateUserName(name: string) {
     throw new Error('Failed to update user name');
   }
 
-  revalidatePath('/account')
+  /* revalidatePath('/account') */
   return { success: true };
 }

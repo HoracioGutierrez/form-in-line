@@ -99,29 +99,6 @@ export default async function SpaceDetailsPage({
                     </div>
                 )}
             </div>
-            {/* Join queue button - only for active spaces and non-owners who aren't already in queue */}
-            {/* {space.is_active && !space.is_owner && !isUserInQueue && (
-                <div className="mt-8">
-                    <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
-                        <JoinQueueButton
-                            spaceId={space.id}
-                            userId={user.id}
-                            email={user.email || ''}
-                            isAlreadyInQueue={isUserInQueue}
-                        />
-                    </Suspense>
-                </div>
-            )} */}
-
-            {/* Owner controls - only shown to space owner */}
-            {/* {space.is_owner && (
-                <SpaceControls
-                    space={space}
-                    hasQueue={queue.length > 0}
-                />
-            )} */}
-
-            {/* Queue list - only shown when space is active */}
             {space.is_active && (
                 <div className="mt-8">
                     <h2 className="text-xl font-semibold mb-4">Lista de Espera</h2>
