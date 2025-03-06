@@ -65,7 +65,7 @@ export default function SpaceCard({ space }: SpaceCardProps) {
             onClick={handleToggleStatus}
             disabled={isLoading}
             variant={isActive ? 'destructive' : 'outline'}
-            className='flex items-center gap-2'
+            className='flex items-center gap-2 cursor-pointer'
             size="sm"
           >
             {isLoading ? <Loader className='animate-spin size-4' /> : isActive ? <Ban className='size-4' /> : <ListCheck className='size-4' />}
@@ -75,7 +75,7 @@ export default function SpaceCard({ space }: SpaceCardProps) {
             onClick={handleDeleteSpace}
             disabled={isLoading}
             variant={isActive ? 'destructive' : 'outline'}
-            className='flex items-center gap-2'
+            className='flex items-center gap-2 cursor-pointer'
             size="sm"
           >
             {isDeleting ? <Loader className='animate-spin' /> : <Trash2 className='size-4' />}

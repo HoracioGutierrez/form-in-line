@@ -968,7 +968,8 @@ export async function getAllSpaces() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('spaces')
-    .select('*');
+    .select('*')
+    .eq('is_deleted', false)
 
   if (error) {
     console.error('Error fetching spaces:', error);
