@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Space } from '@/app/actions'
+import { deleteSpace, Space } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
-import { Ban, Eye, ListCheck, Loader } from 'lucide-react'
+import { Ban, Eye, ListCheck, Loader, Trash, Trash2 } from 'lucide-react'
 
 interface SpaceCardProps {
   space: Space
@@ -14,6 +14,7 @@ interface SpaceCardProps {
 export default function SpaceCard({ space }: SpaceCardProps) {
   const [isActive, setIsActive] = useState(space.is_active)
   const [isLoading, setIsLoading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const handleToggleStatus = async () => {
     setIsLoading(true)
@@ -24,6 +25,18 @@ export default function SpaceCard({ space }: SpaceCardProps) {
       console.error('Error toggling space status:', error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const handleDeleteSpace = async () => {
+    setIsDeleting(true)
+    try {
+      await deleteSpace(space.id)
+      console.log('Deleting space:', space.id)
+    } catch (error) {
+      console.error('Error deleting space:', error)
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -55,16 +68,26 @@ export default function SpaceCard({ space }: SpaceCardProps) {
             className='flex items-center gap-2'
             size="sm"
           >
-            {isLoading ? <Loader className='animate-spin' /> : isActive ? <Ban /> : <ListCheck />}
-            {isLoading ? 'Cargando ...' : isActive ? 'Desactivar' : 'Activar'}
+            {isLoading ? <Loader className='animate-spin size-4' /> : isActive ? <Ban className='size-4' /> : <ListCheck className='size-4' />}
+            {/* {isLoading ? 'Cargando ...' : isActive ? 'Desactivar' : 'Activar'} */}
+          </Button>
+          <Button
+            onClick={handleDeleteSpace}
+            disabled={isLoading}
+            variant={isActive ? 'destructive' : 'outline'}
+            className='flex items-center gap-2'
+            size="sm"
+          >
+            {isDeleting ? <Loader className='animate-spin' /> : <Trash2 className='size-4' />}
+            {/* {isLoading ? 'Cargando ...' : 'Borrar'} */}
           </Button>
           <Button asChild variant="outline" size="sm">
             <Link
               href={`/spaces/${space.slug}`}
               className="flex items-center gap-2"
             >
-              <Eye />
-              Ver Espacio
+              <Eye className='size-4' />
+              {/* Ver Espacio */}
             </Link>
           </Button>
         </div>
