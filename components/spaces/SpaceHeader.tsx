@@ -82,6 +82,7 @@ export default function SpaceHeader({
     }
   }
 
+
   return (
     <div className="p-6">
       <div className="flex flex-col md:flex-row justify-between items-start gap-4">
@@ -91,8 +92,7 @@ export default function SpaceHeader({
             <p className="text-gray-600 dark:text-gray-300 mt-1">{space.subject}</p>
           )}
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-            {/* Created by {space.user?.full_name || space.user?.email || 'Unknown'} */}
-            Creado por {'Unknown'}
+            Creado por {space.user?.full_name || space.user?.email || 'Unknown'}
           </p>
         </div>
 
