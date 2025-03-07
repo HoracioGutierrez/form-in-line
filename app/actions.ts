@@ -999,6 +999,21 @@ export async function deleteSpace(spaceId: string) {
 //edit space
 export async function editSpace(spaceId: string, name: string, subject: string, slug: string) {
   const supabase = await createClient();
+
+  //check if slug is unique
+  const { data: existingSpace, error: existingError } = await supabase
+    .from('spaces')
+    .select('id')
+    .eq('slug', slug)
+    .neq('id', spaceId)
+    .single();
+
+  if (existingSpace) {
+    console.error('Error editing space:', existingError);
+    throw new Error('Failed to edit space');
+  }
+
+
   const { data, error } = await supabase
     .from('spaces')
     .update({ name, subject, slug })
