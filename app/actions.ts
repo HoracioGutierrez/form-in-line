@@ -964,12 +964,19 @@ export async function updateUserName(name: string) {
 
 
 //get all spaces
-export async function getAllSpaces() {
+export async function getAllSpaces(status: string): Promise<Space[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
+
+  let query = supabase
     .from('spaces')
     .select('*')
-    .eq('is_deleted', false)
+    .eq('is_deleted', false);
+
+  if (status === 'active' || status === 'inactive') {
+    query = query.eq('is_active', status === 'active');
+  }
+
+  const { data, error } = await query.order('created_at', { ascending: false });
 
   if (error) {
     console.error('Error fetching spaces:', error);
@@ -977,6 +984,7 @@ export async function getAllSpaces() {
   }
 
   return data as Space[];
+
 }
 
 //delete space (actually change the deleted_at field to the current date and the is_deleted field to true)
@@ -1024,6 +1032,6 @@ export async function editSpace(spaceId: string, name: string, subject: string, 
     throw new Error('Failed to edit space');
   }
 
-  redirect(`/spaces/${slug}`); 
+  redirect(`/spaces/${slug}`);
   //return { success: true };
 }
