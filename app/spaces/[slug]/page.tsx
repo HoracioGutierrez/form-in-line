@@ -4,9 +4,35 @@ import { getSpaceBySlug, getQueueForSpace } from "@/app/actions";
 import SpaceHeader from "@/components/spaces/SpaceHeader";
 import CurrentSpeaker from "@/components/spaces/CurrentSpeaker";
 import QueueList from "@/components/spaces/QueueList";
-import SpaceControls from "@/components/spaces/SpaceControls";
-import JoinQueueButton from "@/components/spaces/JoinQueueButton";
-import { Suspense } from "react";
+import { Metadata } from "next";
+
+type Props = {
+    params: Promise<{ slug: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    const supabase = await createClient();
+    const { slug } = await params;
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    const space = await getSpaceBySlug(slug, user.id);
+
+    if (!space) {
+        throw new Error("Space not found");
+    }
+
+    return {
+        title: space.name
+    }
+}
 
 export default async function SpaceDetailsPage({
     params
