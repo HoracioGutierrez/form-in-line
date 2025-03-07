@@ -10,7 +10,7 @@ import HistoryPagination from "./pagination";
 async function getPageNumber(searchParams: { page?: string }): Promise<number> {
   const pageParam = searchParams.page;
   if (!pageParam) return 1;
-  
+
   const page = parseInt(pageParam);
   return isNaN(page) || page < 1 ? 1 : page;
 }
@@ -18,7 +18,7 @@ async function getPageNumber(searchParams: { page?: string }): Promise<number> {
 export default async function SessionHistoryPage({
   searchParams,
 }: {
-  searchParams : Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
   const supabase = await createClient();
   const params = await searchParams;
@@ -38,10 +38,10 @@ export default async function SessionHistoryPage({
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Historial de Sesiones</h1>
-      
+
       <div className="mb-6">
         <p className="text-sm text-muted-foreground">
-          Este historial muestra todas las sesiones de tus espacios, incluyendo cuando fueron activados, 
+          Este historial muestra todas las sesiones de tus espacios, incluyendo cuando fueron activados,
           desactivados, y cuántas personas se unieron a la cola durante cada sesión.
         </p>
       </div>
@@ -67,7 +67,7 @@ export default async function SessionHistoryPage({
                 {sessions.map((session) => (
                   <tr key={session.id} className="hover:bg-gray-50 dark:hover:bg-muted/20">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <Link 
+                      <Link
                         href={`/spaces/${session.space_slug}`}
                         className="text-blue-600 dark:text-blue-400 hover:underline"
                       >
@@ -99,10 +99,10 @@ export default async function SessionHistoryPage({
           </div>
         </div>
       )}
-      
+
       <div className="mt-6">
         <Suspense fallback={<div>Loading pagination...</div>}>
-          <HistoryPagination 
+          <HistoryPagination
             currentPage={page}
             totalItems={total}
             pageSize={pageSize}

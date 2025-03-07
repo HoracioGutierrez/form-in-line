@@ -30,7 +30,7 @@ export default function PublicSpaceCard({ space }: SpaceCardProps) {
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-muted dark:border-muted-foreground">
       <div className="p-4">
-        <div className="flex justify-between items-center mb-2">
+        <div className="flex justify-between items-center mb-2 flex-col gap-4 sm:flex-row">
           <div>
             <h3 className="text-lg font-semibold">{space.name}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{space.subject || "Este espacio no tiene asunto"}</p>

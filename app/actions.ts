@@ -150,16 +150,29 @@ export interface Space {
 export async function createSpace({
   name,
   subject,
-  userId
+  userId,
+  slug
 }: {
   name: string;
   subject?: string;
   userId: string;
+  slug: string;
 }) {
   const supabase = await createClient();
 
   // Create a random slug (URL-friendly ID)
-  const slug = nanoid(10);
+  //const slug = nanoid(10);
+  //check if slug is unique
+  const { data: existingSpace, error: existingError } = await supabase
+    .from('spaces')
+    .select('id')
+    .eq('slug', slug)
+    .single();
+
+  if (existingSpace) {
+    console.error('Error creating space:', existingError);
+    throw new Error('Failed to create space');
+  }
 
   // Insert into spaces table
   const { data: spaceData, error } = await supabase
@@ -206,6 +219,7 @@ export async function getUserSpaces(userId: string): Promise<Space[]> {
     .from('spaces')
     .select('*')
     .eq('user_id', userId)
+    .eq('is_deleted', false)
     .order('created_at', { ascending: false });
 
   if (error) {
@@ -255,15 +269,18 @@ export async function getSpaceBySlug(slug: string, userId: string): Promise<Spac
       .from('auth.users')
       .select(`
         email,
-        user_profiles(full_name)
-      `)
+        user_profiles(full_name),
+        user_profiles_view(full_name)
+        `)
       .eq('id', space.user_id)
       .single();
 
-    if (user) {
+    const { data: userView } = await supabase.from("user_profiles_view").select("*").eq("id", space.user_id).single();
+
+    if (userView) {
       space.user = {
-        email: user.email,
-        full_name: user.user_profiles?.[0]?.full_name || null
+        email: userView.email,
+        full_name: userView.full_name
       };
     }
   }
@@ -276,10 +293,6 @@ export async function getSpaceBySlug(slug: string, userId: string): Promise<Spac
   // Flatten user data
   const spaceWithUser = {
     ...space,
-    user: space.user ? {
-      email: space.user.email,
-      full_name: space.user.user_profiles?.[0]?.full_name || null
-    } : null,
     is_owner: space.user_id === userId,
     active_since: space.activated_at
   };
@@ -955,7 +968,8 @@ export async function getAllSpaces() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('spaces')
-    .select('*');
+    .select('*')
+    .eq('is_deleted', false)
 
   if (error) {
     console.error('Error fetching spaces:', error);
@@ -963,4 +977,21 @@ export async function getAllSpaces() {
   }
 
   return data as Space[];
+}
+
+//delete space (actually change the deleted_at field to the current date and the is_deleted field to true)
+export async function deleteSpace(spaceId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('spaces')
+    .update({ is_deleted: true, deleted_at: new Date().toISOString() })
+    .eq('id', spaceId);
+
+  if (error) {
+    console.error('Error deleting space:', error);
+    throw new Error('Failed to delete space');
+  }
+
+  revalidatePath('/dashboard');
+  return { success: true };
 }

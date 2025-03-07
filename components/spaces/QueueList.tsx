@@ -57,7 +57,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
             : "bg-white dark:bg-background border-gray-200 dark:border-muted"
             }`}
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center flex-col gap-4 sm:flex-row">
             <div>
               <div className="flex items-center space-x-2">
                 <div className="font-medium">

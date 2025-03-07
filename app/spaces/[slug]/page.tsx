@@ -54,7 +54,7 @@ export default async function SpaceDetailsPage({
     }
 
     return (
-        <div className="container mx-auto px-4 py-6 max-w-6xl">
+        <div className="container mx-auto p-2 md:px-4 md:py-6 max-w-6xl">
             {/* Space header with name and status */}
             <div className=" border border-gray-200 dark:border-muted rounded-lg bg-white dark:bg-muted/30">
 

@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { getAllSpaces } from "../actions";
-import SpaceCard from "@/components/spaces/SpaceCard";
 import PublicSpaceCard from "@/components/spaces/PublicSpaceCard";
 
 export default async function SpacesPage() {
@@ -16,7 +15,6 @@ export default async function SpacesPage() {
     if (!user) {
         return redirect("/sign-in");
     }
-    console.log("🚀 ~ SpacesPage ~ user:", user)
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -29,7 +27,6 @@ export default async function SpacesPage() {
                     </p>
                 </div>
             )}
-            {/* a list of spaces instead of a grid */}
             <div className="grid grid-cols-1 gap-4">
                 {spaces.map((space) => (
                     <PublicSpaceCard key={space.id} space={space} />
