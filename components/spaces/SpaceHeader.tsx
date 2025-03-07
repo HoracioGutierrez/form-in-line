@@ -1,13 +1,16 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
-import { SpaceWithUser } from '@/app/actions'
+import { editSpace, SpaceWithUser } from '@/app/actions'
 import { joinQueue } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
-import { Ban, ListCheck, ListPlus, Loader } from 'lucide-react'
+import { Ban, Edit, ListCheck, ListPlus, Loader, PlusIcon } from 'lucide-react'
 import JoinQueueButton from './JoinQueueButton'
 import { User } from '@supabase/supabase-js'
+import Modal from '../shared/Modal'
+import { nanoid } from 'nanoid'
+import { redirect } from 'next/navigation'
 
 interface SpaceHeaderProps {
   space: SpaceWithUser
@@ -31,6 +34,11 @@ export default function SpaceHeader({
   const [message, setMessage] = useState('')
   const [showMessageForm, setShowMessageForm] = useState(false)
   const [isTogglingStatus, setIsTogglingStatus] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [name, setName] = useState(space.name || '')
+  const [subject, setSubject] = useState(space.subject || '')
+  const [slug, setSlug] = useState(space.slug || nanoid(10))
 
   useEffect(() => {
     if (!space.is_active || !space.activated_at) return
@@ -82,6 +90,23 @@ export default function SpaceHeader({
     }
   }
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    try {
+      await editSpace(space.id, name, subject, slug)
+      setName('')
+      setSubject('')
+      setIsModalOpen(false)
+      //redirect(`/spaces/${slug}`)
+    } catch (error) {
+      console.error('Error creating space:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
 
   return (
     <div className="p-6">
@@ -104,6 +129,73 @@ export default function SpaceHeader({
               </span>
             </div>
           )}
+          {isOwner && (
+            <Button className='flex items-center gap-2' variant={"outline"} onClick={() => setIsModalOpen(true)}>
+              <Edit className='size-5' />
+              Editar
+            </Button>
+          )}
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            title="Editar Espacio"
+          >
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-muted-foreground/50 mb-1">
+                  Nombre del Espacio *
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-muted-foreground rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+                  placeholder="Nombre del Espacio"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-muted-foreground/50 mb-1">
+                  Tema del Espacio (opcional)
+                </label>
+                <input
+                  id="subject"
+                  type="text"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-muted-foreground rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+                  placeholder="¿De qué se trata este espacio?"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="slug" className="block text-sm font-medium text-gray-700 dark:text-muted-foreground/50 mb-1">
+                  URL Personalizada (opcional)
+                </label>
+                <input
+                  id="slug"
+                  type="text"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-muted-foreground rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-muted-foreground/30"
+                  placeholder="¿De qué se trata este espacio?"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button onClick={() => setIsModalOpen(false)} variant="outline" className="flex items-center gap-2">
+                  <Ban className='size-5' />
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={isLoading} className="flex items-center gap-2" variant="outline">
+                  {isLoading ? <Loader className='animate-spin' /> : <Edit />}
+                  {isLoading ? 'Creando...' : 'Editar Espacio'}
+                </Button>
+              </div>
+            </form>
+          </Modal>
 
           {isOwner ? (
             <Button

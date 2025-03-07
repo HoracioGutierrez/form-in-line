@@ -995,3 +995,20 @@ export async function deleteSpace(spaceId: string) {
   revalidatePath('/dashboard');
   return { success: true };
 }
+
+//edit space
+export async function editSpace(spaceId: string, name: string, subject: string, slug: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('spaces')
+    .update({ name, subject, slug })
+    .eq('id', spaceId);
+
+  if (error) {
+    console.error('Error editing space:', error);
+    throw new Error('Failed to edit space');
+  }
+
+  redirect(`/spaces/${slug}`); 
+  //return { success: true };
+}
