@@ -30,7 +30,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     }
 
     return {
-        title: space.name
+        title: "Form In Line | " + space.name
     }
 }
 
