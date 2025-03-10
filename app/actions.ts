@@ -1035,3 +1035,123 @@ export async function editSpace(spaceId: string, name: string, subject: string, 
   redirect(`/spaces/${slug}`);
   //return { success: true };
 }
+
+//move a user by id up in the queue, change it's position to the position of the user above it
+export async function moveUpInQueue(userId: string, spaceId: string) {
+  const supabase = await createClient();
+
+  const { data: user, error: userError } = await supabase
+    .from('queue')
+    .select('id, position, space_id')
+    .eq('user_id', userId)
+    .eq('space_id', spaceId)
+    .single();
+
+  if (userError) {
+    console.error('Error fetching user:', userError);
+    throw new Error('Failed to move user up');
+  }
+
+  const prevPosition = user.position
+
+  const { data: aboveUser, error: aboveError } = await supabase
+    .from('queue')
+    .select('id, position, space_id,user_id')
+    .eq('space_id', spaceId)
+    .lt('position', user.position)
+    .order('position', { ascending: false })
+    .limit(1);
+
+  if (aboveError) {
+    console.error('Error fetching above user:', aboveError);
+    throw new Error('Failed to move user up');
+  }
+
+  if (!aboveUser) {
+    return { success: true };
+  }
+
+  const { error } = await supabase
+    .from('queue')
+    .update({ position: aboveUser[0].position, is_current_speaker: aboveUser[0].position === 1 })
+    .eq('user_id', userId)
+    .eq('space_id', spaceId);
+
+  if (error) {
+    console.error('Error updating user:', error);
+    throw new Error('Failed to move user up');
+  }
+
+  const { error: aboveError2 } = await supabase
+    .from('queue')
+    .update({ position: prevPosition , is_current_speaker: prevPosition === 1 })
+    .eq('id', aboveUser[0].id);
+
+  if (aboveError2) {
+    console.error('Error updating above user:', aboveError2);
+    throw new Error('Failed to move user up');
+  }
+
+  revalidatePath(`/spaces/${spaceId}`);
+  return { success: true };
+}
+
+//move a user by id down in the queue, change it's position to the position of the user below it
+export async function moveDownInQueue(userId: string, spaceId: string) {
+  const supabase = await createClient();
+
+  const { data: user, error: userError } = await supabase
+    .from('queue')
+    .select('id, position, space_id')
+    .eq('user_id', userId)
+    .eq('space_id', spaceId)
+    .single();
+
+  if (userError) {
+    console.error('Error fetching user:', userError);
+    throw new Error('Failed to move user down');
+  }
+
+  const prevPosition = user.position
+
+  const { data: belowUser, error: belowError } = await supabase
+    .from('queue')
+    .select('id, position, space_id,user_id')
+    .eq('space_id', spaceId)
+    .gt('position', user.position)
+    .order('position', { ascending: true })
+    .limit(1);
+
+  if (belowError) {
+    console.error('Error fetching below user:', belowError);
+    throw new Error('Failed to move user down');
+  }
+
+  if (!belowUser) {
+    return { success: true };
+  }
+
+  const { error } = await supabase
+    .from('queue')
+    .update({ position: belowUser[0].position, is_current_speaker: belowUser[0].position === 1 })
+    .eq('user_id', userId)
+    .eq('space_id', spaceId);
+
+  if (error) {
+    console.error('Error updating user:', error);
+    throw new Error('Failed to move user down');
+  }
+
+  const { error: belowError2 } = await supabase
+    .from('queue')
+    .update({ position: prevPosition, is_current_speaker: prevPosition === 1 })
+    .eq('id', belowUser[0].id);
+
+  if (belowError2) {
+    console.error('Error updating below user:', belowError2);
+    throw new Error('Failed to move user down');
+  }
+
+  revalidatePath(`/spaces/${spaceId}`);
+  return { success: true };
+}

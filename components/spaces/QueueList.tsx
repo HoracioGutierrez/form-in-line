@@ -1,9 +1,9 @@
 "use client";
 
-import { QueueUser, leaveQueue, togglePauseStatus } from "@/app/actions";
+import { QueueUser, leaveQueue, moveDownInQueue, moveUpInQueue, togglePauseStatus } from "@/app/actions";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { Loader, Pause, Play, Trash } from "lucide-react";
+import { ArrowDown, ArrowUp, Loader, Pause, Play, Trash } from "lucide-react";
 
 interface QueueListProps {
   users: QueueUser[];
@@ -14,6 +14,10 @@ interface QueueListProps {
 
 export default function QueueList({ users, isOwner, currentUserId, spaceId }: QueueListProps) {
   const [isLoading, setIsLoading] = useState<Record<string, boolean>>({});
+  const [isPauseLoading, setIsPauseLoading] = useState<Record<string, boolean>>({ });
+  const [isLeaveLoading, setIsLeaveLoading] = useState<Record<string, boolean>>({ });
+  const [isMoveUpLoading, setIsMoveUpLoading] = useState<Record<string, boolean>>({ });
+  const [isMoveDownLoading, setIsMoveDownLoading] = useState<Record<string, boolean>>({ });
 
   const handleLeaveQueue = async (queueId: string) => {
     setIsLoading(prev => ({ ...prev, [queueId]: true }));
@@ -27,15 +31,37 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
   };
 
   const handleTogglePause = async (queueId: string, currentPaused: boolean) => {
-    setIsLoading(prev => ({ ...prev, [`pause_${queueId}`]: true }));
+    setIsPauseLoading((prev) => ({ ...prev, [`pause_${queueId}`]: true }));
     try {
       await togglePauseStatus(queueId, spaceId, !currentPaused);
     } catch (error) {
       console.error("Error toggling pause status:", error);
     } finally {
-      setIsLoading(prev => ({ ...prev, [`pause_${queueId}`]: false }));
+      setIsPauseLoading((prev) => ({ ...prev, [`pause_${queueId}`]: false }));
     }
   };
+
+  const handleMoveUpInQueue = async (userId: string) => {
+    setIsMoveUpLoading((prev) => ({ ...prev, [userId]: true }));
+    try {
+      await moveUpInQueue(userId, spaceId);
+    } catch (error) {
+      console.error("Error moving up in queue:", error);
+    } finally {
+      setIsMoveUpLoading((prev) => ({ ...prev, [userId]: false }));
+    }
+  }
+
+  const handleMoveDownInQueue = async (userId: string) => {
+    setIsMoveDownLoading((prev) => ({ ...prev, [userId]: true }));
+    try {
+      await moveDownInQueue(userId, spaceId);
+    } catch (error) {
+      console.error("Error moving down in queue:", error);
+    } finally {
+      setIsMoveDownLoading((prev) => ({ ...prev, [userId]: false }));
+    }
+  }
 
   if (users.length === 0) {
     return (
@@ -81,6 +107,39 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
 
             <div className="flex space-x-2">
               {/* Show controls for own entry or if admin */}
+
+              <>
+                {user.position > 1 && (
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    size={"sm"}
+                    onClick={() => handleMoveUpInQueue(user.user_id)}
+                  >
+                    {/* <ArrowUp /> */}
+                    {/* {isMoveUpLoading ? <Loader className="animate-spin" /> : <ArrowUp />} */}
+                    {/* Subir */}
+                    {/* {isMoveUpLoading ? "Subiendo" : "Subir"} */}
+                    {isMoveUpLoading[user.user_id] ? <Loader className="animate-spin" /> : <ArrowUp />}
+                    {isMoveUpLoading[user.user_id] ? "Subiendo" : "Subir"}
+                  </Button>
+                )}
+                {user.position < users.length && (
+                  <Button
+                    variant="outline"
+                    className="flex items-center gap-2"
+                    size={"sm"}
+                    onClick={() => handleMoveDownInQueue(user.user_id)}
+                  >
+                    {/* <ArrowDown /> */}
+                    {/* {isMoveDownLoading ? <Loader className="animate-spin" /> : <ArrowDown />} */}
+                    {/* Bajar */}
+                    {/* {isMoveDownLoading ? "Bajando" : "Bajar"} */}
+                    {isMoveDownLoading[user.user_id] ? <Loader className="animate-spin" /> : <ArrowDown />}
+                    {isMoveDownLoading[user.user_id] ? "Bajando" : "Bajar"}
+                  </Button>
+                )}
+              </>
               {(isOwner || user.user_id === currentUserId) && (
                 <>
                   <Button
@@ -90,7 +149,7 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                     className="flex items-center gap-2"
                     size={"sm"}
                   >
-                    {isLoading[`pause_${user.id}`] ? <Loader className="animate-spin"/> : user.is_paused ? <Play /> : <Pause />}
+                    {isLoading[`pause_${user.id}`] ? <Loader className="animate-spin" /> : user.is_paused ? <Play /> : <Pause />}
                     {isLoading[`pause_${user.id}`] ? "..." : (user.is_paused ? "Reanudar" : "Pausar")}
                   </Button>
                   <Button
@@ -100,8 +159,8 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
                     className="flex items-center gap-2"
                     size={"sm"}
                   >
-                    {isLoading[user.id] ? <Loader className="animate-spin"/> : <Trash />}
-                    {isLoading[user.id] ? <Loader className="animate-spin"/> : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
+                    {isLoading[user.id] ? <Loader className="animate-spin" /> : <Trash />}
+                    {isLoading[user.id] ? <Loader className="animate-spin" /> : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
                   </Button>
                 </>
               )}

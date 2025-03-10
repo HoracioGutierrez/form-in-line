@@ -14,7 +14,6 @@ export default async function SpacesPage({ searchParams }: { searchParams: Promi
 
     const keyString = `spaceType=${params?.spaceType || "all"}`;
 
-    console.log("🚀 ~ SpacesPage ~ keyString:", keyString)
     const {
         data: { user },
     } = await supabase.auth.getUser();
