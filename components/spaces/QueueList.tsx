@@ -4,6 +4,7 @@ import { QueueUser, leaveQueue, moveDownInQueue, moveUpInQueue, togglePauseStatu
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { ArrowDown, ArrowUp, Loader, Pause, Play, Trash } from "lucide-react";
+import IconButtonWithTooltip from "../shared/IconButtonWithTooltip";
 
 interface QueueListProps {
   users: QueueUser[];
@@ -14,10 +15,10 @@ interface QueueListProps {
 
 export default function QueueList({ users, isOwner, currentUserId, spaceId }: QueueListProps) {
   const [isLoading, setIsLoading] = useState<Record<string, boolean>>({});
-  const [isPauseLoading, setIsPauseLoading] = useState<Record<string, boolean>>({ });
-  const [isLeaveLoading, setIsLeaveLoading] = useState<Record<string, boolean>>({ });
-  const [isMoveUpLoading, setIsMoveUpLoading] = useState<Record<string, boolean>>({ });
-  const [isMoveDownLoading, setIsMoveDownLoading] = useState<Record<string, boolean>>({ });
+  const [isPauseLoading, setIsPauseLoading] = useState<Record<string, boolean>>({});
+  const [isLeaveLoading, setIsLeaveLoading] = useState<Record<string, boolean>>({});
+  const [isMoveUpLoading, setIsMoveUpLoading] = useState<Record<string, boolean>>({});
+  const [isMoveDownLoading, setIsMoveDownLoading] = useState<Record<string, boolean>>({});
 
   const handleLeaveQueue = async (queueId: string) => {
     setIsLoading(prev => ({ ...prev, [queueId]: true }));
@@ -110,58 +111,36 @@ export default function QueueList({ users, isOwner, currentUserId, spaceId }: Qu
 
               <>
                 {user.position > 1 && (
-                  <Button
-                    variant="outline"
-                    className="flex items-center gap-2"
-                    size={"sm"}
+                  <IconButtonWithTooltip
+                    message={isMoveUpLoading[user.user_id] ? "..." : "Subir de posición en la cola"}
                     onClick={() => handleMoveUpInQueue(user.user_id)}
                   >
-                    {/* <ArrowUp /> */}
-                    {/* {isMoveUpLoading ? <Loader className="animate-spin" /> : <ArrowUp />} */}
-                    {/* Subir */}
-                    {/* {isMoveUpLoading ? "Subiendo" : "Subir"} */}
                     {isMoveUpLoading[user.user_id] ? <Loader className="animate-spin" /> : <ArrowUp />}
-                    {isMoveUpLoading[user.user_id] ? "Subiendo" : "Subir"}
-                  </Button>
+                  </IconButtonWithTooltip>
                 )}
                 {user.position < users.length && (
-                  <Button
-                    variant="outline"
-                    className="flex items-center gap-2"
-                    size={"sm"}
+                  <IconButtonWithTooltip
+                    message={isMoveDownLoading[user.user_id] ? "..." : "Bajar de posición"}
                     onClick={() => handleMoveDownInQueue(user.user_id)}
                   >
-                    {/* <ArrowDown /> */}
-                    {/* {isMoveDownLoading ? <Loader className="animate-spin" /> : <ArrowDown />} */}
-                    {/* Bajar */}
-                    {/* {isMoveDownLoading ? "Bajando" : "Bajar"} */}
                     {isMoveDownLoading[user.user_id] ? <Loader className="animate-spin" /> : <ArrowDown />}
-                    {isMoveDownLoading[user.user_id] ? "Bajando" : "Bajar"}
-                  </Button>
+                  </IconButtonWithTooltip>
                 )}
               </>
               {(isOwner || user.user_id === currentUserId) && (
                 <>
-                  <Button
+                  <IconButtonWithTooltip
+                    message={isLoading[`pause_${user.id}`] ? "..." : (user.is_paused ? "Reanudar mi turno" : "Pausar mi turno")}
                     onClick={() => handleTogglePause(user.id, user.is_paused)}
-                    disabled={isLoading[`pause_${user.id}`]}
-                    variant="outline"
-                    className="flex items-center gap-2"
-                    size={"sm"}
                   >
-                    {isLoading[`pause_${user.id}`] ? <Loader className="animate-spin" /> : user.is_paused ? <Play /> : <Pause />}
-                    {isLoading[`pause_${user.id}`] ? "..." : (user.is_paused ? "Reanudar" : "Pausar")}
-                  </Button>
-                  <Button
+                    {isPauseLoading[`pause_${user.id}`] ? <Loader className="animate-spin" /> : user.is_paused ? <Play /> : <Pause />}
+                  </IconButtonWithTooltip>
+                  <IconButtonWithTooltip
+                    message={isLoading[user.id] ? "..." : (user.user_id === currentUserId ? "Salir de la espera" : "Eliminar")}
                     onClick={() => handleLeaveQueue(user.id)}
-                    disabled={isLoading[user.id]}
-                    variant="outline"
-                    className="flex items-center gap-2"
-                    size={"sm"}
                   >
                     {isLoading[user.id] ? <Loader className="animate-spin" /> : <Trash />}
-                    {isLoading[user.id] ? <Loader className="animate-spin" /> : (user.user_id === currentUserId ? "Salir" : "Eliminar")}
-                  </Button>
+                  </IconButtonWithTooltip>
                 </>
               )}
             </div>

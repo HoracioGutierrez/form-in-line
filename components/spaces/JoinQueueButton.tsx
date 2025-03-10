@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Ban, ListCheck, Loader } from "lucide-react";
+import { Ban, ListCheck, ListEndIcon, Loader } from "lucide-react";
 import Link from "next/link";
+import IconButtonWithTooltip from "../shared/IconButtonWithTooltip";
 
 interface JoinQueueButtonProps {
   spaceId: string;
@@ -50,13 +51,16 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
 
   return (
     <>
-      <Button
+      {/* <Button
         onClick={() => setIsOpen(true)}
         className="w-full"
         variant="default"
       >
         Unirse a la Fila de Espera
-      </Button>
+      </Button> */}
+      <IconButtonWithTooltip message="Unirse a la Fila de Espera" onClick={() => setIsOpen(true)}>
+        <ListEndIcon />
+      </IconButtonWithTooltip>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -93,11 +97,11 @@ export default function JoinQueueButton({ spaceId, userId, email, isAlreadyInQue
             </div>
 
             <div className="flex justify-end gap-2 mt-4">
-              <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>
+              <Button type="button" variant="outline" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
                 <Ban />
                 Cancelar
               </Button>
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting} className="flex items-center gap-2">
                 {isSubmitting ? <Loader className="animate-spin" /> : <ListCheck />}
                 {isSubmitting ? "Uniéndose..." : "Unirse a la Fila"}
               </Button>

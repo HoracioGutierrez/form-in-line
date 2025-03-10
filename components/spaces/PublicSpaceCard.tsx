@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { Space } from '@/app/actions'
 import { toggleSpaceStatus } from '@/app/actions'
 import { Button } from '../ui/button'
-import { Ban, Eye, ListCheck, Loader } from 'lucide-react'
+import { Ban, Eye, ListCheck, Loader, LogIn } from 'lucide-react'
+import IconButtonWithTooltip from '../shared/IconButtonWithTooltip'
 
 interface SpaceCardProps {
   space: Space
@@ -44,15 +45,14 @@ export default function PublicSpaceCard({ space }: SpaceCardProps) {
             >
               {isActive ? 'Activo' : 'Inactivo'}
             </span>
-            <Button asChild variant="outline" size="sm">
+            <IconButtonWithTooltip message="Ver Espacio">
               <Link
                 href={`/spaces/${space.slug}`}
                 className="flex items-center gap-2"
               >
-                <Eye />
-                Ver Espacio
+                <LogIn />
               </Link>
-            </Button>
+            </IconButtonWithTooltip>
           </div>
         </div>
       </div>

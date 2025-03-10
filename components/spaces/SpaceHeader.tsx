@@ -10,7 +10,7 @@ import JoinQueueButton from './JoinQueueButton'
 import { User } from '@supabase/supabase-js'
 import Modal from '../shared/Modal'
 import { nanoid } from 'nanoid'
-import { redirect } from 'next/navigation'
+import IconButtonWithTooltip from '../shared/IconButtonWithTooltip'
 
 interface SpaceHeaderProps {
   space: SpaceWithUser
@@ -130,11 +130,11 @@ export default function SpaceHeader({
             </div>
           )}
           {isOwner && (
-            <Button className='flex items-center gap-2' variant={"outline"} onClick={() => setIsModalOpen(true)}>
+            <IconButtonWithTooltip message="Editar Espacio" onClick={() => setIsModalOpen(true)}>
               <Edit className='size-5' />
-              Editar
-            </Button>
+            </IconButtonWithTooltip>
           )}
+
           <Modal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
@@ -198,20 +198,14 @@ export default function SpaceHeader({
           </Modal>
 
           {isOwner ? (
-            <Button
+            <IconButtonWithTooltip
+              message={isTogglingStatus ? 'Procesando ...' : space.is_active
+                ? 'Desactivar Espacio'
+                : 'Activar Espacio'}
               onClick={handleToggleStatus}
-              disabled={isTogglingStatus}
-              variant={space.is_active ? 'destructive' : 'outline'}
-              className='flex items-center gap-2'
             >
               {isTogglingStatus ? <Loader className="animate-spin" /> : space.is_active ? <Ban /> : <ListCheck />}
-              {isTogglingStatus
-                ? 'Procesando ...'
-                : space.is_active
-                  ? 'Desactivar Espacio'
-                  : 'Activar Espacio'
-              }
-            </Button>
+            </IconButtonWithTooltip>
           ) : (
             space.is_active && !space.is_owner && !isUserInQueue && (
               <Suspense fallback={<div className="h-10 bg-gray-200 animate-pulse rounded-md"></div>}>
