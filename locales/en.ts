@@ -78,13 +78,17 @@ export default {
         'button-loading' : 'Signing in',
         'google' : 'Sign In with Google'
     },
+    'spaces' : {
+        'title' : "Spaces",
+    },
     'layout' : {
         'links' : {
             'home': 'home',
             'signup': 'sign up',
             'login': 'log in',
             'dashboard': 'dashboard',
-            'logout': 'logout'
+            'logout': 'logout',
+            'spaces': 'spaces'
         },
         'locale' : {
             'loading': 'Changing locale...'

@@ -78,13 +78,17 @@ export default {
         'button-loading' : 'Iniciando Sesión',
         'google' : 'Iniciar Sesión con Google'
     },
+    'spaces' : {
+        'title' : "Espacios",
+    },
     'layout' : {
         'links' : {
             'home': 'inicio',
             'signup': 'registrarse',
             'login': 'iniciar sesión',
             'dashboard': 'perfil',
-            'logout': 'salir'
+            'logout': 'salir',
+            'spaces': 'espacios'
         },
         'locale' : {
             'loading': 'Cambiando idioma...'

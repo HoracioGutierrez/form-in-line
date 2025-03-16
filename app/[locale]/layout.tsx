@@ -21,10 +21,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title : {
-    default : "NextJS Boilerplate",
-    template : "NextJS Boilerplate | %s",
+    default : "Form in line",
+    template : "Form in line | %s",
   },
-  description: "NextJS Boilerplate with TypeScript, TailwindCSS, Internationalization, Supabase and more.",
+  description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online.",
 };
 
 async function RootLayout({ children }: RootLayoutProps) {
