@@ -31,6 +31,7 @@ export const handleCreateSpace = async (formData: FormData) => {
                 name: name,
                 subject: subject,
                 is_active: true,
+                slug: slug,
                 created_by: {
                     connect: {
                         email: loggedUser.email

@@ -2126,6 +2126,7 @@ export namespace Prisma {
     users_id: number | null
     is_deleted: boolean | null
     deleted_at: Date | null
+    slug: string | null
   }
 
   export type SpacesMaxAggregateOutputType = {
@@ -2138,6 +2139,7 @@ export namespace Prisma {
     users_id: number | null
     is_deleted: boolean | null
     deleted_at: Date | null
+    slug: string | null
   }
 
   export type SpacesCountAggregateOutputType = {
@@ -2150,6 +2152,7 @@ export namespace Prisma {
     users_id: number
     is_deleted: number
     deleted_at: number
+    slug: number
     _all: number
   }
 
@@ -2174,6 +2177,7 @@ export namespace Prisma {
     users_id?: true
     is_deleted?: true
     deleted_at?: true
+    slug?: true
   }
 
   export type SpacesMaxAggregateInputType = {
@@ -2186,6 +2190,7 @@ export namespace Prisma {
     users_id?: true
     is_deleted?: true
     deleted_at?: true
+    slug?: true
   }
 
   export type SpacesCountAggregateInputType = {
@@ -2198,6 +2203,7 @@ export namespace Prisma {
     users_id?: true
     is_deleted?: true
     deleted_at?: true
+    slug?: true
     _all?: true
   }
 
@@ -2297,6 +2303,7 @@ export namespace Prisma {
     users_id: number
     is_deleted: boolean
     deleted_at: Date | null
+    slug: string
     _count: SpacesCountAggregateOutputType | null
     _avg: SpacesAvgAggregateOutputType | null
     _sum: SpacesSumAggregateOutputType | null
@@ -2328,6 +2335,7 @@ export namespace Prisma {
     users_id?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    slug?: boolean
     created_by?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2341,6 +2349,7 @@ export namespace Prisma {
     users_id?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    slug?: boolean
     created_by?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2354,6 +2363,7 @@ export namespace Prisma {
     users_id?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    slug?: boolean
     created_by?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2367,9 +2377,10 @@ export namespace Prisma {
     users_id?: boolean
     is_deleted?: boolean
     deleted_at?: boolean
+    slug?: boolean
   }
 
-  export type spacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "created_at" | "updated_at" | "subject" | "is_active" | "users_id" | "is_deleted" | "deleted_at", ExtArgs["result"]["spaces"]>
+  export type spacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "created_at" | "updated_at" | "subject" | "is_active" | "users_id" | "is_deleted" | "deleted_at" | "slug", ExtArgs["result"]["spaces"]>
   export type spacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -2395,6 +2406,7 @@ export namespace Prisma {
       users_id: number
       is_deleted: boolean
       deleted_at: Date | null
+      slug: string
     }, ExtArgs["result"]["spaces"]>
     composites: {}
   }
@@ -2828,6 +2840,7 @@ export namespace Prisma {
     readonly users_id: FieldRef<"spaces", 'Int'>
     readonly is_deleted: FieldRef<"spaces", 'Boolean'>
     readonly deleted_at: FieldRef<"spaces", 'DateTime'>
+    readonly slug: FieldRef<"spaces", 'String'>
   }
     
 
@@ -3276,7 +3289,8 @@ export namespace Prisma {
     is_active: 'is_active',
     users_id: 'users_id',
     is_deleted: 'is_deleted',
-    deleted_at: 'deleted_at'
+    deleted_at: 'deleted_at',
+    slug: 'slug'
   };
 
   export type SpacesScalarFieldEnum = (typeof SpacesScalarFieldEnum)[keyof typeof SpacesScalarFieldEnum]
@@ -3447,6 +3461,7 @@ export namespace Prisma {
     users_id?: IntFilter<"spaces"> | number
     is_deleted?: BoolFilter<"spaces"> | boolean
     deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+    slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -3460,6 +3475,7 @@ export namespace Prisma {
     users_id?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    slug?: SortOrder
     created_by?: usersOrderByWithRelationInput
   }
 
@@ -3476,6 +3492,7 @@ export namespace Prisma {
     users_id?: IntFilter<"spaces"> | number
     is_deleted?: BoolFilter<"spaces"> | boolean
     deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+    slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id">
 
@@ -3489,6 +3506,7 @@ export namespace Prisma {
     users_id?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrderInput | SortOrder
+    slug?: SortOrder
     _count?: spacesCountOrderByAggregateInput
     _avg?: spacesAvgOrderByAggregateInput
     _max?: spacesMaxOrderByAggregateInput
@@ -3509,6 +3527,7 @@ export namespace Prisma {
     users_id?: IntWithAggregatesFilter<"spaces"> | number
     is_deleted?: BoolWithAggregatesFilter<"spaces"> | boolean
     deleted_at?: DateTimeNullableWithAggregatesFilter<"spaces"> | Date | string | null
+    slug?: StringWithAggregatesFilter<"spaces"> | string
   }
 
   export type usersCreateInput = {
@@ -3576,6 +3595,7 @@ export namespace Prisma {
     is_active: boolean
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
   }
 
@@ -3589,6 +3609,7 @@ export namespace Prisma {
     users_id: number
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
   }
 
   export type spacesUpdateInput = {
@@ -3599,6 +3620,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
   }
 
@@ -3612,6 +3634,7 @@ export namespace Prisma {
     users_id?: IntFieldUpdateOperationsInput | number
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type spacesCreateManyInput = {
@@ -3624,6 +3647,7 @@ export namespace Prisma {
     users_id: number
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
   }
 
   export type spacesUpdateManyMutationInput = {
@@ -3634,6 +3658,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type spacesUncheckedUpdateManyInput = {
@@ -3646,6 +3671,7 @@ export namespace Prisma {
     users_id?: IntFieldUpdateOperationsInput | number
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3844,6 +3870,7 @@ export namespace Prisma {
     users_id?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    slug?: SortOrder
   }
 
   export type spacesAvgOrderByAggregateInput = {
@@ -3861,6 +3888,7 @@ export namespace Prisma {
     users_id?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    slug?: SortOrder
   }
 
   export type spacesMinOrderByAggregateInput = {
@@ -3873,6 +3901,7 @@ export namespace Prisma {
     users_id?: SortOrder
     is_deleted?: SortOrder
     deleted_at?: SortOrder
+    slug?: SortOrder
   }
 
   export type spacesSumOrderByAggregateInput = {
@@ -4168,6 +4197,7 @@ export namespace Prisma {
     is_active: boolean
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
   }
 
   export type spacesUncheckedCreateWithoutCreated_byInput = {
@@ -4179,6 +4209,7 @@ export namespace Prisma {
     is_active: boolean
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
   }
 
   export type spacesCreateOrConnectWithoutCreated_byInput = {
@@ -4220,6 +4251,7 @@ export namespace Prisma {
     users_id?: IntFilter<"spaces"> | number
     is_deleted?: BoolFilter<"spaces"> | boolean
     deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+    slug?: StringFilter<"spaces"> | string
   }
 
   export type usersCreateWithoutSpacesInput = {
@@ -4277,6 +4309,7 @@ export namespace Prisma {
     is_active: boolean
     is_deleted?: boolean
     deleted_at?: Date | string | null
+    slug: string
   }
 
   export type spacesUpdateWithoutCreated_byInput = {
@@ -4287,6 +4320,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type spacesUncheckedUpdateWithoutCreated_byInput = {
@@ -4298,6 +4332,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
@@ -4309,6 +4344,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
   }
 
 

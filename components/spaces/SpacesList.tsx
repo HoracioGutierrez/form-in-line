@@ -14,7 +14,7 @@ async function SpacesList() {
                             <div key={space.id} className="border-dashed border dark:border-muted p-4 rounded-lg">
                                 <h2 className="text-lg font-bold">{space.name}</h2>
                                 <p className="text-muted-foreground">{space.subject}</p>
-                                {/* <p className="text-muted-foreground">URL: {space.slug}</p> */}
+                                <p className="text-muted-foreground">URL: {space.slug}</p>
                             </div>
                         )
                     })}

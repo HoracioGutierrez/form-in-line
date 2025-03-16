@@ -134,7 +134,8 @@ exports.Prisma.SpacesScalarFieldEnum = {
   is_active: 'is_active',
   users_id: 'users_id',
   is_deleted: 'is_deleted',
-  deleted_at: 'deleted_at'
+  deleted_at: 'deleted_at',
+  slug: 'slug'
 };
 
 exports.Prisma.SortOrder = {

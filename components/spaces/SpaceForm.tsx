@@ -35,7 +35,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space }: SpaceFo
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button>{buttonText}</Button>
+                <Button variant="outline">{buttonText}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

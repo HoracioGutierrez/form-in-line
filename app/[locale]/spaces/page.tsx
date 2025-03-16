@@ -6,12 +6,15 @@ import { createClient } from "@/supabase/server"
 async function SpacesPage() {
 
   const supabase = await createClient()
-  const { data, error } = await supabase.auth.getUser()
+  const { data } = await supabase.auth.getUser()
   const t = await getI18n()
 
   return (
     <section className="grow flex flex-col">
-      <h2 className="font-bold text-2xl mb-10">{t("spaces.title")}</h2>
+      <div className="flex justify-between items-center mb-10">
+        <h2 className="font-bold text-2xl">{t("spaces.title")}</h2>
+        {data.user && <SpaceForm />}
+      </div>
       <SpacesList />
     </section>
   )
