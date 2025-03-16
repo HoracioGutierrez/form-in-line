@@ -31,5 +31,16 @@ model spaces {
   is_deleted Boolean   @default(false)
   deleted_at DateTime?
 
-  slug String
+  slug                    String
+  spaces_activation_times spaces_activation_times[]
+}
+
+model spaces_activation_times {
+  id Int @id @default(autoincrement())
+
+  space_id Int
+  space    spaces @relation(fields: [space_id], references: [id])
+
+  day_of_week String
+  start_time  String
 }

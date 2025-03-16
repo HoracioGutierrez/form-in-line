@@ -138,6 +138,13 @@ exports.Prisma.SpacesScalarFieldEnum = {
   slug: 'slug'
 };
 
+exports.Prisma.Spaces_activation_timesScalarFieldEnum = {
+  id: 'id',
+  space_id: 'space_id',
+  day_of_week: 'day_of_week',
+  start_time: 'start_time'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -156,7 +163,8 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   users: 'users',
-  spaces: 'spaces'
+  spaces: 'spaces',
+  spaces_activation_times: 'spaces_activation_times'
 };
 
 /**

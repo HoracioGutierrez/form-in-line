@@ -23,6 +23,11 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  * 
  */
 export type spaces = $Result.DefaultSelection<Prisma.$spacesPayload>
+/**
+ * Model spaces_activation_times
+ * 
+ */
+export type spaces_activation_times = $Result.DefaultSelection<Prisma.$spaces_activation_timesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -168,6 +173,16 @@ export class PrismaClient<
     * ```
     */
   get spaces(): Prisma.spacesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spaces_activation_times`: Exposes CRUD operations for the **spaces_activation_times** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Spaces_activation_times
+    * const spaces_activation_times = await prisma.spaces_activation_times.findMany()
+    * ```
+    */
+  get spaces_activation_times(): Prisma.spaces_activation_timesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -609,7 +624,8 @@ export namespace Prisma {
 
   export const ModelName: {
     users: 'users',
-    spaces: 'spaces'
+    spaces: 'spaces',
+    spaces_activation_times: 'spaces_activation_times'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -628,7 +644,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "spaces"
+      modelProps: "users" | "spaces" | "spaces_activation_times"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -780,6 +796,80 @@ export namespace Prisma {
           }
         }
       }
+      spaces_activation_times: {
+        payload: Prisma.$spaces_activation_timesPayload<ExtArgs>
+        fields: Prisma.spaces_activation_timesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.spaces_activation_timesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.spaces_activation_timesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          findFirst: {
+            args: Prisma.spaces_activation_timesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.spaces_activation_timesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          findMany: {
+            args: Prisma.spaces_activation_timesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>[]
+          }
+          create: {
+            args: Prisma.spaces_activation_timesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          createMany: {
+            args: Prisma.spaces_activation_timesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.spaces_activation_timesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>[]
+          }
+          delete: {
+            args: Prisma.spaces_activation_timesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          update: {
+            args: Prisma.spaces_activation_timesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          deleteMany: {
+            args: Prisma.spaces_activation_timesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.spaces_activation_timesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.spaces_activation_timesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>[]
+          }
+          upsert: {
+            args: Prisma.spaces_activation_timesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spaces_activation_timesPayload>
+          }
+          aggregate: {
+            args: Prisma.Spaces_activation_timesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpaces_activation_times>
+          }
+          groupBy: {
+            args: Prisma.spaces_activation_timesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Spaces_activation_timesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.spaces_activation_timesCountArgs<ExtArgs>
+            result: $Utils.Optional<Spaces_activation_timesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -866,6 +956,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     users?: usersOmit
     spaces?: spacesOmit
+    spaces_activation_times?: spaces_activation_timesOmit
   }
 
   /* Types for Logging */
@@ -983,6 +1074,37 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: spacesWhereInput
+  }
+
+
+  /**
+   * Count Type SpacesCountOutputType
+   */
+
+  export type SpacesCountOutputType = {
+    spaces_activation_times: number
+  }
+
+  export type SpacesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    spaces_activation_times?: boolean | SpacesCountOutputTypeCountSpaces_activation_timesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SpacesCountOutputType without action
+   */
+  export type SpacesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SpacesCountOutputType
+     */
+    select?: SpacesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SpacesCountOutputType without action
+   */
+  export type SpacesCountOutputTypeCountSpaces_activation_timesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spaces_activation_timesWhereInput
   }
 
 
@@ -2337,6 +2459,8 @@ export namespace Prisma {
     deleted_at?: boolean
     slug?: boolean
     created_by?: boolean | usersDefaultArgs<ExtArgs>
+    spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
+    _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
   export type spacesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2383,6 +2507,8 @@ export namespace Prisma {
   export type spacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "created_at" | "updated_at" | "subject" | "is_active" | "users_id" | "is_deleted" | "deleted_at" | "slug", ExtArgs["result"]["spaces"]>
   export type spacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
+    spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
+    _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type spacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
@@ -2395,6 +2521,7 @@ export namespace Prisma {
     name: "spaces"
     objects: {
       created_by: Prisma.$usersPayload<ExtArgs>
+      spaces_activation_times: Prisma.$spaces_activation_timesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2802,6 +2929,7 @@ export namespace Prisma {
   export interface Prisma__spacesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     created_by<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    spaces_activation_times<T extends spaces$spaces_activation_timesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$spaces_activation_timesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3237,6 +3365,30 @@ export namespace Prisma {
   }
 
   /**
+   * spaces.spaces_activation_times
+   */
+  export type spaces$spaces_activation_timesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    where?: spaces_activation_timesWhereInput
+    orderBy?: spaces_activation_timesOrderByWithRelationInput | spaces_activation_timesOrderByWithRelationInput[]
+    cursor?: spaces_activation_timesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Spaces_activation_timesScalarFieldEnum | Spaces_activation_timesScalarFieldEnum[]
+  }
+
+  /**
    * spaces without action
    */
   export type spacesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3252,6 +3404,1089 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: spacesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model spaces_activation_times
+   */
+
+  export type AggregateSpaces_activation_times = {
+    _count: Spaces_activation_timesCountAggregateOutputType | null
+    _avg: Spaces_activation_timesAvgAggregateOutputType | null
+    _sum: Spaces_activation_timesSumAggregateOutputType | null
+    _min: Spaces_activation_timesMinAggregateOutputType | null
+    _max: Spaces_activation_timesMaxAggregateOutputType | null
+  }
+
+  export type Spaces_activation_timesAvgAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+  }
+
+  export type Spaces_activation_timesSumAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+  }
+
+  export type Spaces_activation_timesMinAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    day_of_week: string | null
+    start_time: string | null
+  }
+
+  export type Spaces_activation_timesMaxAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    day_of_week: string | null
+    start_time: string | null
+  }
+
+  export type Spaces_activation_timesCountAggregateOutputType = {
+    id: number
+    space_id: number
+    day_of_week: number
+    start_time: number
+    _all: number
+  }
+
+
+  export type Spaces_activation_timesAvgAggregateInputType = {
+    id?: true
+    space_id?: true
+  }
+
+  export type Spaces_activation_timesSumAggregateInputType = {
+    id?: true
+    space_id?: true
+  }
+
+  export type Spaces_activation_timesMinAggregateInputType = {
+    id?: true
+    space_id?: true
+    day_of_week?: true
+    start_time?: true
+  }
+
+  export type Spaces_activation_timesMaxAggregateInputType = {
+    id?: true
+    space_id?: true
+    day_of_week?: true
+    start_time?: true
+  }
+
+  export type Spaces_activation_timesCountAggregateInputType = {
+    id?: true
+    space_id?: true
+    day_of_week?: true
+    start_time?: true
+    _all?: true
+  }
+
+  export type Spaces_activation_timesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spaces_activation_times to aggregate.
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces_activation_times to fetch.
+     */
+    orderBy?: spaces_activation_timesOrderByWithRelationInput | spaces_activation_timesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: spaces_activation_timesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces_activation_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces_activation_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned spaces_activation_times
+    **/
+    _count?: true | Spaces_activation_timesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Spaces_activation_timesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Spaces_activation_timesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Spaces_activation_timesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Spaces_activation_timesMaxAggregateInputType
+  }
+
+  export type GetSpaces_activation_timesAggregateType<T extends Spaces_activation_timesAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpaces_activation_times]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpaces_activation_times[P]>
+      : GetScalarType<T[P], AggregateSpaces_activation_times[P]>
+  }
+
+
+
+
+  export type spaces_activation_timesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spaces_activation_timesWhereInput
+    orderBy?: spaces_activation_timesOrderByWithAggregationInput | spaces_activation_timesOrderByWithAggregationInput[]
+    by: Spaces_activation_timesScalarFieldEnum[] | Spaces_activation_timesScalarFieldEnum
+    having?: spaces_activation_timesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Spaces_activation_timesCountAggregateInputType | true
+    _avg?: Spaces_activation_timesAvgAggregateInputType
+    _sum?: Spaces_activation_timesSumAggregateInputType
+    _min?: Spaces_activation_timesMinAggregateInputType
+    _max?: Spaces_activation_timesMaxAggregateInputType
+  }
+
+  export type Spaces_activation_timesGroupByOutputType = {
+    id: number
+    space_id: number
+    day_of_week: string
+    start_time: string
+    _count: Spaces_activation_timesCountAggregateOutputType | null
+    _avg: Spaces_activation_timesAvgAggregateOutputType | null
+    _sum: Spaces_activation_timesSumAggregateOutputType | null
+    _min: Spaces_activation_timesMinAggregateOutputType | null
+    _max: Spaces_activation_timesMaxAggregateOutputType | null
+  }
+
+  type GetSpaces_activation_timesGroupByPayload<T extends spaces_activation_timesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Spaces_activation_timesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Spaces_activation_timesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Spaces_activation_timesGroupByOutputType[P]>
+            : GetScalarType<T[P], Spaces_activation_timesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type spaces_activation_timesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    day_of_week?: boolean
+    start_time?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces_activation_times"]>
+
+  export type spaces_activation_timesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    day_of_week?: boolean
+    start_time?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces_activation_times"]>
+
+  export type spaces_activation_timesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    day_of_week?: boolean
+    start_time?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces_activation_times"]>
+
+  export type spaces_activation_timesSelectScalar = {
+    id?: boolean
+    space_id?: boolean
+    day_of_week?: boolean
+    start_time?: boolean
+  }
+
+  export type spaces_activation_timesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_id" | "day_of_week" | "start_time", ExtArgs["result"]["spaces_activation_times"]>
+  export type spaces_activation_timesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }
+  export type spaces_activation_timesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }
+  export type spaces_activation_timesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }
+
+  export type $spaces_activation_timesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "spaces_activation_times"
+    objects: {
+      space: Prisma.$spacesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      space_id: number
+      day_of_week: string
+      start_time: string
+    }, ExtArgs["result"]["spaces_activation_times"]>
+    composites: {}
+  }
+
+  type spaces_activation_timesGetPayload<S extends boolean | null | undefined | spaces_activation_timesDefaultArgs> = $Result.GetResult<Prisma.$spaces_activation_timesPayload, S>
+
+  type spaces_activation_timesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<spaces_activation_timesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Spaces_activation_timesCountAggregateInputType | true
+    }
+
+  export interface spaces_activation_timesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['spaces_activation_times'], meta: { name: 'spaces_activation_times' } }
+    /**
+     * Find zero or one Spaces_activation_times that matches the filter.
+     * @param {spaces_activation_timesFindUniqueArgs} args - Arguments to find a Spaces_activation_times
+     * @example
+     * // Get one Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends spaces_activation_timesFindUniqueArgs>(args: SelectSubset<T, spaces_activation_timesFindUniqueArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Spaces_activation_times that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {spaces_activation_timesFindUniqueOrThrowArgs} args - Arguments to find a Spaces_activation_times
+     * @example
+     * // Get one Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends spaces_activation_timesFindUniqueOrThrowArgs>(args: SelectSubset<T, spaces_activation_timesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spaces_activation_times that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesFindFirstArgs} args - Arguments to find a Spaces_activation_times
+     * @example
+     * // Get one Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends spaces_activation_timesFindFirstArgs>(args?: SelectSubset<T, spaces_activation_timesFindFirstArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spaces_activation_times that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesFindFirstOrThrowArgs} args - Arguments to find a Spaces_activation_times
+     * @example
+     * // Get one Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends spaces_activation_timesFindFirstOrThrowArgs>(args?: SelectSubset<T, spaces_activation_timesFindFirstOrThrowArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Spaces_activation_times that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findMany()
+     * 
+     * // Get first 10 Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const spaces_activation_timesWithIdOnly = await prisma.spaces_activation_times.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends spaces_activation_timesFindManyArgs>(args?: SelectSubset<T, spaces_activation_timesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Spaces_activation_times.
+     * @param {spaces_activation_timesCreateArgs} args - Arguments to create a Spaces_activation_times.
+     * @example
+     * // Create one Spaces_activation_times
+     * const Spaces_activation_times = await prisma.spaces_activation_times.create({
+     *   data: {
+     *     // ... data to create a Spaces_activation_times
+     *   }
+     * })
+     * 
+     */
+    create<T extends spaces_activation_timesCreateArgs>(args: SelectSubset<T, spaces_activation_timesCreateArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Spaces_activation_times.
+     * @param {spaces_activation_timesCreateManyArgs} args - Arguments to create many Spaces_activation_times.
+     * @example
+     * // Create many Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends spaces_activation_timesCreateManyArgs>(args?: SelectSubset<T, spaces_activation_timesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Spaces_activation_times and returns the data saved in the database.
+     * @param {spaces_activation_timesCreateManyAndReturnArgs} args - Arguments to create many Spaces_activation_times.
+     * @example
+     * // Create many Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Spaces_activation_times and only return the `id`
+     * const spaces_activation_timesWithIdOnly = await prisma.spaces_activation_times.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends spaces_activation_timesCreateManyAndReturnArgs>(args?: SelectSubset<T, spaces_activation_timesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Spaces_activation_times.
+     * @param {spaces_activation_timesDeleteArgs} args - Arguments to delete one Spaces_activation_times.
+     * @example
+     * // Delete one Spaces_activation_times
+     * const Spaces_activation_times = await prisma.spaces_activation_times.delete({
+     *   where: {
+     *     // ... filter to delete one Spaces_activation_times
+     *   }
+     * })
+     * 
+     */
+    delete<T extends spaces_activation_timesDeleteArgs>(args: SelectSubset<T, spaces_activation_timesDeleteArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Spaces_activation_times.
+     * @param {spaces_activation_timesUpdateArgs} args - Arguments to update one Spaces_activation_times.
+     * @example
+     * // Update one Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends spaces_activation_timesUpdateArgs>(args: SelectSubset<T, spaces_activation_timesUpdateArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Spaces_activation_times.
+     * @param {spaces_activation_timesDeleteManyArgs} args - Arguments to filter Spaces_activation_times to delete.
+     * @example
+     * // Delete a few Spaces_activation_times
+     * const { count } = await prisma.spaces_activation_times.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends spaces_activation_timesDeleteManyArgs>(args?: SelectSubset<T, spaces_activation_timesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spaces_activation_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends spaces_activation_timesUpdateManyArgs>(args: SelectSubset<T, spaces_activation_timesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spaces_activation_times and returns the data updated in the database.
+     * @param {spaces_activation_timesUpdateManyAndReturnArgs} args - Arguments to update many Spaces_activation_times.
+     * @example
+     * // Update many Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Spaces_activation_times and only return the `id`
+     * const spaces_activation_timesWithIdOnly = await prisma.spaces_activation_times.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends spaces_activation_timesUpdateManyAndReturnArgs>(args: SelectSubset<T, spaces_activation_timesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Spaces_activation_times.
+     * @param {spaces_activation_timesUpsertArgs} args - Arguments to update or create a Spaces_activation_times.
+     * @example
+     * // Update or create a Spaces_activation_times
+     * const spaces_activation_times = await prisma.spaces_activation_times.upsert({
+     *   create: {
+     *     // ... data to create a Spaces_activation_times
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Spaces_activation_times we want to update
+     *   }
+     * })
+     */
+    upsert<T extends spaces_activation_timesUpsertArgs>(args: SelectSubset<T, spaces_activation_timesUpsertArgs<ExtArgs>>): Prisma__spaces_activation_timesClient<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Spaces_activation_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesCountArgs} args - Arguments to filter Spaces_activation_times to count.
+     * @example
+     * // Count the number of Spaces_activation_times
+     * const count = await prisma.spaces_activation_times.count({
+     *   where: {
+     *     // ... the filter for the Spaces_activation_times we want to count
+     *   }
+     * })
+    **/
+    count<T extends spaces_activation_timesCountArgs>(
+      args?: Subset<T, spaces_activation_timesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Spaces_activation_timesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Spaces_activation_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Spaces_activation_timesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Spaces_activation_timesAggregateArgs>(args: Subset<T, Spaces_activation_timesAggregateArgs>): Prisma.PrismaPromise<GetSpaces_activation_timesAggregateType<T>>
+
+    /**
+     * Group by Spaces_activation_times.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spaces_activation_timesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends spaces_activation_timesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: spaces_activation_timesGroupByArgs['orderBy'] }
+        : { orderBy?: spaces_activation_timesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, spaces_activation_timesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpaces_activation_timesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the spaces_activation_times model
+   */
+  readonly fields: spaces_activation_timesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for spaces_activation_times.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__spaces_activation_timesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    space<T extends spacesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, spacesDefaultArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the spaces_activation_times model
+   */ 
+  interface spaces_activation_timesFieldRefs {
+    readonly id: FieldRef<"spaces_activation_times", 'Int'>
+    readonly space_id: FieldRef<"spaces_activation_times", 'Int'>
+    readonly day_of_week: FieldRef<"spaces_activation_times", 'String'>
+    readonly start_time: FieldRef<"spaces_activation_times", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * spaces_activation_times findUnique
+   */
+  export type spaces_activation_timesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces_activation_times to fetch.
+     */
+    where: spaces_activation_timesWhereUniqueInput
+  }
+
+  /**
+   * spaces_activation_times findUniqueOrThrow
+   */
+  export type spaces_activation_timesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces_activation_times to fetch.
+     */
+    where: spaces_activation_timesWhereUniqueInput
+  }
+
+  /**
+   * spaces_activation_times findFirst
+   */
+  export type spaces_activation_timesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces_activation_times to fetch.
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces_activation_times to fetch.
+     */
+    orderBy?: spaces_activation_timesOrderByWithRelationInput | spaces_activation_timesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spaces_activation_times.
+     */
+    cursor?: spaces_activation_timesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces_activation_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces_activation_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spaces_activation_times.
+     */
+    distinct?: Spaces_activation_timesScalarFieldEnum | Spaces_activation_timesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces_activation_times findFirstOrThrow
+   */
+  export type spaces_activation_timesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces_activation_times to fetch.
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces_activation_times to fetch.
+     */
+    orderBy?: spaces_activation_timesOrderByWithRelationInput | spaces_activation_timesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spaces_activation_times.
+     */
+    cursor?: spaces_activation_timesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces_activation_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces_activation_times.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spaces_activation_times.
+     */
+    distinct?: Spaces_activation_timesScalarFieldEnum | Spaces_activation_timesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces_activation_times findMany
+   */
+  export type spaces_activation_timesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces_activation_times to fetch.
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces_activation_times to fetch.
+     */
+    orderBy?: spaces_activation_timesOrderByWithRelationInput | spaces_activation_timesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing spaces_activation_times.
+     */
+    cursor?: spaces_activation_timesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces_activation_times from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces_activation_times.
+     */
+    skip?: number
+    distinct?: Spaces_activation_timesScalarFieldEnum | Spaces_activation_timesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces_activation_times create
+   */
+  export type spaces_activation_timesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a spaces_activation_times.
+     */
+    data: XOR<spaces_activation_timesCreateInput, spaces_activation_timesUncheckedCreateInput>
+  }
+
+  /**
+   * spaces_activation_times createMany
+   */
+  export type spaces_activation_timesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many spaces_activation_times.
+     */
+    data: spaces_activation_timesCreateManyInput | spaces_activation_timesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * spaces_activation_times createManyAndReturn
+   */
+  export type spaces_activation_timesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * The data used to create many spaces_activation_times.
+     */
+    data: spaces_activation_timesCreateManyInput | spaces_activation_timesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * spaces_activation_times update
+   */
+  export type spaces_activation_timesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a spaces_activation_times.
+     */
+    data: XOR<spaces_activation_timesUpdateInput, spaces_activation_timesUncheckedUpdateInput>
+    /**
+     * Choose, which spaces_activation_times to update.
+     */
+    where: spaces_activation_timesWhereUniqueInput
+  }
+
+  /**
+   * spaces_activation_times updateMany
+   */
+  export type spaces_activation_timesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update spaces_activation_times.
+     */
+    data: XOR<spaces_activation_timesUpdateManyMutationInput, spaces_activation_timesUncheckedUpdateManyInput>
+    /**
+     * Filter which spaces_activation_times to update
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * Limit how many spaces_activation_times to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * spaces_activation_times updateManyAndReturn
+   */
+  export type spaces_activation_timesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * The data used to update spaces_activation_times.
+     */
+    data: XOR<spaces_activation_timesUpdateManyMutationInput, spaces_activation_timesUncheckedUpdateManyInput>
+    /**
+     * Filter which spaces_activation_times to update
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * Limit how many spaces_activation_times to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * spaces_activation_times upsert
+   */
+  export type spaces_activation_timesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the spaces_activation_times to update in case it exists.
+     */
+    where: spaces_activation_timesWhereUniqueInput
+    /**
+     * In case the spaces_activation_times found by the `where` argument doesn't exist, create a new spaces_activation_times with this data.
+     */
+    create: XOR<spaces_activation_timesCreateInput, spaces_activation_timesUncheckedCreateInput>
+    /**
+     * In case the spaces_activation_times was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<spaces_activation_timesUpdateInput, spaces_activation_timesUncheckedUpdateInput>
+  }
+
+  /**
+   * spaces_activation_times delete
+   */
+  export type spaces_activation_timesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
+    /**
+     * Filter which spaces_activation_times to delete.
+     */
+    where: spaces_activation_timesWhereUniqueInput
+  }
+
+  /**
+   * spaces_activation_times deleteMany
+   */
+  export type spaces_activation_timesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spaces_activation_times to delete
+     */
+    where?: spaces_activation_timesWhereInput
+    /**
+     * Limit how many spaces_activation_times to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * spaces_activation_times without action
+   */
+  export type spaces_activation_timesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces_activation_times
+     */
+    select?: spaces_activation_timesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces_activation_times
+     */
+    omit?: spaces_activation_timesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spaces_activation_timesInclude<ExtArgs> | null
   }
 
 
@@ -3294,6 +4529,16 @@ export namespace Prisma {
   };
 
   export type SpacesScalarFieldEnum = (typeof SpacesScalarFieldEnum)[keyof typeof SpacesScalarFieldEnum]
+
+
+  export const Spaces_activation_timesScalarFieldEnum: {
+    id: 'id',
+    space_id: 'space_id',
+    day_of_week: 'day_of_week',
+    start_time: 'start_time'
+  };
+
+  export type Spaces_activation_timesScalarFieldEnum = (typeof Spaces_activation_timesScalarFieldEnum)[keyof typeof Spaces_activation_timesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3463,6 +4708,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
     slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    spaces_activation_times?: Spaces_activation_timesListRelationFilter
   }
 
   export type spacesOrderByWithRelationInput = {
@@ -3477,6 +4723,7 @@ export namespace Prisma {
     deleted_at?: SortOrderInput | SortOrder
     slug?: SortOrder
     created_by?: usersOrderByWithRelationInput
+    spaces_activation_times?: spaces_activation_timesOrderByRelationAggregateInput
   }
 
   export type spacesWhereUniqueInput = Prisma.AtLeast<{
@@ -3494,6 +4741,7 @@ export namespace Prisma {
     deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
     slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    spaces_activation_times?: Spaces_activation_timesListRelationFilter
   }, "id">
 
   export type spacesOrderByWithAggregationInput = {
@@ -3528,6 +4776,58 @@ export namespace Prisma {
     is_deleted?: BoolWithAggregatesFilter<"spaces"> | boolean
     deleted_at?: DateTimeNullableWithAggregatesFilter<"spaces"> | Date | string | null
     slug?: StringWithAggregatesFilter<"spaces"> | string
+  }
+
+  export type spaces_activation_timesWhereInput = {
+    AND?: spaces_activation_timesWhereInput | spaces_activation_timesWhereInput[]
+    OR?: spaces_activation_timesWhereInput[]
+    NOT?: spaces_activation_timesWhereInput | spaces_activation_timesWhereInput[]
+    id?: IntFilter<"spaces_activation_times"> | number
+    space_id?: IntFilter<"spaces_activation_times"> | number
+    day_of_week?: StringFilter<"spaces_activation_times"> | string
+    start_time?: StringFilter<"spaces_activation_times"> | string
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+  }
+
+  export type spaces_activation_timesOrderByWithRelationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    day_of_week?: SortOrder
+    start_time?: SortOrder
+    space?: spacesOrderByWithRelationInput
+  }
+
+  export type spaces_activation_timesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: spaces_activation_timesWhereInput | spaces_activation_timesWhereInput[]
+    OR?: spaces_activation_timesWhereInput[]
+    NOT?: spaces_activation_timesWhereInput | spaces_activation_timesWhereInput[]
+    space_id?: IntFilter<"spaces_activation_times"> | number
+    day_of_week?: StringFilter<"spaces_activation_times"> | string
+    start_time?: StringFilter<"spaces_activation_times"> | string
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+  }, "id">
+
+  export type spaces_activation_timesOrderByWithAggregationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    day_of_week?: SortOrder
+    start_time?: SortOrder
+    _count?: spaces_activation_timesCountOrderByAggregateInput
+    _avg?: spaces_activation_timesAvgOrderByAggregateInput
+    _max?: spaces_activation_timesMaxOrderByAggregateInput
+    _min?: spaces_activation_timesMinOrderByAggregateInput
+    _sum?: spaces_activation_timesSumOrderByAggregateInput
+  }
+
+  export type spaces_activation_timesScalarWhereWithAggregatesInput = {
+    AND?: spaces_activation_timesScalarWhereWithAggregatesInput | spaces_activation_timesScalarWhereWithAggregatesInput[]
+    OR?: spaces_activation_timesScalarWhereWithAggregatesInput[]
+    NOT?: spaces_activation_timesScalarWhereWithAggregatesInput | spaces_activation_timesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"spaces_activation_times"> | number
+    space_id?: IntWithAggregatesFilter<"spaces_activation_times"> | number
+    day_of_week?: StringWithAggregatesFilter<"spaces_activation_times"> | string
+    start_time?: StringWithAggregatesFilter<"spaces_activation_times"> | string
   }
 
   export type usersCreateInput = {
@@ -3597,6 +4897,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
+    spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateInput = {
@@ -3610,6 +4911,7 @@ export namespace Prisma {
     is_deleted?: boolean
     deleted_at?: Date | string | null
     slug: string
+    spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUpdateInput = {
@@ -3622,6 +4924,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+    spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateInput = {
@@ -3635,6 +4938,7 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateManyInput = {
@@ -3672,6 +4976,51 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesCreateInput = {
+    day_of_week: string
+    start_time: string
+    space: spacesCreateNestedOneWithoutSpaces_activation_timesInput
+  }
+
+  export type spaces_activation_timesUncheckedCreateInput = {
+    id?: number
+    space_id: number
+    day_of_week: string
+    start_time: string
+  }
+
+  export type spaces_activation_timesUpdateInput = {
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+    space?: spacesUpdateOneRequiredWithoutSpaces_activation_timesNestedInput
+  }
+
+  export type spaces_activation_timesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesCreateManyInput = {
+    id?: number
+    space_id: number
+    day_of_week: string
+    start_time: string
+  }
+
+  export type spaces_activation_timesUpdateManyMutationInput = {
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3860,6 +5209,16 @@ export namespace Prisma {
     isNot?: usersWhereInput
   }
 
+  export type Spaces_activation_timesListRelationFilter = {
+    every?: spaces_activation_timesWhereInput
+    some?: spaces_activation_timesWhereInput
+    none?: spaces_activation_timesWhereInput
+  }
+
+  export type spaces_activation_timesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type spacesCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -3931,6 +5290,42 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type SpacesScalarRelationFilter = {
+    is?: spacesWhereInput
+    isNot?: spacesWhereInput
+  }
+
+  export type spaces_activation_timesCountOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    day_of_week?: SortOrder
+    start_time?: SortOrder
+  }
+
+  export type spaces_activation_timesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+  }
+
+  export type spaces_activation_timesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    day_of_week?: SortOrder
+    start_time?: SortOrder
+  }
+
+  export type spaces_activation_timesMinOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    day_of_week?: SortOrder
+    start_time?: SortOrder
+  }
+
+  export type spaces_activation_timesSumOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+  }
+
   export type spacesCreateNestedManyWithoutCreated_byInput = {
     create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
     connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
@@ -3999,6 +5394,20 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
+  export type spaces_activation_timesCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
+    createMany?: spaces_activation_timesCreateManySpaceInputEnvelope
+    connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+  }
+
+  export type spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
+    createMany?: spaces_activation_timesCreateManySpaceInputEnvelope
+    connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -4013,6 +5422,48 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutSpacesInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSpacesInput, usersUpdateWithoutSpacesInput>, usersUncheckedUpdateWithoutSpacesInput>
+  }
+
+  export type spaces_activation_timesUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
+    upsert?: spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput | spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: spaces_activation_timesCreateManySpaceInputEnvelope
+    set?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    disconnect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    delete?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    update?: spaces_activation_timesUpdateWithWhereUniqueWithoutSpaceInput | spaces_activation_timesUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: spaces_activation_timesUpdateManyWithWhereWithoutSpaceInput | spaces_activation_timesUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
+  }
+
+  export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
+    upsert?: spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput | spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: spaces_activation_timesCreateManySpaceInputEnvelope
+    set?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    disconnect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    delete?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+    update?: spaces_activation_timesUpdateWithWhereUniqueWithoutSpaceInput | spaces_activation_timesUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: spaces_activation_timesUpdateManyWithWhereWithoutSpaceInput | spaces_activation_timesUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
+  }
+
+  export type spacesCreateNestedOneWithoutSpaces_activation_timesInput = {
+    create?: XOR<spacesCreateWithoutSpaces_activation_timesInput, spacesUncheckedCreateWithoutSpaces_activation_timesInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutSpaces_activation_timesInput
+    connect?: spacesWhereUniqueInput
+  }
+
+  export type spacesUpdateOneRequiredWithoutSpaces_activation_timesNestedInput = {
+    create?: XOR<spacesCreateWithoutSpaces_activation_timesInput, spacesUncheckedCreateWithoutSpaces_activation_timesInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutSpaces_activation_timesInput
+    upsert?: spacesUpsertWithoutSpaces_activation_timesInput
+    connect?: spacesWhereUniqueInput
+    update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutSpaces_activation_timesInput, spacesUpdateWithoutSpaces_activation_timesInput>, spacesUncheckedUpdateWithoutSpaces_activation_timesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -4198,6 +5649,7 @@ export namespace Prisma {
     is_deleted?: boolean
     deleted_at?: Date | string | null
     slug: string
+    spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutCreated_byInput = {
@@ -4210,6 +5662,7 @@ export namespace Prisma {
     is_deleted?: boolean
     deleted_at?: Date | string | null
     slug: string
+    spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutCreated_byInput = {
@@ -4274,6 +5727,27 @@ export namespace Prisma {
     create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
   }
 
+  export type spaces_activation_timesCreateWithoutSpaceInput = {
+    day_of_week: string
+    start_time: string
+  }
+
+  export type spaces_activation_timesUncheckedCreateWithoutSpaceInput = {
+    id?: number
+    day_of_week: string
+    start_time: string
+  }
+
+  export type spaces_activation_timesCreateOrConnectWithoutSpaceInput = {
+    where: spaces_activation_timesWhereUniqueInput
+    create: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type spaces_activation_timesCreateManySpaceInputEnvelope = {
+    data: spaces_activation_timesCreateManySpaceInput | spaces_activation_timesCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type usersUpsertWithoutSpacesInput = {
     update: XOR<usersUpdateWithoutSpacesInput, usersUncheckedUpdateWithoutSpacesInput>
     create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
@@ -4300,6 +5774,98 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: spaces_activation_timesWhereUniqueInput
+    update: XOR<spaces_activation_timesUpdateWithoutSpaceInput, spaces_activation_timesUncheckedUpdateWithoutSpaceInput>
+    create: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type spaces_activation_timesUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: spaces_activation_timesWhereUniqueInput
+    data: XOR<spaces_activation_timesUpdateWithoutSpaceInput, spaces_activation_timesUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type spaces_activation_timesUpdateManyWithWhereWithoutSpaceInput = {
+    where: spaces_activation_timesScalarWhereInput
+    data: XOR<spaces_activation_timesUpdateManyMutationInput, spaces_activation_timesUncheckedUpdateManyWithoutSpaceInput>
+  }
+
+  export type spaces_activation_timesScalarWhereInput = {
+    AND?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
+    OR?: spaces_activation_timesScalarWhereInput[]
+    NOT?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
+    id?: IntFilter<"spaces_activation_times"> | number
+    space_id?: IntFilter<"spaces_activation_times"> | number
+    day_of_week?: StringFilter<"spaces_activation_times"> | string
+    start_time?: StringFilter<"spaces_activation_times"> | string
+  }
+
+  export type spacesCreateWithoutSpaces_activation_timesInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    created_by: usersCreateNestedOneWithoutSpacesInput
+  }
+
+  export type spacesUncheckedCreateWithoutSpaces_activation_timesInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+  }
+
+  export type spacesCreateOrConnectWithoutSpaces_activation_timesInput = {
+    where: spacesWhereUniqueInput
+    create: XOR<spacesCreateWithoutSpaces_activation_timesInput, spacesUncheckedCreateWithoutSpaces_activation_timesInput>
+  }
+
+  export type spacesUpsertWithoutSpaces_activation_timesInput = {
+    update: XOR<spacesUpdateWithoutSpaces_activation_timesInput, spacesUncheckedUpdateWithoutSpaces_activation_timesInput>
+    create: XOR<spacesCreateWithoutSpaces_activation_timesInput, spacesUncheckedCreateWithoutSpaces_activation_timesInput>
+    where?: spacesWhereInput
+  }
+
+  export type spacesUpdateToOneWithWhereWithoutSpaces_activation_timesInput = {
+    where?: spacesWhereInput
+    data: XOR<spacesUpdateWithoutSpaces_activation_timesInput, spacesUncheckedUpdateWithoutSpaces_activation_timesInput>
+  }
+
+  export type spacesUpdateWithoutSpaces_activation_timesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+  }
+
+  export type spacesUncheckedUpdateWithoutSpaces_activation_timesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+  }
+
   export type spacesCreateManyCreated_byInput = {
     id?: number
     name: string
@@ -4321,6 +5887,7 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutCreated_byInput = {
@@ -4333,6 +5900,7 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
@@ -4345,6 +5913,29 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesCreateManySpaceInput = {
+    id?: number
+    day_of_week: string
+    start_time: string
+  }
+
+  export type spaces_activation_timesUpdateWithoutSpaceInput = {
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesUncheckedUpdateWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    day_of_week?: StringFieldUpdateOperationsInput | string
+    start_time?: StringFieldUpdateOperationsInput | string
   }
 
 

@@ -41,6 +41,22 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         })
 
+        if(activationDays.length > 0) {
+            for (const day of activationDays) {
+                await client.spaces_activation_times.create({
+                    data : {
+                        day_of_week : day.day,
+                        start_time : day.start,
+                        space : {
+                            connect : {
+                                id : newSpace.id
+                            }
+                        }
+                    }
+                })
+            }
+        }
+
         if (!newSpace) throw new Error('Error creating space');
 
         revalidatePath('/spaces')
