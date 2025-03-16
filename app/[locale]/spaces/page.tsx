@@ -14,7 +14,10 @@ async function SpacesPage() {
   return (
     <section className="grow flex flex-col">
       <div className="flex justify-between items-center mb-10">
-        <h2 className="font-bold text-2xl">{t("spaces.title")}</h2>
+        <div>
+          <h2 className="font-bold text-2xl">{t("spaces.title")}</h2>
+          <p className="text-muted-foreground">Spaces are places where people can join on a virtual wait list. The admin of the space can then toggle between speakers in turns.</p>
+        </div>
         {data.user && <SpaceForm />}
       </div>
       <Suspense fallback={<SpaceItemSkeleton />}>

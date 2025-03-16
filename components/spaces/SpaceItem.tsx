@@ -4,6 +4,7 @@ import { Button } from "../ui/button"
 import { Edit, Trash } from "lucide-react"
 import { createClient } from "@/supabase/server"
 import { getUserByEmail } from "@/actions/getUserByEmail"
+import DeleteSpaceButton from "./delete-space-button"
 
 type SpaceItemProps = {
     space: spaces
@@ -33,9 +34,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     <div className="flex gap-2">
                         {loggedUser && space.users_id == loggedUser.id && (
                             <>
-                                <Button variant="ghost" size="icon" className="p-0">
-                                    <Trash />
-                                </Button>
+                                <DeleteSpaceButton space={space}/>
                                 <Button variant="ghost" size="icon" className="p-0">
                                     <Edit />
                                 </Button>

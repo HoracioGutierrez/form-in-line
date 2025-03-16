@@ -59,7 +59,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space }: SpaceFo
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button">cancelar</Button>
+                            <Button type="button" variant="outline">cancelar</Button>
                         </DialogClose>
                         <SpaceFormButton />
                     </DialogFooter>

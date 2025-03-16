@@ -11,7 +11,7 @@ function SpaceFormButton() {
     const t = useI18n()
 
     return (
-        <Button type="submit" disabled={pending} className="flex items-center gap-2">
+        <Button type="submit" disabled={pending} className="flex items-center gap-2" variant="outline">
             {pending && <Loader className="animate-spin" />}
             {pending ? `Creating...` : `Create space`}
         </Button>
