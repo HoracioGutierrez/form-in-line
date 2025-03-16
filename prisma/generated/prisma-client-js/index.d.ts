@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model spaces
+ * 
+ */
+export type spaces = $Result.DefaultSelection<Prisma.$spacesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.spaces`: Exposes CRUD operations for the **spaces** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Spaces
+    * const spaces = await prisma.spaces.findMany()
+    * ```
+    */
+  get spaces(): Prisma.spacesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    users: 'users'
+    users: 'users',
+    spaces: 'spaces'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users"
+      modelProps: "users" | "spaces"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.usersCountArgs<ExtArgs>
             result: $Utils.Optional<UsersCountAggregateOutputType> | number
+          }
+        }
+      }
+      spaces: {
+        payload: Prisma.$spacesPayload<ExtArgs>
+        fields: Prisma.spacesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.spacesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.spacesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          findFirst: {
+            args: Prisma.spacesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.spacesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          findMany: {
+            args: Prisma.spacesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>[]
+          }
+          create: {
+            args: Prisma.spacesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          createMany: {
+            args: Prisma.spacesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.spacesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>[]
+          }
+          delete: {
+            args: Prisma.spacesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          update: {
+            args: Prisma.spacesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          deleteMany: {
+            args: Prisma.spacesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.spacesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.spacesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>[]
+          }
+          upsert: {
+            args: Prisma.spacesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$spacesPayload>
+          }
+          aggregate: {
+            args: Prisma.SpacesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpaces>
+          }
+          groupBy: {
+            args: Prisma.spacesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SpacesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.spacesCountArgs<ExtArgs>
+            result: $Utils.Optional<SpacesCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     users?: usersOmit
+    spaces?: spacesOmit
   }
 
   /* Types for Logging */
@@ -863,6 +954,36 @@ export namespace Prisma {
    * Count Types
    */
 
+
+  /**
+   * Count Type UsersCountOutputType
+   */
+
+  export type UsersCountOutputType = {
+    spaces: number
+  }
+
+  export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    spaces?: boolean | UsersCountOutputTypeCountSpacesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UsersCountOutputType
+     */
+    select?: UsersCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSpacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spacesWhereInput
+  }
 
 
   /**
@@ -1067,6 +1188,8 @@ export namespace Prisma {
     name?: boolean
     created_at?: boolean
     updated_at?: boolean
+    spaces?: boolean | users$spacesArgs<ExtArgs>
+    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1094,10 +1217,18 @@ export namespace Prisma {
   }
 
   export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
+  export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    spaces?: boolean | users$spacesArgs<ExtArgs>
+    _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type usersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $usersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "users"
-    objects: {}
+    objects: {
+      spaces: Prisma.$spacesPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       email: string
@@ -1498,6 +1629,7 @@ export namespace Prisma {
    */
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    spaces<T extends users$spacesArgs<ExtArgs> = {}>(args?: Subset<T, users$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1549,6 +1681,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * Filter, which users to fetch.
      */
     where: usersWhereUniqueInput
@@ -1567,6 +1703,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * Filter, which users to fetch.
      */
     where: usersWhereUniqueInput
@@ -1584,6 +1724,10 @@ export namespace Prisma {
      * Omit specific fields from the users
      */
     omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
     /**
      * Filter, which users to fetch.
      */
@@ -1633,6 +1777,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * Filter, which users to fetch.
      */
     where?: usersWhereInput
@@ -1681,6 +1829,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * Filter, which users to fetch.
      */
     where?: usersWhereInput
@@ -1723,6 +1875,10 @@ export namespace Prisma {
      * Omit specific fields from the users
      */
     omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
     /**
      * The data needed to create a users.
      */
@@ -1771,6 +1927,10 @@ export namespace Prisma {
      * Omit specific fields from the users
      */
     omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
     /**
      * The data needed to update a users.
      */
@@ -1838,6 +1998,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * The filter to search for the users to update in case it exists.
      */
     where: usersWhereUniqueInput
@@ -1864,6 +2028,10 @@ export namespace Prisma {
      */
     omit?: usersOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+    /**
      * Filter which users to delete.
      */
     where: usersWhereUniqueInput
@@ -1884,6 +2052,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.spaces
+   */
+  export type users$spacesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    where?: spacesWhereInput
+    orderBy?: spacesOrderByWithRelationInput | spacesOrderByWithRelationInput[]
+    cursor?: spacesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SpacesScalarFieldEnum | SpacesScalarFieldEnum[]
+  }
+
+  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1895,6 +2087,1158 @@ export namespace Prisma {
      * Omit specific fields from the users
      */
     omit?: usersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: usersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model spaces
+   */
+
+  export type AggregateSpaces = {
+    _count: SpacesCountAggregateOutputType | null
+    _avg: SpacesAvgAggregateOutputType | null
+    _sum: SpacesSumAggregateOutputType | null
+    _min: SpacesMinAggregateOutputType | null
+    _max: SpacesMaxAggregateOutputType | null
+  }
+
+  export type SpacesAvgAggregateOutputType = {
+    id: number | null
+    users_id: number | null
+  }
+
+  export type SpacesSumAggregateOutputType = {
+    id: number | null
+    users_id: number | null
+  }
+
+  export type SpacesMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    subject: string | null
+    is_active: boolean | null
+    users_id: number | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
+  }
+
+  export type SpacesMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    subject: string | null
+    is_active: boolean | null
+    users_id: number | null
+    is_deleted: boolean | null
+    deleted_at: Date | null
+  }
+
+  export type SpacesCountAggregateOutputType = {
+    id: number
+    name: number
+    created_at: number
+    updated_at: number
+    subject: number
+    is_active: number
+    users_id: number
+    is_deleted: number
+    deleted_at: number
+    _all: number
+  }
+
+
+  export type SpacesAvgAggregateInputType = {
+    id?: true
+    users_id?: true
+  }
+
+  export type SpacesSumAggregateInputType = {
+    id?: true
+    users_id?: true
+  }
+
+  export type SpacesMinAggregateInputType = {
+    id?: true
+    name?: true
+    created_at?: true
+    updated_at?: true
+    subject?: true
+    is_active?: true
+    users_id?: true
+    is_deleted?: true
+    deleted_at?: true
+  }
+
+  export type SpacesMaxAggregateInputType = {
+    id?: true
+    name?: true
+    created_at?: true
+    updated_at?: true
+    subject?: true
+    is_active?: true
+    users_id?: true
+    is_deleted?: true
+    deleted_at?: true
+  }
+
+  export type SpacesCountAggregateInputType = {
+    id?: true
+    name?: true
+    created_at?: true
+    updated_at?: true
+    subject?: true
+    is_active?: true
+    users_id?: true
+    is_deleted?: true
+    deleted_at?: true
+    _all?: true
+  }
+
+  export type SpacesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spaces to aggregate.
+     */
+    where?: spacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces to fetch.
+     */
+    orderBy?: spacesOrderByWithRelationInput | spacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: spacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned spaces
+    **/
+    _count?: true | SpacesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SpacesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SpacesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SpacesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SpacesMaxAggregateInputType
+  }
+
+  export type GetSpacesAggregateType<T extends SpacesAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpaces]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpaces[P]>
+      : GetScalarType<T[P], AggregateSpaces[P]>
+  }
+
+
+
+
+  export type spacesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: spacesWhereInput
+    orderBy?: spacesOrderByWithAggregationInput | spacesOrderByWithAggregationInput[]
+    by: SpacesScalarFieldEnum[] | SpacesScalarFieldEnum
+    having?: spacesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SpacesCountAggregateInputType | true
+    _avg?: SpacesAvgAggregateInputType
+    _sum?: SpacesSumAggregateInputType
+    _min?: SpacesMinAggregateInputType
+    _max?: SpacesMaxAggregateInputType
+  }
+
+  export type SpacesGroupByOutputType = {
+    id: number
+    name: string
+    created_at: Date
+    updated_at: Date
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted: boolean
+    deleted_at: Date | null
+    _count: SpacesCountAggregateOutputType | null
+    _avg: SpacesAvgAggregateOutputType | null
+    _sum: SpacesSumAggregateOutputType | null
+    _min: SpacesMinAggregateOutputType | null
+    _max: SpacesMaxAggregateOutputType | null
+  }
+
+  type GetSpacesGroupByPayload<T extends spacesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SpacesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SpacesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SpacesGroupByOutputType[P]>
+            : GetScalarType<T[P], SpacesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type spacesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    subject?: boolean
+    is_active?: boolean
+    users_id?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces"]>
+
+  export type spacesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    subject?: boolean
+    is_active?: boolean
+    users_id?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces"]>
+
+  export type spacesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    subject?: boolean
+    is_active?: boolean
+    users_id?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["spaces"]>
+
+  export type spacesSelectScalar = {
+    id?: boolean
+    name?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    subject?: boolean
+    is_active?: boolean
+    users_id?: boolean
+    is_deleted?: boolean
+    deleted_at?: boolean
+  }
+
+  export type spacesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "created_at" | "updated_at" | "subject" | "is_active" | "users_id" | "is_deleted" | "deleted_at", ExtArgs["result"]["spaces"]>
+  export type spacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type spacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type spacesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    created_by?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $spacesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "spaces"
+    objects: {
+      created_by: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      created_at: Date
+      updated_at: Date
+      subject: string
+      is_active: boolean
+      users_id: number
+      is_deleted: boolean
+      deleted_at: Date | null
+    }, ExtArgs["result"]["spaces"]>
+    composites: {}
+  }
+
+  type spacesGetPayload<S extends boolean | null | undefined | spacesDefaultArgs> = $Result.GetResult<Prisma.$spacesPayload, S>
+
+  type spacesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<spacesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SpacesCountAggregateInputType | true
+    }
+
+  export interface spacesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['spaces'], meta: { name: 'spaces' } }
+    /**
+     * Find zero or one Spaces that matches the filter.
+     * @param {spacesFindUniqueArgs} args - Arguments to find a Spaces
+     * @example
+     * // Get one Spaces
+     * const spaces = await prisma.spaces.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends spacesFindUniqueArgs>(args: SelectSubset<T, spacesFindUniqueArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Spaces that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {spacesFindUniqueOrThrowArgs} args - Arguments to find a Spaces
+     * @example
+     * // Get one Spaces
+     * const spaces = await prisma.spaces.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends spacesFindUniqueOrThrowArgs>(args: SelectSubset<T, spacesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spaces that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesFindFirstArgs} args - Arguments to find a Spaces
+     * @example
+     * // Get one Spaces
+     * const spaces = await prisma.spaces.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends spacesFindFirstArgs>(args?: SelectSubset<T, spacesFindFirstArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Spaces that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesFindFirstOrThrowArgs} args - Arguments to find a Spaces
+     * @example
+     * // Get one Spaces
+     * const spaces = await prisma.spaces.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends spacesFindFirstOrThrowArgs>(args?: SelectSubset<T, spacesFindFirstOrThrowArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Spaces that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Spaces
+     * const spaces = await prisma.spaces.findMany()
+     * 
+     * // Get first 10 Spaces
+     * const spaces = await prisma.spaces.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const spacesWithIdOnly = await prisma.spaces.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends spacesFindManyArgs>(args?: SelectSubset<T, spacesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Spaces.
+     * @param {spacesCreateArgs} args - Arguments to create a Spaces.
+     * @example
+     * // Create one Spaces
+     * const Spaces = await prisma.spaces.create({
+     *   data: {
+     *     // ... data to create a Spaces
+     *   }
+     * })
+     * 
+     */
+    create<T extends spacesCreateArgs>(args: SelectSubset<T, spacesCreateArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Spaces.
+     * @param {spacesCreateManyArgs} args - Arguments to create many Spaces.
+     * @example
+     * // Create many Spaces
+     * const spaces = await prisma.spaces.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends spacesCreateManyArgs>(args?: SelectSubset<T, spacesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Spaces and returns the data saved in the database.
+     * @param {spacesCreateManyAndReturnArgs} args - Arguments to create many Spaces.
+     * @example
+     * // Create many Spaces
+     * const spaces = await prisma.spaces.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Spaces and only return the `id`
+     * const spacesWithIdOnly = await prisma.spaces.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends spacesCreateManyAndReturnArgs>(args?: SelectSubset<T, spacesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Spaces.
+     * @param {spacesDeleteArgs} args - Arguments to delete one Spaces.
+     * @example
+     * // Delete one Spaces
+     * const Spaces = await prisma.spaces.delete({
+     *   where: {
+     *     // ... filter to delete one Spaces
+     *   }
+     * })
+     * 
+     */
+    delete<T extends spacesDeleteArgs>(args: SelectSubset<T, spacesDeleteArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Spaces.
+     * @param {spacesUpdateArgs} args - Arguments to update one Spaces.
+     * @example
+     * // Update one Spaces
+     * const spaces = await prisma.spaces.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends spacesUpdateArgs>(args: SelectSubset<T, spacesUpdateArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Spaces.
+     * @param {spacesDeleteManyArgs} args - Arguments to filter Spaces to delete.
+     * @example
+     * // Delete a few Spaces
+     * const { count } = await prisma.spaces.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends spacesDeleteManyArgs>(args?: SelectSubset<T, spacesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Spaces
+     * const spaces = await prisma.spaces.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends spacesUpdateManyArgs>(args: SelectSubset<T, spacesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Spaces and returns the data updated in the database.
+     * @param {spacesUpdateManyAndReturnArgs} args - Arguments to update many Spaces.
+     * @example
+     * // Update many Spaces
+     * const spaces = await prisma.spaces.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Spaces and only return the `id`
+     * const spacesWithIdOnly = await prisma.spaces.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends spacesUpdateManyAndReturnArgs>(args: SelectSubset<T, spacesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Spaces.
+     * @param {spacesUpsertArgs} args - Arguments to update or create a Spaces.
+     * @example
+     * // Update or create a Spaces
+     * const spaces = await prisma.spaces.upsert({
+     *   create: {
+     *     // ... data to create a Spaces
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Spaces we want to update
+     *   }
+     * })
+     */
+    upsert<T extends spacesUpsertArgs>(args: SelectSubset<T, spacesUpsertArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Spaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesCountArgs} args - Arguments to filter Spaces to count.
+     * @example
+     * // Count the number of Spaces
+     * const count = await prisma.spaces.count({
+     *   where: {
+     *     // ... the filter for the Spaces we want to count
+     *   }
+     * })
+    **/
+    count<T extends spacesCountArgs>(
+      args?: Subset<T, spacesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SpacesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Spaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SpacesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SpacesAggregateArgs>(args: Subset<T, SpacesAggregateArgs>): Prisma.PrismaPromise<GetSpacesAggregateType<T>>
+
+    /**
+     * Group by Spaces.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {spacesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends spacesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: spacesGroupByArgs['orderBy'] }
+        : { orderBy?: spacesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, spacesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpacesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the spaces model
+   */
+  readonly fields: spacesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for spaces.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__spacesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    created_by<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the spaces model
+   */ 
+  interface spacesFieldRefs {
+    readonly id: FieldRef<"spaces", 'Int'>
+    readonly name: FieldRef<"spaces", 'String'>
+    readonly created_at: FieldRef<"spaces", 'DateTime'>
+    readonly updated_at: FieldRef<"spaces", 'DateTime'>
+    readonly subject: FieldRef<"spaces", 'String'>
+    readonly is_active: FieldRef<"spaces", 'Boolean'>
+    readonly users_id: FieldRef<"spaces", 'Int'>
+    readonly is_deleted: FieldRef<"spaces", 'Boolean'>
+    readonly deleted_at: FieldRef<"spaces", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * spaces findUnique
+   */
+  export type spacesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces to fetch.
+     */
+    where: spacesWhereUniqueInput
+  }
+
+  /**
+   * spaces findUniqueOrThrow
+   */
+  export type spacesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces to fetch.
+     */
+    where: spacesWhereUniqueInput
+  }
+
+  /**
+   * spaces findFirst
+   */
+  export type spacesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces to fetch.
+     */
+    where?: spacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces to fetch.
+     */
+    orderBy?: spacesOrderByWithRelationInput | spacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spaces.
+     */
+    cursor?: spacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spaces.
+     */
+    distinct?: SpacesScalarFieldEnum | SpacesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces findFirstOrThrow
+   */
+  export type spacesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces to fetch.
+     */
+    where?: spacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces to fetch.
+     */
+    orderBy?: spacesOrderByWithRelationInput | spacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for spaces.
+     */
+    cursor?: spacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of spaces.
+     */
+    distinct?: SpacesScalarFieldEnum | SpacesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces findMany
+   */
+  export type spacesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter, which spaces to fetch.
+     */
+    where?: spacesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of spaces to fetch.
+     */
+    orderBy?: spacesOrderByWithRelationInput | spacesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing spaces.
+     */
+    cursor?: spacesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` spaces from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` spaces.
+     */
+    skip?: number
+    distinct?: SpacesScalarFieldEnum | SpacesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces create
+   */
+  export type spacesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a spaces.
+     */
+    data: XOR<spacesCreateInput, spacesUncheckedCreateInput>
+  }
+
+  /**
+   * spaces createMany
+   */
+  export type spacesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many spaces.
+     */
+    data: spacesCreateManyInput | spacesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * spaces createManyAndReturn
+   */
+  export type spacesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * The data used to create many spaces.
+     */
+    data: spacesCreateManyInput | spacesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * spaces update
+   */
+  export type spacesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a spaces.
+     */
+    data: XOR<spacesUpdateInput, spacesUncheckedUpdateInput>
+    /**
+     * Choose, which spaces to update.
+     */
+    where: spacesWhereUniqueInput
+  }
+
+  /**
+   * spaces updateMany
+   */
+  export type spacesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update spaces.
+     */
+    data: XOR<spacesUpdateManyMutationInput, spacesUncheckedUpdateManyInput>
+    /**
+     * Filter which spaces to update
+     */
+    where?: spacesWhereInput
+    /**
+     * Limit how many spaces to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * spaces updateManyAndReturn
+   */
+  export type spacesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * The data used to update spaces.
+     */
+    data: XOR<spacesUpdateManyMutationInput, spacesUncheckedUpdateManyInput>
+    /**
+     * Filter which spaces to update
+     */
+    where?: spacesWhereInput
+    /**
+     * Limit how many spaces to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * spaces upsert
+   */
+  export type spacesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the spaces to update in case it exists.
+     */
+    where: spacesWhereUniqueInput
+    /**
+     * In case the spaces found by the `where` argument doesn't exist, create a new spaces with this data.
+     */
+    create: XOR<spacesCreateInput, spacesUncheckedCreateInput>
+    /**
+     * In case the spaces was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<spacesUpdateInput, spacesUncheckedUpdateInput>
+  }
+
+  /**
+   * spaces delete
+   */
+  export type spacesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
+    /**
+     * Filter which spaces to delete.
+     */
+    where: spacesWhereUniqueInput
+  }
+
+  /**
+   * spaces deleteMany
+   */
+  export type spacesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which spaces to delete
+     */
+    where?: spacesWhereInput
+    /**
+     * Limit how many spaces to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * spaces without action
+   */
+  export type spacesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the spaces
+     */
+    select?: spacesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the spaces
+     */
+    omit?: spacesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: spacesInclude<ExtArgs> | null
   }
 
 
@@ -1921,6 +3265,21 @@ export namespace Prisma {
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const SpacesScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    subject: 'subject',
+    is_active: 'is_active',
+    users_id: 'users_id',
+    is_deleted: 'is_deleted',
+    deleted_at: 'deleted_at'
+  };
+
+  export type SpacesScalarFieldEnum = (typeof SpacesScalarFieldEnum)[keyof typeof SpacesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -1995,6 +3354,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -2020,6 +3386,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
+    spaces?: SpacesListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -2028,6 +3395,7 @@ export namespace Prisma {
     name?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    spaces?: spacesOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -2039,6 +3407,7 @@ export namespace Prisma {
     name?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
+    spaces?: SpacesListRelationFilter
   }, "id" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -2065,11 +3434,89 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
   }
 
+  export type spacesWhereInput = {
+    AND?: spacesWhereInput | spacesWhereInput[]
+    OR?: spacesWhereInput[]
+    NOT?: spacesWhereInput | spacesWhereInput[]
+    id?: IntFilter<"spaces"> | number
+    name?: StringFilter<"spaces"> | string
+    created_at?: DateTimeFilter<"spaces"> | Date | string
+    updated_at?: DateTimeFilter<"spaces"> | Date | string
+    subject?: StringFilter<"spaces"> | string
+    is_active?: BoolFilter<"spaces"> | boolean
+    users_id?: IntFilter<"spaces"> | number
+    is_deleted?: BoolFilter<"spaces"> | boolean
+    deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+    created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type spacesOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    subject?: SortOrder
+    is_active?: SortOrder
+    users_id?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    created_by?: usersOrderByWithRelationInput
+  }
+
+  export type spacesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: spacesWhereInput | spacesWhereInput[]
+    OR?: spacesWhereInput[]
+    NOT?: spacesWhereInput | spacesWhereInput[]
+    name?: StringFilter<"spaces"> | string
+    created_at?: DateTimeFilter<"spaces"> | Date | string
+    updated_at?: DateTimeFilter<"spaces"> | Date | string
+    subject?: StringFilter<"spaces"> | string
+    is_active?: BoolFilter<"spaces"> | boolean
+    users_id?: IntFilter<"spaces"> | number
+    is_deleted?: BoolFilter<"spaces"> | boolean
+    deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+    created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type spacesOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    subject?: SortOrder
+    is_active?: SortOrder
+    users_id?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
+    _count?: spacesCountOrderByAggregateInput
+    _avg?: spacesAvgOrderByAggregateInput
+    _max?: spacesMaxOrderByAggregateInput
+    _min?: spacesMinOrderByAggregateInput
+    _sum?: spacesSumOrderByAggregateInput
+  }
+
+  export type spacesScalarWhereWithAggregatesInput = {
+    AND?: spacesScalarWhereWithAggregatesInput | spacesScalarWhereWithAggregatesInput[]
+    OR?: spacesScalarWhereWithAggregatesInput[]
+    NOT?: spacesScalarWhereWithAggregatesInput | spacesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"spaces"> | number
+    name?: StringWithAggregatesFilter<"spaces"> | string
+    created_at?: DateTimeWithAggregatesFilter<"spaces"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"spaces"> | Date | string
+    subject?: StringWithAggregatesFilter<"spaces"> | string
+    is_active?: BoolWithAggregatesFilter<"spaces"> | boolean
+    users_id?: IntWithAggregatesFilter<"spaces"> | number
+    is_deleted?: BoolWithAggregatesFilter<"spaces"> | boolean
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"spaces"> | Date | string | null
+  }
+
   export type usersCreateInput = {
     email: string
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    spaces?: spacesCreateNestedManyWithoutCreated_byInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -2078,6 +3525,7 @@ export namespace Prisma {
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
   }
 
   export type usersUpdateInput = {
@@ -2085,6 +3533,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUpdateManyWithoutCreated_byNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -2093,6 +3542,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -2116,6 +3566,86 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spacesCreateInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    created_by: usersCreateNestedOneWithoutSpacesInput
+  }
+
+  export type spacesUncheckedCreateInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type spacesUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+  }
+
+  export type spacesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type spacesCreateManyInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type spacesUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type spacesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2170,9 +3700,19 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type SpacesListRelationFilter = {
+    every?: spacesWhereInput
+    some?: spacesWhereInput
+    none?: spacesWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type spacesOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type usersCountOrderByAggregateInput = {
@@ -2273,6 +3813,109 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type UsersScalarRelationFilter = {
+    is?: usersWhereInput
+    isNot?: usersWhereInput
+  }
+
+  export type spacesCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    subject?: SortOrder
+    is_active?: SortOrder
+    users_id?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type spacesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    users_id?: SortOrder
+  }
+
+  export type spacesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    subject?: SortOrder
+    is_active?: SortOrder
+    users_id?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type spacesMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    subject?: SortOrder
+    is_active?: SortOrder
+    users_id?: SortOrder
+    is_deleted?: SortOrder
+    deleted_at?: SortOrder
+  }
+
+  export type spacesSumOrderByAggregateInput = {
+    id?: SortOrder
+    users_id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type spacesCreateNestedManyWithoutCreated_byInput = {
+    create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
+    connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
+    createMany?: spacesCreateManyCreated_byInputEnvelope
+    connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+  }
+
+  export type spacesUncheckedCreateNestedManyWithoutCreated_byInput = {
+    create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
+    connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
+    createMany?: spacesCreateManyCreated_byInputEnvelope
+    connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2285,12 +3928,62 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type spacesUpdateManyWithoutCreated_byNestedInput = {
+    create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
+    connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
+    upsert?: spacesUpsertWithWhereUniqueWithoutCreated_byInput | spacesUpsertWithWhereUniqueWithoutCreated_byInput[]
+    createMany?: spacesCreateManyCreated_byInputEnvelope
+    set?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    disconnect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    delete?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    update?: spacesUpdateWithWhereUniqueWithoutCreated_byInput | spacesUpdateWithWhereUniqueWithoutCreated_byInput[]
+    updateMany?: spacesUpdateManyWithWhereWithoutCreated_byInput | spacesUpdateManyWithWhereWithoutCreated_byInput[]
+    deleteMany?: spacesScalarWhereInput | spacesScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type spacesUncheckedUpdateManyWithoutCreated_byNestedInput = {
+    create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
+    connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
+    upsert?: spacesUpsertWithWhereUniqueWithoutCreated_byInput | spacesUpsertWithWhereUniqueWithoutCreated_byInput[]
+    createMany?: spacesCreateManyCreated_byInputEnvelope
+    set?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    disconnect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    delete?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+    update?: spacesUpdateWithWhereUniqueWithoutCreated_byInput | spacesUpdateWithWhereUniqueWithoutCreated_byInput[]
+    updateMany?: spacesUpdateManyWithWhereWithoutCreated_byInput | spacesUpdateManyWithWhereWithoutCreated_byInput[]
+    deleteMany?: spacesScalarWhereInput | spacesScalarWhereInput[]
+  }
+
+  export type usersCreateNestedOneWithoutSpacesInput = {
+    create?: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpacesInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type usersUpdateOneRequiredWithoutSpacesNestedInput = {
+    create?: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpacesInput
+    upsert?: usersUpsertWithoutSpacesInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSpacesInput, usersUpdateWithoutSpacesInput>, usersUncheckedUpdateWithoutSpacesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2427,6 +4120,195 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type spacesCreateWithoutCreated_byInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type spacesUncheckedCreateWithoutCreated_byInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type spacesCreateOrConnectWithoutCreated_byInput = {
+    where: spacesWhereUniqueInput
+    create: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput>
+  }
+
+  export type spacesCreateManyCreated_byInputEnvelope = {
+    data: spacesCreateManyCreated_byInput | spacesCreateManyCreated_byInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type spacesUpsertWithWhereUniqueWithoutCreated_byInput = {
+    where: spacesWhereUniqueInput
+    update: XOR<spacesUpdateWithoutCreated_byInput, spacesUncheckedUpdateWithoutCreated_byInput>
+    create: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput>
+  }
+
+  export type spacesUpdateWithWhereUniqueWithoutCreated_byInput = {
+    where: spacesWhereUniqueInput
+    data: XOR<spacesUpdateWithoutCreated_byInput, spacesUncheckedUpdateWithoutCreated_byInput>
+  }
+
+  export type spacesUpdateManyWithWhereWithoutCreated_byInput = {
+    where: spacesScalarWhereInput
+    data: XOR<spacesUpdateManyMutationInput, spacesUncheckedUpdateManyWithoutCreated_byInput>
+  }
+
+  export type spacesScalarWhereInput = {
+    AND?: spacesScalarWhereInput | spacesScalarWhereInput[]
+    OR?: spacesScalarWhereInput[]
+    NOT?: spacesScalarWhereInput | spacesScalarWhereInput[]
+    id?: IntFilter<"spaces"> | number
+    name?: StringFilter<"spaces"> | string
+    created_at?: DateTimeFilter<"spaces"> | Date | string
+    updated_at?: DateTimeFilter<"spaces"> | Date | string
+    subject?: StringFilter<"spaces"> | string
+    is_active?: BoolFilter<"spaces"> | boolean
+    users_id?: IntFilter<"spaces"> | number
+    is_deleted?: BoolFilter<"spaces"> | boolean
+    deleted_at?: DateTimeNullableFilter<"spaces"> | Date | string | null
+  }
+
+  export type usersCreateWithoutSpacesInput = {
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type usersUncheckedCreateWithoutSpacesInput = {
+    id?: number
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type usersCreateOrConnectWithoutSpacesInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
+  }
+
+  export type usersUpsertWithoutSpacesInput = {
+    update: XOR<usersUpdateWithoutSpacesInput, usersUncheckedUpdateWithoutSpacesInput>
+    create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutSpacesInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSpacesInput, usersUncheckedUpdateWithoutSpacesInput>
+  }
+
+  export type usersUpdateWithoutSpacesInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type usersUncheckedUpdateWithoutSpacesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type spacesCreateManyCreated_byInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+  }
+
+  export type spacesUpdateWithoutCreated_byInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type spacesUncheckedUpdateWithoutCreated_byInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

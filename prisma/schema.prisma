@@ -1,6 +1,6 @@
 datasource db {
     provider = "postgresql"
-    url      = env("NEXT_PUBLIC_DATABASE_URL")
+    url      = env("NEXT_PUBLIC_DIRECT_URL_2")
 }
 
 generator client {
@@ -14,4 +14,20 @@ model users {
     name       String?
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+    spaces     spaces[]
+}
+
+model spaces {
+    id         Int      @id @default(autoincrement())
+    name       String
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
+    subject    String
+    is_active  Boolean
+
+    created_by users @relation(fields: [users_id], references: [id])
+    users_id   Int
+
+    is_deleted Boolean   @default(false)
+    deleted_at DateTime?
 }
