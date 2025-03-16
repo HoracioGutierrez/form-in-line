@@ -127,7 +127,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\personal-dev\\boilerplate\\prisma\\generated\\prisma-client-js",
+      "value": "E:\\personal-dev\\form-in-line-2\\prisma\\generated\\prisma-client-js",
       "fromEnvVar": null
     },
     "config": {
@@ -141,7 +141,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\personal-dev\\boilerplate\\prisma\\schema.prisma",
+    "sourceFilePath": "E:\\personal-dev\\form-in-line-2\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -155,17 +155,16 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "NEXT_PUBLIC_DATABASE_URL",
+        "fromEnvVar": "NEXT_PUBLIC_DIRECT_URL_2",
         "value": null
       }
     }
   },
-  "inlineSchema": "datasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEXT_PUBLIC_DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma-client-js\"\n}\n\nmodel users {\n  id         Int      @id @default(autoincrement())\n  email      String   @unique\n  name       String?\n  created_at DateTime @default(now())\n  updated_at DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "c91f359574bd09f031d19f472014d4a4da7253579e21a5fc8221a7d576a7e2e2",
+  "inlineSchema": "datasource db {\n  provider = \"postgresql\"\n  url      = env(\"NEXT_PUBLIC_DIRECT_URL_2\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma-client-js\"\n}\n\nmodel users {\n  id         Int      @id @default(autoincrement())\n  email      String   @unique\n  name       String?\n  created_at DateTime @default(now())\n  updated_at DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "052f8905b47cd8ab38b405c2ab15e0fdd9a8c74ee35cf05e6ad3ee788e402751",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -177,7 +176,7 @@ config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    NEXT_PUBLIC_DATABASE_URL: typeof globalThis !== 'undefined' && globalThis['NEXT_PUBLIC_DATABASE_URL'] || typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_DATABASE_URL || undefined
+    NEXT_PUBLIC_DIRECT_URL_2: typeof globalThis !== 'undefined' && globalThis['NEXT_PUBLIC_DIRECT_URL_2'] || typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_DIRECT_URL_2 || undefined
   }
 })
 
