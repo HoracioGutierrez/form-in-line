@@ -2,6 +2,7 @@
 import { spaceSchema } from "@/lib/schemas"
 import client from "@/prisma/prisma-client"
 import { createClient } from "@/supabase/server"
+import { revalidatePath } from "next/cache"
 
 export const handleCreateSpace = async (formData: FormData) => {
     try {
@@ -39,6 +40,8 @@ export const handleCreateSpace = async (formData: FormData) => {
         })
 
         if (!newSpace) throw new Error('Error creating space');
+
+        revalidatePath('/spaces')
 
         return {
             data: newSpace,
