@@ -42,7 +42,10 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         } else {
             toast.promise(handleCreateSpace(formData, activationDays), {
                 loading: 'Creating space...',
-                success: 'Space created',
+                success: ()=>{
+                    setActivationDays([])
+                    return 'Space created'
+                },
                 error: error => error.message
             })
         }
