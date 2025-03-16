@@ -1,4 +1,4 @@
-import client from '@/prisma/prisma-client'
+import { prisma as client } from '@/prisma/prisma-client'
 import { createClient } from '@/supabase/server'
 import { NextResponse } from 'next/server'
 // The client you created from the Server-Side Auth instructions

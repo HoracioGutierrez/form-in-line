@@ -1,7 +1,7 @@
 "use server";
 
 import { userSchema } from "@/lib/schemas";
-import client from "@/prisma/prisma-client";
+import { prisma as client } from "@/prisma/prisma-client"
 import { createClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
 

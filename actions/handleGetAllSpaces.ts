@@ -1,6 +1,6 @@
 "use server"
 
-import client from "@/prisma/prisma-client"
+import { prisma as client } from "@/prisma/prisma-client"
 
 export const handleGetAllSpaces = async () => {
     try {
