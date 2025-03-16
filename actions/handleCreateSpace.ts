@@ -30,7 +30,7 @@ export const handleCreateSpace = async (formData: FormData) => {
             data: {
                 name: name,
                 subject: subject,
-                is_active: true,
+                is_active: false,
                 slug: slug,
                 created_by: {
                     connect: {

@@ -1,7 +1,9 @@
+import SpaceItemSkeleton from "@/components/spaces/space-item-skeleton"
 import SpaceForm from "@/components/spaces/SpaceForm"
 import SpacesList from "@/components/spaces/SpacesList"
 import { getI18n } from "@/locales/server"
 import { createClient } from "@/supabase/server"
+import { Suspense } from "react"
 
 async function SpacesPage() {
 
@@ -15,7 +17,9 @@ async function SpacesPage() {
         <h2 className="font-bold text-2xl">{t("spaces.title")}</h2>
         {data.user && <SpaceForm />}
       </div>
-      <SpacesList />
+      <Suspense fallback={<SpaceItemSkeleton />}>
+        <SpacesList />
+      </Suspense>
     </section>
   )
 }
