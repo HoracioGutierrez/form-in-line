@@ -4,9 +4,10 @@ import { createClient } from "@/supabase/server"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 import type { Metadata } from "next";
+import SpaceForm from "@/components/spaces/SpaceForm"
 
 export const metadata: Metadata = {
-    title : "Dashboard",
+    title: "Dashboard",
 }
 
 
@@ -87,6 +88,12 @@ async function DashboardPage() {
                             </label>
                             <p className="text-muted-foreground">{data.user.user_metadata.phone || "Not set"}</p>
                         </div>
+                    </div>
+                </div>
+                <div className="border p-2 md:p-4 rounded-lg">
+                    <div className="flex justify-between items-center mb-5">
+                        <h3 className="font-bold text-xl">Spaces</h3>
+                        <SpaceForm />
                     </div>
                 </div>
             </div>
