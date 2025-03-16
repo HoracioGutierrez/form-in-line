@@ -1,0 +1,56 @@
+"use server"
+import { spaceSchema } from "@/lib/schemas"
+import client from "@/prisma/prisma-client"
+import { createClient } from "@/supabase/server"
+
+export const handleCreateSpace = async (formData: FormData) => {
+    try {
+        const name = formData.get('name') as string
+        const subject = formData.get('subject') as string
+        const slug = formData.get('slug') as string
+
+        const space = { name, subject, slug }
+
+        if (!spaceSchema.isValidSync(space)) throw new Error('Invalid space data');
+
+        const supabase = await createClient()
+
+        const { data: authUser, error } = await supabase.auth.getUser()
+        const loggedUser = await client.users.findFirst({
+            where: {
+                email: authUser.user?.email
+            }
+        })
+
+        if (error) throw new Error(error.message);
+        if (!loggedUser) throw new Error('User not found');
+
+        const newSpace = await client.spaces.create({
+            data: {
+                name: name,
+                subject: subject,
+                is_active: true,
+                created_by: {
+                    connect: {
+                        email: loggedUser.email
+                    }
+                }
+            }
+        })
+
+        if (!newSpace) throw new Error('Error creating space');
+
+        return {
+            data: newSpace,
+            errorMessage: '',
+            hasError: false
+        }
+
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message)
+        }
+
+        throw new Error('Error creating space');
+    }
+}

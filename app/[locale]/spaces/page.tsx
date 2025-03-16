@@ -1,3 +1,5 @@
+import SpaceForm from "@/components/spaces/SpaceForm"
+import SpacesList from "@/components/spaces/SpacesList"
 import { getI18n } from "@/locales/server"
 import { createClient } from "@/supabase/server"
 
@@ -10,6 +12,7 @@ async function SpacesPage() {
   return (
     <section className="grow flex flex-col">
       <h2 className="font-bold text-2xl mb-10">{t("spaces.title")}</h2>
+      <SpacesList />
     </section>
   )
 }

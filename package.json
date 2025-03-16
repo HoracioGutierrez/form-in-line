@@ -16,6 +16,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.49.1",
+    "@types/unique-slug": "^4.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.479.0",
@@ -27,6 +28,7 @@
     "react-hot-toast": "^2.5.2",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
+    "unique-slug": "^5.0.0",
     "vaul": "^1.1.2",
     "yup": "^1.6.1"
   },

@@ -12,5 +12,12 @@ export const userWithProfile = yup.object({
     last_name: yup.string().min(2),
 });
 
+export const spaceSchema = yup.object({
+    name: yup.string().required(),
+    subject: yup.string().optional(),
+    slug: yup.string().required(),
+});
+
 export type SignUpUser = yup.InferType<typeof userSchema>;
 export type EditUser = yup.InferType<typeof userWithProfile>;
+export type CreateSpace = yup.InferType<typeof spaceSchema>;
