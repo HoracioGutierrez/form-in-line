@@ -40,7 +40,7 @@ function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay
 
     return (
         <div className="flex items-center gap-2">
-            <Select onValueChange={handleDayChange}>
+            <Select onValueChange={handleDayChange} defaultValue={day.day}>
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder="Days of the week" />
                 </SelectTrigger>

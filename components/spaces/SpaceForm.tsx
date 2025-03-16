@@ -14,6 +14,7 @@ import { handleEditSpace } from "@/actions/handleEditSpace"
 import { Plus } from "lucide-react"
 import ActivationTimeItem from "./activation-time-item"
 import { ActivationDay } from "@/lib/types"
+import { handleDeleteActivationTimeFromSpace } from "@/actions/handleDeleteActivationTimeFromSpace"
 
 
 type SpaceFormProps = {
@@ -69,8 +70,19 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         setActivationDays([...activationDays, newActivationDay])
     }
 
-    const removeActivationDay = (id: string) => {
-        setActivationDays(activationDays.filter(day => day.id !== id))
+    const removeActivationDay = async (id: string) => {
+        if (edit) {
+            toast.promise(handleDeleteActivationTimeFromSpace(parseInt(id)), {
+                loading: 'Deleting activation time...',
+                success: () => {
+                    setActivationDays(activationDays.filter(day => day.id !== id))
+                    return 'Activation time deleted'
+                },
+                error: error => error.message
+            })
+        } else {
+            setActivationDays(activationDays.filter(day => day.id !== id))
+        }
     }
 
     const handleChangeActivationDay = (id: string, day: string) => {
@@ -133,10 +145,12 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                                     handleChangeActivationStart={handleChangeActivationStart}
                                 />
                             ))}
-                            <Button type="button" variant="outline" onClick={addActivationDay}>
-                                <Plus />
-                                add time
-                            </Button>
+                            {!edit && (
+                                <Button type="button" variant="outline" onClick={addActivationDay}>
+                                    <Plus />
+                                    add time
+                                </Button>
+                            )}
                         </div>
                     </div>
                     <DialogFooter>
