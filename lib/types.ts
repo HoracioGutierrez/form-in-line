@@ -9,3 +9,9 @@ export type RootLayoutProps = Readonly<{ children: React.ReactNode }>;
 //Models
 export type User = users;
 export type Users = User[];
+
+export type ActivationDay = {
+    day: string;
+    start: string;
+    id: string;
+}

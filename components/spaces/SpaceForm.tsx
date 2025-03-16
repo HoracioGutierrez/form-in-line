@@ -2,7 +2,7 @@
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "../ui/button"
 import Form from "next/form"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import SpaceFormButton from "./space-form-button"
@@ -11,6 +11,10 @@ import { handleCreateSpace } from "@/actions/handleCreateSpace"
 import unique from "unique-slug"
 import { spaces } from "@/prisma/generated/prisma-client-js"
 import { handleEditSpace } from "@/actions/handleEditSpace"
+import { Plus } from "lucide-react"
+import ActivationTimeItem from "./activation-time-item"
+import { ActivationDay } from "@/lib/types"
+
 
 type SpaceFormProps = {
     buttonText?: string
@@ -23,6 +27,7 @@ type SpaceFormProps = {
 function SpaceForm({ buttonText = 'create space', edit = false, space, icon, variant }: SpaceFormProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [activationDays, setActivationDays] = useState<ActivationDay[]>([])
 
     const handleCloseModal = () => setIsModalOpen(false)
 
@@ -35,12 +40,45 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                 error: error => error.message
             })
         } else {
-            toast.promise(handleCreateSpace(formData), {
+            toast.promise(handleCreateSpace(formData, activationDays), {
                 loading: 'Creating space...',
                 success: 'Space created',
                 error: error => error.message
             })
         }
+    }
+
+    const addActivationDay = () => {
+        const newActivationDay: ActivationDay = {
+            day: "",
+            start: "",
+            id: unique()
+        }
+        setActivationDays([...activationDays, newActivationDay])
+    }
+
+    const removeActivationDay = (id: string) => {
+        setActivationDays(activationDays.filter(day => day.id !== id))
+    }
+
+    const handleChangeActivationDay = (id: string, day: string) => {
+        const updatedActivationDays = activationDays.map(item => {
+            if (item.id === id) {
+                return { ...item, day }
+            }
+            return item
+        })
+        setActivationDays(updatedActivationDays)
+    }
+
+    const handleChangeActivationStart = (id: string, start: string) => {
+        const updatedActivationDays = activationDays.map(item => {
+            if (item.id === id) {
+                return { ...item, start }
+            }
+            return item
+        })
+        setActivationDays(updatedActivationDays)
     }
 
     return (
@@ -71,12 +109,28 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                             <Label htmlFor='slug'>Custom URL</Label>
                             <Input type='slug' id='slug' name='slug' placeholder="jhon-math-revision" defaultValue={edit && space ? space.slug : unique()} />
                         </div>
+                        <div className='flex flex-col gap-2'>
+                            <Label htmlFor='is_active'>Activation Times</Label>
+                            {activationDays.map((day, index) => (
+                                <ActivationTimeItem
+                                    key={index}
+                                    id={day.id}
+                                    removeActivationDay={removeActivationDay}
+                                    handleChangeActivationDay={handleChangeActivationDay}
+                                    handleChangeActivationStart={handleChangeActivationStart}
+                                />
+                            ))}
+                            <Button type="button" variant="outline" onClick={addActivationDay}>
+                                <Plus />
+                                add time
+                            </Button>
+                        </div>
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
                             <Button type="button" variant="outline">cancelar</Button>
                         </DialogClose>
-                        <SpaceFormButton edit={edit}/>
+                        <SpaceFormButton edit={edit} />
                     </DialogFooter>
                 </Form>
             </DialogContent>

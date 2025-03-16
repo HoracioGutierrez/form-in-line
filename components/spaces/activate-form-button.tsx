@@ -1,59 +1,49 @@
 "use client"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "../ui/button"
-import { Trash } from "lucide-react"
+import { Trash, ZapIcon, ZapOff } from "lucide-react"
 import { useState } from "react"
 import Form from "next/form"
-import { spaces } from "@/prisma/generated/prisma-client-js"
 import toast from "react-hot-toast"
-import { handleDeleteSpace } from "@/actions/handleDeleteSpace"
-import DeleteFormButton from "./delete-form-button"
+import { spaces } from "@/prisma/generated/prisma-client-js"
+import ActivateButton from "./activate-button"
 
-type DeleteSpaceButtonProps = {
+type ActivateFormButtonProps = {
     space: spaces
 }
 
-function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
+function ActivateFormButton({ space }: ActivateFormButtonProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
 
-    const handleSubmit = async () => {
-        toast.promise(handleDeleteSpace(space.id), {
-            loading: 'Deleting space...',
-            success: () => {
-                handleCloseModal()
-                return 'Space deleted successfully'
-            },
-            error: error => error.message
-        })
-    }
+    const handleSubmit = async () => { }
 
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
                 <Button variant="ghost" size="icon" className="p-0">
-                    <Trash />
+                    {space.is_active ? <ZapOff /> : <ZapIcon />}
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        Delete space : {space.name}
+                        {space.is_active ? "Deactivate" : "Activate"} space : {space.name}
                     </DialogTitle>
-                    <DialogDescription>Once the space is deleted, all of its data will be lost.</DialogDescription>
+                    <DialogDescription>Once the space is {space.is_active ? "deactivated" : "activated"}, other users can join to it's virtual wait list.</DialogDescription>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <DialogFooter>
                         <DialogClose asChild>
                             <Button type="button" variant="outline">cancel</Button>
                         </DialogClose>
-                        <DeleteFormButton />
+                        <ActivateButton />
                     </DialogFooter>
                 </Form>
             </DialogContent>
         </Dialog>
     )
 }
-export default DeleteSpaceButton
+export default ActivateFormButton

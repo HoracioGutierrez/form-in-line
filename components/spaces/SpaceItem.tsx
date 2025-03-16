@@ -6,6 +6,7 @@ import { createClient } from "@/supabase/server"
 import { getUserByEmail } from "@/actions/getUserByEmail"
 import DeleteSpaceButton from "./delete-space-button"
 import SpaceForm from "./SpaceForm"
+import ActivateFormButton from "./activate-form-button"
 
 type SpaceItemProps = {
     space: spaces
@@ -37,6 +38,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
                             <>
                                 <DeleteSpaceButton space={space} />
                                 <SpaceForm icon={<Edit />} variant="ghost" space={space} edit/>
+                                <ActivateFormButton space={space}/>
                             </>
                         )}
                     </div>

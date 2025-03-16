@@ -1,10 +1,11 @@
 "use server"
 import { spaceSchema } from "@/lib/schemas"
+import { ActivationDay } from "@/lib/types"
 import { prisma as client } from "@/prisma/prisma-client"
 import { createClient } from "@/supabase/server"
 import { revalidatePath } from "next/cache"
 
-export const handleCreateSpace = async (formData: FormData) => {
+export const handleCreateSpace = async (formData: FormData, activationDays: ActivationDay[]) => {
     try {
         const name = formData.get('name') as string
         const subject = formData.get('subject') as string
