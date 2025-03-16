@@ -9,11 +9,16 @@ type ActivationTimeItemProps = {
     id: string
     handleChangeActivationDay: (id: string, day: string) => void
     handleChangeActivationStart: (id: string, start: string) => void
+    day: any
 }
 
-function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay, handleChangeActivationStart }: ActivationTimeItemProps) {
+function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay, handleChangeActivationStart, day }: ActivationTimeItemProps) {
 
-    const [date, setDates] = useState(new Date())
+    const formattedDate = new Date()
+    formattedDate.setHours(day.start.split(":")[0])
+    formattedDate.setMinutes(day.start.split(":")[1])
+
+    const [date, setDates] = useState(formattedDate)
     const minuteRef = useRef<HTMLInputElement>(null);
     const hourRef = useRef<HTMLInputElement>(null);
     const secondRef = useRef<HTMLInputElement>(null);
@@ -57,6 +62,7 @@ function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay
                         setDate={setDate}
                         ref={hourRef}
                         onRightFocus={() => minuteRef.current?.focus()}
+                        defaultValue={day.start_time}
                     />
                 </div>
                 <div className="grid gap-1 text-center">

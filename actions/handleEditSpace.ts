@@ -4,7 +4,7 @@ import { spaceSchema } from "@/lib/schemas"
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
 
-export const handleEditSpace = async (formData: FormData, spaceId: number) => {
+export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: any) => {
     try {
 
         const name = formData.get('name') as string
@@ -17,15 +17,29 @@ export const handleEditSpace = async (formData: FormData, spaceId: number) => {
 
 
         const editedSpace = await prisma.spaces.update({
-            where : {
-                id : spaceId
+            where: {
+                id: spaceId
             },
-            data : {
-                name : name,
-                subject : subject,
-                slug : slug
+            data: {
+                name: name,
+                subject: subject,
+                slug: slug
             }
         })
+
+        if (activationDays.length > 0) {
+            for (const day of activationDays) {
+                await prisma.spaces_activation_times.update({
+                    where: {
+                        id: parseInt(day.id)
+                    },
+                    data: {
+                        day_of_week: day.day,
+                        start_time: day.start
+                    }
+                })
+            }
+        }
 
         if (!editedSpace) throw new Error('Error editing space');
 

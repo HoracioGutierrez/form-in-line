@@ -9,7 +9,7 @@ import SpaceFormButton from "./space-form-button"
 import toast from "react-hot-toast"
 import { handleCreateSpace } from "@/actions/handleCreateSpace"
 import unique from "unique-slug"
-import { spaces } from "@/prisma/generated/prisma-client-js"
+import { spaces, spaces_activation_times } from "@/prisma/generated/prisma-client-js"
 import { handleEditSpace } from "@/actions/handleEditSpace"
 import { Plus } from "lucide-react"
 import ActivationTimeItem from "./activation-time-item"
@@ -19,7 +19,9 @@ import { ActivationDay } from "@/lib/types"
 type SpaceFormProps = {
     buttonText?: string
     edit?: boolean
-    space?: spaces
+    space?: spaces & {
+        spaces_activation_times: spaces_activation_times[]
+    }
     icon?: React.ReactNode
     variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
 }
@@ -27,14 +29,21 @@ type SpaceFormProps = {
 function SpaceForm({ buttonText = 'create space', edit = false, space, icon, variant }: SpaceFormProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [activationDays, setActivationDays] = useState<ActivationDay[]>([])
+    const initialActivationDays = space ? space.spaces_activation_times.map(time => {
+        return {
+            day: time.day_of_week,
+            start: time.start_time,
+            id: time.id + ""
+        }
+    }) : []
+    const [activationDays, setActivationDays] = useState<ActivationDay[]>(initialActivationDays || [])
 
     const handleCloseModal = () => setIsModalOpen(false)
 
     const handleSubmit = async (formData: FormData) => {
         handleCloseModal()
         if (edit && space) {
-            toast.promise(handleEditSpace(formData, space.id), {
+            toast.promise(handleEditSpace(formData, space.id, activationDays), {
                 loading: 'Editing space...',
                 success: 'Space edited',
                 error: error => error.message
@@ -42,7 +51,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         } else {
             toast.promise(handleCreateSpace(formData, activationDays), {
                 loading: 'Creating space...',
-                success: ()=>{
+                success: () => {
                     setActivationDays([])
                     return 'Space created'
                 },
@@ -118,6 +127,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                                 <ActivationTimeItem
                                     key={index}
                                     id={day.id}
+                                    day={day}
                                     removeActivationDay={removeActivationDay}
                                     handleChangeActivationDay={handleChangeActivationDay}
                                     handleChangeActivationStart={handleChangeActivationStart}
