@@ -7,10 +7,16 @@ export const getSpaceBySlug = async (slug: string) => {
 
         const space = await prisma.spaces.findFirst({
             where: {
-                slug : slug
+                slug : slug,
             },
             include : {
                 spaces_activation_times : true,
+                queues : {
+                    where : {
+                        is_active : true
+                    }
+                },
+                queue_members : true
             }
         })
 

@@ -1275,11 +1275,13 @@ export namespace Prisma {
   export type SpacesCountOutputType = {
     spaces_activation_times: number
     queues: number
+    queue_members: number
   }
 
   export type SpacesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces_activation_times?: boolean | SpacesCountOutputTypeCountSpaces_activation_timesArgs
     queues?: boolean | SpacesCountOutputTypeCountQueuesArgs
+    queue_members?: boolean | SpacesCountOutputTypeCountQueue_membersArgs
   }
 
   // Custom InputTypes
@@ -1305,6 +1307,13 @@ export namespace Prisma {
    */
   export type SpacesCountOutputTypeCountQueuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: queuesWhereInput
+  }
+
+  /**
+   * SpacesCountOutputType without action
+   */
+  export type SpacesCountOutputTypeCountQueue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queue_membersWhereInput
   }
 
 
@@ -2720,6 +2729,7 @@ export namespace Prisma {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
     queues?: boolean | spaces$queuesArgs<ExtArgs>
+    queue_members?: boolean | spaces$queue_membersArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2769,6 +2779,7 @@ export namespace Prisma {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
     queues?: boolean | spaces$queuesArgs<ExtArgs>
+    queue_members?: boolean | spaces$queue_membersArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type spacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2784,6 +2795,7 @@ export namespace Prisma {
       created_by: Prisma.$usersPayload<ExtArgs>
       spaces_activation_times: Prisma.$spaces_activation_timesPayload<ExtArgs>[]
       queues: Prisma.$queuesPayload<ExtArgs>[]
+      queue_members: Prisma.$queue_membersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3193,6 +3205,7 @@ export namespace Prisma {
     created_by<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     spaces_activation_times<T extends spaces$spaces_activation_timesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$spaces_activation_timesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     queues<T extends spaces$queuesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$queuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    queue_members<T extends spaces$queue_membersArgs<ExtArgs> = {}>(args?: Subset<T, spaces$queue_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3673,6 +3686,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: QueuesScalarFieldEnum | QueuesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces.queue_members
+   */
+  export type spaces$queue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    where?: queue_membersWhereInput
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    cursor?: queue_membersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
   }
 
   /**
@@ -5932,6 +5969,7 @@ export namespace Prisma {
     id: number | null
     queue_id: number | null
     user_id: number | null
+    space_id: number | null
     position: number | null
   }
 
@@ -5939,6 +5977,7 @@ export namespace Prisma {
     id: number | null
     queue_id: number | null
     user_id: number | null
+    space_id: number | null
     position: number | null
   }
 
@@ -5946,6 +5985,7 @@ export namespace Prisma {
     id: number | null
     queue_id: number | null
     user_id: number | null
+    space_id: number | null
     is_paused: boolean | null
     is_current: boolean | null
     position: number | null
@@ -5957,6 +5997,7 @@ export namespace Prisma {
     id: number | null
     queue_id: number | null
     user_id: number | null
+    space_id: number | null
     is_paused: boolean | null
     is_current: boolean | null
     position: number | null
@@ -5968,6 +6009,7 @@ export namespace Prisma {
     id: number
     queue_id: number
     user_id: number
+    space_id: number
     is_paused: number
     is_current: number
     position: number
@@ -5981,6 +6023,7 @@ export namespace Prisma {
     id?: true
     queue_id?: true
     user_id?: true
+    space_id?: true
     position?: true
   }
 
@@ -5988,6 +6031,7 @@ export namespace Prisma {
     id?: true
     queue_id?: true
     user_id?: true
+    space_id?: true
     position?: true
   }
 
@@ -5995,6 +6039,7 @@ export namespace Prisma {
     id?: true
     queue_id?: true
     user_id?: true
+    space_id?: true
     is_paused?: true
     is_current?: true
     position?: true
@@ -6006,6 +6051,7 @@ export namespace Prisma {
     id?: true
     queue_id?: true
     user_id?: true
+    space_id?: true
     is_paused?: true
     is_current?: true
     position?: true
@@ -6017,6 +6063,7 @@ export namespace Prisma {
     id?: true
     queue_id?: true
     user_id?: true
+    space_id?: true
     is_paused?: true
     is_current?: true
     position?: true
@@ -6115,6 +6162,7 @@ export namespace Prisma {
     id: number
     queue_id: number
     user_id: number
+    space_id: number
     is_paused: boolean
     is_current: boolean
     position: number
@@ -6145,6 +6193,7 @@ export namespace Prisma {
     id?: boolean
     queue_id?: boolean
     user_id?: boolean
+    space_id?: boolean
     is_paused?: boolean
     is_current?: boolean
     position?: boolean
@@ -6152,12 +6201,14 @@ export namespace Prisma {
     updated_at?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["queue_members"]>
 
   export type queue_membersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     queue_id?: boolean
     user_id?: boolean
+    space_id?: boolean
     is_paused?: boolean
     is_current?: boolean
     position?: boolean
@@ -6165,12 +6216,14 @@ export namespace Prisma {
     updated_at?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["queue_members"]>
 
   export type queue_membersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     queue_id?: boolean
     user_id?: boolean
+    space_id?: boolean
     is_paused?: boolean
     is_current?: boolean
     position?: boolean
@@ -6178,12 +6231,14 @@ export namespace Prisma {
     updated_at?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["queue_members"]>
 
   export type queue_membersSelectScalar = {
     id?: boolean
     queue_id?: boolean
     user_id?: boolean
+    space_id?: boolean
     is_paused?: boolean
     is_current?: boolean
     position?: boolean
@@ -6191,18 +6246,21 @@ export namespace Prisma {
     updated_at?: boolean
   }
 
-  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at", ExtArgs["result"]["queue_members"]>
+  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "space_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at", ExtArgs["result"]["queue_members"]>
   export type queue_membersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }
   export type queue_membersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }
   export type queue_membersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
+    space?: boolean | spacesDefaultArgs<ExtArgs>
   }
 
   export type $queue_membersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6210,11 +6268,13 @@ export namespace Prisma {
     objects: {
       queue: Prisma.$queuesPayload<ExtArgs>
       user: Prisma.$usersPayload<ExtArgs>
+      space: Prisma.$spacesPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       queue_id: number
       user_id: number
+      space_id: number
       is_paused: boolean
       is_current: boolean
       position: number
@@ -6616,6 +6676,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     queue<T extends queuesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, queuesDefaultArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    space<T extends spacesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, spacesDefaultArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6648,6 +6709,7 @@ export namespace Prisma {
     readonly id: FieldRef<"queue_members", 'Int'>
     readonly queue_id: FieldRef<"queue_members", 'Int'>
     readonly user_id: FieldRef<"queue_members", 'Int'>
+    readonly space_id: FieldRef<"queue_members", 'Int'>
     readonly is_paused: FieldRef<"queue_members", 'Boolean'>
     readonly is_current: FieldRef<"queue_members", 'Boolean'>
     readonly position: FieldRef<"queue_members", 'Int'>
@@ -7134,6 +7196,7 @@ export namespace Prisma {
     id: 'id',
     queue_id: 'queue_id',
     user_id: 'user_id',
+    space_id: 'space_id',
     is_paused: 'is_paused',
     is_current: 'is_current',
     position: 'position',
@@ -7316,6 +7379,7 @@ export namespace Prisma {
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
     queues?: QueuesListRelationFilter
+    queue_members?: Queue_membersListRelationFilter
   }
 
   export type spacesOrderByWithRelationInput = {
@@ -7332,6 +7396,7 @@ export namespace Prisma {
     created_by?: usersOrderByWithRelationInput
     spaces_activation_times?: spaces_activation_timesOrderByRelationAggregateInput
     queues?: queuesOrderByRelationAggregateInput
+    queue_members?: queue_membersOrderByRelationAggregateInput
   }
 
   export type spacesWhereUniqueInput = Prisma.AtLeast<{
@@ -7351,6 +7416,7 @@ export namespace Prisma {
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
     queues?: QueuesListRelationFilter
+    queue_members?: Queue_membersListRelationFilter
   }, "id">
 
   export type spacesOrderByWithAggregationInput = {
@@ -7511,6 +7577,7 @@ export namespace Prisma {
     id?: IntFilter<"queue_members"> | number
     queue_id?: IntFilter<"queue_members"> | number
     user_id?: IntFilter<"queue_members"> | number
+    space_id?: IntFilter<"queue_members"> | number
     is_paused?: BoolFilter<"queue_members"> | boolean
     is_current?: BoolFilter<"queue_members"> | boolean
     position?: IntFilter<"queue_members"> | number
@@ -7518,12 +7585,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
   }
 
   export type queue_membersOrderByWithRelationInput = {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     is_paused?: SortOrder
     is_current?: SortOrder
     position?: SortOrder
@@ -7531,6 +7600,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     queue?: queuesOrderByWithRelationInput
     user?: usersOrderByWithRelationInput
+    space?: spacesOrderByWithRelationInput
   }
 
   export type queue_membersWhereUniqueInput = Prisma.AtLeast<{
@@ -7540,6 +7610,7 @@ export namespace Prisma {
     NOT?: queue_membersWhereInput | queue_membersWhereInput[]
     queue_id?: IntFilter<"queue_members"> | number
     user_id?: IntFilter<"queue_members"> | number
+    space_id?: IntFilter<"queue_members"> | number
     is_paused?: BoolFilter<"queue_members"> | boolean
     is_current?: BoolFilter<"queue_members"> | boolean
     position?: IntFilter<"queue_members"> | number
@@ -7547,12 +7618,14 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
   }, "id">
 
   export type queue_membersOrderByWithAggregationInput = {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     is_paused?: SortOrder
     is_current?: SortOrder
     position?: SortOrder
@@ -7572,6 +7645,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"queue_members"> | number
     queue_id?: IntWithAggregatesFilter<"queue_members"> | number
     user_id?: IntWithAggregatesFilter<"queue_members"> | number
+    space_id?: IntWithAggregatesFilter<"queue_members"> | number
     is_paused?: BoolWithAggregatesFilter<"queue_members"> | boolean
     is_current?: BoolWithAggregatesFilter<"queue_members"> | boolean
     position?: IntWithAggregatesFilter<"queue_members"> | number
@@ -7652,6 +7726,7 @@ export namespace Prisma {
     created_by: usersCreateNestedOneWithoutSpacesInput
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateInput = {
@@ -7667,6 +7742,7 @@ export namespace Prisma {
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUpdateInput = {
@@ -7681,6 +7757,7 @@ export namespace Prisma {
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateInput = {
@@ -7696,6 +7773,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateManyInput = {
@@ -7851,12 +7929,14 @@ export namespace Prisma {
     updated_at?: Date | string
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     user: usersCreateNestedOneWithoutQueue_membersInput
+    space: spacesCreateNestedOneWithoutQueue_membersInput
   }
 
   export type queue_membersUncheckedCreateInput = {
     id?: number
     queue_id: number
     user_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -7872,12 +7952,14 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
+    space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
 
   export type queue_membersUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     queue_id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
@@ -7889,6 +7971,7 @@ export namespace Prisma {
     id?: number
     queue_id: number
     user_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -7908,6 +7991,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     queue_id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
@@ -8284,6 +8368,7 @@ export namespace Prisma {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     is_paused?: SortOrder
     is_current?: SortOrder
     position?: SortOrder
@@ -8295,6 +8380,7 @@ export namespace Prisma {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     position?: SortOrder
   }
 
@@ -8302,6 +8388,7 @@ export namespace Prisma {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     is_paused?: SortOrder
     is_current?: SortOrder
     position?: SortOrder
@@ -8313,6 +8400,7 @@ export namespace Prisma {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     is_paused?: SortOrder
     is_current?: SortOrder
     position?: SortOrder
@@ -8324,6 +8412,7 @@ export namespace Prisma {
     id?: SortOrder
     queue_id?: SortOrder
     user_id?: SortOrder
+    space_id?: SortOrder
     position?: SortOrder
   }
 
@@ -8451,6 +8540,13 @@ export namespace Prisma {
     connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
   }
 
+  export type queue_membersCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput> | queue_membersCreateWithoutSpaceInput[] | queue_membersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutSpaceInput | queue_membersCreateOrConnectWithoutSpaceInput[]
+    createMany?: queue_membersCreateManySpaceInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
   export type spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
@@ -8463,6 +8559,13 @@ export namespace Prisma {
     connectOrCreate?: queuesCreateOrConnectWithoutSpaceInput | queuesCreateOrConnectWithoutSpaceInput[]
     createMany?: queuesCreateManySpaceInputEnvelope
     connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+  }
+
+  export type queue_membersUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput> | queue_membersCreateWithoutSpaceInput[] | queue_membersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutSpaceInput | queue_membersCreateOrConnectWithoutSpaceInput[]
+    createMany?: queue_membersCreateManySpaceInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8509,6 +8612,20 @@ export namespace Prisma {
     deleteMany?: queuesScalarWhereInput | queuesScalarWhereInput[]
   }
 
+  export type queue_membersUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput> | queue_membersCreateWithoutSpaceInput[] | queue_membersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutSpaceInput | queue_membersCreateOrConnectWithoutSpaceInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutSpaceInput | queue_membersUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: queue_membersCreateManySpaceInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutSpaceInput | queue_membersUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutSpaceInput | queue_membersUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
   export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
@@ -8535,6 +8652,20 @@ export namespace Prisma {
     update?: queuesUpdateWithWhereUniqueWithoutSpaceInput | queuesUpdateWithWhereUniqueWithoutSpaceInput[]
     updateMany?: queuesUpdateManyWithWhereWithoutSpaceInput | queuesUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: queuesScalarWhereInput | queuesScalarWhereInput[]
+  }
+
+  export type queue_membersUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput> | queue_membersCreateWithoutSpaceInput[] | queue_membersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutSpaceInput | queue_membersCreateOrConnectWithoutSpaceInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutSpaceInput | queue_membersUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: queue_membersCreateManySpaceInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutSpaceInput | queue_membersUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutSpaceInput | queue_membersUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
   }
 
   export type spacesCreateNestedOneWithoutSpaces_activation_timesInput = {
@@ -8619,6 +8750,12 @@ export namespace Prisma {
     connect?: usersWhereUniqueInput
   }
 
+  export type spacesCreateNestedOneWithoutQueue_membersInput = {
+    create?: XOR<spacesCreateWithoutQueue_membersInput, spacesUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutQueue_membersInput
+    connect?: spacesWhereUniqueInput
+  }
+
   export type queuesUpdateOneRequiredWithoutQueue_membersNestedInput = {
     create?: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
     connectOrCreate?: queuesCreateOrConnectWithoutQueue_membersInput
@@ -8633,6 +8770,14 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutQueue_membersInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutQueue_membersInput, usersUpdateWithoutQueue_membersInput>, usersUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type spacesUpdateOneRequiredWithoutQueue_membersNestedInput = {
+    create?: XOR<spacesCreateWithoutQueue_membersInput, spacesUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutQueue_membersInput
+    upsert?: spacesUpsertWithoutQueue_membersInput
+    connect?: spacesWhereUniqueInput
+    update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutQueue_membersInput, spacesUpdateWithoutQueue_membersInput>, spacesUncheckedUpdateWithoutQueue_membersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -8820,6 +8965,7 @@ export namespace Prisma {
     slug: string
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutCreated_byInput = {
@@ -8834,6 +8980,7 @@ export namespace Prisma {
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutCreated_byInput = {
@@ -8853,11 +9000,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     queue: queuesCreateNestedOneWithoutQueue_membersInput
+    space: spacesCreateNestedOneWithoutQueue_membersInput
   }
 
   export type queue_membersUncheckedCreateWithoutUserInput = {
     id?: number
     queue_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -8930,6 +9079,7 @@ export namespace Prisma {
     id?: IntFilter<"queue_members"> | number
     queue_id?: IntFilter<"queue_members"> | number
     user_id?: IntFilter<"queue_members"> | number
+    space_id?: IntFilter<"queue_members"> | number
     is_paused?: BoolFilter<"queue_members"> | boolean
     is_current?: BoolFilter<"queue_members"> | boolean
     position?: IntFilter<"queue_members"> | number
@@ -9004,6 +9154,37 @@ export namespace Prisma {
 
   export type queuesCreateManySpaceInputEnvelope = {
     data: queuesCreateManySpaceInput | queuesCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type queue_membersCreateWithoutSpaceInput = {
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    queue: queuesCreateNestedOneWithoutQueue_membersInput
+    user: usersCreateNestedOneWithoutQueue_membersInput
+  }
+
+  export type queue_membersUncheckedCreateWithoutSpaceInput = {
+    id?: number
+    queue_id: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersCreateOrConnectWithoutSpaceInput = {
+    where: queue_membersWhereUniqueInput
+    create: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type queue_membersCreateManySpaceInputEnvelope = {
+    data: queue_membersCreateManySpaceInput | queue_membersCreateManySpaceInput[]
     skipDuplicates?: boolean
   }
 
@@ -9089,6 +9270,22 @@ export namespace Prisma {
     is_active?: BoolFilter<"queues"> | boolean
   }
 
+  export type queue_membersUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: queue_membersWhereUniqueInput
+    update: XOR<queue_membersUpdateWithoutSpaceInput, queue_membersUncheckedUpdateWithoutSpaceInput>
+    create: XOR<queue_membersCreateWithoutSpaceInput, queue_membersUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type queue_membersUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: queue_membersWhereUniqueInput
+    data: XOR<queue_membersUpdateWithoutSpaceInput, queue_membersUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type queue_membersUpdateManyWithWhereWithoutSpaceInput = {
+    where: queue_membersScalarWhereInput
+    data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyWithoutSpaceInput>
+  }
+
   export type spacesCreateWithoutSpaces_activation_timesInput = {
     name: string
     created_at?: Date | string
@@ -9100,6 +9297,7 @@ export namespace Prisma {
     slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutSpaces_activation_timesInput = {
@@ -9114,6 +9312,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutSpaces_activation_timesInput = {
@@ -9143,6 +9342,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutSpaces_activation_timesInput = {
@@ -9157,6 +9357,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateWithoutQueuesInput = {
@@ -9170,6 +9371,7 @@ export namespace Prisma {
     slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutQueuesInput = {
@@ -9184,6 +9386,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutQueuesInput = {
@@ -9198,11 +9401,13 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     user: usersCreateNestedOneWithoutQueue_membersInput
+    space: spacesCreateNestedOneWithoutQueue_membersInput
   }
 
   export type queue_membersUncheckedCreateWithoutQueueInput = {
     id?: number
     user_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -9242,6 +9447,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutQueuesInput = {
@@ -9256,6 +9462,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type queue_membersUpsertWithWhereUniqueWithoutQueueInput = {
@@ -9318,6 +9525,40 @@ export namespace Prisma {
     create: XOR<usersCreateWithoutQueue_membersInput, usersUncheckedCreateWithoutQueue_membersInput>
   }
 
+  export type spacesCreateWithoutQueue_membersInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    created_by: usersCreateNestedOneWithoutSpacesInput
+    spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+    queues?: queuesCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesUncheckedCreateWithoutQueue_membersInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+    queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesCreateOrConnectWithoutQueue_membersInput = {
+    where: spacesWhereUniqueInput
+    create: XOR<spacesCreateWithoutQueue_membersInput, spacesUncheckedCreateWithoutQueue_membersInput>
+  }
+
   export type queuesUpsertWithoutQueue_membersInput = {
     update: XOR<queuesUpdateWithoutQueue_membersInput, queuesUncheckedUpdateWithoutQueue_membersInput>
     create: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
@@ -9374,6 +9615,46 @@ export namespace Prisma {
     spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
   }
 
+  export type spacesUpsertWithoutQueue_membersInput = {
+    update: XOR<spacesUpdateWithoutQueue_membersInput, spacesUncheckedUpdateWithoutQueue_membersInput>
+    create: XOR<spacesCreateWithoutQueue_membersInput, spacesUncheckedCreateWithoutQueue_membersInput>
+    where?: spacesWhereInput
+  }
+
+  export type spacesUpdateToOneWithWhereWithoutQueue_membersInput = {
+    where?: spacesWhereInput
+    data: XOR<spacesUpdateWithoutQueue_membersInput, spacesUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type spacesUpdateWithoutQueue_membersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+    spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type spacesUncheckedUpdateWithoutQueue_membersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
   export type spacesCreateManyCreated_byInput = {
     id?: number
     name: string
@@ -9389,6 +9670,7 @@ export namespace Prisma {
   export type queue_membersCreateManyUserInput = {
     id?: number
     queue_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -9407,6 +9689,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutCreated_byInput = {
@@ -9421,6 +9704,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
@@ -9442,11 +9726,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
+    space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
 
   export type queue_membersUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     queue_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
@@ -9457,6 +9743,7 @@ export namespace Prisma {
   export type queue_membersUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     queue_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
@@ -9476,6 +9763,17 @@ export namespace Prisma {
     start_at_time: string
     end_at_time?: string | null
     is_active?: boolean
+  }
+
+  export type queue_membersCreateManySpaceInput = {
+    id?: number
+    queue_id: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type spaces_activation_timesUpdateWithoutSpaceInput = {
@@ -9520,9 +9818,42 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type queue_membersUpdateWithoutSpaceInput = {
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
+    user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
+  }
+
+  export type queue_membersUncheckedUpdateWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type queue_membersUncheckedUpdateManyWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type queue_membersCreateManyQueueInput = {
     id?: number
     user_id: number
+    space_id: number
     is_paused?: boolean
     is_current?: boolean
     position: number
@@ -9537,11 +9868,13 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
+    space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
 
   export type queue_membersUncheckedUpdateWithoutQueueInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number
@@ -9552,6 +9885,7 @@ export namespace Prisma {
   export type queue_membersUncheckedUpdateManyWithoutQueueInput = {
     id?: IntFieldUpdateOperationsInput | number
     user_id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
     is_paused?: BoolFieldUpdateOperationsInput | boolean
     is_current?: BoolFieldUpdateOperationsInput | boolean
     position?: IntFieldUpdateOperationsInput | number

@@ -9,6 +9,7 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
 
     const { slug } = await params
     const { data } = await getSpaceBySlug(slug)
+    console.log("🚀 ~ SpaceDetailsPage ~ data:", data)
 
     if (!data) {
         redirect("/spaces")

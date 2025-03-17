@@ -158,6 +158,7 @@ exports.Prisma.Queue_membersScalarFieldEnum = {
   id: 'id',
   queue_id: 'queue_id',
   user_id: 'user_id',
+  space_id: 'space_id',
   is_paused: 'is_paused',
   is_current: 'is_current',
   position: 'position',
