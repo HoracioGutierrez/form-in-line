@@ -88,7 +88,8 @@ export default {
             'login': 'log in',
             'dashboard': 'dashboard',
             'logout': 'logout',
-            'spaces': 'spaces'
+            'spaces': 'spaces',
+            'history': 'history'
         },
         'locale' : {
             'loading': 'Changing locale...'

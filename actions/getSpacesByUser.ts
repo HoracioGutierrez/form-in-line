@@ -10,8 +10,17 @@ export const getSpacesByUser = async (userId: number) => {
                 users_id: userId,
                 is_deleted: false
             },
-            include : {
-                spaces_activation_times: true
+            include: {
+                spaces_activation_times: true,
+                queue_members: {
+                    where: {
+                        has_spoken: false,
+                        position: {
+                            gt: 0
+                        },
+                        queue_ended: false
+                    }
+                }
             }
         })
 

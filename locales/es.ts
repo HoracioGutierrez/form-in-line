@@ -88,7 +88,8 @@ export default {
             'login': 'iniciar sesión',
             'dashboard': 'perfil',
             'logout': 'salir',
-            'spaces': 'espacios'
+            'spaces': 'espacios',
+            'history': 'historial'
         },
         'locale' : {
             'loading': 'Cambiando idioma...'
