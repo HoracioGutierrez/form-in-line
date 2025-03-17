@@ -13,11 +13,11 @@ type ActivationTimeItemProps = {
 }
 
 function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay, handleChangeActivationStart, day }: ActivationTimeItemProps) {
-
+    
     const formattedDate = new Date()
-    formattedDate.setHours(day.start.split(":")[0])
-    formattedDate.setMinutes(day.start.split(":")[1])
-
+    formattedDate.setHours(day.start ? day.start.split(":")[0] : 0)
+    formattedDate.setMinutes(day.start ? day.start.split(":")[1] : 0)
+    
     const [date, setDates] = useState(formattedDate)
     const minuteRef = useRef<HTMLInputElement>(null);
     const hourRef = useRef<HTMLInputElement>(null);
