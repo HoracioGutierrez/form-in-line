@@ -34,6 +34,10 @@ export const joinUserToQueueFromSpace = async (formData: FormData, spaceId: numb
             where: {
                 space_id: spaceId,
                 queue_id: queueId,
+                has_spoken: false,
+                position: {
+                    gt: 0
+                },
                 queue: {
                     is_active: true
                 },
