@@ -78,4 +78,6 @@ model queue_members {
     position   Int
     created_at DateTime @default(now())
     updated_at DateTime @updatedAt
+
+    subject String?
 }

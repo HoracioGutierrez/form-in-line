@@ -30,17 +30,30 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                 </div>
             </div>
             <div>
+                {loggedUser
+                    && data.queue_members.length > 0
+                    && !data.queue_members.find(member => member.user_id === loggedUser.id)
+                    && (
+                        <JoinQueueModal loggedUser={loggedUser} space={data} />
+                    )}
                 {data.queue_members.length === 0 && (
                     <div className="border-dashed border dark:border-muted p-4 rounded-lg">
                         <p className="text-muted-foreground text-center">There are no people in the wait list</p>
                         <p className="text-muted-foreground text-center mb-8">Be the first one to join!</p>
                         {loggedUser && (
                             <div className="flex justify-center">
-                                <JoinQueueModal loggedUser={loggedUser} />
+                                <JoinQueueModal loggedUser={loggedUser} space={data} />
                             </div>
                         )}
                     </div>
                 )}
+                {data.queue_members.length > 0 && data.queue_members.map((member) => {
+                    return (
+                        <div key={member.id}>
+                            {member.user.name || member.user.email} - {member.subject}
+                        </div>
+                    )
+                })}
             </div>
         </section>
     )

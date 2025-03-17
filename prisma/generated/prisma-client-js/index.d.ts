@@ -5991,6 +5991,7 @@ export namespace Prisma {
     position: number | null
     created_at: Date | null
     updated_at: Date | null
+    subject: string | null
   }
 
   export type Queue_membersMaxAggregateOutputType = {
@@ -6003,6 +6004,7 @@ export namespace Prisma {
     position: number | null
     created_at: Date | null
     updated_at: Date | null
+    subject: string | null
   }
 
   export type Queue_membersCountAggregateOutputType = {
@@ -6015,6 +6017,7 @@ export namespace Prisma {
     position: number
     created_at: number
     updated_at: number
+    subject: number
     _all: number
   }
 
@@ -6045,6 +6048,7 @@ export namespace Prisma {
     position?: true
     created_at?: true
     updated_at?: true
+    subject?: true
   }
 
   export type Queue_membersMaxAggregateInputType = {
@@ -6057,6 +6061,7 @@ export namespace Prisma {
     position?: true
     created_at?: true
     updated_at?: true
+    subject?: true
   }
 
   export type Queue_membersCountAggregateInputType = {
@@ -6069,6 +6074,7 @@ export namespace Prisma {
     position?: true
     created_at?: true
     updated_at?: true
+    subject?: true
     _all?: true
   }
 
@@ -6168,6 +6174,7 @@ export namespace Prisma {
     position: number
     created_at: Date
     updated_at: Date
+    subject: string | null
     _count: Queue_membersCountAggregateOutputType | null
     _avg: Queue_membersAvgAggregateOutputType | null
     _sum: Queue_membersSumAggregateOutputType | null
@@ -6199,6 +6206,7 @@ export namespace Prisma {
     position?: boolean
     created_at?: boolean
     updated_at?: boolean
+    subject?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6214,6 +6222,7 @@ export namespace Prisma {
     position?: boolean
     created_at?: boolean
     updated_at?: boolean
+    subject?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6229,6 +6238,7 @@ export namespace Prisma {
     position?: boolean
     created_at?: boolean
     updated_at?: boolean
+    subject?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6244,9 +6254,10 @@ export namespace Prisma {
     position?: boolean
     created_at?: boolean
     updated_at?: boolean
+    subject?: boolean
   }
 
-  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "space_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at", ExtArgs["result"]["queue_members"]>
+  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "space_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at" | "subject", ExtArgs["result"]["queue_members"]>
   export type queue_membersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
@@ -6280,6 +6291,7 @@ export namespace Prisma {
       position: number
       created_at: Date
       updated_at: Date
+      subject: string | null
     }, ExtArgs["result"]["queue_members"]>
     composites: {}
   }
@@ -6715,6 +6727,7 @@ export namespace Prisma {
     readonly position: FieldRef<"queue_members", 'Int'>
     readonly created_at: FieldRef<"queue_members", 'DateTime'>
     readonly updated_at: FieldRef<"queue_members", 'DateTime'>
+    readonly subject: FieldRef<"queue_members", 'String'>
   }
     
 
@@ -7201,7 +7214,8 @@ export namespace Prisma {
     is_current: 'is_current',
     position: 'position',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    subject: 'subject'
   };
 
   export type Queue_membersScalarFieldEnum = (typeof Queue_membersScalarFieldEnum)[keyof typeof Queue_membersScalarFieldEnum]
@@ -7583,6 +7597,7 @@ export namespace Prisma {
     position?: IntFilter<"queue_members"> | number
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
+    subject?: StringNullableFilter<"queue_members"> | string | null
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
@@ -7598,6 +7613,7 @@ export namespace Prisma {
     position?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    subject?: SortOrderInput | SortOrder
     queue?: queuesOrderByWithRelationInput
     user?: usersOrderByWithRelationInput
     space?: spacesOrderByWithRelationInput
@@ -7616,6 +7632,7 @@ export namespace Prisma {
     position?: IntFilter<"queue_members"> | number
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
+    subject?: StringNullableFilter<"queue_members"> | string | null
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
@@ -7631,6 +7648,7 @@ export namespace Prisma {
     position?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    subject?: SortOrderInput | SortOrder
     _count?: queue_membersCountOrderByAggregateInput
     _avg?: queue_membersAvgOrderByAggregateInput
     _max?: queue_membersMaxOrderByAggregateInput
@@ -7651,6 +7669,7 @@ export namespace Prisma {
     position?: IntWithAggregatesFilter<"queue_members"> | number
     created_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
+    subject?: StringNullableWithAggregatesFilter<"queue_members"> | string | null
   }
 
   export type usersCreateInput = {
@@ -7927,6 +7946,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     user: usersCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
@@ -7942,6 +7962,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersUpdateInput = {
@@ -7950,6 +7971,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
@@ -7965,6 +7987,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersCreateManyInput = {
@@ -7977,6 +8000,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersUpdateManyMutationInput = {
@@ -7985,6 +8009,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersUncheckedUpdateManyInput = {
@@ -7997,6 +8022,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8374,6 +8400,7 @@ export namespace Prisma {
     position?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    subject?: SortOrder
   }
 
   export type queue_membersAvgOrderByAggregateInput = {
@@ -8394,6 +8421,7 @@ export namespace Prisma {
     position?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    subject?: SortOrder
   }
 
   export type queue_membersMinOrderByAggregateInput = {
@@ -8406,6 +8434,7 @@ export namespace Prisma {
     position?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    subject?: SortOrder
   }
 
   export type queue_membersSumOrderByAggregateInput = {
@@ -8999,6 +9028,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
   }
@@ -9012,6 +9042,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersCreateOrConnectWithoutUserInput = {
@@ -9085,6 +9116,7 @@ export namespace Prisma {
     position?: IntFilter<"queue_members"> | number
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
+    subject?: StringNullableFilter<"queue_members"> | string | null
   }
 
   export type usersCreateWithoutSpacesInput = {
@@ -9163,6 +9195,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     user: usersCreateNestedOneWithoutQueue_membersInput
   }
@@ -9176,6 +9209,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersCreateOrConnectWithoutSpaceInput = {
@@ -9400,6 +9434,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
     user: usersCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
   }
@@ -9413,6 +9448,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersCreateOrConnectWithoutQueueInput = {
@@ -9676,6 +9712,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type spacesUpdateWithoutCreated_byInput = {
@@ -9725,6 +9762,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9738,6 +9776,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersUncheckedUpdateManyWithoutUserInput = {
@@ -9749,6 +9788,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type spaces_activation_timesCreateManySpaceInput = {
@@ -9774,6 +9814,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type spaces_activation_timesUpdateWithoutSpaceInput = {
@@ -9824,6 +9865,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9837,6 +9879,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersUncheckedUpdateManyWithoutSpaceInput = {
@@ -9848,6 +9891,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersCreateManyQueueInput = {
@@ -9859,6 +9903,7 @@ export namespace Prisma {
     position: number
     created_at?: Date | string
     updated_at?: Date | string
+    subject?: string | null
   }
 
   export type queue_membersUpdateWithoutQueueInput = {
@@ -9867,6 +9912,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9880,6 +9926,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type queue_membersUncheckedUpdateManyWithoutQueueInput = {
@@ -9891,6 +9938,7 @@ export namespace Prisma {
     position?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

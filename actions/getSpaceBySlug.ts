@@ -16,7 +16,11 @@ export const getSpaceBySlug = async (slug: string) => {
                         is_active : true
                     }
                 },
-                queue_members : true
+                queue_members : {
+                    include : {
+                        user : true
+                    }
+                }
             }
         })
 

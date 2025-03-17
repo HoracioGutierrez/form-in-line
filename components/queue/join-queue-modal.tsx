@@ -6,20 +6,35 @@ import { useState } from "react"
 import { Label } from "../ui/label"
 import { Input } from "../ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { users } from "@/prisma/generated/prisma-client-js"
+import { queues, spaces, spaces_activation_times, users } from "@/prisma/generated/prisma-client-js"
+import toast from "react-hot-toast"
+import { joinUserToQueueFromSpace } from "@/actions/joinUserToQueueFromSpace"
+import JoinQueueButton from "./join-queue-button"
 
 type JoinQueueModalProps = {
     loggedUser: users
+    space: spaces & {
+        queue_members: any[]
+        spaces_activation_times: spaces_activation_times[]
+        queues: queues[]
+    }
 }
 
-function JoinQueueModal({ loggedUser }: JoinQueueModalProps) {
+function JoinQueueModal({ loggedUser, space }: JoinQueueModalProps) {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
 
     const handleSubmit = async (formData: FormData) => {
-        handleCloseModal()
+        toast.promise(joinUserToQueueFromSpace(formData, space.id, space.queues[0].id, loggedUser.id, space.slug), {
+            loading: "Joining the waitlist...",
+            success: () => {
+                handleCloseModal()
+                return "Joined the waitlist"
+            },
+            error: "Error joining the waitlist"
+        })
     }
 
     return (
@@ -46,7 +61,7 @@ function JoinQueueModal({ loggedUser }: JoinQueueModalProps) {
                         <DialogClose asChild>
                             <Button type="button" variant="outline">cancelar</Button>
                         </DialogClose>
-                        <Button type="submit">Join the wait list</Button>
+                        <JoinQueueButton />
                     </DialogFooter>
                 </Form>
             </DialogContent>
