@@ -5,6 +5,9 @@ import Image from "next/image"
 import { redirect } from "next/navigation"
 import type { Metadata } from "next";
 import SpaceForm from "@/components/spaces/SpaceForm"
+import { getUserByEmail } from "@/actions/getUserByEmail"
+import { getSpacesByUser } from "@/actions/getSpacesByUser"
+import SpaceItem from "@/components/spaces/SpaceItem"
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -14,12 +17,15 @@ export const metadata: Metadata = {
 async function DashboardPage() {
 
     const supabase = await createClient()
-    const { data, error } = await supabase.auth.getUser()
+    const { data: authUser, error: authError } = await supabase.auth.getUser()
+    const { data: loggedUser, hasError } = await getUserByEmail(authUser.user?.email || "")
     const t = await getI18n()
 
-    if (error) {
+    if (authError || hasError || !loggedUser) {
         return redirect("/login")
     }
+
+    const { data: spaces } = await getSpacesByUser(loggedUser?.id)
 
     return (
         <section className="grow flex flex-col">
@@ -30,16 +36,16 @@ async function DashboardPage() {
                         <h3 className="font-bold text-xl">{t("dashboard.sections.account.title")}</h3>
                     </div>
                     <div className="flex items-center gap-4 ">
-                        {data.user.user_metadata.avatar_url && (
+                        {authUser.user.user_metadata.avatar_url && (
                             <Image
-                                src={data.user.user_metadata.avatar_url}
+                                src={authUser.user.user_metadata.avatar_url}
                                 alt="avatar"
                                 width={75}
                                 height={75}
                                 className="rounded-full"
                             />
                         )}
-                        {!data.user.user_metadata.avatar_url && (
+                        {!authUser.user.user_metadata.avatar_url && (
                             <img
                                 src="https://api.dicebear.com/9.x/identicon/svg"
                                 alt="avatar"
@@ -50,50 +56,57 @@ async function DashboardPage() {
                         )}
                         <div>
                             <h3 className="font-bold text-xl">{
-                                data.user.user_metadata.first_name && data.user.user_metadata.last_name ?
-                                    data.user.user_metadata.first_name + " " + data.user.user_metadata.last_name :
+                                authUser.user.user_metadata.first_name && authUser.user.user_metadata.last_name ?
+                                    authUser.user.user_metadata.first_name + " " + authUser.user.user_metadata.last_name :
                                     "No name set"
                             } </h3>
-                            <p className="text-muted-foreground">{data.user.email}</p>
+                            <p className="text-muted-foreground">{authUser.user.email}</p>
                         </div>
                     </div>
                 </div>
                 <div className="border p-2 md:p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-5">
                         <h3 className="font-bold text-xl">{t("dashboard.sections.personal_info.title")}</h3>
-                        <AccountModal user={data.user || {}} />
+                        <AccountModal user={authUser.user || {}} />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-xl">
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.first_name")}
                             </label>
-                            <p className="text-muted-foreground">{data.user.user_metadata.first_name || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.first_name || "Not set"}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.last_name")}
                             </label>
-                            <p className="text-muted-foreground">{data.user.user_metadata.last_name || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.last_name || "Not set"}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.email")}
                             </label>
-                            <p className="text-muted-foreground">{data.user.email || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.email || "Not set"}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.phone")}
                             </label>
-                            <p className="text-muted-foreground">{data.user.user_metadata.phone || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.phone || "Not set"}</p>
                         </div>
                     </div>
                 </div>
                 <div className="border p-2 md:p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-5">
-                        <h3 className="font-bold text-xl">Spaces</h3>
+                        <h3 className="font-bold text-xl">My Spaces</h3>
                         <SpaceForm />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        {spaces && spaces.map((space) => {
+                            return (
+                                <SpaceItem key={space.id} space={space} />
+                            )
+                        })}
                     </div>
                 </div>
             </div>
