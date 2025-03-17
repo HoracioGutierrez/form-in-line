@@ -8,7 +8,8 @@ export const handleActivateSpace = async (spaceId: number) => {
         const date = new Date()
         const day = new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(date).toLowerCase()
         const hours = new Intl.DateTimeFormat("en-GB", { hour: "numeric" }).format(date)
-        const minutes = new Intl.DateTimeFormat("en-GB", { minute: "numeric" }).format(date)
+        //const minutes = new Intl.DateTimeFormat("en-GB", { minute: "numeric" }).format(date)
+        const minutes = new Intl.DateTimeFormat("en-GB", { minute: "2-digit" }).format(date)
 
         const activatedSpace = await prisma.spaces.update({
             where: {
