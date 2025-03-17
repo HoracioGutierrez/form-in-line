@@ -145,6 +145,26 @@ exports.Prisma.Spaces_activation_timesScalarFieldEnum = {
   start_time: 'start_time'
 };
 
+exports.Prisma.QueuesScalarFieldEnum = {
+  id: 'id',
+  space_id: 'space_id',
+  start_at_day: 'start_at_day',
+  start_at_time: 'start_at_time',
+  end_at_time: 'end_at_time',
+  is_active: 'is_active'
+};
+
+exports.Prisma.Queue_membersScalarFieldEnum = {
+  id: 'id',
+  queue_id: 'queue_id',
+  user_id: 'user_id',
+  is_paused: 'is_paused',
+  is_current: 'is_current',
+  position: 'position',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -164,7 +184,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   users: 'users',
   spaces: 'spaces',
-  spaces_activation_times: 'spaces_activation_times'
+  spaces_activation_times: 'spaces_activation_times',
+  queues: 'queues',
+  queue_members: 'queue_members'
 };
 
 /**

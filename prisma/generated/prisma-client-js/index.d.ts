@@ -28,6 +28,16 @@ export type spaces = $Result.DefaultSelection<Prisma.$spacesPayload>
  * 
  */
 export type spaces_activation_times = $Result.DefaultSelection<Prisma.$spaces_activation_timesPayload>
+/**
+ * Model queues
+ * 
+ */
+export type queues = $Result.DefaultSelection<Prisma.$queuesPayload>
+/**
+ * Model queue_members
+ * 
+ */
+export type queue_members = $Result.DefaultSelection<Prisma.$queue_membersPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +193,26 @@ export class PrismaClient<
     * ```
     */
   get spaces_activation_times(): Prisma.spaces_activation_timesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.queues`: Exposes CRUD operations for the **queues** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Queues
+    * const queues = await prisma.queues.findMany()
+    * ```
+    */
+  get queues(): Prisma.queuesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.queue_members`: Exposes CRUD operations for the **queue_members** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Queue_members
+    * const queue_members = await prisma.queue_members.findMany()
+    * ```
+    */
+  get queue_members(): Prisma.queue_membersDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +655,9 @@ export namespace Prisma {
   export const ModelName: {
     users: 'users',
     spaces: 'spaces',
-    spaces_activation_times: 'spaces_activation_times'
+    spaces_activation_times: 'spaces_activation_times',
+    queues: 'queues',
+    queue_members: 'queue_members'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "spaces" | "spaces_activation_times"
+      modelProps: "users" | "spaces" | "spaces_activation_times" | "queues" | "queue_members"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +902,154 @@ export namespace Prisma {
           }
         }
       }
+      queues: {
+        payload: Prisma.$queuesPayload<ExtArgs>
+        fields: Prisma.queuesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.queuesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.queuesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          findFirst: {
+            args: Prisma.queuesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.queuesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          findMany: {
+            args: Prisma.queuesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>[]
+          }
+          create: {
+            args: Prisma.queuesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          createMany: {
+            args: Prisma.queuesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.queuesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>[]
+          }
+          delete: {
+            args: Prisma.queuesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          update: {
+            args: Prisma.queuesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          deleteMany: {
+            args: Prisma.queuesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.queuesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.queuesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>[]
+          }
+          upsert: {
+            args: Prisma.queuesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queuesPayload>
+          }
+          aggregate: {
+            args: Prisma.QueuesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQueues>
+          }
+          groupBy: {
+            args: Prisma.queuesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<QueuesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.queuesCountArgs<ExtArgs>
+            result: $Utils.Optional<QueuesCountAggregateOutputType> | number
+          }
+        }
+      }
+      queue_members: {
+        payload: Prisma.$queue_membersPayload<ExtArgs>
+        fields: Prisma.queue_membersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.queue_membersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.queue_membersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          findFirst: {
+            args: Prisma.queue_membersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.queue_membersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          findMany: {
+            args: Prisma.queue_membersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>[]
+          }
+          create: {
+            args: Prisma.queue_membersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          createMany: {
+            args: Prisma.queue_membersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.queue_membersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>[]
+          }
+          delete: {
+            args: Prisma.queue_membersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          update: {
+            args: Prisma.queue_membersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          deleteMany: {
+            args: Prisma.queue_membersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.queue_membersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.queue_membersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>[]
+          }
+          upsert: {
+            args: Prisma.queue_membersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$queue_membersPayload>
+          }
+          aggregate: {
+            args: Prisma.Queue_membersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateQueue_members>
+          }
+          groupBy: {
+            args: Prisma.queue_membersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Queue_membersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.queue_membersCountArgs<ExtArgs>
+            result: $Utils.Optional<Queue_membersCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1137,8 @@ export namespace Prisma {
     users?: usersOmit
     spaces?: spacesOmit
     spaces_activation_times?: spaces_activation_timesOmit
+    queues?: queuesOmit
+    queue_members?: queue_membersOmit
   }
 
   /* Types for Logging */
@@ -1052,10 +1234,12 @@ export namespace Prisma {
 
   export type UsersCountOutputType = {
     spaces: number
+    queue_members: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces?: boolean | UsersCountOutputTypeCountSpacesArgs
+    queue_members?: boolean | UsersCountOutputTypeCountQueue_membersArgs
   }
 
   // Custom InputTypes
@@ -1076,6 +1260,13 @@ export namespace Prisma {
     where?: spacesWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountQueue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queue_membersWhereInput
+  }
+
 
   /**
    * Count Type SpacesCountOutputType
@@ -1083,10 +1274,12 @@ export namespace Prisma {
 
   export type SpacesCountOutputType = {
     spaces_activation_times: number
+    queues: number
   }
 
   export type SpacesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces_activation_times?: boolean | SpacesCountOutputTypeCountSpaces_activation_timesArgs
+    queues?: boolean | SpacesCountOutputTypeCountQueuesArgs
   }
 
   // Custom InputTypes
@@ -1105,6 +1298,44 @@ export namespace Prisma {
    */
   export type SpacesCountOutputTypeCountSpaces_activation_timesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: spaces_activation_timesWhereInput
+  }
+
+  /**
+   * SpacesCountOutputType without action
+   */
+  export type SpacesCountOutputTypeCountQueuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queuesWhereInput
+  }
+
+
+  /**
+   * Count Type QueuesCountOutputType
+   */
+
+  export type QueuesCountOutputType = {
+    queue_members: number
+  }
+
+  export type QueuesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    queue_members?: boolean | QueuesCountOutputTypeCountQueue_membersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * QueuesCountOutputType without action
+   */
+  export type QueuesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the QueuesCountOutputType
+     */
+    select?: QueuesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * QueuesCountOutputType without action
+   */
+  export type QueuesCountOutputTypeCountQueue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queue_membersWhereInput
   }
 
 
@@ -1311,6 +1542,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     spaces?: boolean | users$spacesArgs<ExtArgs>
+    queue_members?: boolean | users$queue_membersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1341,6 +1573,7 @@ export namespace Prisma {
   export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces?: boolean | users$spacesArgs<ExtArgs>
+    queue_members?: boolean | users$queue_membersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1350,6 +1583,7 @@ export namespace Prisma {
     name: "users"
     objects: {
       spaces: Prisma.$spacesPayload<ExtArgs>[]
+      queue_members: Prisma.$queue_membersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1752,6 +1986,7 @@ export namespace Prisma {
   export interface Prisma__usersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     spaces<T extends users$spacesArgs<ExtArgs> = {}>(args?: Subset<T, users$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    queue_members<T extends users$queue_membersArgs<ExtArgs> = {}>(args?: Subset<T, users$queue_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2198,6 +2433,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.queue_members
+   */
+  export type users$queue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    where?: queue_membersWhereInput
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    cursor?: queue_membersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
+  }
+
+  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2460,6 +2719,7 @@ export namespace Prisma {
     slug?: boolean
     created_by?: boolean | usersDefaultArgs<ExtArgs>
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
+    queues?: boolean | spaces$queuesArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2508,6 +2768,7 @@ export namespace Prisma {
   export type spacesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | usersDefaultArgs<ExtArgs>
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
+    queues?: boolean | spaces$queuesArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type spacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2522,6 +2783,7 @@ export namespace Prisma {
     objects: {
       created_by: Prisma.$usersPayload<ExtArgs>
       spaces_activation_times: Prisma.$spaces_activation_timesPayload<ExtArgs>[]
+      queues: Prisma.$queuesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2930,6 +3192,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     created_by<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     spaces_activation_times<T extends spaces$spaces_activation_timesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$spaces_activation_timesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    queues<T extends spaces$queuesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$queuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3386,6 +3649,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Spaces_activation_timesScalarFieldEnum | Spaces_activation_timesScalarFieldEnum[]
+  }
+
+  /**
+   * spaces.queues
+   */
+  export type spaces$queuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    where?: queuesWhereInput
+    orderBy?: queuesOrderByWithRelationInput | queuesOrderByWithRelationInput[]
+    cursor?: queuesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: QueuesScalarFieldEnum | QueuesScalarFieldEnum[]
   }
 
   /**
@@ -4491,6 +4778,2296 @@ export namespace Prisma {
 
 
   /**
+   * Model queues
+   */
+
+  export type AggregateQueues = {
+    _count: QueuesCountAggregateOutputType | null
+    _avg: QueuesAvgAggregateOutputType | null
+    _sum: QueuesSumAggregateOutputType | null
+    _min: QueuesMinAggregateOutputType | null
+    _max: QueuesMaxAggregateOutputType | null
+  }
+
+  export type QueuesAvgAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+  }
+
+  export type QueuesSumAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+  }
+
+  export type QueuesMinAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    start_at_day: string | null
+    start_at_time: string | null
+    end_at_time: string | null
+    is_active: boolean | null
+  }
+
+  export type QueuesMaxAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    start_at_day: string | null
+    start_at_time: string | null
+    end_at_time: string | null
+    is_active: boolean | null
+  }
+
+  export type QueuesCountAggregateOutputType = {
+    id: number
+    space_id: number
+    start_at_day: number
+    start_at_time: number
+    end_at_time: number
+    is_active: number
+    _all: number
+  }
+
+
+  export type QueuesAvgAggregateInputType = {
+    id?: true
+    space_id?: true
+  }
+
+  export type QueuesSumAggregateInputType = {
+    id?: true
+    space_id?: true
+  }
+
+  export type QueuesMinAggregateInputType = {
+    id?: true
+    space_id?: true
+    start_at_day?: true
+    start_at_time?: true
+    end_at_time?: true
+    is_active?: true
+  }
+
+  export type QueuesMaxAggregateInputType = {
+    id?: true
+    space_id?: true
+    start_at_day?: true
+    start_at_time?: true
+    end_at_time?: true
+    is_active?: true
+  }
+
+  export type QueuesCountAggregateInputType = {
+    id?: true
+    space_id?: true
+    start_at_day?: true
+    start_at_time?: true
+    end_at_time?: true
+    is_active?: true
+    _all?: true
+  }
+
+  export type QueuesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which queues to aggregate.
+     */
+    where?: queuesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queues to fetch.
+     */
+    orderBy?: queuesOrderByWithRelationInput | queuesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: queuesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned queues
+    **/
+    _count?: true | QueuesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: QueuesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: QueuesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: QueuesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: QueuesMaxAggregateInputType
+  }
+
+  export type GetQueuesAggregateType<T extends QueuesAggregateArgs> = {
+        [P in keyof T & keyof AggregateQueues]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQueues[P]>
+      : GetScalarType<T[P], AggregateQueues[P]>
+  }
+
+
+
+
+  export type queuesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queuesWhereInput
+    orderBy?: queuesOrderByWithAggregationInput | queuesOrderByWithAggregationInput[]
+    by: QueuesScalarFieldEnum[] | QueuesScalarFieldEnum
+    having?: queuesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: QueuesCountAggregateInputType | true
+    _avg?: QueuesAvgAggregateInputType
+    _sum?: QueuesSumAggregateInputType
+    _min?: QueuesMinAggregateInputType
+    _max?: QueuesMaxAggregateInputType
+  }
+
+  export type QueuesGroupByOutputType = {
+    id: number
+    space_id: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active: boolean
+    _count: QueuesCountAggregateOutputType | null
+    _avg: QueuesAvgAggregateOutputType | null
+    _sum: QueuesSumAggregateOutputType | null
+    _min: QueuesMinAggregateOutputType | null
+    _max: QueuesMaxAggregateOutputType | null
+  }
+
+  type GetQueuesGroupByPayload<T extends queuesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QueuesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof QueuesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], QueuesGroupByOutputType[P]>
+            : GetScalarType<T[P], QueuesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type queuesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    start_at_day?: boolean
+    start_at_time?: boolean
+    end_at_time?: boolean
+    is_active?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    queue_members?: boolean | queues$queue_membersArgs<ExtArgs>
+    _count?: boolean | QueuesCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queues"]>
+
+  export type queuesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    start_at_day?: boolean
+    start_at_time?: boolean
+    end_at_time?: boolean
+    is_active?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queues"]>
+
+  export type queuesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    start_at_day?: boolean
+    start_at_time?: boolean
+    end_at_time?: boolean
+    is_active?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queues"]>
+
+  export type queuesSelectScalar = {
+    id?: boolean
+    space_id?: boolean
+    start_at_day?: boolean
+    start_at_time?: boolean
+    end_at_time?: boolean
+    is_active?: boolean
+  }
+
+  export type queuesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_id" | "start_at_day" | "start_at_time" | "end_at_time" | "is_active", ExtArgs["result"]["queues"]>
+  export type queuesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    queue_members?: boolean | queues$queue_membersArgs<ExtArgs>
+    _count?: boolean | QueuesCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type queuesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }
+  export type queuesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+  }
+
+  export type $queuesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "queues"
+    objects: {
+      space: Prisma.$spacesPayload<ExtArgs>
+      queue_members: Prisma.$queue_membersPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      space_id: number
+      start_at_day: string
+      start_at_time: string
+      end_at_time: string
+      is_active: boolean
+    }, ExtArgs["result"]["queues"]>
+    composites: {}
+  }
+
+  type queuesGetPayload<S extends boolean | null | undefined | queuesDefaultArgs> = $Result.GetResult<Prisma.$queuesPayload, S>
+
+  type queuesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<queuesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: QueuesCountAggregateInputType | true
+    }
+
+  export interface queuesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['queues'], meta: { name: 'queues' } }
+    /**
+     * Find zero or one Queues that matches the filter.
+     * @param {queuesFindUniqueArgs} args - Arguments to find a Queues
+     * @example
+     * // Get one Queues
+     * const queues = await prisma.queues.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends queuesFindUniqueArgs>(args: SelectSubset<T, queuesFindUniqueArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Queues that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {queuesFindUniqueOrThrowArgs} args - Arguments to find a Queues
+     * @example
+     * // Get one Queues
+     * const queues = await prisma.queues.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends queuesFindUniqueOrThrowArgs>(args: SelectSubset<T, queuesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Queues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesFindFirstArgs} args - Arguments to find a Queues
+     * @example
+     * // Get one Queues
+     * const queues = await prisma.queues.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends queuesFindFirstArgs>(args?: SelectSubset<T, queuesFindFirstArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Queues that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesFindFirstOrThrowArgs} args - Arguments to find a Queues
+     * @example
+     * // Get one Queues
+     * const queues = await prisma.queues.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends queuesFindFirstOrThrowArgs>(args?: SelectSubset<T, queuesFindFirstOrThrowArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Queues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Queues
+     * const queues = await prisma.queues.findMany()
+     * 
+     * // Get first 10 Queues
+     * const queues = await prisma.queues.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const queuesWithIdOnly = await prisma.queues.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends queuesFindManyArgs>(args?: SelectSubset<T, queuesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Queues.
+     * @param {queuesCreateArgs} args - Arguments to create a Queues.
+     * @example
+     * // Create one Queues
+     * const Queues = await prisma.queues.create({
+     *   data: {
+     *     // ... data to create a Queues
+     *   }
+     * })
+     * 
+     */
+    create<T extends queuesCreateArgs>(args: SelectSubset<T, queuesCreateArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Queues.
+     * @param {queuesCreateManyArgs} args - Arguments to create many Queues.
+     * @example
+     * // Create many Queues
+     * const queues = await prisma.queues.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends queuesCreateManyArgs>(args?: SelectSubset<T, queuesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Queues and returns the data saved in the database.
+     * @param {queuesCreateManyAndReturnArgs} args - Arguments to create many Queues.
+     * @example
+     * // Create many Queues
+     * const queues = await prisma.queues.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Queues and only return the `id`
+     * const queuesWithIdOnly = await prisma.queues.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends queuesCreateManyAndReturnArgs>(args?: SelectSubset<T, queuesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Queues.
+     * @param {queuesDeleteArgs} args - Arguments to delete one Queues.
+     * @example
+     * // Delete one Queues
+     * const Queues = await prisma.queues.delete({
+     *   where: {
+     *     // ... filter to delete one Queues
+     *   }
+     * })
+     * 
+     */
+    delete<T extends queuesDeleteArgs>(args: SelectSubset<T, queuesDeleteArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Queues.
+     * @param {queuesUpdateArgs} args - Arguments to update one Queues.
+     * @example
+     * // Update one Queues
+     * const queues = await prisma.queues.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends queuesUpdateArgs>(args: SelectSubset<T, queuesUpdateArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Queues.
+     * @param {queuesDeleteManyArgs} args - Arguments to filter Queues to delete.
+     * @example
+     * // Delete a few Queues
+     * const { count } = await prisma.queues.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends queuesDeleteManyArgs>(args?: SelectSubset<T, queuesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Queues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Queues
+     * const queues = await prisma.queues.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends queuesUpdateManyArgs>(args: SelectSubset<T, queuesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Queues and returns the data updated in the database.
+     * @param {queuesUpdateManyAndReturnArgs} args - Arguments to update many Queues.
+     * @example
+     * // Update many Queues
+     * const queues = await prisma.queues.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Queues and only return the `id`
+     * const queuesWithIdOnly = await prisma.queues.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends queuesUpdateManyAndReturnArgs>(args: SelectSubset<T, queuesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Queues.
+     * @param {queuesUpsertArgs} args - Arguments to update or create a Queues.
+     * @example
+     * // Update or create a Queues
+     * const queues = await prisma.queues.upsert({
+     *   create: {
+     *     // ... data to create a Queues
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Queues we want to update
+     *   }
+     * })
+     */
+    upsert<T extends queuesUpsertArgs>(args: SelectSubset<T, queuesUpsertArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Queues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesCountArgs} args - Arguments to filter Queues to count.
+     * @example
+     * // Count the number of Queues
+     * const count = await prisma.queues.count({
+     *   where: {
+     *     // ... the filter for the Queues we want to count
+     *   }
+     * })
+    **/
+    count<T extends queuesCountArgs>(
+      args?: Subset<T, queuesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], QueuesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Queues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QueuesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends QueuesAggregateArgs>(args: Subset<T, QueuesAggregateArgs>): Prisma.PrismaPromise<GetQueuesAggregateType<T>>
+
+    /**
+     * Group by Queues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queuesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends queuesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: queuesGroupByArgs['orderBy'] }
+        : { orderBy?: queuesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, queuesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQueuesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the queues model
+   */
+  readonly fields: queuesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for queues.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__queuesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    space<T extends spacesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, spacesDefaultArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    queue_members<T extends queues$queue_membersArgs<ExtArgs> = {}>(args?: Subset<T, queues$queue_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the queues model
+   */ 
+  interface queuesFieldRefs {
+    readonly id: FieldRef<"queues", 'Int'>
+    readonly space_id: FieldRef<"queues", 'Int'>
+    readonly start_at_day: FieldRef<"queues", 'String'>
+    readonly start_at_time: FieldRef<"queues", 'String'>
+    readonly end_at_time: FieldRef<"queues", 'String'>
+    readonly is_active: FieldRef<"queues", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * queues findUnique
+   */
+  export type queuesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter, which queues to fetch.
+     */
+    where: queuesWhereUniqueInput
+  }
+
+  /**
+   * queues findUniqueOrThrow
+   */
+  export type queuesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter, which queues to fetch.
+     */
+    where: queuesWhereUniqueInput
+  }
+
+  /**
+   * queues findFirst
+   */
+  export type queuesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter, which queues to fetch.
+     */
+    where?: queuesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queues to fetch.
+     */
+    orderBy?: queuesOrderByWithRelationInput | queuesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for queues.
+     */
+    cursor?: queuesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of queues.
+     */
+    distinct?: QueuesScalarFieldEnum | QueuesScalarFieldEnum[]
+  }
+
+  /**
+   * queues findFirstOrThrow
+   */
+  export type queuesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter, which queues to fetch.
+     */
+    where?: queuesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queues to fetch.
+     */
+    orderBy?: queuesOrderByWithRelationInput | queuesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for queues.
+     */
+    cursor?: queuesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of queues.
+     */
+    distinct?: QueuesScalarFieldEnum | QueuesScalarFieldEnum[]
+  }
+
+  /**
+   * queues findMany
+   */
+  export type queuesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter, which queues to fetch.
+     */
+    where?: queuesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queues to fetch.
+     */
+    orderBy?: queuesOrderByWithRelationInput | queuesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing queues.
+     */
+    cursor?: queuesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queues.
+     */
+    skip?: number
+    distinct?: QueuesScalarFieldEnum | QueuesScalarFieldEnum[]
+  }
+
+  /**
+   * queues create
+   */
+  export type queuesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a queues.
+     */
+    data: XOR<queuesCreateInput, queuesUncheckedCreateInput>
+  }
+
+  /**
+   * queues createMany
+   */
+  export type queuesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many queues.
+     */
+    data: queuesCreateManyInput | queuesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * queues createManyAndReturn
+   */
+  export type queuesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * The data used to create many queues.
+     */
+    data: queuesCreateManyInput | queuesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * queues update
+   */
+  export type queuesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a queues.
+     */
+    data: XOR<queuesUpdateInput, queuesUncheckedUpdateInput>
+    /**
+     * Choose, which queues to update.
+     */
+    where: queuesWhereUniqueInput
+  }
+
+  /**
+   * queues updateMany
+   */
+  export type queuesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update queues.
+     */
+    data: XOR<queuesUpdateManyMutationInput, queuesUncheckedUpdateManyInput>
+    /**
+     * Filter which queues to update
+     */
+    where?: queuesWhereInput
+    /**
+     * Limit how many queues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * queues updateManyAndReturn
+   */
+  export type queuesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * The data used to update queues.
+     */
+    data: XOR<queuesUpdateManyMutationInput, queuesUncheckedUpdateManyInput>
+    /**
+     * Filter which queues to update
+     */
+    where?: queuesWhereInput
+    /**
+     * Limit how many queues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * queues upsert
+   */
+  export type queuesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the queues to update in case it exists.
+     */
+    where: queuesWhereUniqueInput
+    /**
+     * In case the queues found by the `where` argument doesn't exist, create a new queues with this data.
+     */
+    create: XOR<queuesCreateInput, queuesUncheckedCreateInput>
+    /**
+     * In case the queues was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<queuesUpdateInput, queuesUncheckedUpdateInput>
+  }
+
+  /**
+   * queues delete
+   */
+  export type queuesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+    /**
+     * Filter which queues to delete.
+     */
+    where: queuesWhereUniqueInput
+  }
+
+  /**
+   * queues deleteMany
+   */
+  export type queuesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which queues to delete
+     */
+    where?: queuesWhereInput
+    /**
+     * Limit how many queues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * queues.queue_members
+   */
+  export type queues$queue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    where?: queue_membersWhereInput
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    cursor?: queue_membersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
+  }
+
+  /**
+   * queues without action
+   */
+  export type queuesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queues
+     */
+    select?: queuesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queues
+     */
+    omit?: queuesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queuesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model queue_members
+   */
+
+  export type AggregateQueue_members = {
+    _count: Queue_membersCountAggregateOutputType | null
+    _avg: Queue_membersAvgAggregateOutputType | null
+    _sum: Queue_membersSumAggregateOutputType | null
+    _min: Queue_membersMinAggregateOutputType | null
+    _max: Queue_membersMaxAggregateOutputType | null
+  }
+
+  export type Queue_membersAvgAggregateOutputType = {
+    id: number | null
+    queue_id: number | null
+    user_id: number | null
+    position: number | null
+  }
+
+  export type Queue_membersSumAggregateOutputType = {
+    id: number | null
+    queue_id: number | null
+    user_id: number | null
+    position: number | null
+  }
+
+  export type Queue_membersMinAggregateOutputType = {
+    id: number | null
+    queue_id: number | null
+    user_id: number | null
+    is_paused: boolean | null
+    is_current: boolean | null
+    position: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Queue_membersMaxAggregateOutputType = {
+    id: number | null
+    queue_id: number | null
+    user_id: number | null
+    is_paused: boolean | null
+    is_current: boolean | null
+    position: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Queue_membersCountAggregateOutputType = {
+    id: number
+    queue_id: number
+    user_id: number
+    is_paused: number
+    is_current: number
+    position: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Queue_membersAvgAggregateInputType = {
+    id?: true
+    queue_id?: true
+    user_id?: true
+    position?: true
+  }
+
+  export type Queue_membersSumAggregateInputType = {
+    id?: true
+    queue_id?: true
+    user_id?: true
+    position?: true
+  }
+
+  export type Queue_membersMinAggregateInputType = {
+    id?: true
+    queue_id?: true
+    user_id?: true
+    is_paused?: true
+    is_current?: true
+    position?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Queue_membersMaxAggregateInputType = {
+    id?: true
+    queue_id?: true
+    user_id?: true
+    is_paused?: true
+    is_current?: true
+    position?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Queue_membersCountAggregateInputType = {
+    id?: true
+    queue_id?: true
+    user_id?: true
+    is_paused?: true
+    is_current?: true
+    position?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Queue_membersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which queue_members to aggregate.
+     */
+    where?: queue_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queue_members to fetch.
+     */
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: queue_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queue_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queue_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned queue_members
+    **/
+    _count?: true | Queue_membersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Queue_membersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Queue_membersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Queue_membersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Queue_membersMaxAggregateInputType
+  }
+
+  export type GetQueue_membersAggregateType<T extends Queue_membersAggregateArgs> = {
+        [P in keyof T & keyof AggregateQueue_members]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQueue_members[P]>
+      : GetScalarType<T[P], AggregateQueue_members[P]>
+  }
+
+
+
+
+  export type queue_membersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: queue_membersWhereInput
+    orderBy?: queue_membersOrderByWithAggregationInput | queue_membersOrderByWithAggregationInput[]
+    by: Queue_membersScalarFieldEnum[] | Queue_membersScalarFieldEnum
+    having?: queue_membersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Queue_membersCountAggregateInputType | true
+    _avg?: Queue_membersAvgAggregateInputType
+    _sum?: Queue_membersSumAggregateInputType
+    _min?: Queue_membersMinAggregateInputType
+    _max?: Queue_membersMaxAggregateInputType
+  }
+
+  export type Queue_membersGroupByOutputType = {
+    id: number
+    queue_id: number
+    user_id: number
+    is_paused: boolean
+    is_current: boolean
+    position: number
+    created_at: Date
+    updated_at: Date
+    _count: Queue_membersCountAggregateOutputType | null
+    _avg: Queue_membersAvgAggregateOutputType | null
+    _sum: Queue_membersSumAggregateOutputType | null
+    _min: Queue_membersMinAggregateOutputType | null
+    _max: Queue_membersMaxAggregateOutputType | null
+  }
+
+  type GetQueue_membersGroupByPayload<T extends queue_membersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Queue_membersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Queue_membersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Queue_membersGroupByOutputType[P]>
+            : GetScalarType<T[P], Queue_membersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type queue_membersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    queue_id?: boolean
+    user_id?: boolean
+    is_paused?: boolean
+    is_current?: boolean
+    position?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queue_members"]>
+
+  export type queue_membersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    queue_id?: boolean
+    user_id?: boolean
+    is_paused?: boolean
+    is_current?: boolean
+    position?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queue_members"]>
+
+  export type queue_membersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    queue_id?: boolean
+    user_id?: boolean
+    is_paused?: boolean
+    is_current?: boolean
+    position?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["queue_members"]>
+
+  export type queue_membersSelectScalar = {
+    id?: boolean
+    queue_id?: boolean
+    user_id?: boolean
+    is_paused?: boolean
+    is_current?: boolean
+    position?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at", ExtArgs["result"]["queue_members"]>
+  export type queue_membersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type queue_membersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type queue_membersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    queue?: boolean | queuesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $queue_membersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "queue_members"
+    objects: {
+      queue: Prisma.$queuesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      queue_id: number
+      user_id: number
+      is_paused: boolean
+      is_current: boolean
+      position: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["queue_members"]>
+    composites: {}
+  }
+
+  type queue_membersGetPayload<S extends boolean | null | undefined | queue_membersDefaultArgs> = $Result.GetResult<Prisma.$queue_membersPayload, S>
+
+  type queue_membersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<queue_membersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Queue_membersCountAggregateInputType | true
+    }
+
+  export interface queue_membersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['queue_members'], meta: { name: 'queue_members' } }
+    /**
+     * Find zero or one Queue_members that matches the filter.
+     * @param {queue_membersFindUniqueArgs} args - Arguments to find a Queue_members
+     * @example
+     * // Get one Queue_members
+     * const queue_members = await prisma.queue_members.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends queue_membersFindUniqueArgs>(args: SelectSubset<T, queue_membersFindUniqueArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Queue_members that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {queue_membersFindUniqueOrThrowArgs} args - Arguments to find a Queue_members
+     * @example
+     * // Get one Queue_members
+     * const queue_members = await prisma.queue_members.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends queue_membersFindUniqueOrThrowArgs>(args: SelectSubset<T, queue_membersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Queue_members that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersFindFirstArgs} args - Arguments to find a Queue_members
+     * @example
+     * // Get one Queue_members
+     * const queue_members = await prisma.queue_members.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends queue_membersFindFirstArgs>(args?: SelectSubset<T, queue_membersFindFirstArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Queue_members that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersFindFirstOrThrowArgs} args - Arguments to find a Queue_members
+     * @example
+     * // Get one Queue_members
+     * const queue_members = await prisma.queue_members.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends queue_membersFindFirstOrThrowArgs>(args?: SelectSubset<T, queue_membersFindFirstOrThrowArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Queue_members that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Queue_members
+     * const queue_members = await prisma.queue_members.findMany()
+     * 
+     * // Get first 10 Queue_members
+     * const queue_members = await prisma.queue_members.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const queue_membersWithIdOnly = await prisma.queue_members.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends queue_membersFindManyArgs>(args?: SelectSubset<T, queue_membersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Queue_members.
+     * @param {queue_membersCreateArgs} args - Arguments to create a Queue_members.
+     * @example
+     * // Create one Queue_members
+     * const Queue_members = await prisma.queue_members.create({
+     *   data: {
+     *     // ... data to create a Queue_members
+     *   }
+     * })
+     * 
+     */
+    create<T extends queue_membersCreateArgs>(args: SelectSubset<T, queue_membersCreateArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Queue_members.
+     * @param {queue_membersCreateManyArgs} args - Arguments to create many Queue_members.
+     * @example
+     * // Create many Queue_members
+     * const queue_members = await prisma.queue_members.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends queue_membersCreateManyArgs>(args?: SelectSubset<T, queue_membersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Queue_members and returns the data saved in the database.
+     * @param {queue_membersCreateManyAndReturnArgs} args - Arguments to create many Queue_members.
+     * @example
+     * // Create many Queue_members
+     * const queue_members = await prisma.queue_members.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Queue_members and only return the `id`
+     * const queue_membersWithIdOnly = await prisma.queue_members.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends queue_membersCreateManyAndReturnArgs>(args?: SelectSubset<T, queue_membersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Queue_members.
+     * @param {queue_membersDeleteArgs} args - Arguments to delete one Queue_members.
+     * @example
+     * // Delete one Queue_members
+     * const Queue_members = await prisma.queue_members.delete({
+     *   where: {
+     *     // ... filter to delete one Queue_members
+     *   }
+     * })
+     * 
+     */
+    delete<T extends queue_membersDeleteArgs>(args: SelectSubset<T, queue_membersDeleteArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Queue_members.
+     * @param {queue_membersUpdateArgs} args - Arguments to update one Queue_members.
+     * @example
+     * // Update one Queue_members
+     * const queue_members = await prisma.queue_members.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends queue_membersUpdateArgs>(args: SelectSubset<T, queue_membersUpdateArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Queue_members.
+     * @param {queue_membersDeleteManyArgs} args - Arguments to filter Queue_members to delete.
+     * @example
+     * // Delete a few Queue_members
+     * const { count } = await prisma.queue_members.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends queue_membersDeleteManyArgs>(args?: SelectSubset<T, queue_membersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Queue_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Queue_members
+     * const queue_members = await prisma.queue_members.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends queue_membersUpdateManyArgs>(args: SelectSubset<T, queue_membersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Queue_members and returns the data updated in the database.
+     * @param {queue_membersUpdateManyAndReturnArgs} args - Arguments to update many Queue_members.
+     * @example
+     * // Update many Queue_members
+     * const queue_members = await prisma.queue_members.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Queue_members and only return the `id`
+     * const queue_membersWithIdOnly = await prisma.queue_members.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends queue_membersUpdateManyAndReturnArgs>(args: SelectSubset<T, queue_membersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Queue_members.
+     * @param {queue_membersUpsertArgs} args - Arguments to update or create a Queue_members.
+     * @example
+     * // Update or create a Queue_members
+     * const queue_members = await prisma.queue_members.upsert({
+     *   create: {
+     *     // ... data to create a Queue_members
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Queue_members we want to update
+     *   }
+     * })
+     */
+    upsert<T extends queue_membersUpsertArgs>(args: SelectSubset<T, queue_membersUpsertArgs<ExtArgs>>): Prisma__queue_membersClient<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Queue_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersCountArgs} args - Arguments to filter Queue_members to count.
+     * @example
+     * // Count the number of Queue_members
+     * const count = await prisma.queue_members.count({
+     *   where: {
+     *     // ... the filter for the Queue_members we want to count
+     *   }
+     * })
+    **/
+    count<T extends queue_membersCountArgs>(
+      args?: Subset<T, queue_membersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Queue_membersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Queue_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Queue_membersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Queue_membersAggregateArgs>(args: Subset<T, Queue_membersAggregateArgs>): Prisma.PrismaPromise<GetQueue_membersAggregateType<T>>
+
+    /**
+     * Group by Queue_members.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {queue_membersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends queue_membersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: queue_membersGroupByArgs['orderBy'] }
+        : { orderBy?: queue_membersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, queue_membersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetQueue_membersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the queue_members model
+   */
+  readonly fields: queue_membersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for queue_members.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__queue_membersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    queue<T extends queuesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, queuesDefaultArgs<ExtArgs>>): Prisma__queuesClient<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the queue_members model
+   */ 
+  interface queue_membersFieldRefs {
+    readonly id: FieldRef<"queue_members", 'Int'>
+    readonly queue_id: FieldRef<"queue_members", 'Int'>
+    readonly user_id: FieldRef<"queue_members", 'Int'>
+    readonly is_paused: FieldRef<"queue_members", 'Boolean'>
+    readonly is_current: FieldRef<"queue_members", 'Boolean'>
+    readonly position: FieldRef<"queue_members", 'Int'>
+    readonly created_at: FieldRef<"queue_members", 'DateTime'>
+    readonly updated_at: FieldRef<"queue_members", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * queue_members findUnique
+   */
+  export type queue_membersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which queue_members to fetch.
+     */
+    where: queue_membersWhereUniqueInput
+  }
+
+  /**
+   * queue_members findUniqueOrThrow
+   */
+  export type queue_membersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which queue_members to fetch.
+     */
+    where: queue_membersWhereUniqueInput
+  }
+
+  /**
+   * queue_members findFirst
+   */
+  export type queue_membersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which queue_members to fetch.
+     */
+    where?: queue_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queue_members to fetch.
+     */
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for queue_members.
+     */
+    cursor?: queue_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queue_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queue_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of queue_members.
+     */
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
+  }
+
+  /**
+   * queue_members findFirstOrThrow
+   */
+  export type queue_membersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which queue_members to fetch.
+     */
+    where?: queue_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queue_members to fetch.
+     */
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for queue_members.
+     */
+    cursor?: queue_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queue_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queue_members.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of queue_members.
+     */
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
+  }
+
+  /**
+   * queue_members findMany
+   */
+  export type queue_membersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter, which queue_members to fetch.
+     */
+    where?: queue_membersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of queue_members to fetch.
+     */
+    orderBy?: queue_membersOrderByWithRelationInput | queue_membersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing queue_members.
+     */
+    cursor?: queue_membersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` queue_members from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` queue_members.
+     */
+    skip?: number
+    distinct?: Queue_membersScalarFieldEnum | Queue_membersScalarFieldEnum[]
+  }
+
+  /**
+   * queue_members create
+   */
+  export type queue_membersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a queue_members.
+     */
+    data: XOR<queue_membersCreateInput, queue_membersUncheckedCreateInput>
+  }
+
+  /**
+   * queue_members createMany
+   */
+  export type queue_membersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many queue_members.
+     */
+    data: queue_membersCreateManyInput | queue_membersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * queue_members createManyAndReturn
+   */
+  export type queue_membersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * The data used to create many queue_members.
+     */
+    data: queue_membersCreateManyInput | queue_membersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * queue_members update
+   */
+  export type queue_membersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a queue_members.
+     */
+    data: XOR<queue_membersUpdateInput, queue_membersUncheckedUpdateInput>
+    /**
+     * Choose, which queue_members to update.
+     */
+    where: queue_membersWhereUniqueInput
+  }
+
+  /**
+   * queue_members updateMany
+   */
+  export type queue_membersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update queue_members.
+     */
+    data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyInput>
+    /**
+     * Filter which queue_members to update
+     */
+    where?: queue_membersWhereInput
+    /**
+     * Limit how many queue_members to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * queue_members updateManyAndReturn
+   */
+  export type queue_membersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * The data used to update queue_members.
+     */
+    data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyInput>
+    /**
+     * Filter which queue_members to update
+     */
+    where?: queue_membersWhereInput
+    /**
+     * Limit how many queue_members to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * queue_members upsert
+   */
+  export type queue_membersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the queue_members to update in case it exists.
+     */
+    where: queue_membersWhereUniqueInput
+    /**
+     * In case the queue_members found by the `where` argument doesn't exist, create a new queue_members with this data.
+     */
+    create: XOR<queue_membersCreateInput, queue_membersUncheckedCreateInput>
+    /**
+     * In case the queue_members was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<queue_membersUpdateInput, queue_membersUncheckedUpdateInput>
+  }
+
+  /**
+   * queue_members delete
+   */
+  export type queue_membersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+    /**
+     * Filter which queue_members to delete.
+     */
+    where: queue_membersWhereUniqueInput
+  }
+
+  /**
+   * queue_members deleteMany
+   */
+  export type queue_membersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which queue_members to delete
+     */
+    where?: queue_membersWhereInput
+    /**
+     * Limit how many queue_members to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * queue_members without action
+   */
+  export type queue_membersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the queue_members
+     */
+    select?: queue_membersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the queue_members
+     */
+    omit?: queue_membersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: queue_membersInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4539,6 +7116,32 @@ export namespace Prisma {
   };
 
   export type Spaces_activation_timesScalarFieldEnum = (typeof Spaces_activation_timesScalarFieldEnum)[keyof typeof Spaces_activation_timesScalarFieldEnum]
+
+
+  export const QueuesScalarFieldEnum: {
+    id: 'id',
+    space_id: 'space_id',
+    start_at_day: 'start_at_day',
+    start_at_time: 'start_at_time',
+    end_at_time: 'end_at_time',
+    is_active: 'is_active'
+  };
+
+  export type QueuesScalarFieldEnum = (typeof QueuesScalarFieldEnum)[keyof typeof QueuesScalarFieldEnum]
+
+
+  export const Queue_membersScalarFieldEnum: {
+    id: 'id',
+    queue_id: 'queue_id',
+    user_id: 'user_id',
+    is_paused: 'is_paused',
+    is_current: 'is_current',
+    position: 'position',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Queue_membersScalarFieldEnum = (typeof Queue_membersScalarFieldEnum)[keyof typeof Queue_membersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4646,6 +7249,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     spaces?: SpacesListRelationFilter
+    queue_members?: Queue_membersListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -4655,6 +7259,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     spaces?: spacesOrderByRelationAggregateInput
+    queue_members?: queue_membersOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -4667,6 +7272,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     spaces?: SpacesListRelationFilter
+    queue_members?: Queue_membersListRelationFilter
   }, "id" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -4709,6 +7315,7 @@ export namespace Prisma {
     slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
+    queues?: QueuesListRelationFilter
   }
 
   export type spacesOrderByWithRelationInput = {
@@ -4724,6 +7331,7 @@ export namespace Prisma {
     slug?: SortOrder
     created_by?: usersOrderByWithRelationInput
     spaces_activation_times?: spaces_activation_timesOrderByRelationAggregateInput
+    queues?: queuesOrderByRelationAggregateInput
   }
 
   export type spacesWhereUniqueInput = Prisma.AtLeast<{
@@ -4742,6 +7350,7 @@ export namespace Prisma {
     slug?: StringFilter<"spaces"> | string
     created_by?: XOR<UsersScalarRelationFilter, usersWhereInput>
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
+    queues?: QueuesListRelationFilter
   }, "id">
 
   export type spacesOrderByWithAggregationInput = {
@@ -4830,12 +7439,153 @@ export namespace Prisma {
     start_time?: StringWithAggregatesFilter<"spaces_activation_times"> | string
   }
 
+  export type queuesWhereInput = {
+    AND?: queuesWhereInput | queuesWhereInput[]
+    OR?: queuesWhereInput[]
+    NOT?: queuesWhereInput | queuesWhereInput[]
+    id?: IntFilter<"queues"> | number
+    space_id?: IntFilter<"queues"> | number
+    start_at_day?: StringFilter<"queues"> | string
+    start_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringFilter<"queues"> | string
+    is_active?: BoolFilter<"queues"> | boolean
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+    queue_members?: Queue_membersListRelationFilter
+  }
+
+  export type queuesOrderByWithRelationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    start_at_day?: SortOrder
+    start_at_time?: SortOrder
+    end_at_time?: SortOrder
+    is_active?: SortOrder
+    space?: spacesOrderByWithRelationInput
+    queue_members?: queue_membersOrderByRelationAggregateInput
+  }
+
+  export type queuesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: queuesWhereInput | queuesWhereInput[]
+    OR?: queuesWhereInput[]
+    NOT?: queuesWhereInput | queuesWhereInput[]
+    space_id?: IntFilter<"queues"> | number
+    start_at_day?: StringFilter<"queues"> | string
+    start_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringFilter<"queues"> | string
+    is_active?: BoolFilter<"queues"> | boolean
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+    queue_members?: Queue_membersListRelationFilter
+  }, "id">
+
+  export type queuesOrderByWithAggregationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    start_at_day?: SortOrder
+    start_at_time?: SortOrder
+    end_at_time?: SortOrder
+    is_active?: SortOrder
+    _count?: queuesCountOrderByAggregateInput
+    _avg?: queuesAvgOrderByAggregateInput
+    _max?: queuesMaxOrderByAggregateInput
+    _min?: queuesMinOrderByAggregateInput
+    _sum?: queuesSumOrderByAggregateInput
+  }
+
+  export type queuesScalarWhereWithAggregatesInput = {
+    AND?: queuesScalarWhereWithAggregatesInput | queuesScalarWhereWithAggregatesInput[]
+    OR?: queuesScalarWhereWithAggregatesInput[]
+    NOT?: queuesScalarWhereWithAggregatesInput | queuesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"queues"> | number
+    space_id?: IntWithAggregatesFilter<"queues"> | number
+    start_at_day?: StringWithAggregatesFilter<"queues"> | string
+    start_at_time?: StringWithAggregatesFilter<"queues"> | string
+    end_at_time?: StringWithAggregatesFilter<"queues"> | string
+    is_active?: BoolWithAggregatesFilter<"queues"> | boolean
+  }
+
+  export type queue_membersWhereInput = {
+    AND?: queue_membersWhereInput | queue_membersWhereInput[]
+    OR?: queue_membersWhereInput[]
+    NOT?: queue_membersWhereInput | queue_membersWhereInput[]
+    id?: IntFilter<"queue_members"> | number
+    queue_id?: IntFilter<"queue_members"> | number
+    user_id?: IntFilter<"queue_members"> | number
+    is_paused?: BoolFilter<"queue_members"> | boolean
+    is_current?: BoolFilter<"queue_members"> | boolean
+    position?: IntFilter<"queue_members"> | number
+    created_at?: DateTimeFilter<"queue_members"> | Date | string
+    updated_at?: DateTimeFilter<"queue_members"> | Date | string
+    queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type queue_membersOrderByWithRelationInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    is_paused?: SortOrder
+    is_current?: SortOrder
+    position?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    queue?: queuesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type queue_membersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: queue_membersWhereInput | queue_membersWhereInput[]
+    OR?: queue_membersWhereInput[]
+    NOT?: queue_membersWhereInput | queue_membersWhereInput[]
+    queue_id?: IntFilter<"queue_members"> | number
+    user_id?: IntFilter<"queue_members"> | number
+    is_paused?: BoolFilter<"queue_members"> | boolean
+    is_current?: BoolFilter<"queue_members"> | boolean
+    position?: IntFilter<"queue_members"> | number
+    created_at?: DateTimeFilter<"queue_members"> | Date | string
+    updated_at?: DateTimeFilter<"queue_members"> | Date | string
+    queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type queue_membersOrderByWithAggregationInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    is_paused?: SortOrder
+    is_current?: SortOrder
+    position?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: queue_membersCountOrderByAggregateInput
+    _avg?: queue_membersAvgOrderByAggregateInput
+    _max?: queue_membersMaxOrderByAggregateInput
+    _min?: queue_membersMinOrderByAggregateInput
+    _sum?: queue_membersSumOrderByAggregateInput
+  }
+
+  export type queue_membersScalarWhereWithAggregatesInput = {
+    AND?: queue_membersScalarWhereWithAggregatesInput | queue_membersScalarWhereWithAggregatesInput[]
+    OR?: queue_membersScalarWhereWithAggregatesInput[]
+    NOT?: queue_membersScalarWhereWithAggregatesInput | queue_membersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"queue_members"> | number
+    queue_id?: IntWithAggregatesFilter<"queue_members"> | number
+    user_id?: IntWithAggregatesFilter<"queue_members"> | number
+    is_paused?: BoolWithAggregatesFilter<"queue_members"> | boolean
+    is_current?: BoolWithAggregatesFilter<"queue_members"> | boolean
+    position?: IntWithAggregatesFilter<"queue_members"> | number
+    created_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
+  }
+
   export type usersCreateInput = {
     email: string
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     spaces?: spacesCreateNestedManyWithoutCreated_byInput
+    queue_members?: queue_membersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -4845,6 +7595,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -4853,6 +7604,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUpdateManyWithoutCreated_byNestedInput
+    queue_members?: queue_membersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -4862,6 +7614,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -4898,6 +7651,7 @@ export namespace Prisma {
     slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+    queues?: queuesCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateInput = {
@@ -4912,6 +7666,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+    queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUpdateInput = {
@@ -4925,6 +7680,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateInput = {
@@ -4939,6 +7695,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateManyInput = {
@@ -5023,6 +7780,141 @@ export namespace Prisma {
     start_time?: StringFieldUpdateOperationsInput | string
   }
 
+  export type queuesCreateInput = {
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+    space: spacesCreateNestedOneWithoutQueuesInput
+    queue_members?: queue_membersCreateNestedManyWithoutQueueInput
+  }
+
+  export type queuesUncheckedCreateInput = {
+    id?: number
+    space_id: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutQueueInput
+  }
+
+  export type queuesUpdateInput = {
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    space?: spacesUpdateOneRequiredWithoutQueuesNestedInput
+    queue_members?: queue_membersUpdateManyWithoutQueueNestedInput
+  }
+
+  export type queuesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    queue_members?: queue_membersUncheckedUpdateManyWithoutQueueNestedInput
+  }
+
+  export type queuesCreateManyInput = {
+    id?: number
+    space_id: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+  }
+
+  export type queuesUpdateManyMutationInput = {
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type queuesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type queue_membersCreateInput = {
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    queue: queuesCreateNestedOneWithoutQueue_membersInput
+    user: usersCreateNestedOneWithoutQueue_membersInput
+  }
+
+  export type queue_membersUncheckedCreateInput = {
+    id?: number
+    queue_id: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersUpdateInput = {
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
+    user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
+  }
+
+  export type queue_membersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type queue_membersCreateManyInput = {
+    id?: number
+    queue_id: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersUpdateManyMutationInput = {
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type queue_membersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -5081,12 +7973,22 @@ export namespace Prisma {
     none?: spacesWhereInput
   }
 
+  export type Queue_membersListRelationFilter = {
+    every?: queue_membersWhereInput
+    some?: queue_membersWhereInput
+    none?: queue_membersWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type spacesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type queue_membersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5215,7 +8117,17 @@ export namespace Prisma {
     none?: spaces_activation_timesWhereInput
   }
 
+  export type QueuesListRelationFilter = {
+    every?: queuesWhereInput
+    some?: queuesWhereInput
+    none?: queuesWhereInput
+  }
+
   export type spaces_activation_timesOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type queuesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5326,6 +8238,95 @@ export namespace Prisma {
     space_id?: SortOrder
   }
 
+  export type queuesCountOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    start_at_day?: SortOrder
+    start_at_time?: SortOrder
+    end_at_time?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type queuesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+  }
+
+  export type queuesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    start_at_day?: SortOrder
+    start_at_time?: SortOrder
+    end_at_time?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type queuesMinOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    start_at_day?: SortOrder
+    start_at_time?: SortOrder
+    end_at_time?: SortOrder
+    is_active?: SortOrder
+  }
+
+  export type queuesSumOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+  }
+
+  export type QueuesScalarRelationFilter = {
+    is?: queuesWhereInput
+    isNot?: queuesWhereInput
+  }
+
+  export type queue_membersCountOrderByAggregateInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    is_paused?: SortOrder
+    is_current?: SortOrder
+    position?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type queue_membersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    position?: SortOrder
+  }
+
+  export type queue_membersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    is_paused?: SortOrder
+    is_current?: SortOrder
+    position?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type queue_membersMinOrderByAggregateInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    is_paused?: SortOrder
+    is_current?: SortOrder
+    position?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type queue_membersSumOrderByAggregateInput = {
+    id?: SortOrder
+    queue_id?: SortOrder
+    user_id?: SortOrder
+    position?: SortOrder
+  }
+
   export type spacesCreateNestedManyWithoutCreated_byInput = {
     create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
     connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
@@ -5333,11 +8334,25 @@ export namespace Prisma {
     connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
   }
 
+  export type queue_membersCreateNestedManyWithoutUserInput = {
+    create?: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput> | queue_membersCreateWithoutUserInput[] | queue_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutUserInput | queue_membersCreateOrConnectWithoutUserInput[]
+    createMany?: queue_membersCreateManyUserInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
   export type spacesUncheckedCreateNestedManyWithoutCreated_byInput = {
     create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
     connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
     createMany?: spacesCreateManyCreated_byInputEnvelope
     connect?: spacesWhereUniqueInput | spacesWhereUniqueInput[]
+  }
+
+  export type queue_membersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput> | queue_membersCreateWithoutUserInput[] | queue_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutUserInput | queue_membersCreateOrConnectWithoutUserInput[]
+    createMany?: queue_membersCreateManyUserInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5366,6 +8381,20 @@ export namespace Prisma {
     deleteMany?: spacesScalarWhereInput | spacesScalarWhereInput[]
   }
 
+  export type queue_membersUpdateManyWithoutUserNestedInput = {
+    create?: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput> | queue_membersCreateWithoutUserInput[] | queue_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutUserInput | queue_membersCreateOrConnectWithoutUserInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutUserInput | queue_membersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: queue_membersCreateManyUserInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutUserInput | queue_membersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutUserInput | queue_membersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5388,6 +8417,20 @@ export namespace Prisma {
     deleteMany?: spacesScalarWhereInput | spacesScalarWhereInput[]
   }
 
+  export type queue_membersUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput> | queue_membersCreateWithoutUserInput[] | queue_membersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutUserInput | queue_membersCreateOrConnectWithoutUserInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutUserInput | queue_membersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: queue_membersCreateManyUserInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutUserInput | queue_membersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutUserInput | queue_membersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
   export type usersCreateNestedOneWithoutSpacesInput = {
     create?: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
     connectOrCreate?: usersCreateOrConnectWithoutSpacesInput
@@ -5401,11 +8444,25 @@ export namespace Prisma {
     connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
   }
 
+  export type queuesCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput> | queuesCreateWithoutSpaceInput[] | queuesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queuesCreateOrConnectWithoutSpaceInput | queuesCreateOrConnectWithoutSpaceInput[]
+    createMany?: queuesCreateManySpaceInputEnvelope
+    connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+  }
+
   export type spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
     createMany?: spaces_activation_timesCreateManySpaceInputEnvelope
     connect?: spaces_activation_timesWhereUniqueInput | spaces_activation_timesWhereUniqueInput[]
+  }
+
+  export type queuesUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput> | queuesCreateWithoutSpaceInput[] | queuesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queuesCreateOrConnectWithoutSpaceInput | queuesCreateOrConnectWithoutSpaceInput[]
+    createMany?: queuesCreateManySpaceInputEnvelope
+    connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -5438,6 +8495,20 @@ export namespace Prisma {
     deleteMany?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
   }
 
+  export type queuesUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput> | queuesCreateWithoutSpaceInput[] | queuesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queuesCreateOrConnectWithoutSpaceInput | queuesCreateOrConnectWithoutSpaceInput[]
+    upsert?: queuesUpsertWithWhereUniqueWithoutSpaceInput | queuesUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: queuesCreateManySpaceInputEnvelope
+    set?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    disconnect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    delete?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    update?: queuesUpdateWithWhereUniqueWithoutSpaceInput | queuesUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: queuesUpdateManyWithWhereWithoutSpaceInput | queuesUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: queuesScalarWhereInput | queuesScalarWhereInput[]
+  }
+
   export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
@@ -5452,6 +8523,20 @@ export namespace Prisma {
     deleteMany?: spaces_activation_timesScalarWhereInput | spaces_activation_timesScalarWhereInput[]
   }
 
+  export type queuesUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput> | queuesCreateWithoutSpaceInput[] | queuesUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: queuesCreateOrConnectWithoutSpaceInput | queuesCreateOrConnectWithoutSpaceInput[]
+    upsert?: queuesUpsertWithWhereUniqueWithoutSpaceInput | queuesUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: queuesCreateManySpaceInputEnvelope
+    set?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    disconnect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    delete?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    connect?: queuesWhereUniqueInput | queuesWhereUniqueInput[]
+    update?: queuesUpdateWithWhereUniqueWithoutSpaceInput | queuesUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: queuesUpdateManyWithWhereWithoutSpaceInput | queuesUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: queuesScalarWhereInput | queuesScalarWhereInput[]
+  }
+
   export type spacesCreateNestedOneWithoutSpaces_activation_timesInput = {
     create?: XOR<spacesCreateWithoutSpaces_activation_timesInput, spacesUncheckedCreateWithoutSpaces_activation_timesInput>
     connectOrCreate?: spacesCreateOrConnectWithoutSpaces_activation_timesInput
@@ -5464,6 +8549,90 @@ export namespace Prisma {
     upsert?: spacesUpsertWithoutSpaces_activation_timesInput
     connect?: spacesWhereUniqueInput
     update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutSpaces_activation_timesInput, spacesUpdateWithoutSpaces_activation_timesInput>, spacesUncheckedUpdateWithoutSpaces_activation_timesInput>
+  }
+
+  export type spacesCreateNestedOneWithoutQueuesInput = {
+    create?: XOR<spacesCreateWithoutQueuesInput, spacesUncheckedCreateWithoutQueuesInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutQueuesInput
+    connect?: spacesWhereUniqueInput
+  }
+
+  export type queue_membersCreateNestedManyWithoutQueueInput = {
+    create?: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput> | queue_membersCreateWithoutQueueInput[] | queue_membersUncheckedCreateWithoutQueueInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutQueueInput | queue_membersCreateOrConnectWithoutQueueInput[]
+    createMany?: queue_membersCreateManyQueueInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
+  export type queue_membersUncheckedCreateNestedManyWithoutQueueInput = {
+    create?: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput> | queue_membersCreateWithoutQueueInput[] | queue_membersUncheckedCreateWithoutQueueInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutQueueInput | queue_membersCreateOrConnectWithoutQueueInput[]
+    createMany?: queue_membersCreateManyQueueInputEnvelope
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
+  export type spacesUpdateOneRequiredWithoutQueuesNestedInput = {
+    create?: XOR<spacesCreateWithoutQueuesInput, spacesUncheckedCreateWithoutQueuesInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutQueuesInput
+    upsert?: spacesUpsertWithoutQueuesInput
+    connect?: spacesWhereUniqueInput
+    update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutQueuesInput, spacesUpdateWithoutQueuesInput>, spacesUncheckedUpdateWithoutQueuesInput>
+  }
+
+  export type queue_membersUpdateManyWithoutQueueNestedInput = {
+    create?: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput> | queue_membersCreateWithoutQueueInput[] | queue_membersUncheckedCreateWithoutQueueInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutQueueInput | queue_membersCreateOrConnectWithoutQueueInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutQueueInput | queue_membersUpsertWithWhereUniqueWithoutQueueInput[]
+    createMany?: queue_membersCreateManyQueueInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutQueueInput | queue_membersUpdateWithWhereUniqueWithoutQueueInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutQueueInput | queue_membersUpdateManyWithWhereWithoutQueueInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
+  export type queue_membersUncheckedUpdateManyWithoutQueueNestedInput = {
+    create?: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput> | queue_membersCreateWithoutQueueInput[] | queue_membersUncheckedCreateWithoutQueueInput[]
+    connectOrCreate?: queue_membersCreateOrConnectWithoutQueueInput | queue_membersCreateOrConnectWithoutQueueInput[]
+    upsert?: queue_membersUpsertWithWhereUniqueWithoutQueueInput | queue_membersUpsertWithWhereUniqueWithoutQueueInput[]
+    createMany?: queue_membersCreateManyQueueInputEnvelope
+    set?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    disconnect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    delete?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+    update?: queue_membersUpdateWithWhereUniqueWithoutQueueInput | queue_membersUpdateWithWhereUniqueWithoutQueueInput[]
+    updateMany?: queue_membersUpdateManyWithWhereWithoutQueueInput | queue_membersUpdateManyWithWhereWithoutQueueInput[]
+    deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
+  export type queuesCreateNestedOneWithoutQueue_membersInput = {
+    create?: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: queuesCreateOrConnectWithoutQueue_membersInput
+    connect?: queuesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutQueue_membersInput = {
+    create?: XOR<usersCreateWithoutQueue_membersInput, usersUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQueue_membersInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type queuesUpdateOneRequiredWithoutQueue_membersNestedInput = {
+    create?: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: queuesCreateOrConnectWithoutQueue_membersInput
+    upsert?: queuesUpsertWithoutQueue_membersInput
+    connect?: queuesWhereUniqueInput
+    update?: XOR<XOR<queuesUpdateToOneWithWhereWithoutQueue_membersInput, queuesUpdateWithoutQueue_membersInput>, queuesUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutQueue_membersNestedInput = {
+    create?: XOR<usersCreateWithoutQueue_membersInput, usersUncheckedCreateWithoutQueue_membersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutQueue_membersInput
+    upsert?: usersUpsertWithoutQueue_membersInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutQueue_membersInput, usersUpdateWithoutQueue_membersInput>, usersUncheckedUpdateWithoutQueue_membersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5650,6 +8819,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+    queues?: queuesCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutCreated_byInput = {
@@ -5663,6 +8833,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+    queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutCreated_byInput = {
@@ -5672,6 +8843,35 @@ export namespace Prisma {
 
   export type spacesCreateManyCreated_byInputEnvelope = {
     data: spacesCreateManyCreated_byInput | spacesCreateManyCreated_byInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type queue_membersCreateWithoutUserInput = {
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    queue: queuesCreateNestedOneWithoutQueue_membersInput
+  }
+
+  export type queue_membersUncheckedCreateWithoutUserInput = {
+    id?: number
+    queue_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersCreateOrConnectWithoutUserInput = {
+    where: queue_membersWhereUniqueInput
+    create: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput>
+  }
+
+  export type queue_membersCreateManyUserInputEnvelope = {
+    data: queue_membersCreateManyUserInput | queue_membersCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -5707,11 +8907,42 @@ export namespace Prisma {
     slug?: StringFilter<"spaces"> | string
   }
 
+  export type queue_membersUpsertWithWhereUniqueWithoutUserInput = {
+    where: queue_membersWhereUniqueInput
+    update: XOR<queue_membersUpdateWithoutUserInput, queue_membersUncheckedUpdateWithoutUserInput>
+    create: XOR<queue_membersCreateWithoutUserInput, queue_membersUncheckedCreateWithoutUserInput>
+  }
+
+  export type queue_membersUpdateWithWhereUniqueWithoutUserInput = {
+    where: queue_membersWhereUniqueInput
+    data: XOR<queue_membersUpdateWithoutUserInput, queue_membersUncheckedUpdateWithoutUserInput>
+  }
+
+  export type queue_membersUpdateManyWithWhereWithoutUserInput = {
+    where: queue_membersScalarWhereInput
+    data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type queue_membersScalarWhereInput = {
+    AND?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+    OR?: queue_membersScalarWhereInput[]
+    NOT?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+    id?: IntFilter<"queue_members"> | number
+    queue_id?: IntFilter<"queue_members"> | number
+    user_id?: IntFilter<"queue_members"> | number
+    is_paused?: BoolFilter<"queue_members"> | boolean
+    is_current?: BoolFilter<"queue_members"> | boolean
+    position?: IntFilter<"queue_members"> | number
+    created_at?: DateTimeFilter<"queue_members"> | Date | string
+    updated_at?: DateTimeFilter<"queue_members"> | Date | string
+  }
+
   export type usersCreateWithoutSpacesInput = {
     email: string
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    queue_members?: queue_membersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpacesInput = {
@@ -5720,6 +8951,7 @@ export namespace Prisma {
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpacesInput = {
@@ -5748,6 +8980,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type queuesCreateWithoutSpaceInput = {
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+    queue_members?: queue_membersCreateNestedManyWithoutQueueInput
+  }
+
+  export type queuesUncheckedCreateWithoutSpaceInput = {
+    id?: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutQueueInput
+  }
+
+  export type queuesCreateOrConnectWithoutSpaceInput = {
+    where: queuesWhereUniqueInput
+    create: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type queuesCreateManySpaceInputEnvelope = {
+    data: queuesCreateManySpaceInput | queuesCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type usersUpsertWithoutSpacesInput = {
     update: XOR<usersUpdateWithoutSpacesInput, usersUncheckedUpdateWithoutSpacesInput>
     create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
@@ -5764,6 +9023,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    queue_members?: queue_membersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpacesInput = {
@@ -5772,6 +9032,7 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    queue_members?: queue_membersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -5800,6 +9061,34 @@ export namespace Prisma {
     start_time?: StringFilter<"spaces_activation_times"> | string
   }
 
+  export type queuesUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: queuesWhereUniqueInput
+    update: XOR<queuesUpdateWithoutSpaceInput, queuesUncheckedUpdateWithoutSpaceInput>
+    create: XOR<queuesCreateWithoutSpaceInput, queuesUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type queuesUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: queuesWhereUniqueInput
+    data: XOR<queuesUpdateWithoutSpaceInput, queuesUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type queuesUpdateManyWithWhereWithoutSpaceInput = {
+    where: queuesScalarWhereInput
+    data: XOR<queuesUpdateManyMutationInput, queuesUncheckedUpdateManyWithoutSpaceInput>
+  }
+
+  export type queuesScalarWhereInput = {
+    AND?: queuesScalarWhereInput | queuesScalarWhereInput[]
+    OR?: queuesScalarWhereInput[]
+    NOT?: queuesScalarWhereInput | queuesScalarWhereInput[]
+    id?: IntFilter<"queues"> | number
+    space_id?: IntFilter<"queues"> | number
+    start_at_day?: StringFilter<"queues"> | string
+    start_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringFilter<"queues"> | string
+    is_active?: BoolFilter<"queues"> | boolean
+  }
+
   export type spacesCreateWithoutSpaces_activation_timesInput = {
     name: string
     created_at?: Date | string
@@ -5810,6 +9099,7 @@ export namespace Prisma {
     deleted_at?: Date | string | null
     slug: string
     created_by: usersCreateNestedOneWithoutSpacesInput
+    queues?: queuesCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutSpaces_activation_timesInput = {
@@ -5823,6 +9113,7 @@ export namespace Prisma {
     is_deleted?: boolean
     deleted_at?: Date | string | null
     slug: string
+    queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutSpaces_activation_timesInput = {
@@ -5851,6 +9142,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+    queues?: queuesUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutSpaces_activation_timesInput = {
@@ -5864,6 +9156,222 @@ export namespace Prisma {
     is_deleted?: BoolFieldUpdateOperationsInput | boolean
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
+    queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type spacesCreateWithoutQueuesInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    created_by: usersCreateNestedOneWithoutSpacesInput
+    spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesUncheckedCreateWithoutQueuesInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesCreateOrConnectWithoutQueuesInput = {
+    where: spacesWhereUniqueInput
+    create: XOR<spacesCreateWithoutQueuesInput, spacesUncheckedCreateWithoutQueuesInput>
+  }
+
+  export type queue_membersCreateWithoutQueueInput = {
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutQueue_membersInput
+  }
+
+  export type queue_membersUncheckedCreateWithoutQueueInput = {
+    id?: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersCreateOrConnectWithoutQueueInput = {
+    where: queue_membersWhereUniqueInput
+    create: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput>
+  }
+
+  export type queue_membersCreateManyQueueInputEnvelope = {
+    data: queue_membersCreateManyQueueInput | queue_membersCreateManyQueueInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type spacesUpsertWithoutQueuesInput = {
+    update: XOR<spacesUpdateWithoutQueuesInput, spacesUncheckedUpdateWithoutQueuesInput>
+    create: XOR<spacesCreateWithoutQueuesInput, spacesUncheckedCreateWithoutQueuesInput>
+    where?: spacesWhereInput
+  }
+
+  export type spacesUpdateToOneWithWhereWithoutQueuesInput = {
+    where?: spacesWhereInput
+    data: XOR<spacesUpdateWithoutQueuesInput, spacesUncheckedUpdateWithoutQueuesInput>
+  }
+
+  export type spacesUpdateWithoutQueuesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+    spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type spacesUncheckedUpdateWithoutQueuesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type queue_membersUpsertWithWhereUniqueWithoutQueueInput = {
+    where: queue_membersWhereUniqueInput
+    update: XOR<queue_membersUpdateWithoutQueueInput, queue_membersUncheckedUpdateWithoutQueueInput>
+    create: XOR<queue_membersCreateWithoutQueueInput, queue_membersUncheckedCreateWithoutQueueInput>
+  }
+
+  export type queue_membersUpdateWithWhereUniqueWithoutQueueInput = {
+    where: queue_membersWhereUniqueInput
+    data: XOR<queue_membersUpdateWithoutQueueInput, queue_membersUncheckedUpdateWithoutQueueInput>
+  }
+
+  export type queue_membersUpdateManyWithWhereWithoutQueueInput = {
+    where: queue_membersScalarWhereInput
+    data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyWithoutQueueInput>
+  }
+
+  export type queuesCreateWithoutQueue_membersInput = {
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+    space: spacesCreateNestedOneWithoutQueuesInput
+  }
+
+  export type queuesUncheckedCreateWithoutQueue_membersInput = {
+    id?: number
+    space_id: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
+  }
+
+  export type queuesCreateOrConnectWithoutQueue_membersInput = {
+    where: queuesWhereUniqueInput
+    create: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
+  }
+
+  export type usersCreateWithoutQueue_membersInput = {
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    spaces?: spacesCreateNestedManyWithoutCreated_byInput
+  }
+
+  export type usersUncheckedCreateWithoutQueue_membersInput = {
+    id?: number
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
+  }
+
+  export type usersCreateOrConnectWithoutQueue_membersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutQueue_membersInput, usersUncheckedCreateWithoutQueue_membersInput>
+  }
+
+  export type queuesUpsertWithoutQueue_membersInput = {
+    update: XOR<queuesUpdateWithoutQueue_membersInput, queuesUncheckedUpdateWithoutQueue_membersInput>
+    create: XOR<queuesCreateWithoutQueue_membersInput, queuesUncheckedCreateWithoutQueue_membersInput>
+    where?: queuesWhereInput
+  }
+
+  export type queuesUpdateToOneWithWhereWithoutQueue_membersInput = {
+    where?: queuesWhereInput
+    data: XOR<queuesUpdateWithoutQueue_membersInput, queuesUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type queuesUpdateWithoutQueue_membersInput = {
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    space?: spacesUpdateOneRequiredWithoutQueuesNestedInput
+  }
+
+  export type queuesUncheckedUpdateWithoutQueue_membersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type usersUpsertWithoutQueue_membersInput = {
+    update: XOR<usersUpdateWithoutQueue_membersInput, usersUncheckedUpdateWithoutQueue_membersInput>
+    create: XOR<usersCreateWithoutQueue_membersInput, usersUncheckedCreateWithoutQueue_membersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutQueue_membersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutQueue_membersInput, usersUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type usersUpdateWithoutQueue_membersInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUpdateManyWithoutCreated_byNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutQueue_membersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
   }
 
   export type spacesCreateManyCreated_byInput = {
@@ -5878,6 +9386,16 @@ export namespace Prisma {
     slug: string
   }
 
+  export type queue_membersCreateManyUserInput = {
+    id?: number
+    queue_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type spacesUpdateWithoutCreated_byInput = {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5888,6 +9406,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutCreated_byInput = {
@@ -5901,6 +9420,7 @@ export namespace Prisma {
     deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
@@ -5915,10 +9435,47 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
   }
 
+  export type queue_membersUpdateWithoutUserInput = {
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
+  }
+
+  export type queue_membersUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type queue_membersUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    queue_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type spaces_activation_timesCreateManySpaceInput = {
     id?: number
     day_of_week: string
     start_time: string
+  }
+
+  export type queuesCreateManySpaceInput = {
+    id?: number
+    start_at_day: string
+    start_at_time: string
+    end_at_time: string
+    is_active?: boolean
   }
 
   export type spaces_activation_timesUpdateWithoutSpaceInput = {
@@ -5936,6 +9493,70 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type queuesUpdateWithoutSpaceInput = {
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    queue_members?: queue_membersUpdateManyWithoutQueueNestedInput
+  }
+
+  export type queuesUncheckedUpdateWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    queue_members?: queue_membersUncheckedUpdateManyWithoutQueueNestedInput
+  }
+
+  export type queuesUncheckedUpdateManyWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    start_at_day?: StringFieldUpdateOperationsInput | string
+    start_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type queue_membersCreateManyQueueInput = {
+    id?: number
+    user_id: number
+    is_paused?: boolean
+    is_current?: boolean
+    position: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type queue_membersUpdateWithoutQueueInput = {
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
+  }
+
+  export type queue_membersUncheckedUpdateWithoutQueueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type queue_membersUncheckedUpdateManyWithoutQueueInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    is_paused?: BoolFieldUpdateOperationsInput | boolean
+    is_current?: BoolFieldUpdateOperationsInput | boolean
+    position?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
