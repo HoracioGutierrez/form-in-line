@@ -47,10 +47,12 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                         )}
                     </div>
                 )}
+                <h3 className="font-bold text-2xl mb-2">Members Queue</h3>
                 {data.queue_members.length > 0 && data.queue_members.map((member) => {
                     return (
-                        <div key={member.id}>
-                            {member.user.name || member.user.email} - {member.subject}
+                        <div key={member.id} className="border dark:border-muted p-4 rounded-lg">
+                            <h4 className="font-bold text-xl">{member.user.name || member.user.email}</h4>
+                            <p className="text-muted">{member.subject}</p>
                         </div>
                     )
                 })}
