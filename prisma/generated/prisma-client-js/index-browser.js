@@ -164,7 +164,9 @@ exports.Prisma.Queue_membersScalarFieldEnum = {
   position: 'position',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  subject: 'subject'
+  subject: 'subject',
+  has_spoken: 'has_spoken',
+  queue_ended: 'queue_ended'
 };
 
 exports.Prisma.SortOrder = {

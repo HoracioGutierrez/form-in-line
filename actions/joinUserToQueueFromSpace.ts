@@ -43,7 +43,7 @@ export const joinUserToQueueFromSpace = async (formData: FormData, spaceId: numb
             },
         })
 
-        if (!currentQueueMembers) {
+        if (!currentQueueMembers || currentQueueMembers.length === 0) {
             await prisma.queue_members.create({
                 data: {
                     position: 1,
@@ -51,7 +51,7 @@ export const joinUserToQueueFromSpace = async (formData: FormData, spaceId: numb
                     queue_id: queueId,
                     user_id: userId,
                     is_current: true,
-                    subject: subject
+                    subject: subject,
                 }
             })
         } else {

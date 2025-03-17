@@ -80,4 +80,8 @@ model queue_members {
   updated_at DateTime @updatedAt
 
   subject String?
+
+  has_spoken Boolean @default(false)
+
+  queue_ended Boolean @default(false)
 }

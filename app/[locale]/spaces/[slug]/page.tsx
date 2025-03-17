@@ -1,7 +1,6 @@
 import { getSpaceBySlug } from "@/actions/getSpaceBySlug"
 import { getUserByEmail } from "@/actions/getUserByEmail"
 import JoinQueueModal from "@/components/queue/join-queue-modal"
-import { Button } from "@/components/ui/button"
 import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
 
@@ -21,6 +20,8 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
         redirect("/spaces")
     }
 
+    const currentSpeaker = data.queue_members.find(member => member.is_current)
+
     return (
         <section className="grow flex flex-col">
             <div className="flex justify-between items-center mb-10">
@@ -30,6 +31,20 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                 </div>
             </div>
             <div>
+                <h3 className="font-bold text-2xl mb-2">Current Speaker</h3>
+                <div className="border dark:border-muted p-4 rounded-lg flex items-center justify-between mb-4">
+                    {currentSpeaker ? (
+                        <div>
+                            <h4 className="font-bold text-xl">{currentSpeaker.user.name || currentSpeaker.user.email}</h4>
+                            <p className="text-muted">{currentSpeaker.subject}</p>
+                        </div>
+                    ) : (
+                        <p className="text-muted-foreground text-center">There is no current speaker</p>
+                    )}
+                </div>
+            </div>
+            <div>
+                <h3 className="font-bold text-2xl mb-2">Members Queue</h3>
                 {loggedUser
                     && data.queue_members.length > 0
                     && !data.queue_members.find(member => member.user_id === loggedUser.id)
@@ -47,12 +62,19 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                         )}
                     </div>
                 )}
-                <h3 className="font-bold text-2xl mb-2">Members Queue</h3>
                 {data.queue_members.length > 0 && data.queue_members.map((member) => {
                     return (
-                        <div key={member.id} className="border dark:border-muted p-4 rounded-lg">
-                            <h4 className="font-bold text-xl">{member.user.name || member.user.email}</h4>
-                            <p className="text-muted">{member.subject}</p>
+                        <div key={member.id} className="border dark:border-muted p-4 rounded-lg flex items-center justify-between mb-4">
+                            <div>
+                                <h4 className="font-bold text-xl">
+                                    {member.user.name || member.user.email}
+                                    {member.is_current && <span className="text-muted text-sm"> (current)</span>}
+                                </h4>
+                                <p className="text-muted">{member.subject}</p>
+                            </div>
+                            <div>
+                                <p className="text-muted px-2 py-1 bg-blue-300 rounded-md">{`#${member.position}`}</p>
+                            </div>
                         </div>
                     )
                 })}

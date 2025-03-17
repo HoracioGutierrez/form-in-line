@@ -38,6 +38,20 @@ export const handleDeactivateSpace = async (spaceId: number) => {
             data : {
                 end_at_time : `${hours}:${minutes}`,
                 is_active : false,
+                queue_members : {
+                    updateMany : {
+                        where : {
+                            queue_ended : false,
+                            queue_id : activeQueueForSpace.id,
+                            space_id : spaceId
+                        },
+                        data : {
+                            queue_ended : true,
+                            is_current : false,
+                            is_paused : false
+                        }
+                    }
+                }
             }
         })
 

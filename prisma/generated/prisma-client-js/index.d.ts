@@ -5992,6 +5992,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     subject: string | null
+    has_spoken: boolean | null
+    queue_ended: boolean | null
   }
 
   export type Queue_membersMaxAggregateOutputType = {
@@ -6005,6 +6007,8 @@ export namespace Prisma {
     created_at: Date | null
     updated_at: Date | null
     subject: string | null
+    has_spoken: boolean | null
+    queue_ended: boolean | null
   }
 
   export type Queue_membersCountAggregateOutputType = {
@@ -6018,6 +6022,8 @@ export namespace Prisma {
     created_at: number
     updated_at: number
     subject: number
+    has_spoken: number
+    queue_ended: number
     _all: number
   }
 
@@ -6049,6 +6055,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     subject?: true
+    has_spoken?: true
+    queue_ended?: true
   }
 
   export type Queue_membersMaxAggregateInputType = {
@@ -6062,6 +6070,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     subject?: true
+    has_spoken?: true
+    queue_ended?: true
   }
 
   export type Queue_membersCountAggregateInputType = {
@@ -6075,6 +6085,8 @@ export namespace Prisma {
     created_at?: true
     updated_at?: true
     subject?: true
+    has_spoken?: true
+    queue_ended?: true
     _all?: true
   }
 
@@ -6175,6 +6187,8 @@ export namespace Prisma {
     created_at: Date
     updated_at: Date
     subject: string | null
+    has_spoken: boolean
+    queue_ended: boolean
     _count: Queue_membersCountAggregateOutputType | null
     _avg: Queue_membersAvgAggregateOutputType | null
     _sum: Queue_membersSumAggregateOutputType | null
@@ -6207,6 +6221,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     subject?: boolean
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6223,6 +6239,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     subject?: boolean
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6239,6 +6257,8 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     subject?: boolean
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
     space?: boolean | spacesDefaultArgs<ExtArgs>
@@ -6255,9 +6275,11 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     subject?: boolean
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
-  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "space_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at" | "subject", ExtArgs["result"]["queue_members"]>
+  export type queue_membersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "queue_id" | "user_id" | "space_id" | "is_paused" | "is_current" | "position" | "created_at" | "updated_at" | "subject" | "has_spoken" | "queue_ended", ExtArgs["result"]["queue_members"]>
   export type queue_membersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     queue?: boolean | queuesDefaultArgs<ExtArgs>
     user?: boolean | usersDefaultArgs<ExtArgs>
@@ -6292,6 +6314,8 @@ export namespace Prisma {
       created_at: Date
       updated_at: Date
       subject: string | null
+      has_spoken: boolean
+      queue_ended: boolean
     }, ExtArgs["result"]["queue_members"]>
     composites: {}
   }
@@ -6728,6 +6752,8 @@ export namespace Prisma {
     readonly created_at: FieldRef<"queue_members", 'DateTime'>
     readonly updated_at: FieldRef<"queue_members", 'DateTime'>
     readonly subject: FieldRef<"queue_members", 'String'>
+    readonly has_spoken: FieldRef<"queue_members", 'Boolean'>
+    readonly queue_ended: FieldRef<"queue_members", 'Boolean'>
   }
     
 
@@ -7215,7 +7241,9 @@ export namespace Prisma {
     position: 'position',
     created_at: 'created_at',
     updated_at: 'updated_at',
-    subject: 'subject'
+    subject: 'subject',
+    has_spoken: 'has_spoken',
+    queue_ended: 'queue_ended'
   };
 
   export type Queue_membersScalarFieldEnum = (typeof Queue_membersScalarFieldEnum)[keyof typeof Queue_membersScalarFieldEnum]
@@ -7598,6 +7626,8 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
     subject?: StringNullableFilter<"queue_members"> | string | null
+    has_spoken?: BoolFilter<"queue_members"> | boolean
+    queue_ended?: BoolFilter<"queue_members"> | boolean
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
@@ -7614,6 +7644,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     subject?: SortOrderInput | SortOrder
+    has_spoken?: SortOrder
+    queue_ended?: SortOrder
     queue?: queuesOrderByWithRelationInput
     user?: usersOrderByWithRelationInput
     space?: spacesOrderByWithRelationInput
@@ -7633,6 +7665,8 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
     subject?: StringNullableFilter<"queue_members"> | string | null
+    has_spoken?: BoolFilter<"queue_members"> | boolean
+    queue_ended?: BoolFilter<"queue_members"> | boolean
     queue?: XOR<QueuesScalarRelationFilter, queuesWhereInput>
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
@@ -7649,6 +7683,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     subject?: SortOrderInput | SortOrder
+    has_spoken?: SortOrder
+    queue_ended?: SortOrder
     _count?: queue_membersCountOrderByAggregateInput
     _avg?: queue_membersAvgOrderByAggregateInput
     _max?: queue_membersMaxOrderByAggregateInput
@@ -7670,6 +7706,8 @@ export namespace Prisma {
     created_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"queue_members"> | Date | string
     subject?: StringNullableWithAggregatesFilter<"queue_members"> | string | null
+    has_spoken?: BoolWithAggregatesFilter<"queue_members"> | boolean
+    queue_ended?: BoolWithAggregatesFilter<"queue_members"> | boolean
   }
 
   export type usersCreateInput = {
@@ -7947,6 +7985,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     user: usersCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
@@ -7963,6 +8003,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersUpdateInput = {
@@ -7972,6 +8014,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
@@ -7988,6 +8032,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersCreateManyInput = {
@@ -8001,6 +8047,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersUpdateManyMutationInput = {
@@ -8010,6 +8058,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersUncheckedUpdateManyInput = {
@@ -8023,6 +8073,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -8401,6 +8453,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     subject?: SortOrder
+    has_spoken?: SortOrder
+    queue_ended?: SortOrder
   }
 
   export type queue_membersAvgOrderByAggregateInput = {
@@ -8422,6 +8476,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     subject?: SortOrder
+    has_spoken?: SortOrder
+    queue_ended?: SortOrder
   }
 
   export type queue_membersMinOrderByAggregateInput = {
@@ -8435,6 +8491,8 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     subject?: SortOrder
+    has_spoken?: SortOrder
+    queue_ended?: SortOrder
   }
 
   export type queue_membersSumOrderByAggregateInput = {
@@ -9029,6 +9087,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
   }
@@ -9043,6 +9103,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersCreateOrConnectWithoutUserInput = {
@@ -9117,6 +9179,8 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"queue_members"> | Date | string
     updated_at?: DateTimeFilter<"queue_members"> | Date | string
     subject?: StringNullableFilter<"queue_members"> | string | null
+    has_spoken?: BoolFilter<"queue_members"> | boolean
+    queue_ended?: BoolFilter<"queue_members"> | boolean
   }
 
   export type usersCreateWithoutSpacesInput = {
@@ -9196,6 +9260,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
     queue: queuesCreateNestedOneWithoutQueue_membersInput
     user: usersCreateNestedOneWithoutQueue_membersInput
   }
@@ -9210,6 +9276,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersCreateOrConnectWithoutSpaceInput = {
@@ -9435,6 +9503,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
     user: usersCreateNestedOneWithoutQueue_membersInput
     space: spacesCreateNestedOneWithoutQueue_membersInput
   }
@@ -9449,6 +9519,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersCreateOrConnectWithoutQueueInput = {
@@ -9713,6 +9785,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type spacesUpdateWithoutCreated_byInput = {
@@ -9763,6 +9837,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9777,6 +9853,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersUncheckedUpdateManyWithoutUserInput = {
@@ -9789,6 +9867,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type spaces_activation_timesCreateManySpaceInput = {
@@ -9815,6 +9895,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type spaces_activation_timesUpdateWithoutSpaceInput = {
@@ -9866,6 +9948,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
     queue?: queuesUpdateOneRequiredWithoutQueue_membersNestedInput
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9880,6 +9964,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersUncheckedUpdateManyWithoutSpaceInput = {
@@ -9892,6 +9978,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersCreateManyQueueInput = {
@@ -9904,6 +9992,8 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     subject?: string | null
+    has_spoken?: boolean
+    queue_ended?: boolean
   }
 
   export type queue_membersUpdateWithoutQueueInput = {
@@ -9913,6 +10003,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
     user?: usersUpdateOneRequiredWithoutQueue_membersNestedInput
     space?: spacesUpdateOneRequiredWithoutQueue_membersNestedInput
   }
@@ -9927,6 +10019,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type queue_membersUncheckedUpdateManyWithoutQueueInput = {
@@ -9939,6 +10033,8 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     subject?: NullableStringFieldUpdateOperationsInput | string | null
+    has_spoken?: BoolFieldUpdateOperationsInput | boolean
+    queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

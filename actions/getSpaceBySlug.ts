@@ -17,6 +17,9 @@ export const getSpaceBySlug = async (slug: string) => {
                     }
                 },
                 queue_members : {
+                    where : {
+                        queue_ended : false
+                    },
                     include : {
                         user : true
                     }
