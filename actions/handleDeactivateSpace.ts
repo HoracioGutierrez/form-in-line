@@ -48,7 +48,8 @@ export const handleDeactivateSpace = async (spaceId: number) => {
                         data : {
                             queue_ended : true,
                             is_current : false,
-                            is_paused : false
+                            is_paused : false,
+                            has_spoken : true
                         }
                     }
                 }

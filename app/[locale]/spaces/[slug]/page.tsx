@@ -65,10 +65,13 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                     <div className="border-dashed border dark:border-muted p-4 rounded-lg">
                         <p className="text-muted-foreground text-center">There are no people in the wait list</p>
                         <p className="text-muted-foreground text-center mb-8">Be the first one to join!</p>
-                        {loggedUser && (
+                        {loggedUser && data.queues.length > 0 && (
                             <div className="flex justify-center">
                                 <JoinQueueModal loggedUser={loggedUser} space={data} />
                             </div>
+                        )}
+                        {data.queues.length === 0 && (
+                            <p className="text-muted-foreground text-center">The space is curently not active. Come back once the space is active to join the queue!</p>
                         )}
                     </div>
                 )}
