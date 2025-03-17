@@ -107,6 +107,16 @@ async function DashboardPage() {
                                 <SpaceItem key={space.id} space={space} />
                             )
                         })}
+                        {!spaces && (
+                            <div className="border-dashed border dark:border-muted p-4 rounded-lg">
+                                <p className="text-muted-foreground text-center">You have no spaces created yet!</p>
+                            </div>
+                        )}
+                        {spaces && spaces.length === 0 && (
+                            <div className="border-dashed border dark:border-muted p-4 rounded-lg">
+                                <p className="text-muted-foreground text-center">You have no spaces created yet!</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
