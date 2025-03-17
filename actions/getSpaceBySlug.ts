@@ -24,6 +24,9 @@ export const getSpaceBySlug = async (slug: string) => {
                             gt : 0
                         }
                     },
+                    orderBy : {
+                        position : 'asc'
+                    },
                     include : {
                         user : true
                     }

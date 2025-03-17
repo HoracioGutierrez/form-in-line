@@ -1,6 +1,8 @@
 import { queue_members, users } from "@/prisma/generated/prisma-client-js"
 import { Button } from "../ui/button"
-import { ArrowDown, ArrowUp, Trash } from "lucide-react"
+import { Trash } from "lucide-react"
+import MoveUpSpeakerForm from "./moveup-speaker-form"
+import MoveDownSpeakerForm from "./movedown-speaker-form"
 
 type QueueMemberItemProps = {
     member: queue_members & {
@@ -9,7 +11,7 @@ type QueueMemberItemProps = {
     membersLength: number
 }
 
-function QueueMemberItem({ member , membersLength }: QueueMemberItemProps) {
+function QueueMemberItem({ member, membersLength }: QueueMemberItemProps) {
     return (
         <div className="border dark:border-muted p-4 rounded-lg flex items-center justify-between mb-4">
             <div>
@@ -26,19 +28,13 @@ function QueueMemberItem({ member , membersLength }: QueueMemberItemProps) {
                         <Trash />
                     </Button>
                     {member.is_current === true && member.position == 1 && (
-                        <Button variant="ghost" size="icon" className="p-0">
-                            <ArrowDown />
-                        </Button>
+                        <MoveDownSpeakerForm speaker={member} />
                     )}
                     {member.is_current === false && member.position > 1 && member.position < membersLength && (
-                        <Button variant="ghost" size="icon" className="p-0">
-                            <ArrowDown />
-                        </Button>
+                        <MoveDownSpeakerForm speaker={member} />
                     )}
                     {member.is_current === false && member.position > 1 && (
-                        <Button variant="ghost" size="icon" className="p-0">
-                            <ArrowUp />
-                        </Button>
+                        <MoveUpSpeakerForm speaker={member} />
                     )}
                 </div>
             </div>
