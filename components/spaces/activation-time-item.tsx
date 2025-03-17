@@ -26,7 +26,11 @@ function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay
     const setDate = (date: Date | undefined) => {
         if (date) {
             setDates(date)
-            handleChangeActivationStart(id, date.getHours() + ":" + (date.getMinutes() === 0 ? "00" : date.getMinutes()))
+            handleChangeActivationStart(id,
+                date.getHours().toString().padStart(2, "0")
+                + ":" +
+                date.getMinutes().toString().padStart(2, "0")
+            )
         }
     }
 
