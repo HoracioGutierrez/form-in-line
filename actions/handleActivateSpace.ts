@@ -4,25 +4,43 @@ import { revalidatePath } from "next/cache"
 
 export const handleActivateSpace = async (spaceId: number) => {
     try {
-        const deactivatedSpace = await prisma.spaces.update({
+
+        const date = new Date()
+        const day = new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(date).toLowerCase()
+        const hours = new Intl.DateTimeFormat("en-GB", { hour: "numeric" }).format(date)
+        const minutes = new Intl.DateTimeFormat("en-GB", { minute: "numeric" }).format(date)
+
+        const activatedSpace = await prisma.spaces.update({
             where: {
                 id: spaceId
             },
             data: {
-                is_active: true
+                is_active: true,
+            },
+        })
+
+        if (!activatedSpace) throw new Error('Error activating space')
+
+        const newQueueForSpace = await prisma.queues.create({
+            data: {
+                start_at_time: `${hours}:${minutes}`,
+                is_active: true,
+                start_at_day: day,
+                space_id: spaceId
             }
         })
 
-        if (!deactivatedSpace) throw new Error('Error activating space')
+        if (!newQueueForSpace) throw new Error('Error creating queue for space')
 
         revalidatePath('/spaces')
 
         return {
-            data: deactivatedSpace,
+            data: activatedSpace,
             errorMessage: '',
             hasError: false
         }
     } catch (error) {
+        console.log(error)
         if (error instanceof Error) {
             throw new Error(error.message)
         }

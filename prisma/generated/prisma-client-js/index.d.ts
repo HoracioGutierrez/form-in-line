@@ -4957,7 +4957,7 @@ export namespace Prisma {
     space_id: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time: string | null
     is_active: boolean
     _count: QueuesCountAggregateOutputType | null
     _avg: QueuesAvgAggregateOutputType | null
@@ -5045,7 +5045,7 @@ export namespace Prisma {
       space_id: number
       start_at_day: string
       start_at_time: string
-      end_at_time: string
+      end_at_time: string | null
       is_active: boolean
     }, ExtArgs["result"]["queues"]>
     composites: {}
@@ -7447,7 +7447,7 @@ export namespace Prisma {
     space_id?: IntFilter<"queues"> | number
     start_at_day?: StringFilter<"queues"> | string
     start_at_time?: StringFilter<"queues"> | string
-    end_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringNullableFilter<"queues"> | string | null
     is_active?: BoolFilter<"queues"> | boolean
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
     queue_members?: Queue_membersListRelationFilter
@@ -7458,7 +7458,7 @@ export namespace Prisma {
     space_id?: SortOrder
     start_at_day?: SortOrder
     start_at_time?: SortOrder
-    end_at_time?: SortOrder
+    end_at_time?: SortOrderInput | SortOrder
     is_active?: SortOrder
     space?: spacesOrderByWithRelationInput
     queue_members?: queue_membersOrderByRelationAggregateInput
@@ -7472,7 +7472,7 @@ export namespace Prisma {
     space_id?: IntFilter<"queues"> | number
     start_at_day?: StringFilter<"queues"> | string
     start_at_time?: StringFilter<"queues"> | string
-    end_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringNullableFilter<"queues"> | string | null
     is_active?: BoolFilter<"queues"> | boolean
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
     queue_members?: Queue_membersListRelationFilter
@@ -7483,7 +7483,7 @@ export namespace Prisma {
     space_id?: SortOrder
     start_at_day?: SortOrder
     start_at_time?: SortOrder
-    end_at_time?: SortOrder
+    end_at_time?: SortOrderInput | SortOrder
     is_active?: SortOrder
     _count?: queuesCountOrderByAggregateInput
     _avg?: queuesAvgOrderByAggregateInput
@@ -7500,7 +7500,7 @@ export namespace Prisma {
     space_id?: IntWithAggregatesFilter<"queues"> | number
     start_at_day?: StringWithAggregatesFilter<"queues"> | string
     start_at_time?: StringWithAggregatesFilter<"queues"> | string
-    end_at_time?: StringWithAggregatesFilter<"queues"> | string
+    end_at_time?: StringNullableWithAggregatesFilter<"queues"> | string | null
     is_active?: BoolWithAggregatesFilter<"queues"> | boolean
   }
 
@@ -7783,7 +7783,7 @@ export namespace Prisma {
   export type queuesCreateInput = {
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
     space: spacesCreateNestedOneWithoutQueuesInput
     queue_members?: queue_membersCreateNestedManyWithoutQueueInput
@@ -7794,7 +7794,7 @@ export namespace Prisma {
     space_id: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutQueueInput
   }
@@ -7802,7 +7802,7 @@ export namespace Prisma {
   export type queuesUpdateInput = {
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     space?: spacesUpdateOneRequiredWithoutQueuesNestedInput
     queue_members?: queue_membersUpdateManyWithoutQueueNestedInput
@@ -7813,7 +7813,7 @@ export namespace Prisma {
     space_id?: IntFieldUpdateOperationsInput | number
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     queue_members?: queue_membersUncheckedUpdateManyWithoutQueueNestedInput
   }
@@ -7823,14 +7823,14 @@ export namespace Prisma {
     space_id: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
   }
 
   export type queuesUpdateManyMutationInput = {
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7839,7 +7839,7 @@ export namespace Prisma {
     space_id?: IntFieldUpdateOperationsInput | number
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -8983,7 +8983,7 @@ export namespace Prisma {
   export type queuesCreateWithoutSpaceInput = {
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
     queue_members?: queue_membersCreateNestedManyWithoutQueueInput
   }
@@ -8992,7 +8992,7 @@ export namespace Prisma {
     id?: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutQueueInput
   }
@@ -9085,7 +9085,7 @@ export namespace Prisma {
     space_id?: IntFilter<"queues"> | number
     start_at_day?: StringFilter<"queues"> | string
     start_at_time?: StringFilter<"queues"> | string
-    end_at_time?: StringFilter<"queues"> | string
+    end_at_time?: StringNullableFilter<"queues"> | string | null
     is_active?: BoolFilter<"queues"> | boolean
   }
 
@@ -9277,7 +9277,7 @@ export namespace Prisma {
   export type queuesCreateWithoutQueue_membersInput = {
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
     space: spacesCreateNestedOneWithoutQueuesInput
   }
@@ -9287,7 +9287,7 @@ export namespace Prisma {
     space_id: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
   }
 
@@ -9332,7 +9332,7 @@ export namespace Prisma {
   export type queuesUpdateWithoutQueue_membersInput = {
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     space?: spacesUpdateOneRequiredWithoutQueuesNestedInput
   }
@@ -9342,7 +9342,7 @@ export namespace Prisma {
     space_id?: IntFieldUpdateOperationsInput | number
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -9474,7 +9474,7 @@ export namespace Prisma {
     id?: number
     start_at_day: string
     start_at_time: string
-    end_at_time: string
+    end_at_time?: string | null
     is_active?: boolean
   }
 
@@ -9498,7 +9498,7 @@ export namespace Prisma {
   export type queuesUpdateWithoutSpaceInput = {
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     queue_members?: queue_membersUpdateManyWithoutQueueNestedInput
   }
@@ -9507,7 +9507,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     queue_members?: queue_membersUncheckedUpdateManyWithoutQueueNestedInput
   }
@@ -9516,7 +9516,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     start_at_day?: StringFieldUpdateOperationsInput | string
     start_at_time?: StringFieldUpdateOperationsInput | string
-    end_at_time?: StringFieldUpdateOperationsInput | string
+    end_at_time?: NullableStringFieldUpdateOperationsInput | string | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
   }
 

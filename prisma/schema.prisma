@@ -55,7 +55,7 @@ model queues {
 
     start_at_day  String
     start_at_time String
-    end_at_time   String
+    end_at_time   String?
     is_active     Boolean         @default(true)
     queue_members queue_members[]
 }

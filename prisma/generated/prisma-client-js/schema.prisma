@@ -9,12 +9,13 @@ generator client {
 }
 
 model users {
-  id         Int      @id @default(autoincrement())
-  email      String   @unique
-  name       String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  spaces     spaces[]
+  id            Int             @id @default(autoincrement())
+  email         String          @unique
+  name          String?
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  spaces        spaces[]
+  queue_members queue_members[]
 }
 
 model spaces {
@@ -33,6 +34,7 @@ model spaces {
 
   slug                    String
   spaces_activation_times spaces_activation_times[]
+  queues                  queues[]
 }
 
 model spaces_activation_times {
@@ -43,4 +45,33 @@ model spaces_activation_times {
 
   day_of_week String
   start_time  String
+}
+
+model queues {
+  id Int @id @default(autoincrement())
+
+  space    spaces @relation(fields: [space_id], references: [id])
+  space_id Int
+
+  start_at_day  String
+  start_at_time String
+  end_at_time   String?
+  is_active     Boolean         @default(true)
+  queue_members queue_members[]
+}
+
+model queue_members {
+  id Int @id @default(autoincrement())
+
+  queue    queues @relation(fields: [queue_id], references: [id])
+  queue_id Int
+
+  user    users @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  is_paused  Boolean  @default(false)
+  is_current Boolean  @default(false)
+  position   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
