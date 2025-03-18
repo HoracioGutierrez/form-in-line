@@ -23,7 +23,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
 
     return (
-        <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200">
+        <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1">
             <div className="flex justify-between">
                 <div>
                     <h2 className="text-2xl font-bold flex items-start gap-2 leading-none mb-1">

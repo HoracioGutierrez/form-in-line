@@ -10,22 +10,27 @@ generator client {
 }
 
 model users {
-  id            Int             @id @default(autoincrement())
-  email         String          @unique
-  name          String?
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @updatedAt
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
   spaces        spaces[]
   queue_members queue_members[]
+  space_owners  space_owners[]
 }
 
 model spaces {
-  id         Int      @id @default(autoincrement())
-  name       String
+  id   Int    @id @default(autoincrement())
+  name String
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  subject    String
-  is_active  Boolean
+
+  subject   String
+  is_active Boolean
 
   created_by users @relation(fields: [users_id], references: [id])
   users_id   Int
@@ -37,6 +42,7 @@ model spaces {
   spaces_activation_times spaces_activation_times[]
   queues                  queues[]
   queue_members           queue_members[]
+  space_owners            space_owners[]
 }
 
 model spaces_activation_times {
@@ -47,6 +53,9 @@ model spaces_activation_times {
 
   day_of_week String
   start_time  String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model queues {
@@ -77,9 +86,10 @@ model queue_members {
   space    spaces @relation(fields: [space_id], references: [id])
   space_id Int
 
-  is_paused  Boolean  @default(false)
-  is_current Boolean  @default(false)
+  is_paused  Boolean @default(false)
+  is_current Boolean @default(false)
   position   Int
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -88,4 +98,17 @@ model queue_members {
   has_spoken Boolean @default(false)
 
   queue_ended Boolean @default(false)
+}
+
+model space_owners {
+  id Int @id @default(autoincrement())
+
+  space_id Int
+  space    spaces @relation(fields: [space_id], references: [id])
+
+  user_id Int
+  user    users @relation(fields: [user_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }

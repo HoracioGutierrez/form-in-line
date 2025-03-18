@@ -38,6 +38,11 @@ export type queues = $Result.DefaultSelection<Prisma.$queuesPayload>
  * 
  */
 export type queue_members = $Result.DefaultSelection<Prisma.$queue_membersPayload>
+/**
+ * Model space_owners
+ * 
+ */
+export type space_owners = $Result.DefaultSelection<Prisma.$space_ownersPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +218,16 @@ export class PrismaClient<
     * ```
     */
   get queue_members(): Prisma.queue_membersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.space_owners`: Exposes CRUD operations for the **space_owners** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Space_owners
+    * const space_owners = await prisma.space_owners.findMany()
+    * ```
+    */
+  get space_owners(): Prisma.space_ownersDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -657,7 +672,8 @@ export namespace Prisma {
     spaces: 'spaces',
     spaces_activation_times: 'spaces_activation_times',
     queues: 'queues',
-    queue_members: 'queue_members'
+    queue_members: 'queue_members',
+    space_owners: 'space_owners'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -676,7 +692,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "users" | "spaces" | "spaces_activation_times" | "queues" | "queue_members"
+      modelProps: "users" | "spaces" | "spaces_activation_times" | "queues" | "queue_members" | "space_owners"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1050,6 +1066,80 @@ export namespace Prisma {
           }
         }
       }
+      space_owners: {
+        payload: Prisma.$space_ownersPayload<ExtArgs>
+        fields: Prisma.space_ownersFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.space_ownersFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.space_ownersFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          findFirst: {
+            args: Prisma.space_ownersFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.space_ownersFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          findMany: {
+            args: Prisma.space_ownersFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>[]
+          }
+          create: {
+            args: Prisma.space_ownersCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          createMany: {
+            args: Prisma.space_ownersCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.space_ownersCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>[]
+          }
+          delete: {
+            args: Prisma.space_ownersDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          update: {
+            args: Prisma.space_ownersUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          deleteMany: {
+            args: Prisma.space_ownersDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.space_ownersUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.space_ownersUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>[]
+          }
+          upsert: {
+            args: Prisma.space_ownersUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$space_ownersPayload>
+          }
+          aggregate: {
+            args: Prisma.Space_ownersAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSpace_owners>
+          }
+          groupBy: {
+            args: Prisma.space_ownersGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Space_ownersGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.space_ownersCountArgs<ExtArgs>
+            result: $Utils.Optional<Space_ownersCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1139,6 +1229,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesOmit
     queues?: queuesOmit
     queue_members?: queue_membersOmit
+    space_owners?: space_ownersOmit
   }
 
   /* Types for Logging */
@@ -1235,11 +1326,13 @@ export namespace Prisma {
   export type UsersCountOutputType = {
     spaces: number
     queue_members: number
+    space_owners: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces?: boolean | UsersCountOutputTypeCountSpacesArgs
     queue_members?: boolean | UsersCountOutputTypeCountQueue_membersArgs
+    space_owners?: boolean | UsersCountOutputTypeCountSpace_ownersArgs
   }
 
   // Custom InputTypes
@@ -1267,6 +1360,13 @@ export namespace Prisma {
     where?: queue_membersWhereInput
   }
 
+  /**
+   * UsersCountOutputType without action
+   */
+  export type UsersCountOutputTypeCountSpace_ownersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_ownersWhereInput
+  }
+
 
   /**
    * Count Type SpacesCountOutputType
@@ -1276,12 +1376,14 @@ export namespace Prisma {
     spaces_activation_times: number
     queues: number
     queue_members: number
+    space_owners: number
   }
 
   export type SpacesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces_activation_times?: boolean | SpacesCountOutputTypeCountSpaces_activation_timesArgs
     queues?: boolean | SpacesCountOutputTypeCountQueuesArgs
     queue_members?: boolean | SpacesCountOutputTypeCountQueue_membersArgs
+    space_owners?: boolean | SpacesCountOutputTypeCountSpace_ownersArgs
   }
 
   // Custom InputTypes
@@ -1314,6 +1416,13 @@ export namespace Prisma {
    */
   export type SpacesCountOutputTypeCountQueue_membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: queue_membersWhereInput
+  }
+
+  /**
+   * SpacesCountOutputType without action
+   */
+  export type SpacesCountOutputTypeCountSpace_ownersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_ownersWhereInput
   }
 
 
@@ -1552,6 +1661,7 @@ export namespace Prisma {
     updated_at?: boolean
     spaces?: boolean | users$spacesArgs<ExtArgs>
     queue_members?: boolean | users$queue_membersArgs<ExtArgs>
+    space_owners?: boolean | users$space_ownersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["users"]>
 
@@ -1583,6 +1693,7 @@ export namespace Prisma {
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     spaces?: boolean | users$spacesArgs<ExtArgs>
     queue_members?: boolean | users$queue_membersArgs<ExtArgs>
+    space_owners?: boolean | users$space_ownersArgs<ExtArgs>
     _count?: boolean | UsersCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type usersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1593,6 +1704,7 @@ export namespace Prisma {
     objects: {
       spaces: Prisma.$spacesPayload<ExtArgs>[]
       queue_members: Prisma.$queue_membersPayload<ExtArgs>[]
+      space_owners: Prisma.$space_ownersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1996,6 +2108,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     spaces<T extends users$spacesArgs<ExtArgs> = {}>(args?: Subset<T, users$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     queue_members<T extends users$queue_membersArgs<ExtArgs> = {}>(args?: Subset<T, users$queue_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space_owners<T extends users$space_ownersArgs<ExtArgs> = {}>(args?: Subset<T, users$space_ownersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2466,6 +2579,30 @@ export namespace Prisma {
   }
 
   /**
+   * users.space_owners
+   */
+  export type users$space_ownersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    where?: space_ownersWhereInput
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    cursor?: space_ownersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_ownersScalarFieldEnum | Space_ownersScalarFieldEnum[]
+  }
+
+  /**
    * users without action
    */
   export type usersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2730,6 +2867,7 @@ export namespace Prisma {
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
     queues?: boolean | spaces$queuesArgs<ExtArgs>
     queue_members?: boolean | spaces$queue_membersArgs<ExtArgs>
+    space_owners?: boolean | spaces$space_ownersArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces"]>
 
@@ -2780,6 +2918,7 @@ export namespace Prisma {
     spaces_activation_times?: boolean | spaces$spaces_activation_timesArgs<ExtArgs>
     queues?: boolean | spaces$queuesArgs<ExtArgs>
     queue_members?: boolean | spaces$queue_membersArgs<ExtArgs>
+    space_owners?: boolean | spaces$space_ownersArgs<ExtArgs>
     _count?: boolean | SpacesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type spacesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2796,6 +2935,7 @@ export namespace Prisma {
       spaces_activation_times: Prisma.$spaces_activation_timesPayload<ExtArgs>[]
       queues: Prisma.$queuesPayload<ExtArgs>[]
       queue_members: Prisma.$queue_membersPayload<ExtArgs>[]
+      space_owners: Prisma.$space_ownersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3206,6 +3346,7 @@ export namespace Prisma {
     spaces_activation_times<T extends spaces$spaces_activation_timesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$spaces_activation_timesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$spaces_activation_timesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     queues<T extends spaces$queuesArgs<ExtArgs> = {}>(args?: Subset<T, spaces$queuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queuesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     queue_members<T extends spaces$queue_membersArgs<ExtArgs> = {}>(args?: Subset<T, spaces$queue_membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$queue_membersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    space_owners<T extends spaces$space_ownersArgs<ExtArgs> = {}>(args?: Subset<T, spaces$space_ownersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3713,6 +3854,30 @@ export namespace Prisma {
   }
 
   /**
+   * spaces.space_owners
+   */
+  export type spaces$space_ownersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    where?: space_ownersWhereInput
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    cursor?: space_ownersWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Space_ownersScalarFieldEnum | Space_ownersScalarFieldEnum[]
+  }
+
+  /**
    * spaces without action
    */
   export type spacesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3758,6 +3923,8 @@ export namespace Prisma {
     space_id: number | null
     day_of_week: string | null
     start_time: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type Spaces_activation_timesMaxAggregateOutputType = {
@@ -3765,6 +3932,8 @@ export namespace Prisma {
     space_id: number | null
     day_of_week: string | null
     start_time: string | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type Spaces_activation_timesCountAggregateOutputType = {
@@ -3772,6 +3941,8 @@ export namespace Prisma {
     space_id: number
     day_of_week: number
     start_time: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -3791,6 +3962,8 @@ export namespace Prisma {
     space_id?: true
     day_of_week?: true
     start_time?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type Spaces_activation_timesMaxAggregateInputType = {
@@ -3798,6 +3971,8 @@ export namespace Prisma {
     space_id?: true
     day_of_week?: true
     start_time?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type Spaces_activation_timesCountAggregateInputType = {
@@ -3805,6 +3980,8 @@ export namespace Prisma {
     space_id?: true
     day_of_week?: true
     start_time?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -3899,6 +4076,8 @@ export namespace Prisma {
     space_id: number
     day_of_week: string
     start_time: string
+    created_at: Date
+    updated_at: Date
     _count: Spaces_activation_timesCountAggregateOutputType | null
     _avg: Spaces_activation_timesAvgAggregateOutputType | null
     _sum: Spaces_activation_timesSumAggregateOutputType | null
@@ -3925,6 +4104,8 @@ export namespace Prisma {
     space_id?: boolean
     day_of_week?: boolean
     start_time?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces_activation_times"]>
 
@@ -3933,6 +4114,8 @@ export namespace Prisma {
     space_id?: boolean
     day_of_week?: boolean
     start_time?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces_activation_times"]>
 
@@ -3941,6 +4124,8 @@ export namespace Prisma {
     space_id?: boolean
     day_of_week?: boolean
     start_time?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     space?: boolean | spacesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["spaces_activation_times"]>
 
@@ -3949,9 +4134,11 @@ export namespace Prisma {
     space_id?: boolean
     day_of_week?: boolean
     start_time?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type spaces_activation_timesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_id" | "day_of_week" | "start_time", ExtArgs["result"]["spaces_activation_times"]>
+  export type spaces_activation_timesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_id" | "day_of_week" | "start_time" | "created_at" | "updated_at", ExtArgs["result"]["spaces_activation_times"]>
   export type spaces_activation_timesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     space?: boolean | spacesDefaultArgs<ExtArgs>
   }
@@ -3972,6 +4159,8 @@ export namespace Prisma {
       space_id: number
       day_of_week: string
       start_time: string
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["spaces_activation_times"]>
     composites: {}
   }
@@ -4400,6 +4589,8 @@ export namespace Prisma {
     readonly space_id: FieldRef<"spaces_activation_times", 'Int'>
     readonly day_of_week: FieldRef<"spaces_activation_times", 'String'>
     readonly start_time: FieldRef<"spaces_activation_times", 'String'>
+    readonly created_at: FieldRef<"spaces_activation_times", 'DateTime'>
+    readonly updated_at: FieldRef<"spaces_activation_times", 'DateTime'>
   }
     
 
@@ -7195,6 +7386,1114 @@ export namespace Prisma {
 
 
   /**
+   * Model space_owners
+   */
+
+  export type AggregateSpace_owners = {
+    _count: Space_ownersCountAggregateOutputType | null
+    _avg: Space_ownersAvgAggregateOutputType | null
+    _sum: Space_ownersSumAggregateOutputType | null
+    _min: Space_ownersMinAggregateOutputType | null
+    _max: Space_ownersMaxAggregateOutputType | null
+  }
+
+  export type Space_ownersAvgAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    user_id: number | null
+  }
+
+  export type Space_ownersSumAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    user_id: number | null
+  }
+
+  export type Space_ownersMinAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    user_id: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Space_ownersMaxAggregateOutputType = {
+    id: number | null
+    space_id: number | null
+    user_id: number | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type Space_ownersCountAggregateOutputType = {
+    id: number
+    space_id: number
+    user_id: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type Space_ownersAvgAggregateInputType = {
+    id?: true
+    space_id?: true
+    user_id?: true
+  }
+
+  export type Space_ownersSumAggregateInputType = {
+    id?: true
+    space_id?: true
+    user_id?: true
+  }
+
+  export type Space_ownersMinAggregateInputType = {
+    id?: true
+    space_id?: true
+    user_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Space_ownersMaxAggregateInputType = {
+    id?: true
+    space_id?: true
+    user_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type Space_ownersCountAggregateInputType = {
+    id?: true
+    space_id?: true
+    user_id?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type Space_ownersAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_owners to aggregate.
+     */
+    where?: space_ownersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_owners to fetch.
+     */
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: space_ownersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_owners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_owners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned space_owners
+    **/
+    _count?: true | Space_ownersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Space_ownersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Space_ownersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Space_ownersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Space_ownersMaxAggregateInputType
+  }
+
+  export type GetSpace_ownersAggregateType<T extends Space_ownersAggregateArgs> = {
+        [P in keyof T & keyof AggregateSpace_owners]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSpace_owners[P]>
+      : GetScalarType<T[P], AggregateSpace_owners[P]>
+  }
+
+
+
+
+  export type space_ownersGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: space_ownersWhereInput
+    orderBy?: space_ownersOrderByWithAggregationInput | space_ownersOrderByWithAggregationInput[]
+    by: Space_ownersScalarFieldEnum[] | Space_ownersScalarFieldEnum
+    having?: space_ownersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Space_ownersCountAggregateInputType | true
+    _avg?: Space_ownersAvgAggregateInputType
+    _sum?: Space_ownersSumAggregateInputType
+    _min?: Space_ownersMinAggregateInputType
+    _max?: Space_ownersMaxAggregateInputType
+  }
+
+  export type Space_ownersGroupByOutputType = {
+    id: number
+    space_id: number
+    user_id: number
+    created_at: Date
+    updated_at: Date
+    _count: Space_ownersCountAggregateOutputType | null
+    _avg: Space_ownersAvgAggregateOutputType | null
+    _sum: Space_ownersSumAggregateOutputType | null
+    _min: Space_ownersMinAggregateOutputType | null
+    _max: Space_ownersMaxAggregateOutputType | null
+  }
+
+  type GetSpace_ownersGroupByPayload<T extends space_ownersGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Space_ownersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Space_ownersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Space_ownersGroupByOutputType[P]>
+            : GetScalarType<T[P], Space_ownersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type space_ownersSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_owners"]>
+
+  export type space_ownersSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_owners"]>
+
+  export type space_ownersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    space_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["space_owners"]>
+
+  export type space_ownersSelectScalar = {
+    id?: boolean
+    space_id?: boolean
+    user_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type space_ownersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "space_id" | "user_id" | "created_at" | "updated_at", ExtArgs["result"]["space_owners"]>
+  export type space_ownersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type space_ownersIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+  export type space_ownersIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    space?: boolean | spacesDefaultArgs<ExtArgs>
+    user?: boolean | usersDefaultArgs<ExtArgs>
+  }
+
+  export type $space_ownersPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "space_owners"
+    objects: {
+      space: Prisma.$spacesPayload<ExtArgs>
+      user: Prisma.$usersPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      space_id: number
+      user_id: number
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["space_owners"]>
+    composites: {}
+  }
+
+  type space_ownersGetPayload<S extends boolean | null | undefined | space_ownersDefaultArgs> = $Result.GetResult<Prisma.$space_ownersPayload, S>
+
+  type space_ownersCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<space_ownersFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Space_ownersCountAggregateInputType | true
+    }
+
+  export interface space_ownersDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['space_owners'], meta: { name: 'space_owners' } }
+    /**
+     * Find zero or one Space_owners that matches the filter.
+     * @param {space_ownersFindUniqueArgs} args - Arguments to find a Space_owners
+     * @example
+     * // Get one Space_owners
+     * const space_owners = await prisma.space_owners.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends space_ownersFindUniqueArgs>(args: SelectSubset<T, space_ownersFindUniqueArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Space_owners that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {space_ownersFindUniqueOrThrowArgs} args - Arguments to find a Space_owners
+     * @example
+     * // Get one Space_owners
+     * const space_owners = await prisma.space_owners.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends space_ownersFindUniqueOrThrowArgs>(args: SelectSubset<T, space_ownersFindUniqueOrThrowArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_owners that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersFindFirstArgs} args - Arguments to find a Space_owners
+     * @example
+     * // Get one Space_owners
+     * const space_owners = await prisma.space_owners.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends space_ownersFindFirstArgs>(args?: SelectSubset<T, space_ownersFindFirstArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Space_owners that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersFindFirstOrThrowArgs} args - Arguments to find a Space_owners
+     * @example
+     * // Get one Space_owners
+     * const space_owners = await prisma.space_owners.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends space_ownersFindFirstOrThrowArgs>(args?: SelectSubset<T, space_ownersFindFirstOrThrowArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Space_owners that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Space_owners
+     * const space_owners = await prisma.space_owners.findMany()
+     * 
+     * // Get first 10 Space_owners
+     * const space_owners = await prisma.space_owners.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const space_ownersWithIdOnly = await prisma.space_owners.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends space_ownersFindManyArgs>(args?: SelectSubset<T, space_ownersFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Space_owners.
+     * @param {space_ownersCreateArgs} args - Arguments to create a Space_owners.
+     * @example
+     * // Create one Space_owners
+     * const Space_owners = await prisma.space_owners.create({
+     *   data: {
+     *     // ... data to create a Space_owners
+     *   }
+     * })
+     * 
+     */
+    create<T extends space_ownersCreateArgs>(args: SelectSubset<T, space_ownersCreateArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Space_owners.
+     * @param {space_ownersCreateManyArgs} args - Arguments to create many Space_owners.
+     * @example
+     * // Create many Space_owners
+     * const space_owners = await prisma.space_owners.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends space_ownersCreateManyArgs>(args?: SelectSubset<T, space_ownersCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Space_owners and returns the data saved in the database.
+     * @param {space_ownersCreateManyAndReturnArgs} args - Arguments to create many Space_owners.
+     * @example
+     * // Create many Space_owners
+     * const space_owners = await prisma.space_owners.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Space_owners and only return the `id`
+     * const space_ownersWithIdOnly = await prisma.space_owners.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends space_ownersCreateManyAndReturnArgs>(args?: SelectSubset<T, space_ownersCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Space_owners.
+     * @param {space_ownersDeleteArgs} args - Arguments to delete one Space_owners.
+     * @example
+     * // Delete one Space_owners
+     * const Space_owners = await prisma.space_owners.delete({
+     *   where: {
+     *     // ... filter to delete one Space_owners
+     *   }
+     * })
+     * 
+     */
+    delete<T extends space_ownersDeleteArgs>(args: SelectSubset<T, space_ownersDeleteArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Space_owners.
+     * @param {space_ownersUpdateArgs} args - Arguments to update one Space_owners.
+     * @example
+     * // Update one Space_owners
+     * const space_owners = await prisma.space_owners.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends space_ownersUpdateArgs>(args: SelectSubset<T, space_ownersUpdateArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Space_owners.
+     * @param {space_ownersDeleteManyArgs} args - Arguments to filter Space_owners to delete.
+     * @example
+     * // Delete a few Space_owners
+     * const { count } = await prisma.space_owners.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends space_ownersDeleteManyArgs>(args?: SelectSubset<T, space_ownersDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_owners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Space_owners
+     * const space_owners = await prisma.space_owners.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends space_ownersUpdateManyArgs>(args: SelectSubset<T, space_ownersUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Space_owners and returns the data updated in the database.
+     * @param {space_ownersUpdateManyAndReturnArgs} args - Arguments to update many Space_owners.
+     * @example
+     * // Update many Space_owners
+     * const space_owners = await prisma.space_owners.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Space_owners and only return the `id`
+     * const space_ownersWithIdOnly = await prisma.space_owners.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends space_ownersUpdateManyAndReturnArgs>(args: SelectSubset<T, space_ownersUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Space_owners.
+     * @param {space_ownersUpsertArgs} args - Arguments to update or create a Space_owners.
+     * @example
+     * // Update or create a Space_owners
+     * const space_owners = await prisma.space_owners.upsert({
+     *   create: {
+     *     // ... data to create a Space_owners
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Space_owners we want to update
+     *   }
+     * })
+     */
+    upsert<T extends space_ownersUpsertArgs>(args: SelectSubset<T, space_ownersUpsertArgs<ExtArgs>>): Prisma__space_ownersClient<$Result.GetResult<Prisma.$space_ownersPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Space_owners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersCountArgs} args - Arguments to filter Space_owners to count.
+     * @example
+     * // Count the number of Space_owners
+     * const count = await prisma.space_owners.count({
+     *   where: {
+     *     // ... the filter for the Space_owners we want to count
+     *   }
+     * })
+    **/
+    count<T extends space_ownersCountArgs>(
+      args?: Subset<T, space_ownersCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Space_ownersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Space_owners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Space_ownersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Space_ownersAggregateArgs>(args: Subset<T, Space_ownersAggregateArgs>): Prisma.PrismaPromise<GetSpace_ownersAggregateType<T>>
+
+    /**
+     * Group by Space_owners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {space_ownersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends space_ownersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: space_ownersGroupByArgs['orderBy'] }
+        : { orderBy?: space_ownersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, space_ownersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSpace_ownersGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the space_owners model
+   */
+  readonly fields: space_ownersFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for space_owners.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__space_ownersClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    space<T extends spacesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, spacesDefaultArgs<ExtArgs>>): Prisma__spacesClient<$Result.GetResult<Prisma.$spacesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the space_owners model
+   */ 
+  interface space_ownersFieldRefs {
+    readonly id: FieldRef<"space_owners", 'Int'>
+    readonly space_id: FieldRef<"space_owners", 'Int'>
+    readonly user_id: FieldRef<"space_owners", 'Int'>
+    readonly created_at: FieldRef<"space_owners", 'DateTime'>
+    readonly updated_at: FieldRef<"space_owners", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * space_owners findUnique
+   */
+  export type space_ownersFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter, which space_owners to fetch.
+     */
+    where: space_ownersWhereUniqueInput
+  }
+
+  /**
+   * space_owners findUniqueOrThrow
+   */
+  export type space_ownersFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter, which space_owners to fetch.
+     */
+    where: space_ownersWhereUniqueInput
+  }
+
+  /**
+   * space_owners findFirst
+   */
+  export type space_ownersFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter, which space_owners to fetch.
+     */
+    where?: space_ownersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_owners to fetch.
+     */
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_owners.
+     */
+    cursor?: space_ownersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_owners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_owners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_owners.
+     */
+    distinct?: Space_ownersScalarFieldEnum | Space_ownersScalarFieldEnum[]
+  }
+
+  /**
+   * space_owners findFirstOrThrow
+   */
+  export type space_ownersFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter, which space_owners to fetch.
+     */
+    where?: space_ownersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_owners to fetch.
+     */
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for space_owners.
+     */
+    cursor?: space_ownersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_owners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_owners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of space_owners.
+     */
+    distinct?: Space_ownersScalarFieldEnum | Space_ownersScalarFieldEnum[]
+  }
+
+  /**
+   * space_owners findMany
+   */
+  export type space_ownersFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter, which space_owners to fetch.
+     */
+    where?: space_ownersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of space_owners to fetch.
+     */
+    orderBy?: space_ownersOrderByWithRelationInput | space_ownersOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing space_owners.
+     */
+    cursor?: space_ownersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` space_owners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` space_owners.
+     */
+    skip?: number
+    distinct?: Space_ownersScalarFieldEnum | Space_ownersScalarFieldEnum[]
+  }
+
+  /**
+   * space_owners create
+   */
+  export type space_ownersCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * The data needed to create a space_owners.
+     */
+    data: XOR<space_ownersCreateInput, space_ownersUncheckedCreateInput>
+  }
+
+  /**
+   * space_owners createMany
+   */
+  export type space_ownersCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many space_owners.
+     */
+    data: space_ownersCreateManyInput | space_ownersCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * space_owners createManyAndReturn
+   */
+  export type space_ownersCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * The data used to create many space_owners.
+     */
+    data: space_ownersCreateManyInput | space_ownersCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_owners update
+   */
+  export type space_ownersUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * The data needed to update a space_owners.
+     */
+    data: XOR<space_ownersUpdateInput, space_ownersUncheckedUpdateInput>
+    /**
+     * Choose, which space_owners to update.
+     */
+    where: space_ownersWhereUniqueInput
+  }
+
+  /**
+   * space_owners updateMany
+   */
+  export type space_ownersUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update space_owners.
+     */
+    data: XOR<space_ownersUpdateManyMutationInput, space_ownersUncheckedUpdateManyInput>
+    /**
+     * Filter which space_owners to update
+     */
+    where?: space_ownersWhereInput
+    /**
+     * Limit how many space_owners to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_owners updateManyAndReturn
+   */
+  export type space_ownersUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * The data used to update space_owners.
+     */
+    data: XOR<space_ownersUpdateManyMutationInput, space_ownersUncheckedUpdateManyInput>
+    /**
+     * Filter which space_owners to update
+     */
+    where?: space_ownersWhereInput
+    /**
+     * Limit how many space_owners to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * space_owners upsert
+   */
+  export type space_ownersUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * The filter to search for the space_owners to update in case it exists.
+     */
+    where: space_ownersWhereUniqueInput
+    /**
+     * In case the space_owners found by the `where` argument doesn't exist, create a new space_owners with this data.
+     */
+    create: XOR<space_ownersCreateInput, space_ownersUncheckedCreateInput>
+    /**
+     * In case the space_owners was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<space_ownersUpdateInput, space_ownersUncheckedUpdateInput>
+  }
+
+  /**
+   * space_owners delete
+   */
+  export type space_ownersDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+    /**
+     * Filter which space_owners to delete.
+     */
+    where: space_ownersWhereUniqueInput
+  }
+
+  /**
+   * space_owners deleteMany
+   */
+  export type space_ownersDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which space_owners to delete
+     */
+    where?: space_ownersWhereInput
+    /**
+     * Limit how many space_owners to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * space_owners without action
+   */
+  export type space_ownersDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the space_owners
+     */
+    select?: space_ownersSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the space_owners
+     */
+    omit?: space_ownersOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: space_ownersInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7239,7 +8538,9 @@ export namespace Prisma {
     id: 'id',
     space_id: 'space_id',
     day_of_week: 'day_of_week',
-    start_time: 'start_time'
+    start_time: 'start_time',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type Spaces_activation_timesScalarFieldEnum = (typeof Spaces_activation_timesScalarFieldEnum)[keyof typeof Spaces_activation_timesScalarFieldEnum]
@@ -7275,6 +8576,17 @@ export namespace Prisma {
   };
 
   export type Queue_membersScalarFieldEnum = (typeof Queue_membersScalarFieldEnum)[keyof typeof Queue_membersScalarFieldEnum]
+
+
+  export const Space_ownersScalarFieldEnum: {
+    id: 'id',
+    space_id: 'space_id',
+    user_id: 'user_id',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type Space_ownersScalarFieldEnum = (typeof Space_ownersScalarFieldEnum)[keyof typeof Space_ownersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7383,6 +8695,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"users"> | Date | string
     spaces?: SpacesListRelationFilter
     queue_members?: Queue_membersListRelationFilter
+    space_owners?: Space_ownersListRelationFilter
   }
 
   export type usersOrderByWithRelationInput = {
@@ -7393,6 +8706,7 @@ export namespace Prisma {
     updated_at?: SortOrder
     spaces?: spacesOrderByRelationAggregateInput
     queue_members?: queue_membersOrderByRelationAggregateInput
+    space_owners?: space_ownersOrderByRelationAggregateInput
   }
 
   export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -7406,6 +8720,7 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"users"> | Date | string
     spaces?: SpacesListRelationFilter
     queue_members?: Queue_membersListRelationFilter
+    space_owners?: Space_ownersListRelationFilter
   }, "id" | "email">
 
   export type usersOrderByWithAggregationInput = {
@@ -7450,6 +8765,7 @@ export namespace Prisma {
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
     queues?: QueuesListRelationFilter
     queue_members?: Queue_membersListRelationFilter
+    space_owners?: Space_ownersListRelationFilter
   }
 
   export type spacesOrderByWithRelationInput = {
@@ -7467,6 +8783,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesOrderByRelationAggregateInput
     queues?: queuesOrderByRelationAggregateInput
     queue_members?: queue_membersOrderByRelationAggregateInput
+    space_owners?: space_ownersOrderByRelationAggregateInput
   }
 
   export type spacesWhereUniqueInput = Prisma.AtLeast<{
@@ -7487,6 +8804,7 @@ export namespace Prisma {
     spaces_activation_times?: Spaces_activation_timesListRelationFilter
     queues?: QueuesListRelationFilter
     queue_members?: Queue_membersListRelationFilter
+    space_owners?: Space_ownersListRelationFilter
   }, "id">
 
   export type spacesOrderByWithAggregationInput = {
@@ -7531,6 +8849,8 @@ export namespace Prisma {
     space_id?: IntFilter<"spaces_activation_times"> | number
     day_of_week?: StringFilter<"spaces_activation_times"> | string
     start_time?: StringFilter<"spaces_activation_times"> | string
+    created_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
+    updated_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
   }
 
@@ -7539,6 +8859,8 @@ export namespace Prisma {
     space_id?: SortOrder
     day_of_week?: SortOrder
     start_time?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     space?: spacesOrderByWithRelationInput
   }
 
@@ -7550,6 +8872,8 @@ export namespace Prisma {
     space_id?: IntFilter<"spaces_activation_times"> | number
     day_of_week?: StringFilter<"spaces_activation_times"> | string
     start_time?: StringFilter<"spaces_activation_times"> | string
+    created_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
+    updated_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
     space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
   }, "id">
 
@@ -7558,6 +8882,8 @@ export namespace Prisma {
     space_id?: SortOrder
     day_of_week?: SortOrder
     start_time?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: spaces_activation_timesCountOrderByAggregateInput
     _avg?: spaces_activation_timesAvgOrderByAggregateInput
     _max?: spaces_activation_timesMaxOrderByAggregateInput
@@ -7573,6 +8899,8 @@ export namespace Prisma {
     space_id?: IntWithAggregatesFilter<"spaces_activation_times"> | number
     day_of_week?: StringWithAggregatesFilter<"spaces_activation_times"> | string
     start_time?: StringWithAggregatesFilter<"spaces_activation_times"> | string
+    created_at?: DateTimeWithAggregatesFilter<"spaces_activation_times"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"spaces_activation_times"> | Date | string
   }
 
   export type queuesWhereInput = {
@@ -7748,6 +9076,66 @@ export namespace Prisma {
     queue_ended?: BoolWithAggregatesFilter<"queue_members"> | boolean
   }
 
+  export type space_ownersWhereInput = {
+    AND?: space_ownersWhereInput | space_ownersWhereInput[]
+    OR?: space_ownersWhereInput[]
+    NOT?: space_ownersWhereInput | space_ownersWhereInput[]
+    id?: IntFilter<"space_owners"> | number
+    space_id?: IntFilter<"space_owners"> | number
+    user_id?: IntFilter<"space_owners"> | number
+    created_at?: DateTimeFilter<"space_owners"> | Date | string
+    updated_at?: DateTimeFilter<"space_owners"> | Date | string
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }
+
+  export type space_ownersOrderByWithRelationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    space?: spacesOrderByWithRelationInput
+    user?: usersOrderByWithRelationInput
+  }
+
+  export type space_ownersWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: space_ownersWhereInput | space_ownersWhereInput[]
+    OR?: space_ownersWhereInput[]
+    NOT?: space_ownersWhereInput | space_ownersWhereInput[]
+    space_id?: IntFilter<"space_owners"> | number
+    user_id?: IntFilter<"space_owners"> | number
+    created_at?: DateTimeFilter<"space_owners"> | Date | string
+    updated_at?: DateTimeFilter<"space_owners"> | Date | string
+    space?: XOR<SpacesScalarRelationFilter, spacesWhereInput>
+    user?: XOR<UsersScalarRelationFilter, usersWhereInput>
+  }, "id">
+
+  export type space_ownersOrderByWithAggregationInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: space_ownersCountOrderByAggregateInput
+    _avg?: space_ownersAvgOrderByAggregateInput
+    _max?: space_ownersMaxOrderByAggregateInput
+    _min?: space_ownersMinOrderByAggregateInput
+    _sum?: space_ownersSumOrderByAggregateInput
+  }
+
+  export type space_ownersScalarWhereWithAggregatesInput = {
+    AND?: space_ownersScalarWhereWithAggregatesInput | space_ownersScalarWhereWithAggregatesInput[]
+    OR?: space_ownersScalarWhereWithAggregatesInput[]
+    NOT?: space_ownersScalarWhereWithAggregatesInput | space_ownersScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"space_owners"> | number
+    space_id?: IntWithAggregatesFilter<"space_owners"> | number
+    user_id?: IntWithAggregatesFilter<"space_owners"> | number
+    created_at?: DateTimeWithAggregatesFilter<"space_owners"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"space_owners"> | Date | string
+  }
+
   export type usersCreateInput = {
     email: string
     name?: string | null
@@ -7755,6 +9143,7 @@ export namespace Prisma {
     updated_at?: Date | string
     spaces?: spacesCreateNestedManyWithoutCreated_byInput
     queue_members?: queue_membersCreateNestedManyWithoutUserInput
+    space_owners?: space_ownersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateInput = {
@@ -7765,6 +9154,7 @@ export namespace Prisma {
     updated_at?: Date | string
     spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutUserInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersUpdateInput = {
@@ -7774,6 +9164,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUpdateManyWithoutCreated_byNestedInput
     queue_members?: queue_membersUpdateManyWithoutUserNestedInput
+    space_owners?: space_ownersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateInput = {
@@ -7784,6 +9175,7 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
     queue_members?: queue_membersUncheckedUpdateManyWithoutUserNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type usersCreateManyInput = {
@@ -7822,6 +9214,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateInput = {
@@ -7838,6 +9231,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUpdateInput = {
@@ -7853,6 +9247,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateInput = {
@@ -7869,6 +9264,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateManyInput = {
@@ -7911,6 +9307,8 @@ export namespace Prisma {
   export type spaces_activation_timesCreateInput = {
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
     space: spacesCreateNestedOneWithoutSpaces_activation_timesInput
   }
 
@@ -7919,11 +9317,15 @@ export namespace Prisma {
     space_id: number
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type spaces_activation_timesUpdateInput = {
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     space?: spacesUpdateOneRequiredWithoutSpaces_activation_timesNestedInput
   }
 
@@ -7932,6 +9334,8 @@ export namespace Prisma {
     space_id?: IntFieldUpdateOperationsInput | number
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type spaces_activation_timesCreateManyInput = {
@@ -7939,11 +9343,15 @@ export namespace Prisma {
     space_id: number
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type spaces_activation_timesUpdateManyMutationInput = {
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type spaces_activation_timesUncheckedUpdateManyInput = {
@@ -7951,6 +9359,8 @@ export namespace Prisma {
     space_id?: IntFieldUpdateOperationsInput | number
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type queuesCreateInput = {
@@ -8129,6 +9539,57 @@ export namespace Prisma {
     queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type space_ownersCreateInput = {
+    created_at?: Date | string
+    updated_at?: Date | string
+    space: spacesCreateNestedOneWithoutSpace_ownersInput
+    user: usersCreateNestedOneWithoutSpace_ownersInput
+  }
+
+  export type space_ownersUncheckedCreateInput = {
+    id?: number
+    space_id: number
+    user_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_ownersUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space?: spacesUpdateOneRequiredWithoutSpace_ownersNestedInput
+    user?: usersUpdateOneRequiredWithoutSpace_ownersNestedInput
+  }
+
+  export type space_ownersUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_ownersCreateManyInput = {
+    id?: number
+    space_id: number
+    user_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_ownersUpdateManyMutationInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_ownersUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8193,6 +9654,12 @@ export namespace Prisma {
     none?: queue_membersWhereInput
   }
 
+  export type Space_ownersListRelationFilter = {
+    every?: space_ownersWhereInput
+    some?: space_ownersWhereInput
+    none?: space_ownersWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -8203,6 +9670,10 @@ export namespace Prisma {
   }
 
   export type queue_membersOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type space_ownersOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8426,6 +9897,8 @@ export namespace Prisma {
     space_id?: SortOrder
     day_of_week?: SortOrder
     start_time?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type spaces_activation_timesAvgOrderByAggregateInput = {
@@ -8438,6 +9911,8 @@ export namespace Prisma {
     space_id?: SortOrder
     day_of_week?: SortOrder
     start_time?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type spaces_activation_timesMinOrderByAggregateInput = {
@@ -8445,6 +9920,8 @@ export namespace Prisma {
     space_id?: SortOrder
     day_of_week?: SortOrder
     start_time?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type spaces_activation_timesSumOrderByAggregateInput = {
@@ -8561,6 +10038,42 @@ export namespace Prisma {
     position?: SortOrder
   }
 
+  export type space_ownersCountOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_ownersAvgOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+  }
+
+  export type space_ownersMaxOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_ownersMinOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type space_ownersSumOrderByAggregateInput = {
+    id?: SortOrder
+    space_id?: SortOrder
+    user_id?: SortOrder
+  }
+
   export type spacesCreateNestedManyWithoutCreated_byInput = {
     create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
     connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
@@ -8575,6 +10088,13 @@ export namespace Prisma {
     connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
   }
 
+  export type space_ownersCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput> | space_ownersCreateWithoutUserInput[] | space_ownersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutUserInput | space_ownersCreateOrConnectWithoutUserInput[]
+    createMany?: space_ownersCreateManyUserInputEnvelope
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+  }
+
   export type spacesUncheckedCreateNestedManyWithoutCreated_byInput = {
     create?: XOR<spacesCreateWithoutCreated_byInput, spacesUncheckedCreateWithoutCreated_byInput> | spacesCreateWithoutCreated_byInput[] | spacesUncheckedCreateWithoutCreated_byInput[]
     connectOrCreate?: spacesCreateOrConnectWithoutCreated_byInput | spacesCreateOrConnectWithoutCreated_byInput[]
@@ -8587,6 +10107,13 @@ export namespace Prisma {
     connectOrCreate?: queue_membersCreateOrConnectWithoutUserInput | queue_membersCreateOrConnectWithoutUserInput[]
     createMany?: queue_membersCreateManyUserInputEnvelope
     connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
+  export type space_ownersUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput> | space_ownersCreateWithoutUserInput[] | space_ownersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutUserInput | space_ownersCreateOrConnectWithoutUserInput[]
+    createMany?: space_ownersCreateManyUserInputEnvelope
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8629,6 +10156,20 @@ export namespace Prisma {
     deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
   }
 
+  export type space_ownersUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput> | space_ownersCreateWithoutUserInput[] | space_ownersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutUserInput | space_ownersCreateOrConnectWithoutUserInput[]
+    upsert?: space_ownersUpsertWithWhereUniqueWithoutUserInput | space_ownersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_ownersCreateManyUserInputEnvelope
+    set?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    disconnect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    delete?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    update?: space_ownersUpdateWithWhereUniqueWithoutUserInput | space_ownersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_ownersUpdateManyWithWhereWithoutUserInput | space_ownersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -8665,6 +10206,20 @@ export namespace Prisma {
     deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
   }
 
+  export type space_ownersUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput> | space_ownersCreateWithoutUserInput[] | space_ownersUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutUserInput | space_ownersCreateOrConnectWithoutUserInput[]
+    upsert?: space_ownersUpsertWithWhereUniqueWithoutUserInput | space_ownersUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: space_ownersCreateManyUserInputEnvelope
+    set?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    disconnect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    delete?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    update?: space_ownersUpdateWithWhereUniqueWithoutUserInput | space_ownersUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: space_ownersUpdateManyWithWhereWithoutUserInput | space_ownersUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
+  }
+
   export type usersCreateNestedOneWithoutSpacesInput = {
     create?: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
     connectOrCreate?: usersCreateOrConnectWithoutSpacesInput
@@ -8692,6 +10247,13 @@ export namespace Prisma {
     connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
   }
 
+  export type space_ownersCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput> | space_ownersCreateWithoutSpaceInput[] | space_ownersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutSpaceInput | space_ownersCreateOrConnectWithoutSpaceInput[]
+    createMany?: space_ownersCreateManySpaceInputEnvelope
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+  }
+
   export type spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
@@ -8711,6 +10273,13 @@ export namespace Prisma {
     connectOrCreate?: queue_membersCreateOrConnectWithoutSpaceInput | queue_membersCreateOrConnectWithoutSpaceInput[]
     createMany?: queue_membersCreateManySpaceInputEnvelope
     connect?: queue_membersWhereUniqueInput | queue_membersWhereUniqueInput[]
+  }
+
+  export type space_ownersUncheckedCreateNestedManyWithoutSpaceInput = {
+    create?: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput> | space_ownersCreateWithoutSpaceInput[] | space_ownersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutSpaceInput | space_ownersCreateOrConnectWithoutSpaceInput[]
+    createMany?: space_ownersCreateManySpaceInputEnvelope
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8771,6 +10340,20 @@ export namespace Prisma {
     deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
   }
 
+  export type space_ownersUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput> | space_ownersCreateWithoutSpaceInput[] | space_ownersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutSpaceInput | space_ownersCreateOrConnectWithoutSpaceInput[]
+    upsert?: space_ownersUpsertWithWhereUniqueWithoutSpaceInput | space_ownersUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: space_ownersCreateManySpaceInputEnvelope
+    set?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    disconnect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    delete?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    update?: space_ownersUpdateWithWhereUniqueWithoutSpaceInput | space_ownersUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: space_ownersUpdateManyWithWhereWithoutSpaceInput | space_ownersUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
+  }
+
   export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput = {
     create?: XOR<spaces_activation_timesCreateWithoutSpaceInput, spaces_activation_timesUncheckedCreateWithoutSpaceInput> | spaces_activation_timesCreateWithoutSpaceInput[] | spaces_activation_timesUncheckedCreateWithoutSpaceInput[]
     connectOrCreate?: spaces_activation_timesCreateOrConnectWithoutSpaceInput | spaces_activation_timesCreateOrConnectWithoutSpaceInput[]
@@ -8811,6 +10394,20 @@ export namespace Prisma {
     update?: queue_membersUpdateWithWhereUniqueWithoutSpaceInput | queue_membersUpdateWithWhereUniqueWithoutSpaceInput[]
     updateMany?: queue_membersUpdateManyWithWhereWithoutSpaceInput | queue_membersUpdateManyWithWhereWithoutSpaceInput[]
     deleteMany?: queue_membersScalarWhereInput | queue_membersScalarWhereInput[]
+  }
+
+  export type space_ownersUncheckedUpdateManyWithoutSpaceNestedInput = {
+    create?: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput> | space_ownersCreateWithoutSpaceInput[] | space_ownersUncheckedCreateWithoutSpaceInput[]
+    connectOrCreate?: space_ownersCreateOrConnectWithoutSpaceInput | space_ownersCreateOrConnectWithoutSpaceInput[]
+    upsert?: space_ownersUpsertWithWhereUniqueWithoutSpaceInput | space_ownersUpsertWithWhereUniqueWithoutSpaceInput[]
+    createMany?: space_ownersCreateManySpaceInputEnvelope
+    set?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    disconnect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    delete?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    connect?: space_ownersWhereUniqueInput | space_ownersWhereUniqueInput[]
+    update?: space_ownersUpdateWithWhereUniqueWithoutSpaceInput | space_ownersUpdateWithWhereUniqueWithoutSpaceInput[]
+    updateMany?: space_ownersUpdateManyWithWhereWithoutSpaceInput | space_ownersUpdateManyWithWhereWithoutSpaceInput[]
+    deleteMany?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
   }
 
   export type spacesCreateNestedOneWithoutSpaces_activation_timesInput = {
@@ -8923,6 +10520,34 @@ export namespace Prisma {
     upsert?: spacesUpsertWithoutQueue_membersInput
     connect?: spacesWhereUniqueInput
     update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutQueue_membersInput, spacesUpdateWithoutQueue_membersInput>, spacesUncheckedUpdateWithoutQueue_membersInput>
+  }
+
+  export type spacesCreateNestedOneWithoutSpace_ownersInput = {
+    create?: XOR<spacesCreateWithoutSpace_ownersInput, spacesUncheckedCreateWithoutSpace_ownersInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutSpace_ownersInput
+    connect?: spacesWhereUniqueInput
+  }
+
+  export type usersCreateNestedOneWithoutSpace_ownersInput = {
+    create?: XOR<usersCreateWithoutSpace_ownersInput, usersUncheckedCreateWithoutSpace_ownersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_ownersInput
+    connect?: usersWhereUniqueInput
+  }
+
+  export type spacesUpdateOneRequiredWithoutSpace_ownersNestedInput = {
+    create?: XOR<spacesCreateWithoutSpace_ownersInput, spacesUncheckedCreateWithoutSpace_ownersInput>
+    connectOrCreate?: spacesCreateOrConnectWithoutSpace_ownersInput
+    upsert?: spacesUpsertWithoutSpace_ownersInput
+    connect?: spacesWhereUniqueInput
+    update?: XOR<XOR<spacesUpdateToOneWithWhereWithoutSpace_ownersInput, spacesUpdateWithoutSpace_ownersInput>, spacesUncheckedUpdateWithoutSpace_ownersInput>
+  }
+
+  export type usersUpdateOneRequiredWithoutSpace_ownersNestedInput = {
+    create?: XOR<usersCreateWithoutSpace_ownersInput, usersUncheckedCreateWithoutSpace_ownersInput>
+    connectOrCreate?: usersCreateOrConnectWithoutSpace_ownersInput
+    upsert?: usersUpsertWithoutSpace_ownersInput
+    connect?: usersWhereUniqueInput
+    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutSpace_ownersInput, usersUpdateWithoutSpace_ownersInput>, usersUncheckedUpdateWithoutSpace_ownersInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -9111,6 +10736,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutCreated_byInput = {
@@ -9126,6 +10752,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutCreated_byInput = {
@@ -9172,6 +10799,29 @@ export namespace Prisma {
 
   export type queue_membersCreateManyUserInputEnvelope = {
     data: queue_membersCreateManyUserInput | queue_membersCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type space_ownersCreateWithoutUserInput = {
+    created_at?: Date | string
+    updated_at?: Date | string
+    space: spacesCreateNestedOneWithoutSpace_ownersInput
+  }
+
+  export type space_ownersUncheckedCreateWithoutUserInput = {
+    id?: number
+    space_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_ownersCreateOrConnectWithoutUserInput = {
+    where: space_ownersWhereUniqueInput
+    create: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_ownersCreateManyUserInputEnvelope = {
+    data: space_ownersCreateManyUserInput | space_ownersCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -9241,12 +10891,40 @@ export namespace Prisma {
     queue_ended?: BoolFilter<"queue_members"> | boolean
   }
 
+  export type space_ownersUpsertWithWhereUniqueWithoutUserInput = {
+    where: space_ownersWhereUniqueInput
+    update: XOR<space_ownersUpdateWithoutUserInput, space_ownersUncheckedUpdateWithoutUserInput>
+    create: XOR<space_ownersCreateWithoutUserInput, space_ownersUncheckedCreateWithoutUserInput>
+  }
+
+  export type space_ownersUpdateWithWhereUniqueWithoutUserInput = {
+    where: space_ownersWhereUniqueInput
+    data: XOR<space_ownersUpdateWithoutUserInput, space_ownersUncheckedUpdateWithoutUserInput>
+  }
+
+  export type space_ownersUpdateManyWithWhereWithoutUserInput = {
+    where: space_ownersScalarWhereInput
+    data: XOR<space_ownersUpdateManyMutationInput, space_ownersUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type space_ownersScalarWhereInput = {
+    AND?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
+    OR?: space_ownersScalarWhereInput[]
+    NOT?: space_ownersScalarWhereInput | space_ownersScalarWhereInput[]
+    id?: IntFilter<"space_owners"> | number
+    space_id?: IntFilter<"space_owners"> | number
+    user_id?: IntFilter<"space_owners"> | number
+    created_at?: DateTimeFilter<"space_owners"> | Date | string
+    updated_at?: DateTimeFilter<"space_owners"> | Date | string
+  }
+
   export type usersCreateWithoutSpacesInput = {
     email: string
     name?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     queue_members?: queue_membersCreateNestedManyWithoutUserInput
+    space_owners?: space_ownersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutSpacesInput = {
@@ -9256,6 +10934,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutUserInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutSpacesInput = {
@@ -9266,12 +10945,16 @@ export namespace Prisma {
   export type spaces_activation_timesCreateWithoutSpaceInput = {
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type spaces_activation_timesUncheckedCreateWithoutSpaceInput = {
     id?: number
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type spaces_activation_timesCreateOrConnectWithoutSpaceInput = {
@@ -9352,6 +11035,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type space_ownersCreateWithoutSpaceInput = {
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: usersCreateNestedOneWithoutSpace_ownersInput
+  }
+
+  export type space_ownersUncheckedCreateWithoutSpaceInput = {
+    id?: number
+    user_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type space_ownersCreateOrConnectWithoutSpaceInput = {
+    where: space_ownersWhereUniqueInput
+    create: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type space_ownersCreateManySpaceInputEnvelope = {
+    data: space_ownersCreateManySpaceInput | space_ownersCreateManySpaceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type usersUpsertWithoutSpacesInput = {
     update: XOR<usersUpdateWithoutSpacesInput, usersUncheckedUpdateWithoutSpacesInput>
     create: XOR<usersCreateWithoutSpacesInput, usersUncheckedCreateWithoutSpacesInput>
@@ -9369,6 +11075,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     queue_members?: queue_membersUpdateManyWithoutUserNestedInput
+    space_owners?: space_ownersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutSpacesInput = {
@@ -9378,6 +11085,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     queue_members?: queue_membersUncheckedUpdateManyWithoutUserNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type spaces_activation_timesUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -9404,6 +11112,8 @@ export namespace Prisma {
     space_id?: IntFilter<"spaces_activation_times"> | number
     day_of_week?: StringFilter<"spaces_activation_times"> | string
     start_time?: StringFilter<"spaces_activation_times"> | string
+    created_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
+    updated_at?: DateTimeFilter<"spaces_activation_times"> | Date | string
   }
 
   export type queuesUpsertWithWhereUniqueWithoutSpaceInput = {
@@ -9452,6 +11162,22 @@ export namespace Prisma {
     data: XOR<queue_membersUpdateManyMutationInput, queue_membersUncheckedUpdateManyWithoutSpaceInput>
   }
 
+  export type space_ownersUpsertWithWhereUniqueWithoutSpaceInput = {
+    where: space_ownersWhereUniqueInput
+    update: XOR<space_ownersUpdateWithoutSpaceInput, space_ownersUncheckedUpdateWithoutSpaceInput>
+    create: XOR<space_ownersCreateWithoutSpaceInput, space_ownersUncheckedCreateWithoutSpaceInput>
+  }
+
+  export type space_ownersUpdateWithWhereUniqueWithoutSpaceInput = {
+    where: space_ownersWhereUniqueInput
+    data: XOR<space_ownersUpdateWithoutSpaceInput, space_ownersUncheckedUpdateWithoutSpaceInput>
+  }
+
+  export type space_ownersUpdateManyWithWhereWithoutSpaceInput = {
+    where: space_ownersScalarWhereInput
+    data: XOR<space_ownersUpdateManyMutationInput, space_ownersUncheckedUpdateManyWithoutSpaceInput>
+  }
+
   export type spacesCreateWithoutSpaces_activation_timesInput = {
     name: string
     created_at?: Date | string
@@ -9464,6 +11190,7 @@ export namespace Prisma {
     created_by: usersCreateNestedOneWithoutSpacesInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutSpaces_activation_timesInput = {
@@ -9479,6 +11206,7 @@ export namespace Prisma {
     slug: string
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutSpaces_activation_timesInput = {
@@ -9509,6 +11237,7 @@ export namespace Prisma {
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutSpaces_activation_timesInput = {
@@ -9524,6 +11253,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesCreateWithoutQueuesInput = {
@@ -9538,6 +11268,7 @@ export namespace Prisma {
     created_by: usersCreateNestedOneWithoutSpacesInput
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutQueuesInput = {
@@ -9553,6 +11284,7 @@ export namespace Prisma {
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutQueuesInput = {
@@ -9620,6 +11352,7 @@ export namespace Prisma {
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutQueuesInput = {
@@ -9635,6 +11368,7 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type queue_membersUpsertWithWhereUniqueWithoutQueueInput = {
@@ -9685,6 +11419,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     spaces?: spacesCreateNestedManyWithoutCreated_byInput
+    space_owners?: space_ownersCreateNestedManyWithoutUserInput
   }
 
   export type usersUncheckedCreateWithoutQueue_membersInput = {
@@ -9694,6 +11429,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type usersCreateOrConnectWithoutQueue_membersInput = {
@@ -9713,6 +11449,7 @@ export namespace Prisma {
     created_by: usersCreateNestedOneWithoutSpacesInput
     spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
     queues?: queuesCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesUncheckedCreateWithoutQueue_membersInput = {
@@ -9728,6 +11465,7 @@ export namespace Prisma {
     slug: string
     spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
     queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+    space_owners?: space_ownersUncheckedCreateNestedManyWithoutSpaceInput
   }
 
   export type spacesCreateOrConnectWithoutQueue_membersInput = {
@@ -9784,6 +11522,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUpdateManyWithoutCreated_byNestedInput
+    space_owners?: space_ownersUpdateManyWithoutUserNestedInput
   }
 
   export type usersUncheckedUpdateWithoutQueue_membersInput = {
@@ -9793,6 +11532,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type spacesUpsertWithoutQueue_membersInput = {
@@ -9818,6 +11558,7 @@ export namespace Prisma {
     created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutQueue_membersInput = {
@@ -9833,6 +11574,139 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type spacesCreateWithoutSpace_ownersInput = {
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    created_by: usersCreateNestedOneWithoutSpacesInput
+    spaces_activation_times?: spaces_activation_timesCreateNestedManyWithoutSpaceInput
+    queues?: queuesCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesUncheckedCreateWithoutSpace_ownersInput = {
+    id?: number
+    name: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    subject: string
+    is_active: boolean
+    users_id: number
+    is_deleted?: boolean
+    deleted_at?: Date | string | null
+    slug: string
+    spaces_activation_times?: spaces_activation_timesUncheckedCreateNestedManyWithoutSpaceInput
+    queues?: queuesUncheckedCreateNestedManyWithoutSpaceInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutSpaceInput
+  }
+
+  export type spacesCreateOrConnectWithoutSpace_ownersInput = {
+    where: spacesWhereUniqueInput
+    create: XOR<spacesCreateWithoutSpace_ownersInput, spacesUncheckedCreateWithoutSpace_ownersInput>
+  }
+
+  export type usersCreateWithoutSpace_ownersInput = {
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    spaces?: spacesCreateNestedManyWithoutCreated_byInput
+    queue_members?: queue_membersCreateNestedManyWithoutUserInput
+  }
+
+  export type usersUncheckedCreateWithoutSpace_ownersInput = {
+    id?: number
+    email: string
+    name?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    spaces?: spacesUncheckedCreateNestedManyWithoutCreated_byInput
+    queue_members?: queue_membersUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type usersCreateOrConnectWithoutSpace_ownersInput = {
+    where: usersWhereUniqueInput
+    create: XOR<usersCreateWithoutSpace_ownersInput, usersUncheckedCreateWithoutSpace_ownersInput>
+  }
+
+  export type spacesUpsertWithoutSpace_ownersInput = {
+    update: XOR<spacesUpdateWithoutSpace_ownersInput, spacesUncheckedUpdateWithoutSpace_ownersInput>
+    create: XOR<spacesCreateWithoutSpace_ownersInput, spacesUncheckedCreateWithoutSpace_ownersInput>
+    where?: spacesWhereInput
+  }
+
+  export type spacesUpdateToOneWithWhereWithoutSpace_ownersInput = {
+    where?: spacesWhereInput
+    data: XOR<spacesUpdateWithoutSpace_ownersInput, spacesUncheckedUpdateWithoutSpace_ownersInput>
+  }
+
+  export type spacesUpdateWithoutSpace_ownersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    created_by?: usersUpdateOneRequiredWithoutSpacesNestedInput
+    spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type spacesUncheckedUpdateWithoutSpace_ownersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    subject?: StringFieldUpdateOperationsInput | string
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    users_id?: IntFieldUpdateOperationsInput | number
+    is_deleted?: BoolFieldUpdateOperationsInput | boolean
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
+    queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
+  }
+
+  export type usersUpsertWithoutSpace_ownersInput = {
+    update: XOR<usersUpdateWithoutSpace_ownersInput, usersUncheckedUpdateWithoutSpace_ownersInput>
+    create: XOR<usersCreateWithoutSpace_ownersInput, usersUncheckedCreateWithoutSpace_ownersInput>
+    where?: usersWhereInput
+  }
+
+  export type usersUpdateToOneWithWhereWithoutSpace_ownersInput = {
+    where?: usersWhereInput
+    data: XOR<usersUpdateWithoutSpace_ownersInput, usersUncheckedUpdateWithoutSpace_ownersInput>
+  }
+
+  export type usersUpdateWithoutSpace_ownersInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUpdateManyWithoutCreated_byNestedInput
+    queue_members?: queue_membersUpdateManyWithoutUserNestedInput
+  }
+
+  export type usersUncheckedUpdateWithoutSpace_ownersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    spaces?: spacesUncheckedUpdateManyWithoutCreated_byNestedInput
+    queue_members?: queue_membersUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type spacesCreateManyCreated_byInput = {
@@ -9861,6 +11735,13 @@ export namespace Prisma {
     queue_ended?: boolean
   }
 
+  export type space_ownersCreateManyUserInput = {
+    id?: number
+    space_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type spacesUpdateWithoutCreated_byInput = {
     name?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9873,6 +11754,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUpdateManyWithoutSpaceNestedInput
     queues?: queuesUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateWithoutCreated_byInput = {
@@ -9888,6 +11770,7 @@ export namespace Prisma {
     spaces_activation_times?: spaces_activation_timesUncheckedUpdateManyWithoutSpaceNestedInput
     queues?: queuesUncheckedUpdateManyWithoutSpaceNestedInput
     queue_members?: queue_membersUncheckedUpdateManyWithoutSpaceNestedInput
+    space_owners?: space_ownersUncheckedUpdateManyWithoutSpaceNestedInput
   }
 
   export type spacesUncheckedUpdateManyWithoutCreated_byInput = {
@@ -9943,10 +11826,32 @@ export namespace Prisma {
     queue_ended?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type space_ownersUpdateWithoutUserInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    space?: spacesUpdateOneRequiredWithoutSpace_ownersNestedInput
+  }
+
+  export type space_ownersUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_ownersUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    space_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type spaces_activation_timesCreateManySpaceInput = {
     id?: number
     day_of_week: string
     start_time: string
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type queuesCreateManySpaceInput = {
@@ -9973,21 +11878,34 @@ export namespace Prisma {
     queue_ended?: boolean
   }
 
+  export type space_ownersCreateManySpaceInput = {
+    id?: number
+    user_id: number
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type spaces_activation_timesUpdateWithoutSpaceInput = {
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type spaces_activation_timesUncheckedUpdateWithoutSpaceInput = {
     id?: IntFieldUpdateOperationsInput | number
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type spaces_activation_timesUncheckedUpdateManyWithoutSpaceInput = {
     id?: IntFieldUpdateOperationsInput | number
     day_of_week?: StringFieldUpdateOperationsInput | string
     start_time?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type queuesUpdateWithoutSpaceInput = {
@@ -10060,6 +11978,26 @@ export namespace Prisma {
     subject?: NullableStringFieldUpdateOperationsInput | string | null
     has_spoken?: BoolFieldUpdateOperationsInput | boolean
     queue_ended?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type space_ownersUpdateWithoutSpaceInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: usersUpdateOneRequiredWithoutSpace_ownersNestedInput
+  }
+
+  export type space_ownersUncheckedUpdateWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type space_ownersUncheckedUpdateManyWithoutSpaceInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type queue_membersCreateManyQueueInput = {

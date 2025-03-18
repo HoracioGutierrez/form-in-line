@@ -142,7 +142,9 @@ exports.Prisma.Spaces_activation_timesScalarFieldEnum = {
   id: 'id',
   space_id: 'space_id',
   day_of_week: 'day_of_week',
-  start_time: 'start_time'
+  start_time: 'start_time',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.QueuesScalarFieldEnum = {
@@ -171,6 +173,14 @@ exports.Prisma.Queue_membersScalarFieldEnum = {
   queue_ended: 'queue_ended'
 };
 
+exports.Prisma.Space_ownersScalarFieldEnum = {
+  id: 'id',
+  space_id: 'space_id',
+  user_id: 'user_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -192,7 +202,8 @@ exports.Prisma.ModelName = {
   spaces: 'spaces',
   spaces_activation_times: 'spaces_activation_times',
   queues: 'queues',
-  queue_members: 'queue_members'
+  queue_members: 'queue_members',
+  space_owners: 'space_owners'
 };
 
 /**
