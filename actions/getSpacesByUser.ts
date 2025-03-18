@@ -20,7 +20,8 @@ export const getSpacesByUser = async (userId: number) => {
                         },
                         queue_ended: false
                     }
-                }
+                },
+                queues : true
             }
         })
 
