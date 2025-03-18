@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default : "Form in line",
     template : "Form in line | %s",
   },
-  description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online.",
+  description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online classes.",
 };
 
 async function RootLayout({ children }: RootLayoutProps) {
