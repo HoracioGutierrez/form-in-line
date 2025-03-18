@@ -5,13 +5,18 @@ import { ZapIcon, ZapOff } from "lucide-react"
 import { useState } from "react"
 import Form from "next/form"
 import toast from "react-hot-toast"
-import { spaces } from "@/prisma/generated/prisma-client-js"
+import { queue_members, queues, spaces, spaces_activation_times } from "@/prisma/generated/prisma-client-js"
 import ActivateButton from "./activate-button"
 import { handleDeactivateSpace } from "@/actions/handleDeactivateSpace"
 import { handleActivateSpace } from "@/actions/handleActivateSpace"
+import { handleActivateNewQueue } from "@/actions/handleActivateNewQueue"
 
 type ActivateFormButtonProps = {
-    space: spaces
+    space: spaces & {
+        spaces_activation_times: spaces_activation_times[]
+        queue_members: queue_members[]
+        queues: queues[]
+    }
 }
 
 function ActivateFormButton({ space }: ActivateFormButtonProps) {
@@ -42,6 +47,20 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
         }
     }
 
+    const handleQueueOnlyClick = async () => {
+        toast.promise(handleActivateNewQueue(space.id), {
+            loading: 'Activating space...',
+            success: (response) => {
+                if (response.hasError) throw new Error(response.errorMessage)
+                handleCloseModal()
+                return 'New queue activated! New users can join to the queue now'
+            },
+            error: error => error.message
+        })
+    }
+
+    const hasActiveQueue = space.queues.length > 0 && space.queues[0].is_active
+
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
@@ -61,6 +80,10 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
                         <DialogClose asChild>
                             <Button type="button" variant="outline">cancel</Button>
                         </DialogClose>
+                        {!space.is_active
+                            && !hasActiveQueue && (
+                                <Button type="button" variant="outline" onClick={handleQueueOnlyClick}>Activate Queue Only</Button>
+                            )}
                         <ActivateButton isActive={space.is_active} />
                     </DialogFooter>
                 </Form>

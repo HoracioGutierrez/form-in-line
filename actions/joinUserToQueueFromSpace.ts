@@ -19,6 +19,18 @@ export const joinUserToQueueFromSpace = async (formData: FormData, spaceId: numb
             throw new Error("User not found")
         }
 
+        const queue = await prisma.queues.findFirst({
+            where : {
+                id: queueId,
+                space_id: spaceId,
+                is_active: true
+            }
+        })
+
+        if (!queue) {
+            throw new Error("No active queue found for this space.")
+        }
+
         if(user.email !== name) {
             await prisma.users.update({
                 where: {
@@ -76,9 +88,6 @@ export const joinUserToQueueFromSpace = async (formData: FormData, spaceId: numb
                 }
             })
         }
-
-        
-        
 
         revalidatePath("/spaces/" + slug)
 

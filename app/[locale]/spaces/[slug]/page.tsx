@@ -27,6 +27,8 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
 
     const currentSpeaker = data.queue_members.find(member => member.is_current)
 
+    const hasActiveQueue = data.queues.length > 0 && data.queues[0].is_active
+
     return (
         <section className="grow flex flex-col">
             <div className="flex justify-between items-center mb-10">
@@ -56,7 +58,7 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
             <div>
                 <h3 className="font-bold text-2xl mb-2">Members Queue</h3>
                 {loggedUser
-                    && data.queue_members.length > 0
+                    && hasActiveQueue
                     && !data.queue_members.find(member => member.user_id === loggedUser.id)
                     && (
                         <JoinQueueModal loggedUser={loggedUser} space={data} />
@@ -70,8 +72,8 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                                 <JoinQueueModal loggedUser={loggedUser} space={data} />
                             </div>
                         )}
-                        {data.queues.length === 0 && (
-                            <p className="text-muted-foreground text-center">The space is curently not active. Come back once the space is active to join the queue!</p>
+                        {!hasActiveQueue && (
+                            <p className="text-muted-foreground text-center">The space's waitlist is curently not active. Come back once the space or it's waitlist are active to join the queue!</p>
                         )}
                     </div>
                 )}
