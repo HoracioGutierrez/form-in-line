@@ -60,6 +60,9 @@ model queues {
     end_at_time   String?
     is_active     Boolean         @default(true)
     queue_members queue_members[]
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt @default(now())
 }
 
 model queue_members {

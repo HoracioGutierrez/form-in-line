@@ -151,7 +151,9 @@ exports.Prisma.QueuesScalarFieldEnum = {
   start_at_day: 'start_at_day',
   start_at_time: 'start_at_time',
   end_at_time: 'end_at_time',
-  is_active: 'is_active'
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 };
 
 exports.Prisma.Queue_membersScalarFieldEnum = {

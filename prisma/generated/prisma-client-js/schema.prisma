@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("NEXT_PUBLIC_DIRECT_URL_2")
+  provider  = "postgresql"
+  url       = env("NEXT_PUBLIC_DATABASE_URL")
+  directUrl = env("NEXT_PUBLIC_DIRECT_URL")
 }
 
 generator client {
@@ -59,6 +60,9 @@ model queues {
   end_at_time   String?
   is_active     Boolean         @default(true)
   queue_members queue_members[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 model queue_members {
