@@ -32,7 +32,6 @@ export const handleActivateSpace = async (spaceId: number) => {
 
         const newQueueForSpace = await prisma.queues.create({
             data: {
-                //start_at_time: `${hours}:${minutes}`,
                 start_at_time: utcForStorage,
                 is_active: true,
                 start_at_day: day,
