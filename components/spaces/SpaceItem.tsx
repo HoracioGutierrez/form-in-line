@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { queue_members, spaces, spaces_activation_times } from "@/prisma/generated/prisma-client-js"
+import { queue_members, queues, spaces, spaces_activation_times } from "@/prisma/generated/prisma-client-js"
 import { Edit, LogIn, Users } from "lucide-react"
 import { createClient } from "@/supabase/server"
 import { getUserByEmail } from "@/actions/getUserByEmail"
@@ -8,11 +8,13 @@ import SpaceForm from "./SpaceForm"
 import ActivateFormButton from "./activate-form-button"
 import Link from "next/link"
 import { Button } from "../ui/button"
+import TransferSpaceForm from "./transfer-space-form"
 
 type SpaceItemProps = {
     space: spaces & {
         spaces_activation_times: spaces_activation_times[]
         queue_members: queue_members[]
+        queues: queues[]
     }
 }
 
@@ -63,6 +65,9 @@ async function SpaceItem({ space }: SpaceItemProps) {
                         </Button>
                         {loggedUser && space.users_id == loggedUser.id && (
                             <>
+                                {space.queues.length > 0 && (
+                                    <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
+                                )}
                                 <DeleteSpaceButton space={space} />
                                 <SpaceForm icon={<Edit />} variant="ghost" space={space} edit />
                                 <ActivateFormButton space={space} />

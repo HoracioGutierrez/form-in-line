@@ -19,6 +19,11 @@ export const handleGetAllSpaces = async () => {
                         },
                         queue_ended : false
                     }
+                },
+                queues : {
+                    where : {
+                        is_active : true,
+                    }
                 }
             }
         })
