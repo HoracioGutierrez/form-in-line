@@ -44,7 +44,6 @@ export const handleDeactivateSpace = async (spaceId: number) => {
                 id : activeQueueForSpace.id
             },
             data : {
-                //end_at_time : `${hours}:${minutes}`,
                 end_at_time : utcForStorage,
                 is_active : false,
                 queue_members : {
