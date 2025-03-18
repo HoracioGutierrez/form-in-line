@@ -32,12 +32,9 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const initialActivationDays = space ? space.spaces_activation_times.map(time => {
-
-        //format UTC date to local date
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const localDateTime = DateTime.fromISO(time.start_time, { zone: "utc" }).setZone(userTimeZone);
         const start = localDateTime.toFormat("HH:mm");
-        
 
         return {
             day: time.day_of_week,
@@ -54,7 +51,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     }
 
     const handleSubmit = async (formData: FormData) => {
-        handleCloseModal()
+        
         if (edit && space) {
             toast.promise(handleEditSpace(formData, space.id, activationDays), {
                 loading: 'Editing space...',
@@ -64,7 +61,11 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         } else {
             toast.promise(handleCreateSpace(formData, activationDays), {
                 loading: 'Creating space...',
-                success: () => {
+                success: (response) => {
+                    if (response.hasError) {
+                        throw new Error(response.errorMessage)
+                    }
+                    handleCloseModal()
                     setActivationDays([])
                     return 'Space created'
                 },

@@ -13,9 +13,9 @@ export const userWithProfile = yup.object({
 });
 
 export const spaceSchema = yup.object({
-    name: yup.string().required(),
+    name: yup.string().required("The space name is required").min(2, "The name is too short. It should be at least 2 characters long"),
     subject: yup.string().optional(),
-    slug: yup.string().required(),
+    slug: yup.string().required("The space URL is required").min(2, "The slug for the space URL is too short. It should be at least 2 characters long").matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "The slug for the space URL can only contain lowercase letters, numbers, and hyphens"),
 });
 
 export type SignUpUser = yup.InferType<typeof userSchema>;

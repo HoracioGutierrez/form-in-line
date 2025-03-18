@@ -14,7 +14,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
 
         const space = { name, subject, slug }
 
-        if (!spaceSchema.isValidSync(space)) throw new Error('Invalid space data');
+        await spaceSchema.validate(space, { abortEarly: true })
 
         const supabase = await createClient()
 
@@ -25,8 +25,8 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         })
 
-        if (error) throw new Error(error.message);
-        if (!loggedUser) throw new Error('User not found');
+        if (error) throw new Error("Error getting user from Supabase auth service");
+        if (!loggedUser) throw new Error('User not found in database');
 
         const newSpace = await client.spaces.create({
             data: {
@@ -42,16 +42,16 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         })
 
-        if(activationDays.length > 0) {
+        if (activationDays.length > 0) {
             for (const day of activationDays) {
                 await client.spaces_activation_times.create({
-                    data : {
-                        day_of_week : day.day,
+                    data: {
+                        day_of_week: day.day,
                         //start_time : day.start,
-                        start_time : day.utcForStorage,
-                        space : {
-                            connect : {
-                                id : newSpace.id
+                        start_time: day.utcForStorage,
+                        space: {
+                            connect: {
+                                id: newSpace.id
                             }
                         }
                     }
@@ -59,7 +59,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         }
 
-        if (!newSpace) throw new Error('Error creating space');
+        if (!newSpace) throw new Error('Error creating space. Please try again later');
 
         revalidatePath('/spaces')
 
@@ -71,9 +71,19 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
 
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error(error.message)
+            //throw new Error(error.message)
+            return {
+                data: null,
+                errorMessage: error.message,
+                hasError: true
+            }
         }
 
-        throw new Error('Error creating space');
+        //throw new Error('Error creating space');
+        return {
+            data: null,
+            errorMessage: 'Error creating space',
+            hasError: true
+        }
     }
 }
