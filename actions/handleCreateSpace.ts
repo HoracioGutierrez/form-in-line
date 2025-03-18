@@ -6,6 +6,7 @@ import { createClient } from "@/supabase/server"
 import { revalidatePath } from "next/cache"
 
 export const handleCreateSpace = async (formData: FormData, activationDays: ActivationDay[]) => {
+    console.log("🚀 ~ handleCreateSpace ~ activationDays:", activationDays)
     try {
         const name = formData.get('name') as string
         const subject = formData.get('subject') as string
@@ -46,7 +47,8 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
                 await client.spaces_activation_times.create({
                     data : {
                         day_of_week : day.day,
-                        start_time : day.start,
+                        //start_time : day.start,
+                        start_time : day.utcForStorage,
                         space : {
                             connect : {
                                 id : newSpace.id

@@ -15,6 +15,7 @@ import { Plus } from "lucide-react"
 import ActivationTimeItem from "./activation-time-item"
 import { ActivationDay } from "@/lib/types"
 import { handleDeleteActivationTimeFromSpace } from "@/actions/handleDeleteActivationTimeFromSpace"
+import { DateTime } from "luxon"
 
 
 type SpaceFormProps = {
@@ -31,15 +32,27 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const initialActivationDays = space ? space.spaces_activation_times.map(time => {
+
+        //format UTC date to local date
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const localDateTime = DateTime.fromISO(time.start_time, { zone: "utc" }).setZone(userTimeZone);
+        const start = localDateTime.toFormat("HH:mm");
+        console.log("🚀 ~ SpaceForm ~ start:", start)
+        
+
         return {
             day: time.day_of_week,
-            start: time.start_time,
-            id: time.id + ""
+            start: start,
+            id: time.id + "",
+            utcForStorage: time.start_time
         }
     }) : []
     const [activationDays, setActivationDays] = useState<ActivationDay[]>(initialActivationDays || [])
 
-    const handleCloseModal = () => setIsModalOpen(false)
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        setActivationDays([])
+    }
 
     const handleSubmit = async (formData: FormData) => {
         handleCloseModal()
@@ -62,9 +75,16 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     }
 
     const addActivationDay = () => {
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const localDateTime = DateTime.fromObject(
+            { hour: 10, minute: 0 },
+            { zone: userTimeZone }
+        );
+        const utcForStorage = localDateTime.toUTC().toFormat("HH:mm");
         const newActivationDay: ActivationDay = {
-            day: "",
-            start: "",
+            day: "monday",
+            start: "10:00",
+            utcForStorage,
             id: unique()
         }
         setActivationDays([...activationDays, newActivationDay])
@@ -96,9 +116,23 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     }
 
     const handleChangeActivationStart = (id: string, start: string) => {
+        console.log("🚀 ~ handleChangeActivationStart ~ start:", start)//00:01
+
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const writtenHour = start.split(":")[0]
+        const writtenMinute = start.split(":")[1]
+
+        const localDateTime = DateTime.fromObject(
+            { hour: parseInt(writtenHour), minute: parseInt(writtenMinute) },
+            { zone: userTimeZone }
+        );
+
+        const utcForStorage = localDateTime.toUTC().toFormat("HH:mm");
+        console.log("🚀 ~ handleChangeActivationStart ~ utcForStorage:", utcForStorage)
+
         const updatedActivationDays = activationDays.map(item => {
             if (item.id === id) {
-                return { ...item, start }
+                return { ...item, start, utcForStorage }
             }
             return item
         })

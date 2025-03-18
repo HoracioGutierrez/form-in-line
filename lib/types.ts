@@ -14,4 +14,5 @@ export type ActivationDay = {
     day: string;
     start: string;
     id: string;
+    utcForStorage: string;
 }

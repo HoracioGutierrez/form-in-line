@@ -1,10 +1,11 @@
 "use server"
 
 import { spaceSchema } from "@/lib/schemas"
+import { ActivationDay } from "@/lib/types"
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
 
-export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: any) => {
+export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: ActivationDay[]) => {
     try {
 
         const name = formData.get('name') as string
@@ -35,7 +36,8 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
                     },
                     data: {
                         day_of_week: day.day,
-                        start_time: day.start
+                        //start_time: day.start
+                        start_time: day.utcForStorage
                     }
                 })
             }
