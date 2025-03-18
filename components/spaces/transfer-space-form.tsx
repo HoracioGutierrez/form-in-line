@@ -24,20 +24,23 @@ function TransferSpaceForm({ spaceId, userId, queueId }: TransferSpaceFormProps)
     const [availableSpaces, setAvailableSpaces] = useState<spaces[]>([])
     const [selectedSpace, setSelectedSpace] = useState("")
 
-    useEffect(() => {
-        const handleGetAvailableSpaces = async () => {
-            const spaces = await getAvailableSpaces(spaceId, userId)
-            if (spaces) {
-                setAvailableSpaces(spaces)
-            }
+    const handleGetAvailableSpaces = async () => {
+        const spaces = await getAvailableSpaces(spaceId, userId)
+        if (spaces) {
+            setAvailableSpaces(spaces)
         }
-
-        handleGetAvailableSpaces()
-
-    }, [])
+    }
 
     const handleCloseModal = () => {
         setIsModalOpen(false)
+    }
+
+    const handleToggleModal = () => {
+        const newState = !isModalOpen
+        if (newState) {
+            handleGetAvailableSpaces()
+        }
+        setIsModalOpen(newState)
     }
 
     const handleChange = (value: string) => {
@@ -45,18 +48,23 @@ function TransferSpaceForm({ spaceId, userId, queueId }: TransferSpaceFormProps)
     }
 
     const handleSubmit = async () => {
-        handleCloseModal()
         // Handle form submission logic here
         console.log("Selected space", selectedSpace)
-        toast.promise(handleTransferQueue(queueId,spaceId,userId,parseInt(selectedSpace)), {
+        toast.promise(handleTransferQueue(queueId, spaceId, userId, parseInt(selectedSpace)), {
             loading: "Transferring queue...",
-            success: "Queue transferred successfully",
-            error: "Error transferring queue"
+            success: (response) => {
+                
+                if (response.hasError) throw new Error(response.errorMessage)
+
+                handleCloseModal()
+                return "Queue transferred successfully"
+            },
+            error: error => error.message
         })
     }
 
     return (
-        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <Dialog open={isModalOpen} onOpenChange={handleToggleModal}>
             <DialogTrigger asChild>
                 <Button variant="ghost">
                     <ArrowLeftRight />

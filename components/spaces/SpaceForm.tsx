@@ -51,7 +51,7 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     }
 
     const handleSubmit = async (formData: FormData) => {
-        
+
         if (edit && space) {
             toast.promise(handleEditSpace(formData, space.id, activationDays), {
                 loading: 'Editing space...',
@@ -62,9 +62,8 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
             toast.promise(handleCreateSpace(formData, activationDays), {
                 loading: 'Creating space...',
                 success: (response) => {
-                    if (response.hasError) {
-                        throw new Error(response.errorMessage)
-                    }
+                    if (response.hasError) throw new Error(response.errorMessage)
+
                     handleCloseModal()
                     setActivationDays([])
                     return 'Space created'

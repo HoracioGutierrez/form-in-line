@@ -10,7 +10,7 @@ export const getAvailableSpaces = async (spaceId: number, userId: number) => {
                 id: {
                     not: spaceId
                 },
-                is_active: true,
+                //is_active: true,
                 is_deleted: false,
                 users_id: {
                     not: userId

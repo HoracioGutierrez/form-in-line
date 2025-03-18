@@ -65,7 +65,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
                         </Button>
                         {loggedUser && space.users_id == loggedUser.id && (
                             <>
-                                {space.queues.length > 0 && (
+                                {space.queues && space.queues.length > 0 && (
                                     <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
                                 )}
                                 <DeleteSpaceButton space={space} />
