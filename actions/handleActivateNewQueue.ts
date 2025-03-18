@@ -54,6 +54,7 @@ export const handleActivateNewQueue = async (spaceId: number) => {
                 is_active: true,
                 start_at_day: day,
                 start_at_time: utcForStorage,
+                /* user_activator_id : 1 */
             }
         })
 

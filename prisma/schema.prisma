@@ -20,7 +20,9 @@ model users {
     spaces        spaces[]
     queue_members queue_members[]
     space_owners  space_owners[]
-    queues        queues[]
+    /**
+     * queues        queues[]
+     */
 }
 
 model spaces {
@@ -71,8 +73,10 @@ model queues {
     is_active     Boolean         @default(true)
     queue_members queue_members[]
 
-    user_activator_id Int
-    user_activator    users @relation(fields: [user_activator_id], references: [id])
+    /**
+     * user_activator_id Int
+     * user_activator    users @relation(fields: [user_activator_id], references: [id])
+     */
 
     created_at DateTime @default(now())
     updated_at DateTime @default(now()) @updatedAt
