@@ -1,5 +1,6 @@
 "use server"
 import { prisma } from "@/prisma/prisma-client"
+import { DateTime } from "luxon"
 import { revalidatePath } from "next/cache"
 
 export const handleDeactivateSpace = async (spaceId: number) => {
@@ -9,6 +10,13 @@ export const handleDeactivateSpace = async (spaceId: number) => {
         const day = new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(date).toLowerCase()
         const hours = new Intl.DateTimeFormat("en-GB", { hour: "numeric" }).format(date)
         const minutes = new Intl.DateTimeFormat("en-GB", { minute: "numeric" }).format(date)
+        //format local time "HH:mm" to UTC time
+        const localDateTime = DateTime.fromObject(
+            { hour: parseInt(hours), minute: parseInt(minutes) },
+            { zone: Intl.DateTimeFormat().resolvedOptions().timeZone }
+        );
+
+        const utcForStorage = localDateTime.toUTC().toFormat("HH:mm");
 
         const deactivatedSpace = await prisma.spaces.update({
             where: {
@@ -36,7 +44,8 @@ export const handleDeactivateSpace = async (spaceId: number) => {
                 id : activeQueueForSpace.id
             },
             data : {
-                end_at_time : `${hours}:${minutes}`,
+                //end_at_time : `${hours}:${minutes}`,
+                end_at_time : utcForStorage,
                 is_active : false,
                 queue_members : {
                     updateMany : {

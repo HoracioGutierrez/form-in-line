@@ -37,7 +37,6 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const localDateTime = DateTime.fromISO(time.start_time, { zone: "utc" }).setZone(userTimeZone);
         const start = localDateTime.toFormat("HH:mm");
-        console.log("🚀 ~ SpaceForm ~ start:", start)
         
 
         return {
@@ -116,7 +115,6 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     }
 
     const handleChangeActivationStart = (id: string, start: string) => {
-        console.log("🚀 ~ handleChangeActivationStart ~ start:", start)//00:01
 
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const writtenHour = start.split(":")[0]
@@ -128,7 +126,6 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
         );
 
         const utcForStorage = localDateTime.toUTC().toFormat("HH:mm");
-        console.log("🚀 ~ handleChangeActivationStart ~ utcForStorage:", utcForStorage)
 
         const updatedActivationDays = activationDays.map(item => {
             if (item.id === id) {
