@@ -18,10 +18,18 @@ async function HistoryPage() {
 
     const { data: history } = await getSpaceAndQueuesReport(loggedUser.id)
 
-    const  formatFromUTC = (date: string | null) => {
+    const formatFromUTC = (date: string | null) => {
         if (!date) return "N/A"
         const localDateTime = DateTime.fromISO(date, { zone: "utc" }).setZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
         return localDateTime.toFormat("HH:mm")
+    }
+
+    const calculateDuration = (start: string | null, end: string | null) => {
+        if (!start || !end) return "N/A"
+        const startDateTime = DateTime.fromISO(start, { zone: "utc" });
+        const endDateTime = DateTime.fromISO(end, { zone: "utc" });
+        const duration = endDateTime.diff(startDateTime, ["hours", "minutes"]);
+        return `${duration.hours}h ${duration.minutes}m`
     }
 
     return (
@@ -44,6 +52,7 @@ async function HistoryPage() {
                             <TableHead>Created at</TableHead>
                             <TableHead>Started at (24hs)</TableHead>
                             <TableHead>Ended at (24hs)</TableHead>
+                            <TableHead>Duration</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -57,6 +66,7 @@ async function HistoryPage() {
                                         <TableCell>{new Intl.DateTimeFormat("en-US").format(new Date(queue.created_at))}</TableCell>
                                         <TableCell>{formatFromUTC(queue.start)}</TableCell>
                                         <TableCell>{formatFromUTC(queue.end)}</TableCell>
+                                        <TableCell>{calculateDuration(queue.start, queue.end)}</TableCell>
                                     </TableRow>
                                 )
                             })
