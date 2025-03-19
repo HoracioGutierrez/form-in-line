@@ -11,6 +11,7 @@ import { handleDeactivateSpace } from "@/actions/handleDeactivateSpace"
 import { handleActivateSpace } from "@/actions/handleActivateSpace"
 import { handleActivateNewQueue } from "@/actions/handleActivateNewQueue"
 import { useI18n } from "@/locales/client"
+import { useTranslations } from "next-intl"
 
 type ActivateFormButtonProps = {
     space: spaces & {
@@ -21,7 +22,9 @@ type ActivateFormButtonProps = {
 }
 
 function ActivateFormButton({ space }: ActivateFormButtonProps) {
-    const t = useI18n();
+    //const t = useI18n();
+    const t = useTranslations("spaces")
+
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
@@ -29,19 +32,19 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
     const handleSubmit = async () => {
         if (space.is_active) {
             toast.promise(handleDeactivateSpace(space.id), {
-                loading: t("spaces.activate.deactivating"),
+                loading: t("activate.deactivating"),
                 success: () => {
                     handleCloseModal()
-                    return t("spaces.activate.deactivated")
+                    return t("activate.deactivated")
                 },
                 error: error => error.message
             })
         } else {
             toast.promise(handleActivateSpace(space.id), {
-                loading: t("spaces.activate.activating"),
+                loading: t("activate.activating"),
                 success: () => {
                     handleCloseModal()
-                    return t("spaces.activate.activated")
+                    return t("activate.activated")
                 },
                 error: error => error.message
             })
@@ -50,11 +53,11 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
 
     const handleQueueOnlyClick = async () => {
         toast.promise(handleActivateNewQueue(space.id), {
-            loading: t("spaces.activate.activating"),
+            loading: t("activate.activating"),
             success: (response) => {
                 if (response.hasError) throw new Error(response.errorMessage)
                 handleCloseModal()
-                return t("spaces.activate.queue_activated")
+                return t("activate.queue_activated")
             },
             error: error => error.message
         })
@@ -72,27 +75,27 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        {space.is_active 
-                            ? t("spaces.activate.deactivate_title", {name: space.name}) 
-                            : t("spaces.activate.activate_title", {name: space.name})
+                        {space.is_active
+                            ? t("activate.deactivate_title", { name: space.name })
+                            : t("activate.activate_title", { name: space.name })
                         }
                     </DialogTitle>
                     <DialogDescription>
-                        {space.is_active 
-                            ? t("spaces.activate.deactivate_description") 
-                            : t("spaces.activate.activate_description")
+                        {space.is_active
+                            ? t("activate.deactivate_description")
+                            : t("activate.activate_description")
                         }
                     </DialogDescription>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button" variant="outline">{t("spaces.form.cancel")}</Button>
+                            <Button type="button" variant="outline">{t("form.cancel")}</Button>
                         </DialogClose>
                         {!space.is_active
                             && !hasActiveQueue && (
                                 <Button type="button" variant="outline" onClick={handleQueueOnlyClick}>
-                                    {t("spaces.activate.activate_queue_only")}
+                                    {t("activate.activate_queue_only")}
                                 </Button>
                             )}
                         <ActivateButton isActive={space.is_active} />

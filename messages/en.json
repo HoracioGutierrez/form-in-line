@@ -1,0 +1,307 @@
+{
+    "hello": "Hello",
+    "dashboard": {
+        "title": "Dashboard",
+        "metadata_title": "Dashboard",
+        "no_name": "No name set",
+        "not_set": "Not set",
+        "no_spaces": "You have no spaces created yet!",
+        "sections": {
+            "account": {
+                "title": "Account"
+            },
+            "personal_info": {
+                "title": "Personal Info",
+                "first_name": "First Name",
+                "last_name": "Last Name",
+                "email": "Email",
+                "phone": "Phone"
+            },
+            "my_spaces": {
+                "title": "My Spaces",
+                "create_space": "Create Space"
+            }
+        },
+        "account-modal": {
+            "title": "Edit Account Info",
+            "description": "This action cannot be undone. This will permanently modify your account.",
+            "loading": "Updating account details",
+            "success": "Account details updated",
+            "error": "Failed to update account details",
+            "fields": {
+                "email": {
+                    "label": "Email",
+                    "placeholder": "example@mail"
+                },
+                "phone": {
+                    "label": "Phone",
+                    "placeholder": "phone"
+                },
+                "first_name": {
+                    "label": "First Name",
+                    "placeholder": "first name"
+                },
+                "last_name": {
+                    "label": "Last Name",
+                    "placeholder": "last name"
+                }
+            },
+            "buttons": {
+                "close": "Close",
+                "submit": "Save",
+                "loading": "Saving"
+            }
+        }
+    },
+    "home": {
+        "metadata_title": "Home",
+        "title": {
+            "first": "Form",
+            "middle": "-in-",
+            "last": "line"
+        },
+        "description": "The easiest way to manage your people queues and online classes, let them join the line and wait for their turn!",
+        "button-get-started": "Get started",
+        "button-learn-more": "Learn more"
+    },
+    "signup": {
+        "title": "Sign Up",
+        "email": {
+            "placeholder": "example@mail",
+            "label": "Email"
+        },
+        "password": {
+            "placeholder": "password",
+            "label": "Password"
+        },
+        "button": "Sign Up",
+        "button-loading": "Signing up",
+        "google": "Sign Up with Google"
+    },
+    "google-auth": "Access with Google",
+    "signin": {
+        "title": "Sign In",
+        "email": {
+            "placeholder": "example@mail",
+            "label": "Email"
+        },
+        "password": {
+            "placeholder": "password",
+            "label": "Password"
+        },
+        "button": "Sign In",
+        "button-loading": "Signing in",
+        "google": "Sign In with Google"
+    },
+    "spaces": {
+        "title": "Spaces",
+        "metadata_title": "Spaces",
+        "description": "Create and manage your spaces",
+        "form": {
+            "create": "Create Space",
+            "edit": "Edit Space",
+            "loading_create": "Creating...",
+            "loading_edit": "Editing...",
+            "create_description": "Once the space is created, you can share it's URL with someone else",
+            "edit_description": "Edit the space details. Once this is done, changes will be reflected",
+            "name_label": "Name",
+            "name_placeholder": "Jhon's space",
+            "subject_label": "Subject",
+            "subject_placeholder": "Mathematics revision",
+            "url_label": "Custom URL",
+            "url_placeholder": "jhon-math-revision",
+            "activation_times": "Activation Times",
+            "add_time": "Add Time",
+            "cancel": "Cancel",
+            "days_placeholder": "Select day",
+            "hours_abbr": "h",
+            "days": {
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday",
+                "saturday": "Saturday",
+                "sunday": "Sunday"
+            }
+        },
+        "activate": {
+            "activate_title": "Activate {name}",
+            "deactivate_title": "Deactivate {name}",
+            "activate_description": "When activated, users can join the queue for this space.",
+            "deactivate_description": "When deactivated, users cannot join the queue for this space.",
+            "activating": "Activating space...",
+            "activated": "Space activated",
+            "deactivating": "Deactivating space...",
+            "deactivated": "Space deactivated",
+            "activate_queue_only": "Activate queue only",
+            "queue_activated": "Queue activated",
+            "activate_button": "Activate",
+            "deactivate_button": "Deactivate",
+            "activating_button": "Activating...",
+            "deactivating_button": "Deactivating..."
+        },
+        "delete": {
+            "title": "Delete {name}",
+            "description": "This action cannot be undone. This will permanently delete the space and all associated data.",
+            "deleting": "Deleting space...",
+            "success": "Space deleted",
+            "confirm": "Delete",
+            "loading": "Deleting..."
+        },
+        "detail": {
+            "not_found_title": "Space not found",
+            "current_speaker": "Current Speaker",
+            "no_current_speaker": "No one is currently speaking",
+            "members_queue": "Members Queue",
+            "no_people_waitlist": "No one is currently in the waitlist",
+            "be_first": "Be the first to join!",
+            "waitlist_not_active": "The waitlist is not active"
+        },
+        "queue": {
+            "join_waitlist": "Join Waitlist",
+            "join_title": "Join the Waitlist",
+            "name_label": "Name",
+            "name_placeholder": "Your name",
+            "subject_label": "Subject",
+            "subject_placeholder": "What would you like to discuss?",
+            "joining": "Joining waitlist...",
+            "joined": "You have joined the waitlist",
+            "error_joining": "Error joining the waitlist",
+            "join_button": "Join",
+            "joining_button": "Joining..."
+        }
+    },
+    "history": {
+        "title": "History",
+        "metadata_title": "History",
+        "description": "Here you can see your past sessions",
+        "not_available": "N/A",
+        "duration_format": "{hours}h {minutes}m",
+        "table": {
+            "queue_id": "ID",
+            "status": "Status",
+            "space": "Space",
+            "created_at": "Created",
+            "started_at": "Started",
+            "ended_at": "Ended",
+            "duration": "Duration"
+        },
+        "status": {
+            "active": "Active",
+            "ended": "Ended"
+        }
+    },
+    "layout": {
+        "links": {
+            "home": "home",
+            "signup": "sign up",
+            "login": "log in",
+            "dashboard": "dashboard",
+            "logout": "logout",
+            "spaces": "spaces",
+            "history": "history"
+        },
+        "locale": {
+            "loading": "Changing locale..."
+        },
+        "footer": {
+            "copyright": "All rights reserved.",
+            "created_by": "Created by"
+        },
+        "drawer": {
+            "close": "close",
+            "menu": "Menu"
+        }
+    },
+    "errors": {
+        "space_id_required": "Space ID is required",
+        "space_not_exist_or_inactive": "Space does not exist or is inactive",
+        "space_already_active": "Space is already active",
+        "space_already_has_active_queue": "Space already has an active queue",
+        "creating_new_queue": "Error creating new queue",
+        "activating_new_queue": "Error activating new queue",
+        "activating_space": "Error activating space",
+        "creating_queue_for_space": "Error creating queue for space",
+        "activating_space_generic": "Error activating space",
+        "getting_user_supabase": "Error getting user from Supabase",
+        "user_not_found_db": "User not found in database",
+        "creating_space_try_later": "Error creating space. Please try again later",
+        "creating_space": "Error creating space",
+        "deactivating_space": "Error deactivating space",
+        "finding_active_queue": "No active queue found",
+        "ending_queue_for_space": "Error ending queue for space",
+        "deactivating_space_generic": "Error deactivating space",
+        "deleting_activation_time": "Error deleting activation time",
+        "deleting_activation_time_generic": "Error deleting activation time",
+        "delete_space_not_found": "Space not found",
+        "delete_space_update_failed": "Error updating space status",
+        "deleting_space": "Error deleting space",
+        "invalid_user_data": "Invalid user data",
+        "updating_user_profile": "Error updating user profile",
+        "invalid_space_data": "Invalid space data",
+        "editing_space": "Error editing space",
+        "editing_space_generic": "Error editing space",
+        "no_available_spaces": "No available spaces",
+        "getting_available_spaces": "Error getting available spaces",
+        "getting_space_report": "Error getting space report",
+        "no_spaces_found": "No spaces found",
+        "space_not_found": "Space not found",
+        "getting_space": "Error getting space",
+        "getting_user_spaces": "Error getting user spaces",
+        "email_required": "Email is required",
+        "user_not_found": "User not found",
+        "getting_user": "Error getting user",
+        "member_not_found": "Member not found",
+        "no_next_member": "No next member in line",
+        "updating_current_position": "Error updating current position",
+        "updating_next_position": "Error updating next position",
+        "moving_down_member": "Error moving member down",
+        "no_previous_member": "No previous member in line",
+        "updating_previous_position": "Error updating previous position",
+        "moving_up_member": "Error moving member up",
+        "updating_current_speaker": "Error updating current speaker",
+        "no_next_speaker": "No next speaker in line",
+        "updating_next_speaker": "Error updating next speaker",
+        "next_speaker_generic": "Error moving to next speaker",
+        "email_password_required": "Email and password are required",
+        "invalid_credentials": "Invalid credentials",
+        "signin_failed": "Sign in failed",
+        "signout_failed": "Sign out failed",
+        "signout_generic": "Error signing out",
+        "signup_failed": "Sign up failed",
+        "creating_user": "Error creating user",
+        "signup_generic": "Error during sign up",
+        "name_subject_required": "Name and subject are required",
+        "joining_queue": "Error joining queue",
+        "joining_queue_generic": "Error joining queue",
+        "google_login_failed": "Google login failed",
+        "google_signup_failed": "Google sign up failed",
+        "google_auth_generic": "Error with Google authentication",
+        "no_queue_members": "No queue members found",
+        "no_current_speaker": "No current speaker found",
+        "source_space_not_found": "Source space not found",
+        "source_space_no_active_queue": "Source space has no active queue",
+        "target_space_not_found": "Target space not found",
+        "target_space_has_active_queue": "Target space already has an active queue",
+        "target_space_already_active": "Target space is already active",
+        "activating_target_space": "Error activating target space",
+        "transferring_queue": "Error transferring queue",
+        "transferring_members": "Error transferring members",
+        "deactivating_source_space": "Error deactivating source space",
+        "transferring_queue_generic": "Error transferring queue",
+        "queue_id_required": "Queue ID is required",
+        "logged_user_id_required": "Logged user ID is required",
+        "new_space_id_required": "New space ID is required",
+        "queue_not_found_or_inactive": "Queue not found or inactive",
+        "current_space_not_found_or_inactive": "Current space not found or inactive",
+        "new_space_not_found": "New space not found",
+        "queue_no_members": "Queue has no members",
+        "no_permission_to_transfer_queue": "No permission to transfer queue",
+        "cannot_transfer_to_own_space": "Cannot transfer to your own space",
+        "updating_current_queue": "Error updating current queue"
+    },
+    "success": {
+        "queue_transferred": "Queue transferred successfully"
+    }
+}

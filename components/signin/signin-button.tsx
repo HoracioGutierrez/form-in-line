@@ -4,16 +4,19 @@ import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
 import { Loader } from "lucide-react";
 import { useI18n } from "@/locales/client";
+import { useTranslations } from "next-intl";
 
 function SignInButton() {
 
     const { pending } = useFormStatus()
-    const t = useI18n()
+    //const t = useI18n()
+    const t = useTranslations("signin")
+
 
     return (
         <Button disabled={pending}>
             {pending && <Loader className="animate-spin" />}
-            {pending ? t("signin.button-loading") : t("signin.button")}
+            {pending ? t("button-loading") : t("button")}
         </Button>
     )
 }

@@ -9,23 +9,26 @@ import toast from "react-hot-toast"
 import { handleDeleteSpace } from "@/actions/handleDeleteSpace"
 import DeleteFormButton from "./delete-form-button"
 import { useI18n } from "@/locales/client"
+import { useTranslations } from "next-intl"
 
 type DeleteSpaceButtonProps = {
     space: spaces
 }
 
 function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
-    const t = useI18n();
+    //const t = useI18n();
+    const t = useTranslations("spaces")
+
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
 
     const handleSubmit = async () => {
         toast.promise(handleDeleteSpace(space.id), {
-            loading: t("spaces.delete.deleting"),
+            loading: t("delete.deleting"),
             success: () => {
                 handleCloseModal()
-                return t("spaces.delete.success")
+                return t("delete.success")
             },
             error: error => error.message
         })
@@ -41,14 +44,14 @@ function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        {t("spaces.delete.title", {name: space.name})}
+                        {t("delete.title", { name: space.name })}
                     </DialogTitle>
-                    <DialogDescription>{t("spaces.delete.description")}</DialogDescription>
+                    <DialogDescription>{t("delete.description")}</DialogDescription>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button" variant="outline">{t("spaces.form.cancel")}</Button>
+                            <Button type="button" variant="outline">{t("form.cancel")}</Button>
                         </DialogClose>
                         <DeleteFormButton />
                     </DialogFooter>

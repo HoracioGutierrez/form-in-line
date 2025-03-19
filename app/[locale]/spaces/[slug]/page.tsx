@@ -10,29 +10,31 @@ import { createClient } from "@/supabase/server"
 import { Edit } from "lucide-react"
 import { redirect } from "next/navigation"
 import type { Metadata } from "next"
+import { getTranslations } from "next-intl/server"
 
 type SpaceDetailsPageProps = {
     params: Promise<{ slug: string }>,
 }
 
-export async function generateMetadata({ params }: any): Promise<Metadata> {
+/* export async function generateMetadata({ params }: any): Promise<Metadata> {
     const { slug } = await params;
     const { data } = await getSpaceBySlug(slug);
     const t = await getI18n();
     
     if (!data) {
         return {
-            title: t("spaces.detail.not_found_title"),
+            title: t("detail.not_found_title"),
         };
     }
     
     return {
         title: data.name,
     };
-}
+} */
 
 async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
-    const t = await getI18n()
+    //const t = await getI18n()
+    const t = await getTranslations("spaces")
     const { slug } = await params
     const { data } = await getSpaceBySlug(slug)
     const supabase = await createClient()
@@ -57,7 +59,7 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                 </div>
             </div>
             <div className="mb-10">
-                <h3 className="font-bold text-2xl mb-2">{t("spaces.detail.current_speaker")}</h3>
+                <h3 className="font-bold text-2xl mb-2">{t("detail.current_speaker")}</h3>
                 <div className="border dark:border-muted p-4 rounded-lg flex items-center justify-between mb-4 bg-secondary">
                     {currentSpeaker ? (
                         <div className="flex justify-between w-full">
@@ -68,12 +70,12 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                             <NextSpeakerForm space={data} />
                         </div>
                     ) : (
-                        <p className="text-muted-foreground text-center">{t("spaces.detail.no_current_speaker")}</p>
+                        <p className="text-muted-foreground text-center">{t("detail.no_current_speaker")}</p>
                     )}
                 </div>
             </div>
             <div>
-                <h3 className="font-bold text-2xl mb-2">{t("spaces.detail.members_queue")}</h3>
+                <h3 className="font-bold text-2xl mb-2">{t("detail.members_queue")}</h3>
                 {loggedUser
                     && hasActiveQueue
                     && !data.queue_members.find(member => member.user_id === loggedUser.id)
@@ -82,15 +84,15 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                     )}
                 {data.queue_members.length === 0 && (
                     <div className="border-dashed border dark:border-muted p-4 rounded-lg">
-                        <p className="text-muted-foreground text-center">{t("spaces.detail.no_people_waitlist")}</p>
-                        <p className="text-muted-foreground text-center mb-8">{t("spaces.detail.be_first")}</p>
+                        <p className="text-muted-foreground text-center">{t("detail.no_people_waitlist")}</p>
+                        <p className="text-muted-foreground text-center mb-8">{t("detail.be_first")}</p>
                         {loggedUser && data.queues.length > 0 && (
                             <div className="flex justify-center">
                                 <JoinQueueModal loggedUser={loggedUser} space={data} />
                             </div>
                         )}
                         {!hasActiveQueue && (
-                            <p className="text-muted-foreground text-center">{t("spaces.detail.waitlist_not_active")}</p>
+                            <p className="text-muted-foreground text-center">{t("detail.waitlist_not_active")}</p>
                         )}
                     </div>
                 )}

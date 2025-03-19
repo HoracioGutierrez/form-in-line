@@ -1,5 +1,8 @@
 import { createServerClient } from '@supabase/ssr'
 import { createI18nMiddleware } from 'next-international/middleware'
+import createMiddleware from 'next-intl/middleware';
+import { routing } from '../i18n/routing';
+
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function updateSession(request: NextRequest) {
@@ -11,6 +14,7 @@ export async function updateSession(request: NextRequest) {
     locales: ['en', 'es'],
     defaultLocale: 'en'
   })
+  //const intlMiddleware = createMiddleware(routing)
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -80,4 +84,6 @@ export async function updateSession(request: NextRequest) {
 
   return I18nMiddleware(request)
   //return supabaseResponse -> Old original response
+  //return supabaseResponse
+  //return intlMiddleware(request)
 }

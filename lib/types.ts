@@ -1,7 +1,7 @@
 import { users } from "@/prisma/generated/prisma-client-js";
 
 //Layouts
-export type RootLayoutProps = Readonly<{ children: React.ReactNode }>;
+export type RootLayoutProps = Readonly<{ children: React.ReactNode, params: Promise<{ locale: string }> }>;
 
 //Pages
 

@@ -4,6 +4,7 @@ import { useRef, useState } from "react"
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import { useI18n } from "@/locales/client";
+import { useTranslations } from "next-intl";
 
 type ActivationTimeItemProps = {
     removeActivationDay: (id: string) => void
@@ -14,12 +15,14 @@ type ActivationTimeItemProps = {
 }
 
 function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay, handleChangeActivationStart, day }: ActivationTimeItemProps) {
-    const t = useI18n();
-    
+    //const t = useI18n();
+    const t = useTranslations("spaces")
+
+
     const formattedDate = new Date()
     formattedDate.setHours(day.start ? day.start.split(":")[0] : 0)
     formattedDate.setMinutes(day.start ? day.start.split(":")[1] : 0)
-    
+
     const [date, setDates] = useState(formattedDate)
     const minuteRef = useRef<HTMLInputElement>(null);
     const hourRef = useRef<HTMLInputElement>(null);
@@ -48,16 +51,16 @@ function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay
         <div className="flex items-center gap-2">
             <Select onValueChange={handleDayChange} defaultValue={day.day}>
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder={t("spaces.form.days_placeholder")} />
+                    <SelectValue placeholder={t("form.days_placeholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                    <SelectItem value="monday">{t("spaces.form.days.monday")}</SelectItem>
-                    <SelectItem value="tuesday">{t("spaces.form.days.tuesday")}</SelectItem>
-                    <SelectItem value="wednesday">{t("spaces.form.days.wednesday")}</SelectItem>
-                    <SelectItem value="thursday">{t("spaces.form.days.thursday")}</SelectItem>
-                    <SelectItem value="friday">{t("spaces.form.days.friday")}</SelectItem>
-                    <SelectItem value="saturday">{t("spaces.form.days.saturday")}</SelectItem>
-                    <SelectItem value="sunday">{t("spaces.form.days.sunday")}</SelectItem>
+                    <SelectItem value="monday">{t("form.days.monday")}</SelectItem>
+                    <SelectItem value="tuesday">{t("form.days.tuesday")}</SelectItem>
+                    <SelectItem value="wednesday">{t("form.days.wednesday")}</SelectItem>
+                    <SelectItem value="thursday">{t("form.days.thursday")}</SelectItem>
+                    <SelectItem value="friday">{t("form.days.friday")}</SelectItem>
+                    <SelectItem value="saturday">{t("form.days.saturday")}</SelectItem>
+                    <SelectItem value="sunday">{t("form.days.sunday")}</SelectItem>
                 </SelectContent>
             </Select>
             <div className="flex items-end gap-2 w-full">
@@ -82,7 +85,7 @@ function ActivationTimeItem({ removeActivationDay, id, handleChangeActivationDay
                     />
                 </div>
                 <div className="flex h-10 items-center gap-1">
-                    {t("spaces.form.hours_abbr")}
+                    {t("form.hours_abbr")}
                 </div>
             </div>
             <Button variant="outline" size="icon" className="p-0" onClick={handleRemove} type="button">
