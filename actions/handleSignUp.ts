@@ -1,34 +1,49 @@
 "use server";
 
-import { userSchema } from "@/lib/schemas";
-import { prisma as client } from "@/prisma/prisma-client"
+import { prisma } from "@/prisma/prisma-client";
 import { createClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
+import { getI18n } from "@/locales/server";
 
 export const handleSignUp = async (formData: FormData) => {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const newUserData = { email, password };
+    const t = await getI18n();
+    
+    try {
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
 
+        if (!email || !password) {
+            throw new Error(t("errors.email_password_required"));
+        }
 
-    if (!userSchema.isValidSync(newUserData)) {
-        throw new Error('Invalid user data');
+        const supabase = await createClient();
+        const { error } = await supabase.auth.signUp({
+            email,
+            password,
+        });
+
+        if (error) {
+            throw new Error(t("errors.signup_failed"));
+        }
+
+        const newUser = await prisma.users.create({
+            data: {
+                email: email,
+                name: email
+            }
+        });
+
+        if (!newUser) {
+            throw new Error(t("errors.creating_user"));
+        }
+
+        redirect("/dashboard");
+
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        }
+
+        throw new Error(t("errors.signup_generic"));
     }
-
-    const supabase = await createClient()
-    const { error: authError } = await supabase.auth.signUp(newUserData);
-
-    if (authError) {
-        throw new Error(authError.message);
-    }
-
-    const newUser = await client.users.create({
-        data: { email }
-    })
-
-    if (!newUser) {
-        throw new Error('Error creating user profile');
-    }
-
-    return redirect("/login");
-}
+};

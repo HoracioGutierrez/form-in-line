@@ -1,11 +1,12 @@
 "use server"
 
 import { prisma } from "@/prisma/prisma-client"
+import { getI18n } from "@/locales/server"
 
 export const getSpaceAndQueuesReport = async (userId: number) => {
+    const t = await getI18n();
 
     try {
-
         const spaces = await prisma.spaces.findMany({
             where : {
                 users_id : userId,
@@ -24,7 +25,7 @@ export const getSpaceAndQueuesReport = async (userId: number) => {
         })
 
         if(!spaces) {
-            throw new Error("No spaces found")
+            throw new Error(t("errors.no_spaces_found"));
         }
 
         const report = spaces.map(space => {
@@ -63,10 +64,9 @@ export const getSpaceAndQueuesReport = async (userId: number) => {
         }
 
         return {
-            errorMessage: "An error occurred",
+            errorMessage: t("errors.getting_space_report"),
             hasError: true,
             data : null
         }
     }
-
 }

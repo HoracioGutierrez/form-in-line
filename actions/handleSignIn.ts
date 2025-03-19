@@ -1,25 +1,37 @@
-"use server";
+"use server"
 
-import { userSchema } from "@/lib/schemas";
-import { createClient } from "@/supabase/server";
-import { redirect } from "next/navigation";
+import { createClient } from "@/supabase/server"
+import { redirect } from "next/navigation"
+import { getI18n } from "@/locales/server"
 
 export const handleSignIn = async (formData: FormData) => {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const newUserData = { email, password };
+    const t = await getI18n();
+    
+    try {
+        const email = formData.get('email') as string
+        const password = formData.get('password') as string
 
+        if (!email || !password) {
+            throw new Error(t("errors.email_password_required"))
+        }
 
-    if (!userSchema.isValidSync(newUserData)) {
-        throw new Error('Invalid user data');
+        const supabase = await createClient()
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        })
+
+        if (error) {
+            throw new Error(t("errors.invalid_credentials"))
+        }
+
+        redirect("/dashboard")
+
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message)
+        }
+
+        throw new Error(t("errors.signin_failed"))
     }
-
-    const supabase = await createClient()
-    const { error: authError } = await supabase.auth.signInWithPassword(newUserData);
-
-    if (authError) {
-        throw new Error(authError.message);
-    }
-
-    return redirect("/dashboard");
 }

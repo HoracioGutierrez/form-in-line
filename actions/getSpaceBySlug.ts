@@ -1,10 +1,12 @@
 "use server"
 
 import { prisma } from "@/prisma/prisma-client"
+import { getI18n } from "@/locales/server"
 
 export const getSpaceBySlug = async (slug: string) => {
+    const t = await getI18n();
+    
     try {
-
         const space = await prisma.spaces.findFirst({
             where: {
                 slug : slug,
@@ -35,7 +37,7 @@ export const getSpaceBySlug = async (slug: string) => {
         })
 
         if (!space) {
-            throw new Error("Espacio no encontrado")
+            throw new Error(t("errors.space_not_found"))
         }
 
         return {
@@ -55,7 +57,7 @@ export const getSpaceBySlug = async (slug: string) => {
 
         return {
             data: null,
-            errorMessage: "Error al obtener el espacio",
+            errorMessage: t("errors.getting_space"),
             hasError: true
         }
     }

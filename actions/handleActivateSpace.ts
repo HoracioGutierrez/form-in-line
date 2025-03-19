@@ -2,14 +2,15 @@
 import { prisma } from "@/prisma/prisma-client"
 import { DateTime } from "luxon"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleActivateSpace = async (spaceId: number) => {
+    const t = await getI18n();
+    
     try {
-
         const date = new Date()
         const day = new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(date).toLowerCase()
         const hours = new Intl.DateTimeFormat("en-GB", { hour: "numeric" }).format(date)
-        //const minutes = new Intl.DateTimeFormat("en-GB", { minute: "numeric" }).format(date)
         const minutes = new Intl.DateTimeFormat("en-GB", { minute: "2-digit" }).format(date)
 
         const localDateTime = DateTime.fromObject(
@@ -28,7 +29,7 @@ export const handleActivateSpace = async (spaceId: number) => {
             },
         })
 
-        if (!activatedSpace) throw new Error('Error activating space')
+        if (!activatedSpace) throw new Error(t('errors.activating_space'))
 
         const currentQueue = await prisma.queues.findFirst({
             where: {
@@ -47,7 +48,7 @@ export const handleActivateSpace = async (spaceId: number) => {
                 }
             })
 
-            if (!newQueueForSpace) throw new Error('Error creating queue for space')
+            if (!newQueueForSpace) throw new Error(t('errors.creating_queue_for_space'))
         }
 
         revalidatePath('/spaces')
@@ -63,6 +64,6 @@ export const handleActivateSpace = async (spaceId: number) => {
             throw new Error(error.message)
         }
 
-        throw new Error("An error occurred while activating the space")
+        throw new Error(t('errors.activating_space_generic'))
     }
 }

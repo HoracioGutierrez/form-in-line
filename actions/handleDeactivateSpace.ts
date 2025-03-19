@@ -2,10 +2,12 @@
 import { prisma } from "@/prisma/prisma-client"
 import { DateTime } from "luxon"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleDeactivateSpace = async (spaceId: number) => {
+    const t = await getI18n();
+    
     try {
-
         const date = new Date()
         const day = new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(date).toLowerCase()
         const hours = new Intl.DateTimeFormat("en-GB", { hour: "numeric" }).format(date)
@@ -27,7 +29,7 @@ export const handleDeactivateSpace = async (spaceId: number) => {
             }
         })
 
-        if (!deactivatedSpace) throw new Error('Error deactivating space')
+        if (!deactivatedSpace) throw new Error(t('errors.deactivating_space'))
 
         const activeQueueForSpace = await prisma.queues.findFirst({
             where: {
@@ -36,7 +38,7 @@ export const handleDeactivateSpace = async (spaceId: number) => {
             }
         })
 
-        if (!activeQueueForSpace) throw new Error('Error finding active queue for space')
+        if (!activeQueueForSpace) throw new Error(t('errors.finding_active_queue'))
 
         const endedQueueForSpace = await prisma.queues.update({
             where : {
@@ -64,7 +66,7 @@ export const handleDeactivateSpace = async (spaceId: number) => {
             }
         })
 
-        if (!endedQueueForSpace) throw new Error('Error ending queue for space')
+        if (!endedQueueForSpace) throw new Error(t('errors.ending_queue_for_space'))
 
         revalidatePath('/spaces')
 
@@ -78,6 +80,6 @@ export const handleDeactivateSpace = async (spaceId: number) => {
             throw new Error(error.message)
         }
 
-        throw new Error("An error occurred while deactivating the space")
+        throw new Error(t('errors.deactivating_space_generic'))
     }
 }

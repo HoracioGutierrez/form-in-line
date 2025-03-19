@@ -4,9 +4,11 @@ import { ActivationDay } from "@/lib/types"
 import { prisma as client } from "@/prisma/prisma-client"
 import { createClient } from "@/supabase/server"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleCreateSpace = async (formData: FormData, activationDays: ActivationDay[]) => {
-    
+    const t = await getI18n();
+
     try {
         const name = formData.get('name') as string
         const subject = formData.get('subject') as string
@@ -25,8 +27,8 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         })
 
-        if (error) throw new Error("Error getting user from Supabase auth service");
-        if (!loggedUser) throw new Error('User not found in database');
+        if (error) throw new Error(t("errors.getting_user_supabase"));
+        if (!loggedUser) throw new Error(t("errors.user_not_found_db"));
 
         const newSpace = await client.spaces.create({
             data: {
@@ -58,7 +60,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         }
 
-        if (!newSpace) throw new Error('Error creating space. Please try again later');
+        if (!newSpace) throw new Error(t("errors.creating_space_try_later"));
 
         revalidatePath('/spaces')
 
@@ -69,6 +71,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
         }
 
     } catch (error) {
+        console.log("🚀 ~ handleCreateSpace ~ error:", error)
         if (error instanceof Error) {
             return {
                 data: null,
@@ -79,7 +82,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
 
         return {
             data: null,
-            errorMessage: 'Error creating space',
+            errorMessage: t("errors.creating_space"),
             hasError: true
         }
     }

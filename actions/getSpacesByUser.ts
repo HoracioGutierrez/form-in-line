@@ -1,10 +1,12 @@
 "use server"
 
 import { prisma } from "@/prisma/prisma-client"
+import { getI18n } from "@/locales/server"
 
 export const getSpacesByUser = async (userId: number) => {
+    const t = await getI18n();
+    
     try {
-
         const spaces = await prisma.spaces.findMany({
             where: {
                 users_id: userId,
@@ -12,38 +14,52 @@ export const getSpacesByUser = async (userId: number) => {
             },
             include: {
                 spaces_activation_times: true,
+                queues: {
+                    where: {
+                        is_active: true
+                    }
+                },
                 queue_members: {
                     where: {
+                        queue_ended: false,
                         has_spoken: false,
                         position: {
                             gt: 0
-                        },
-                        queue_ended: false
+                        }
+                    },
+                    orderBy: {
+                        position: 'asc'
+                    },
+                    include: {
+                        user: true
                     }
-                },
-                queues : true
+                }
             }
         })
 
+        if (!spaces) {
+            throw new Error(t("errors.no_spaces_found"));
+        }
+
         return {
-            hasError: false,
+            data: spaces,
             errorMessage: "",
-            data: spaces
+            hasError: false
         }
 
     } catch (error) {
         if (error instanceof Error) {
             return {
-                hasError: true,
+                data: null,
                 errorMessage: error.message,
-                data: null
+                hasError: true
             }
         }
 
         return {
-            hasError: true,
-            errorMessage: "An error occurred",
-            data: null
+            data: null,
+            errorMessage: t("errors.getting_user_spaces"),
+            hasError: true
         }
     }
 }

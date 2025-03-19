@@ -3,11 +3,13 @@
 import { prisma } from "@/prisma/prisma-client"
 import { DateTime } from "luxon";
 import { revalidatePath } from "next/cache";
+import { getI18n } from "@/locales/server";
 
 export const handleActivateNewQueue = async (spaceId: number) => {
+    const t = await getI18n();
+    
     try {
-
-        if (!spaceId) throw new Error("Space ID is required");
+        if (!spaceId) throw new Error(t("errors.space_id_required"));
 
         /// Check if the queue exists and is active
         const space = await prisma.spaces.findUnique({
@@ -24,15 +26,15 @@ export const handleActivateNewQueue = async (spaceId: number) => {
         })
 
         if (!space) {
-            throw new Error("The space you are trying to activate a new queue for does not exist or is not active anymore. Please refresh the page and try again.");
+            throw new Error(t("errors.space_not_exist_or_inactive"));
         }
 
         if (space.is_active) {
-            throw new Error("The space is already active. Please refresh the page and try again.");
+            throw new Error(t("errors.space_already_active"));
         }
 
         if (space.queues.length > 0) {
-            throw new Error("The space already has an active queue. Please refresh the page and try again.");
+            throw new Error(t("errors.space_already_has_active_queue"));
         }
 
         const date = new Date()
@@ -59,7 +61,7 @@ export const handleActivateNewQueue = async (spaceId: number) => {
         })
 
         if (!newQueue) {
-            throw new Error("An error occurred while creating the new queue. Please refresh the page and try again.");
+            throw new Error(t("errors.creating_new_queue"));
         }
 
         revalidatePath(`/spaces/${spaceId}`)
@@ -81,7 +83,7 @@ export const handleActivateNewQueue = async (spaceId: number) => {
 
         return {
             hasError: true,
-            errorMessage: "An error occurred while activating the new queue",
+            errorMessage: t("errors.activating_new_queue"),
             data: null
         }
     }

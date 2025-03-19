@@ -2,17 +2,19 @@
 
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleDeleteActivationTimeFromSpace = async (activationTimeId: number) => {
+    const t = await getI18n();
+    
     try {
-
         const deletedActivationTime = await prisma.spaces_activation_times.delete({
             where: {
                 id: activationTimeId
             }
         })
 
-        if (!deletedActivationTime) throw new Error('Error deleting activation time')
+        if (!deletedActivationTime) throw new Error(t('errors.deleting_activation_time'))
 
         revalidatePath('/spaces')
 
@@ -27,6 +29,6 @@ export const handleDeleteActivationTimeFromSpace = async (activationTimeId: numb
             throw new Error(error.message)
         }
 
-        throw new Error("An error occurred while deleting the activation time from the space")
+        throw new Error(t("errors.deleting_activation_time_generic"))
     }
 }

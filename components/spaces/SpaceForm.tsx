@@ -16,6 +16,7 @@ import ActivationTimeItem from "./activation-time-item"
 import { ActivationDay } from "@/lib/types"
 import { handleDeleteActivationTimeFromSpace } from "@/actions/handleDeleteActivationTimeFromSpace"
 import { DateTime } from "luxon"
+import { useI18n } from "@/locales/client"
 
 
 type SpaceFormProps = {
@@ -28,7 +29,9 @@ type SpaceFormProps = {
     variant?: "default" | "link" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined
 }
 
-function SpaceForm({ buttonText = 'create space', edit = false, space, icon, variant }: SpaceFormProps) {
+function SpaceForm({ buttonText, edit = false, space, icon, variant }: SpaceFormProps) {
+    const t = useI18n()
+    const defaultButtonText = t('spaces.form.create')
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const initialActivationDays = space ? space.spaces_activation_times.map(time => {
@@ -139,33 +142,33 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant={variant}>{icon ? icon : buttonText}</Button>
+                <Button variant={variant}>{icon ? icon : buttonText || defaultButtonText}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        {edit ? 'Edit space' : 'Create new space'}
+                        {edit ? t('spaces.form.edit') : t('spaces.form.create')}
                     </DialogTitle>
                     <DialogDescription>
-                        {edit ? 'Edit the space details. Once this is done, changes will be reflected' : "Once the space is created, you can share it's URL with someone else"}
+                        {edit ? t('spaces.form.edit_description') : t('spaces.form.create_description')}
                     </DialogDescription>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <div className="flex gap-4 flex-col">
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='name'>Name</Label>
-                            <Input type='name' id='name' name='name' placeholder="Jhon's space" defaultValue={edit && space ? space.name : ""} />
+                            <Label htmlFor='name'>{t('spaces.form.name_label')}</Label>
+                            <Input type='name' id='name' name='name' placeholder={t('spaces.form.name_placeholder')} defaultValue={edit && space ? space.name : ""} />
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='subject'>Subject</Label>
-                            <Input type='subject' id='subject' name='subject' placeholder="Mathematics revision" defaultValue={edit && space ? space.subject : ""} />
+                            <Label htmlFor='subject'>{t('spaces.form.subject_label')}</Label>
+                            <Input type='subject' id='subject' name='subject' placeholder={t('spaces.form.subject_placeholder')} defaultValue={edit && space ? space.subject : ""} />
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='slug'>Custom URL</Label>
-                            <Input type='slug' id='slug' name='slug' placeholder="jhon-math-revision" defaultValue={edit && space ? space.slug : unique()} />
+                            <Label htmlFor='slug'>{t('spaces.form.url_label')}</Label>
+                            <Input type='slug' id='slug' name='slug' placeholder={t('spaces.form.url_placeholder')} defaultValue={edit && space ? space.slug : unique()} />
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='is_active'>Activation Times</Label>
+                            <Label htmlFor='is_active'>{t('spaces.form.activation_times')}</Label>
                             {activationDays.map((day, index) => (
                                 <ActivationTimeItem
                                     key={index}
@@ -178,13 +181,13 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                             ))}
                             <Button type="button" variant="outline" onClick={addActivationDay}>
                                 <Plus />
-                                add time
+                                {t('spaces.form.add_time')}
                             </Button>
                         </div>
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button" variant="outline">cancelar</Button>
+                            <Button type="button" variant="outline">{t('spaces.form.cancel')}</Button>
                         </DialogClose>
                         <SpaceFormButton edit={edit} />
                     </DialogFooter>

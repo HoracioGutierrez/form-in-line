@@ -4,18 +4,19 @@ import { spaceSchema } from "@/lib/schemas"
 import { ActivationDay } from "@/lib/types"
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: ActivationDay[]) => {
+    const t = await getI18n();
+    
     try {
-
         const name = formData.get('name') as string
         const subject = formData.get('subject') as string
         const slug = formData.get('slug') as string
 
         const space = { name, subject, slug }
 
-        if (!spaceSchema.isValidSync(space)) throw new Error('Invalid space data');
-
+        if (!spaceSchema.isValidSync(space)) throw new Error(t('errors.invalid_space_data'));
 
         const editedSpace = await prisma.spaces.update({
             where: {
@@ -29,8 +30,6 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
         })
 
         if (activationDays.length > 0) {
-
-
             for (const day of activationDays) {
                 if (isNaN(parseInt(day.id))) {
                     await prisma.spaces_activation_times.create({
@@ -55,7 +54,7 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             }
         }
 
-        if (!editedSpace) throw new Error('Error editing space');
+        if (!editedSpace) throw new Error(t('errors.editing_space'));
 
         revalidatePath('/spaces')
 
@@ -70,6 +69,6 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             throw new Error(error.message)
         }
 
-        throw new Error("An error occurred while editing the space")
+        throw new Error(t("errors.editing_space_generic"))
     }
 }

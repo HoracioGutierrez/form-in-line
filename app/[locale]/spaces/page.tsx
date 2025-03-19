@@ -4,9 +4,16 @@ import SpacesList from "@/components/spaces/SpacesList"
 import { getI18n } from "@/locales/server"
 import { createClient } from "@/supabase/server"
 import { Suspense } from "react"
+import type { Metadata } from "next"
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getI18n();
+  return {
+    title: t("spaces.metadata_title"),
+  };
+}
 
 async function SpacesPage() {
-
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
   const t = await getI18n()
@@ -16,7 +23,9 @@ async function SpacesPage() {
       <div className="flex justify-between items-center mb-10">
         <div>
           <h2 className="font-bold text-2xl">{t("spaces.title")}</h2>
-          <p className="text-muted-foreground">Spaces are places where people can join on a virtual wait list. The admin of the space can then toggle between speakers in turns.</p>
+          <p className="text-muted-foreground">
+            {t("spaces.description")}
+          </p>
         </div>
         {data.user && <SpaceForm />}
       </div>

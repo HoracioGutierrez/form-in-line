@@ -10,6 +10,7 @@ import { queues, spaces, spaces_activation_times, users } from "@/prisma/generat
 import toast from "react-hot-toast"
 import { joinUserToQueueFromSpace } from "@/actions/joinUserToQueueFromSpace"
 import JoinQueueButton from "./join-queue-button"
+import { useI18n } from "@/locales/client"
 
 type JoinQueueModalProps = {
     loggedUser: users
@@ -21,45 +22,45 @@ type JoinQueueModalProps = {
 }
 
 function JoinQueueModal({ loggedUser, space }: JoinQueueModalProps) {
-
+    const t = useI18n()
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
 
     const handleSubmit = async (formData: FormData) => {
         toast.promise(joinUserToQueueFromSpace(formData, space.id, space.queues[0].id, loggedUser.id, space.slug), {
-            loading: "Joining the waitlist...",
+            loading: t("spaces.queue.joining"),
             success: () => {
                 handleCloseModal()
-                return "Joined the waitlist"
+                return t("spaces.queue.joined")
             },
-            error: "Error joining the waitlist"
+            error: t("spaces.queue.error_joining")
         })
     }
 
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Join the waitlist</Button>
+                <Button variant="outline">{t("spaces.queue.join_waitlist")}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Join the wait list</DialogTitle>
+                    <DialogTitle>{t("spaces.queue.join_title")}</DialogTitle>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <div className="flex gap-4 flex-col">
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='name'>Name</Label>
-                            <Input type='text' id='name' name='name' placeholder="Jhon's space" defaultValue={loggedUser.name || loggedUser.email} />
+                            <Label htmlFor='name'>{t("spaces.queue.name_label")}</Label>
+                            <Input type='text' id='name' name='name' placeholder={t("spaces.queue.name_placeholder")} defaultValue={loggedUser.name || loggedUser.email} />
                         </div>
                         <div className='flex flex-col gap-2'>
-                            <Label htmlFor='subject'>Subject</Label>
-                            <Textarea id='subject' name='subject' placeholder="Math related questions" />
+                            <Label htmlFor='subject'>{t("spaces.queue.subject_label")}</Label>
+                            <Textarea id='subject' name='subject' placeholder={t("spaces.queue.subject_placeholder")} />
                         </div>
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button" variant="outline">cancelar</Button>
+                            <Button type="button" variant="outline">{t("spaces.form.cancel")}</Button>
                         </DialogClose>
                         <JoinQueueButton />
                     </DialogFooter>

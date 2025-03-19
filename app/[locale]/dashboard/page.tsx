@@ -9,10 +9,12 @@ import { getUserByEmail } from "@/actions/getUserByEmail"
 import { getSpacesByUser } from "@/actions/getSpacesByUser"
 import SpaceItem from "@/components/spaces/SpaceItem"
 
-export const metadata: Metadata = {
-    title: "Dashboard",
+export async function generateMetadata(): Promise<Metadata> {
+    const t = await getI18n();
+    return {
+        title: t("dashboard.metadata_title"),
+    };
 }
-
 
 async function DashboardPage() {
 
@@ -58,7 +60,7 @@ async function DashboardPage() {
                             <h3 className="font-bold text-xl">{
                                 authUser.user.user_metadata.first_name && authUser.user.user_metadata.last_name ?
                                     authUser.user.user_metadata.first_name + " " + authUser.user.user_metadata.last_name :
-                                    "No name set"
+                                    t("dashboard.no_name")
                             } </h3>
                             <p className="text-muted-foreground">{authUser.user.email}</p>
                         </div>
@@ -74,31 +76,31 @@ async function DashboardPage() {
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.first_name")}
                             </label>
-                            <p className="text-muted-foreground">{authUser.user.user_metadata.first_name || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.first_name || t("dashboard.not_set")}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.last_name")}
                             </label>
-                            <p className="text-muted-foreground">{authUser.user.user_metadata.last_name || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.last_name || t("dashboard.not_set")}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.email")}
                             </label>
-                            <p className="text-muted-foreground">{authUser.user.email || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.email || t("dashboard.not_set")}</p>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-muted-foreground/30 dark:text-muted">
                                 {t("dashboard.sections.personal_info.phone")}
                             </label>
-                            <p className="text-muted-foreground">{authUser.user.user_metadata.phone || "Not set"}</p>
+                            <p className="text-muted-foreground">{authUser.user.user_metadata.phone || t("dashboard.not_set")}</p>
                         </div>
                     </div>
                 </div>
                 <div className="border p-2 md:p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-5">
-                        <h3 className="font-bold text-xl">My Spaces</h3>
+                        <h3 className="font-bold text-xl">{t("dashboard.sections.my_spaces.title")}</h3>
                         <SpaceForm />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -109,12 +111,12 @@ async function DashboardPage() {
                         })}
                         {!spaces && (
                             <div className="border-dashed border dark:border-muted p-4 rounded-lg">
-                                <p className="text-muted-foreground text-center">You have no spaces created yet!</p>
+                                <p className="text-muted-foreground text-center">{t("dashboard.no_spaces")}</p>
                             </div>
                         )}
                         {spaces && spaces.length === 0 && (
                             <div className="border-dashed border dark:border-muted p-4 rounded-lg">
-                                <p className="text-muted-foreground text-center">You have no spaces created yet!</p>
+                                <p className="text-muted-foreground text-center">{t("dashboard.no_spaces")}</p>
                             </div>
                         )}
                     </div>

@@ -2,8 +2,11 @@
 import { spaces } from "@/prisma/generated/prisma-client-js";
 import { prisma } from "@/prisma/prisma-client";
 import { revalidatePath } from "next/cache";
+import { getI18n } from "@/locales/server"
 
 export const handleNextSpeaker = async (space: spaces) => {
+    const t = await getI18n();
+    
     try {
 
         // Get all queue members
@@ -30,7 +33,7 @@ export const handleNextSpeaker = async (space: spaces) => {
 
         //console.log("🚀 ~ handleNextSpeaker ~ queueMembers:", queueMembers)
         if (queueMembers.length === 0) {
-            throw new Error("There are no queue members")
+            throw new Error(t("errors.no_queue_members"))
         }
 
         const currentSpeaker = await prisma.queue_members.findFirst({
@@ -43,7 +46,7 @@ export const handleNextSpeaker = async (space: spaces) => {
         })
 
         if (!currentSpeaker) {
-            throw new Error("There is no current speaker")
+            throw new Error(t("errors.no_current_speaker"))
         }
 
         const removedCurrentSpeaker = await prisma.queue_members.update({
@@ -99,6 +102,6 @@ export const handleNextSpeaker = async (space: spaces) => {
             throw new Error(error.message)
         }
 
-        throw new Error("Failed to handle next speaker")
+        throw new Error(t("errors.next_speaker_generic"))
     }
 }

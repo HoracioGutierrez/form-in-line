@@ -3,15 +3,17 @@
 import { prisma } from "@/prisma/prisma-client"
 import { DateTime } from "luxon"
 import { revalidatePath } from "next/cache"
+import { getI18n } from "@/locales/server"
 
 export const handleTransferQueue = async (queueId: number, spaceId: number, currentUserId: number, newSpaceId: number) => {
+    const t = await getI18n();
 
     try {
 
-        if (!queueId) throw new Error("Queue ID is required");
-        if (!spaceId) throw new Error("Space ID is required");
-        if (!currentUserId) throw new Error("Logged user ID is required");
-        if (!newSpaceId) throw new Error("You haven't selected a new space to transfer the queue to. Please select a new space from the dropdown and try again.");
+        if (!queueId) throw new Error(t("errors.queue_id_required"));
+        if (!spaceId) throw new Error(t("errors.space_id_required"));
+        if (!currentUserId) throw new Error(t("errors.logged_user_id_required"));
+        if (!newSpaceId) throw new Error(t("errors.new_space_id_required"));
 
 
         /// Check if the queue exists and is active
@@ -30,7 +32,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
         });
 
         if (!queue) {
-            throw new Error("The queue you are trying to transfer does not exist or is not active anymore. Please refresh the page and try again.");
+            throw new Error(t("errors.queue_not_found_or_inactive"));
         }
 
         // Check if the current space exists
@@ -41,7 +43,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
         });
 
         if (!currentSpace) {
-            throw new Error("The queue's space you are trying to transfer does not exist or is not active anymore. Please refresh the page and try again.");
+            throw new Error(t("errors.current_space_not_found_or_inactive"));
         }
 
         // Check if the new space exists
@@ -52,7 +54,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
         });
 
         if (!newSpace) {
-            throw new Error("The space you are trying to transfer the queue to does not exist. Please refresh the page and try again.");
+            throw new Error(t("errors.new_space_not_found"));
         }
 
         // Check if the queue has members
@@ -64,17 +66,17 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
         });
 
         if (queueMembers.length === 0) {
-            throw new Error("The queue you are trying to transfer does not have any members. Please add members to the queue and try again.");
+            throw new Error(t("errors.queue_no_members"));
         }
 
         // Check if the current user is the owner of the queue
         if (queue.space.users_id !== currentUserId) {
-            throw new Error("You do not have permission to transfer this queue. Please contact the owner of the queue to transfer it.");
+            throw new Error(t("errors.no_permission_to_transfer_queue"));
         }
 
         // Check if the new space belongs to a different user
         if (newSpace.users_id === currentUserId) {
-            throw new Error("You cannot transfer the queue to your own spaces. Please select a different space to transfer the queue to.");
+            throw new Error(t("errors.cannot_transfer_to_own_space"));
         }
 
         // Check if new space already has an active queue
@@ -128,7 +130,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
 
 
         if (!updatedClosedQueue) {
-            throw new Error("Error updating the current queue. The transfer could not be completed. Please try again later.");
+            throw new Error(t("errors.updating_current_queue"));
         }
 
 
@@ -185,7 +187,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
             });
 
             if (!newQueue) {
-                throw new Error("Error creating the new queue for the selected space. The transfer could not be completed. Please try again later.");
+                throw new Error(t("errors.creating_new_queue"));
             }
 
             newQueueId = newQueue.id;
@@ -220,7 +222,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
 
         revalidatePath('/spaces')
 
-        return { success: true, message: "Queue successfully transferred" };
+        return { success: true, message: t("success.queue_transferred") };
 
     } catch (error) {
         if (error instanceof Error) {
@@ -233,7 +235,7 @@ export const handleTransferQueue = async (queueId: number, spaceId: number, curr
 
         return {
             data: null,
-            errorMessage: 'Error transferring queue. Please try again later',
+            errorMessage: t("errors.transferring_queue_generic"),
             hasError: true
         }
     }

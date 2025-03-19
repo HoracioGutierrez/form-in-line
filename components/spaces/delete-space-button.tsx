@@ -8,23 +8,24 @@ import { spaces } from "@/prisma/generated/prisma-client-js"
 import toast from "react-hot-toast"
 import { handleDeleteSpace } from "@/actions/handleDeleteSpace"
 import DeleteFormButton from "./delete-form-button"
+import { useI18n } from "@/locales/client"
 
 type DeleteSpaceButtonProps = {
     space: spaces
 }
 
 function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
-
+    const t = useI18n();
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCloseModal = () => setIsModalOpen(false)
 
     const handleSubmit = async () => {
         toast.promise(handleDeleteSpace(space.id), {
-            loading: 'Deleting space...',
+            loading: t("spaces.delete.deleting"),
             success: () => {
                 handleCloseModal()
-                return 'Space deleted successfully'
+                return t("spaces.delete.success")
             },
             error: error => error.message
         })
@@ -40,14 +41,14 @@ function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        Delete space : {space.name}
+                        {t("spaces.delete.title", {name: space.name})}
                     </DialogTitle>
-                    <DialogDescription>Once the space is deleted, all of its data will be lost.</DialogDescription>
+                    <DialogDescription>{t("spaces.delete.description")}</DialogDescription>
                 </DialogHeader>
                 <Form action={handleSubmit} className="flex flex-col gap-4">
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button type="button" variant="outline">cancel</Button>
+                            <Button type="button" variant="outline">{t("spaces.form.cancel")}</Button>
                         </DialogClose>
                         <DeleteFormButton />
                     </DialogFooter>

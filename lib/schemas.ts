@@ -1,4 +1,7 @@
+import { getI18n } from '@/locales/server';
 import * as yup from 'yup';
+
+const t = getI18n()
 
 export const userSchema = yup.object({
     email: yup.string().email().required(),
