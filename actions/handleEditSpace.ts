@@ -29,17 +29,29 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
         })
 
         if (activationDays.length > 0) {
+
+
             for (const day of activationDays) {
-                await prisma.spaces_activation_times.update({
-                    where: {
-                        id: parseInt(day.id)
-                    },
-                    data: {
-                        day_of_week: day.day,
-                        //start_time: day.start
-                        start_time: day.utcForStorage
-                    }
-                })
+                if (isNaN(parseInt(day.id))) {
+                    await prisma.spaces_activation_times.create({
+                        data: {
+                            day_of_week: day.day,
+                            start_time: day.utcForStorage,
+                            space_id: spaceId,
+                        }
+                    })
+                } else {
+                    await prisma.spaces_activation_times.update({
+                        where: {
+                            id: parseInt(day.id)
+                        },
+                        data: {
+                            day_of_week: day.day,
+                            start_time: day.utcForStorage
+                        }
+                    })
+                }
+
             }
         }
 

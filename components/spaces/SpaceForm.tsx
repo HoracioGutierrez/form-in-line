@@ -176,12 +176,10 @@ function SpaceForm({ buttonText = 'create space', edit = false, space, icon, var
                                     handleChangeActivationStart={handleChangeActivationStart}
                                 />
                             ))}
-                            {!edit && (
-                                <Button type="button" variant="outline" onClick={addActivationDay}>
-                                    <Plus />
-                                    add time
-                                </Button>
-                            )}
+                            <Button type="button" variant="outline" onClick={addActivationDay}>
+                                <Plus />
+                                add time
+                            </Button>
                         </div>
                     </div>
                     <DialogFooter>
