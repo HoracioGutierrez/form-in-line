@@ -303,7 +303,9 @@
         "queue_no_members": "La cola no tiene miembros",
         "no_permission_to_transfer_queue": "Sin permiso para transferir cola",
         "cannot_transfer_to_own_space": "No se puede transferir a tu propio espacio",
-        "updating_current_queue": "Error al actualizar cola actual"
+        "updating_current_queue": "Error al actualizar cola actual",
+        "name_required": "El nombre del espacio es obligatorio",
+        "slug_required": "La URL personalizada del espacio es obligatoria"
     },
     "success": {
         "queue_transferred": "Cola transferida exitosamente"

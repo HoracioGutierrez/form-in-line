@@ -299,7 +299,9 @@
         "queue_no_members": "Queue has no members",
         "no_permission_to_transfer_queue": "No permission to transfer queue",
         "cannot_transfer_to_own_space": "Cannot transfer to your own space",
-        "updating_current_queue": "Error updating current queue"
+        "updating_current_queue": "Error updating current queue",
+        "name_required": "Space name is required",
+        "slug_required": "Space custom URL is required"
     },
     "success": {
         "queue_transferred": "Queue transferred successfully"
