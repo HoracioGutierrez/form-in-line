@@ -3,17 +3,23 @@ import GoogleAuthButton from "@/components/google-auth/google-auth"
 import SignInButton from "@/components/signin/signin-button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { getI18n } from "@/locales/server"
+import { getI18n, getStaticParams } from "@/locales/server"
 import Form from "next/form"
 import type { Metadata } from "next";
+import { setStaticParamsLocale } from "next-international/server"
 
 export const metadata: Metadata = {
     title : "Sign In",
 }
 
+export function generateStaticParams() {
+  return getStaticParams()
+}
 
-async function LoginPage() {
 
+async function LoginPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params
+    setStaticParamsLocale(locale)
     const t = await getI18n()
 
     return (
