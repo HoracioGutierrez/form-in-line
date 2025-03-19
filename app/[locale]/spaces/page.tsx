@@ -1,19 +1,18 @@
 import SpaceItemSkeleton from "@/components/spaces/space-item-skeleton"
 import SpaceForm from "@/components/spaces/SpaceForm"
 import SpacesList from "@/components/spaces/SpacesList"
-import { getI18n } from "@/locales/server"
+import { getI18n, getStaticParams } from "@/locales/server"
 import { createClient } from "@/supabase/server"
 import { Suspense } from "react"
-import type { Metadata } from "next"
+import { setStaticParamsLocale } from 'next-international/server'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getI18n();
-  return {
-    title: t("spaces.metadata_title"),
-  };
+export async function generateMetadata() {
+  return getStaticParams()
 }
 
-async function SpacesPage() {
+async function SpacesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setStaticParamsLocale(locale)
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
   const t = await getI18n()
