@@ -4,17 +4,17 @@ import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { DateTime } from "luxon"
-import { getI18n } from "@/locales/server"
-import type { Metadata } from "next"
+import { getI18n, getStaticParams } from "@/locales/server"
+import { setStaticParamsLocale } from "next-international/server"
 
-export async function generateMetadata(): Promise<Metadata> {
-    const t = await getI18n();
-    return {
-        title: t("history.metadata_title"),
-    };
+export function generateStaticParams() {
+  return getStaticParams()
 }
 
-async function HistoryPage() {
+
+async function HistoryPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params
+    setStaticParamsLocale(locale)
     const t = await getI18n()
     
     const supabase = await createClient()

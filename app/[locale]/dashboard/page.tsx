@@ -1,23 +1,21 @@
 import AccountModal from "@/components/dashboard/account-modal"
-import { getI18n } from "@/locales/server"
+import { getI18n, getStaticParams } from "@/locales/server"
 import { createClient } from "@/supabase/server"
 import Image from "next/image"
 import { redirect } from "next/navigation"
-import type { Metadata } from "next";
 import SpaceForm from "@/components/spaces/SpaceForm"
 import { getUserByEmail } from "@/actions/getUserByEmail"
 import { getSpacesByUser } from "@/actions/getSpacesByUser"
 import SpaceItem from "@/components/spaces/SpaceItem"
+import { setStaticParamsLocale } from "next-international/server"
 
-export async function generateMetadata(): Promise<Metadata> {
-    const t = await getI18n();
-    return {
-        title: t("dashboard.metadata_title"),
-    };
+export function generateStaticParams() {
+  return getStaticParams()
 }
 
-async function DashboardPage() {
-
+async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params
+    setStaticParamsLocale(locale)
     const supabase = await createClient()
     const { data: authUser, error: authError } = await supabase.auth.getUser()
     const { data: loggedUser, hasError } = await getUserByEmail(authUser.user?.email || "")
