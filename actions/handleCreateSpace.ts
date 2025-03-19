@@ -74,7 +74,7 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
         }
 
     } catch (error) {
-        console.log("🚀 ~ handleCreateSpace ~ error:", error)
+        //console.log("🚀 ~ handleCreateSpace ~ error:", error)
         if (error instanceof Error) {
             return {
                 data: null,

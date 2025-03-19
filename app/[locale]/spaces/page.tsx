@@ -1,11 +1,18 @@
 import SpaceItemSkeleton from "@/components/spaces/space-item-skeleton"
 import SpaceForm from "@/components/spaces/SpaceForm"
 import SpacesList from "@/components/spaces/SpacesList"
-import { getI18n } from "@/locales/server"
+import { getI18n, getStaticParams } from "@/locales/server"
 import { createClient } from "@/supabase/server"
+import { setStaticParamsLocale } from "next-international/server"
 import { Suspense } from "react"
 
-async function SpacesPage() {
+export function generateStaticParams() {
+  return getStaticParams()
+}
+
+async function SpacesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  setStaticParamsLocale(locale)
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
   const t = await getI18n()

@@ -5,9 +5,9 @@ import Header from "@/components/main-layout/header";
 import { ThemeProvider } from "@/components/main-layout/theme-provider";
 import Footer from "@/components/main-layout/footer";
 import { Toaster } from 'react-hot-toast';
-import "./globals.css";
-import { getCurrentLocale, getI18n } from "@/locales/server";
+import { getCurrentLocale, getStaticParams } from "@/locales/server";
 import { I18nProviderClient } from "@/locales/client";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +26,10 @@ export const metadata: Metadata = {
   },
   description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online classes.",
 };
+
+export function generateStaticParams() {
+  return getStaticParams()
+}
 
 async function RootLayout({ children }: RootLayoutProps) {
 
