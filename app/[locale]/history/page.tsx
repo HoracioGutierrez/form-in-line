@@ -15,12 +15,12 @@ export function generateStaticParams() {
 async function HistoryPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params
     setStaticParamsLocale(locale)
-    const t = await getI18n()
     
     const supabase = await createClient()
     const { data: authUser, error: authError } = await supabase.auth.getUser()
     const { data: loggedUser, hasError } = await getUserByEmail(authUser.user?.email || "")
-
+    const t = await getI18n()
+    
     if (authError || hasError || !loggedUser) {
         return redirect("/login")
     }

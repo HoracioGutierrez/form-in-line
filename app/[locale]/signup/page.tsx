@@ -4,7 +4,7 @@ import SignUpButton from '@/components/signup/signup-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { getI18n, getStaticParams } from '@/locales/server';
-import type { Metadata } from "next";
+/* import type { Metadata } from "next"; */
 import { setStaticParamsLocale } from 'next-international/server';
 import Form from 'next/form'
 
