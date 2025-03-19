@@ -30,16 +30,25 @@ export const handleActivateSpace = async (spaceId: number) => {
 
         if (!activatedSpace) throw new Error('Error activating space')
 
-        const newQueueForSpace = await prisma.queues.create({
-            data: {
-                start_at_time: utcForStorage,
-                is_active: true,
-                start_at_day: day,
-                space_id: spaceId
+        const currentQueue = await prisma.queues.findFirst({
+            where: {
+                space_id: spaceId,
+                is_active: true
             }
         })
 
-        if (!newQueueForSpace) throw new Error('Error creating queue for space')
+        if (!currentQueue) {
+            const newQueueForSpace = await prisma.queues.create({
+                data: {
+                    start_at_time: utcForStorage,
+                    is_active: true,
+                    start_at_day: day,
+                    space_id: spaceId
+                }
+            })
+
+            if (!newQueueForSpace) throw new Error('Error creating queue for space')
+        }
 
         revalidatePath('/spaces')
 
