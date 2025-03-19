@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
 
 export const handleEditAccountDetails = async (formData: FormData) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     const email = formData.get('email') as string
     const phone = formData.get('phone') as string
@@ -18,7 +18,8 @@ export const handleEditAccountDetails = async (formData: FormData) => {
     const isValid = userWithProfile.isValidSync(userWithNewData)
 
     if (!isValid) {
-        throw new Error(t('errors.invalid_user_data'));
+        //throw new Error(t('errors.invalid_user_data'));
+        throw new Error("Invalid user data")
     }
 
     const supabase = await createClient()
@@ -36,7 +37,8 @@ export const handleEditAccountDetails = async (formData: FormData) => {
     })
 
     if (!updatedUser) {
-        throw new Error(t('errors.updating_user_profile'));
+        //throw new Error(t('errors.updating_user_profile'));
+        throw new Error("Error updating user profile")
     }
 
     return revalidatePath("/dashboard");

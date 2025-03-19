@@ -4,7 +4,7 @@ import { prisma as client, prisma } from "@/prisma/prisma-client"
 import { getI18n } from "@/locales/server"
 
 export const handleGetAllSpaces = async () => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
 
@@ -32,7 +32,8 @@ export const handleGetAllSpaces = async () => {
         })
 
         if (!spaces) {
-            throw new Error(t('errors.no_spaces_found'));
+            //throw new Error(t('errors.no_spaces_found'));
+            throw new Error("No spaces found");
         }
 
         return {

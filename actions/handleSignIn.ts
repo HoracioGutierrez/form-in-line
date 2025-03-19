@@ -5,14 +5,15 @@ import { redirect } from "next/navigation"
 import { getI18n } from "@/locales/server"
 
 export const handleSignIn = async (formData: FormData) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const email = formData.get('email') as string
         const password = formData.get('password') as string
 
         if (!email || !password) {
-            throw new Error(t("errors.email_password_required"))
+            //throw new Error(t("errors.email_password_required"))
+            throw new Error("Email and password are required")
         }
 
         const supabase = await createClient()
@@ -22,7 +23,8 @@ export const handleSignIn = async (formData: FormData) => {
         })
 
         if (error) {
-            throw new Error(t("errors.invalid_credentials"))
+            //throw new Error(t("errors.invalid_credentials"))
+            throw new Error("Invalid credentials")
         }
 
         redirect("/dashboard")
@@ -32,6 +34,7 @@ export const handleSignIn = async (formData: FormData) => {
             throw new Error(error.message)
         }
 
-        throw new Error(t("errors.signin_failed"))
+        //throw new Error(t("errors.signin_failed"))
+        throw new Error("Sign in failed")
     }
 }

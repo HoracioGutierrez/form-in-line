@@ -4,7 +4,7 @@ import { prisma } from "@/prisma/prisma-client"
 import { getI18n } from "@/locales/server"
 
 export const getSpaceBySlug = async (slug: string) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const space = await prisma.spaces.findFirst({
@@ -37,7 +37,8 @@ export const getSpaceBySlug = async (slug: string) => {
         })
 
         if (!space) {
-            throw new Error(t("errors.space_not_found"))
+            //throw new Error(t("errors.space_not_found"))
+            throw new Error("Space not found")
         }
 
         return {
@@ -57,7 +58,8 @@ export const getSpaceBySlug = async (slug: string) => {
 
         return {
             data: null,
-            errorMessage: t("errors.getting_space"),
+            //errorMessage: t("errors.getting_space"),
+            errorMessage: "Error getting space",
             hasError: true
         }
     }

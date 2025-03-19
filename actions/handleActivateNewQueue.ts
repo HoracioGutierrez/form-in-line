@@ -6,10 +6,11 @@ import { revalidatePath } from "next/cache";
 import { getI18n } from "@/locales/server";
 
 export const handleActivateNewQueue = async (spaceId: number) => {
-    const t = await getI18n();
-    
+    //const t = await getI18n();
+
     try {
-        if (!spaceId) throw new Error(t("errors.space_id_required"));
+        //if (!spaceId) throw new Error(t("errors.space_id_required"));
+        if (!spaceId) throw new Error("Space ID is required");
 
         /// Check if the queue exists and is active
         const space = await prisma.spaces.findUnique({
@@ -26,15 +27,18 @@ export const handleActivateNewQueue = async (spaceId: number) => {
         })
 
         if (!space) {
-            throw new Error(t("errors.space_not_exist_or_inactive"));
+            //throw new Error(t("errors.space_not_exist_or_inactive"));
+            throw new Error("Space not exist or inactive");
         }
 
         if (space.is_active) {
-            throw new Error(t("errors.space_already_active"));
+            //throw new Error(t("errors.space_already_active"));
+            throw new Error("Space not exist or inactive");
         }
 
         if (space.queues.length > 0) {
-            throw new Error(t("errors.space_already_has_active_queue"));
+            //throw new Error(t("errors.space_already_has_active_queue"));
+            throw new Error("Space already has active queue");
         }
 
         const date = new Date()
@@ -61,7 +65,8 @@ export const handleActivateNewQueue = async (spaceId: number) => {
         })
 
         if (!newQueue) {
-            throw new Error(t("errors.creating_new_queue"));
+            //throw new Error(t("errors.creating_new_queue"));
+            throw new Error("Error creating new queue");
         }
 
         revalidatePath(`/spaces/${spaceId}`)
@@ -83,7 +88,8 @@ export const handleActivateNewQueue = async (spaceId: number) => {
 
         return {
             hasError: true,
-            errorMessage: t("errors.activating_new_queue"),
+            //errorMessage: t("errors.activating_new_queue"),
+            errorMessage: "Error activating new queue",
             data: null
         }
     }

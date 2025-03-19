@@ -5,16 +5,9 @@ import { revalidatePath } from "next/cache";
 import { getI18n } from "@/locales/server"
 
 export const handleNextSpeaker = async (space: spaces) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
-
-        // Get all queue members
-        // Get the current speaker with is_current = true and position = 1
-        // Get the next speaker with is_current = false and position = 2
-        // Update the current speaker to is_current = false and position = 0 and has_spoken = true
-        // Update the next speaker to is_current = true and position = 1
-        // Update the rest of the queue members to position - 1
 
         const queueMembers = await prisma.queue_members.findMany({
             where: {
@@ -31,9 +24,9 @@ export const handleNextSpeaker = async (space: spaces) => {
             }
         })
 
-        //console.log("🚀 ~ handleNextSpeaker ~ queueMembers:", queueMembers)
         if (queueMembers.length === 0) {
-            throw new Error(t("errors.no_queue_members"))
+            //throw new Error(t("errors.no_queue_members"))
+            throw new Error("No queue members found")
         }
 
         const currentSpeaker = await prisma.queue_members.findFirst({
@@ -46,7 +39,8 @@ export const handleNextSpeaker = async (space: spaces) => {
         })
 
         if (!currentSpeaker) {
-            throw new Error(t("errors.no_current_speaker"))
+            //throw new Error(t("errors.no_current_speaker"))
+            throw new Error("No current speaker found")
         }
 
         const removedCurrentSpeaker = await prisma.queue_members.update({
@@ -102,6 +96,7 @@ export const handleNextSpeaker = async (space: spaces) => {
             throw new Error(error.message)
         }
 
-        throw new Error(t("errors.next_speaker_generic"))
+        //throw new Error(t("errors.next_speaker_generic"))
+        throw new Error("Error moving to next speaker")
     }
 }

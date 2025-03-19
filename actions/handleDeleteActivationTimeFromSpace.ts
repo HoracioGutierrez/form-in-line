@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
 
 export const handleDeleteActivationTimeFromSpace = async (activationTimeId: number) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const deletedActivationTime = await prisma.spaces_activation_times.delete({
@@ -14,7 +14,8 @@ export const handleDeleteActivationTimeFromSpace = async (activationTimeId: numb
             }
         })
 
-        if (!deletedActivationTime) throw new Error(t('errors.deleting_activation_time'))
+        //if (!deletedActivationTime) throw new Error(t('errors.deleting_activation_time'))
+        if (!deletedActivationTime) throw new Error("Error deleting activation time")
 
         revalidatePath('/spaces')
 
@@ -29,6 +30,7 @@ export const handleDeleteActivationTimeFromSpace = async (activationTimeId: numb
             throw new Error(error.message)
         }
 
-        throw new Error(t("errors.deleting_activation_time_generic"))
+        //throw new Error(t("errors.deleting_activation_time_generic"))
+        throw new Error("Error deleting activation time")
     }
 }

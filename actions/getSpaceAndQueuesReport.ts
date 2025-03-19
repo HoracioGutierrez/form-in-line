@@ -4,7 +4,7 @@ import { prisma } from "@/prisma/prisma-client"
 import { getI18n } from "@/locales/server"
 
 export const getSpaceAndQueuesReport = async (userId: number) => {
-    const t = await getI18n();
+    //const t = await getI18n();
 
     try {
         const spaces = await prisma.spaces.findMany({
@@ -25,7 +25,8 @@ export const getSpaceAndQueuesReport = async (userId: number) => {
         })
 
         if(!spaces) {
-            throw new Error(t("errors.no_spaces_found"));
+            //throw new Error(t("errors.no_spaces_found"));
+            throw new Error("No spaces found");
         }
 
         const report = spaces.map(space => {
@@ -64,7 +65,8 @@ export const getSpaceAndQueuesReport = async (userId: number) => {
         }
 
         return {
-            errorMessage: t("errors.getting_space_report"),
+            //errorMessage: t("errors.getting_space_report"),
+            errorMessage: "Error getting space report",
             hasError: true,
             data : null
         }

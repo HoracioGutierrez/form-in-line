@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
 
 export const handleCreateSpace = async (formData: FormData, activationDays: ActivationDay[]) => {
-    const t = await getI18n();
+    //const t = await getI18n();
 
     try {
         const name = formData.get('name') as string
@@ -27,8 +27,10 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         })
 
-        if (error) throw new Error(t("errors.getting_user_supabase"));
-        if (!loggedUser) throw new Error(t("errors.user_not_found_db"));
+        //if (error) throw new Error(t("errors.getting_user_supabase"));
+        //if (!loggedUser) throw new Error(t("errors.user_not_found_db"));
+        if (error) throw new Error("Error getting user from Supabase")
+        if (!loggedUser) throw new Error("User not found in database")
 
         const newSpace = await client.spaces.create({
             data: {
@@ -60,7 +62,8 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
             }
         }
 
-        if (!newSpace) throw new Error(t("errors.creating_space_try_later"));
+        //if (!newSpace) throw new Error(t("errors.creating_space_try_later"));
+        if (!newSpace) throw new Error("Error creating space")
 
         revalidatePath('/spaces')
 
@@ -82,7 +85,8 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
 
         return {
             data: null,
-            errorMessage: t("errors.creating_space"),
+            //errorMessage: t("errors.creating_space"),
+            errorMessage: "Error creating space",
             hasError: true
         }
     }

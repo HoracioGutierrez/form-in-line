@@ -6,13 +6,14 @@ import { redirect } from "next/navigation"
 import { getI18n } from "@/locales/server"
 
 export const handleGoogleSignUp = async () => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const supabase = await createClient()
 
         const { data: { user } } = await supabase.auth.getUser()
-        if (!user?.email) throw new Error(t("errors.google_login_failed"));
+        //if (!user?.email) throw new Error(t("errors.google_login_failed"));
+        if (!user?.email) throw new Error("Error getting user email from Supabase")
 
         const existingUser = await prisma.users.findUnique({
             where: {
@@ -31,7 +32,8 @@ export const handleGoogleSignUp = async () => {
             }
         })
 
-        if (!newUser) throw new Error(t("errors.google_signup_failed"));
+        //if (!newUser) throw new Error(t("errors.google_signup_failed"));
+        if (!newUser) throw new Error("Error creating user in database")
 
         redirect("/dashboard")
 
@@ -40,6 +42,7 @@ export const handleGoogleSignUp = async () => {
             throw new Error(error.message)
         }
 
-        throw new Error(t("errors.google_auth_generic"))
+        //throw new Error(t("errors.google_auth_generic"))
+        throw new Error("Error during Google authentication")
     }
 }

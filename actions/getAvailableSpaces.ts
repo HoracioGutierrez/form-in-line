@@ -4,7 +4,7 @@ import { prisma } from "@/prisma/prisma-client"
 import { getI18n } from "@/locales/server"
 
 export const getAvailableSpaces = async (spaceId: number, userId: number) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const spaces = await prisma.spaces.findMany({
@@ -21,7 +21,8 @@ export const getAvailableSpaces = async (spaceId: number, userId: number) => {
         })
 
         if (spaces.length === 0) {
-            throw new Error(t("errors.no_available_spaces"));
+            //throw new Error(t("errors.no_available_spaces"));
+            throw new Error("No available spaces");
         }
 
         return spaces
@@ -31,6 +32,7 @@ export const getAvailableSpaces = async (spaceId: number, userId: number) => {
             throw new Error(error.message);
         }
 
-        throw new Error(t("errors.getting_available_spaces"));
+        //throw new Error(t("errors.getting_available_spaces"));
+        throw new Error("Error getting available spaces");
     }
 }

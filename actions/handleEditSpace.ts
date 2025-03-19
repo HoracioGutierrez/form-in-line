@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
 
 export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: ActivationDay[]) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const name = formData.get('name') as string
@@ -16,7 +16,8 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
 
         const space = { name, subject, slug }
 
-        if (!spaceSchema.isValidSync(space)) throw new Error(t('errors.invalid_space_data'));
+        //if (!spaceSchema.isValidSync(space)) throw new Error(t('errors.invalid_space_data'));
+        await spaceSchema.validate(space, { abortEarly: true })
 
         const editedSpace = await prisma.spaces.update({
             where: {
@@ -54,7 +55,8 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             }
         }
 
-        if (!editedSpace) throw new Error(t('errors.editing_space'));
+        //if (!editedSpace) throw new Error(t('errors.editing_space'));
+        if (!editedSpace) throw new Error("Error editing space")
 
         revalidatePath('/spaces')
 
@@ -69,6 +71,7 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             throw new Error(error.message)
         }
 
-        throw new Error(t("errors.editing_space_generic"))
+        //throw new Error(t("errors.editing_space_generic"))
+        throw new Error("Error editing space")
     }
 }

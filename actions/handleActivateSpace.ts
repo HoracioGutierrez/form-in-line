@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
 
 export const handleActivateSpace = async (spaceId: number) => {
-    const t = await getI18n();
+    //const t = await getI18n();
     
     try {
         const date = new Date()
@@ -29,7 +29,8 @@ export const handleActivateSpace = async (spaceId: number) => {
             },
         })
 
-        if (!activatedSpace) throw new Error(t('errors.activating_space'))
+        //if (!activatedSpace) throw new Error(t('errors.activating_space'))
+        if (!activatedSpace) throw new Error("Error activating space")
 
         const currentQueue = await prisma.queues.findFirst({
             where: {
@@ -48,7 +49,8 @@ export const handleActivateSpace = async (spaceId: number) => {
                 }
             })
 
-            if (!newQueueForSpace) throw new Error(t('errors.creating_queue_for_space'))
+            //if (!newQueueForSpace) throw new Error(t('errors.creating_queue_for_space'))
+            if (!newQueueForSpace) throw new Error("Error creating queue for space")
         }
 
         revalidatePath('/spaces')
@@ -64,6 +66,7 @@ export const handleActivateSpace = async (spaceId: number) => {
             throw new Error(error.message)
         }
 
-        throw new Error(t('errors.activating_space_generic'))
+        //throw new Error(t('errors.activating_space_generic'))
+        throw new Error("Error activating space")
     }
 }
