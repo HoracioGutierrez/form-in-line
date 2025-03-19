@@ -27,10 +27,10 @@ export const metadata: Metadata = {
   description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online classes.",
 };
 
-export function generateStaticParams() {
+/* export function generateStaticParams() {
   return getStaticParams()
 }
-
+ */
 async function RootLayout({ children }: RootLayoutProps) {
 
   return (
