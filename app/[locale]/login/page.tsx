@@ -8,10 +8,10 @@ import Form from "next/form"
 import type { Metadata } from "next";
 import { setStaticParamsLocale } from "next-international/server"
 
-export const metadata: Metadata = {
+/* export const metadata: Metadata = {
     title : "Sign In",
 }
-
+ */
 export function generateStaticParams() {
   return getStaticParams()
 }
