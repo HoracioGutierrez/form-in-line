@@ -16,7 +16,7 @@ import ActivationTimeItem from "./activation-time-item"
 import { ActivationDay } from "@/lib/types"
 import { handleDeleteActivationTimeFromSpace } from "@/actions/handleDeleteActivationTimeFromSpace"
 import { DateTime } from "luxon"
-import { useI18n } from "@/locales/client"
+/* import { useI18n } from "@/locales/client" */
 import { useTranslations } from "next-intl"
 
 

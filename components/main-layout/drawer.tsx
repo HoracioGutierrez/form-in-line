@@ -3,10 +3,13 @@ import { Button } from "../ui/button"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { getI18n } from "@/locales/server"
+import { getTranslations } from "next-intl/server"
 
 async function Drawer({ links }: { links: any }) {
 
-    const t = await getI18n()
+    //const t = await getI18n()
+    const t = await getTranslations("layout")
+
 
     return (
         <ShadCNDrawer>
@@ -17,13 +20,13 @@ async function Drawer({ links }: { links: any }) {
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle className="text-center">{t("layout.drawer.menu")}</DrawerTitle>
+                    <DrawerTitle className="text-center">{t("drawer.menu")}</DrawerTitle>
                 </DrawerHeader>
                 <div className="flex flex-col gap-2">
                     {links.map((link: any) => {
                         return (
                             <Button asChild variant="link" key={link.id} className="text-sm p-0">
-                                <Link href={link.href}>{t(`layout.links.${link.text}` as any, {})}</Link>
+                                <Link href={link.href}>{t(`links.${link.text}` as any, {})}</Link>
                             </Button>
                         )
                     })}
@@ -31,7 +34,7 @@ async function Drawer({ links }: { links: any }) {
                 <DrawerFooter>
                     <DrawerClose asChild>
                         <Button variant="outline" className="w-fit flex gap-2 items-center mx-auto">
-                            <X /> {t("layout.drawer.close")}
+                            <X /> {t("drawer.close")}
                         </Button>
                     </DrawerClose>
                 </DrawerFooter>

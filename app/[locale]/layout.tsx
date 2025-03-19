@@ -54,7 +54,7 @@ async function RootLayout({ children, params }: RootLayoutProps) {
           disableTransitionOnChange
         >
           {/* <I18nProviderClient locale={locale}> */}
-            <NextIntlClientProvider>
+            <NextIntlClientProvider locale={locale}>
               <Header />
               <main className="p-2 md:p-4 grow flex-col flex">
                 {children}
