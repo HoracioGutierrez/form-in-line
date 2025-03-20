@@ -27,7 +27,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
     return (
-        <div key={space.id} className={cn("border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1 hover:bg-black/50" ,spaceBackground )}>
+        <div key={space.id} className={cn("border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1 dark:hover:bg-black/50 hover:bg-gray-100/50" ,spaceBackground )}>
             <div className="flex justify-between items-start">
                 <div className="truncate">
                     <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
