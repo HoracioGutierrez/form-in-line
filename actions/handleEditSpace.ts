@@ -1,10 +1,8 @@
 "use server"
-
 import { spaceSchema } from "@/lib/schemas"
 import { ActivationDay } from "@/lib/types"
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
-import { getI18n } from "@/locales/server"
 import { getTranslations } from "next-intl/server"
 import { ValidationError } from "yup"
 
@@ -57,7 +55,7 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             }
         }
 
-        if (!editedSpace) throw new Error(t('errors.editing_space'));
+        if (!editedSpace) throw new Error(t('editing_space'));
 
         revalidatePath('/spaces')
 
@@ -80,7 +78,6 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             throw new Error(error.message)
         }
 
-        //throw new Error(t("errors.editing_space_generic"))
-        throw new Error("Error editing space")
+        throw new Error(t("editing_space_generic"))
     }
 }

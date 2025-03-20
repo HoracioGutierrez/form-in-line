@@ -1,11 +1,10 @@
 "use server"
-
 import { prisma } from "@/prisma/prisma-client";
 import { revalidatePath } from "next/cache";
-import { getI18n } from "@/locales/server";
+import { getTranslations } from "next-intl/server";
 
 export const handleDeleteSpace = async (spaceId: number) => {
-    //const t = await getI18n();
+    const t = await getTranslations("errors")
 
     try {
         const space = await prisma.spaces.findUnique({
@@ -14,8 +13,7 @@ export const handleDeleteSpace = async (spaceId: number) => {
             }
         })
 
-        //if (!space) throw new Error(t('errors.delete_space_not_found'));
-        if (!space) throw new Error("Space not found");
+        if (!space) throw new Error(t('delete_space_not_found'));
 
         const deletedSpace = await prisma.spaces.update({
             where: {
@@ -28,8 +26,7 @@ export const handleDeleteSpace = async (spaceId: number) => {
             }
         })
 
-        //if (!deletedSpace) throw new Error(t('errors.delete_space_update_failed'));
-        if (!deletedSpace) throw new Error("Error deleting space");
+        if (!deletedSpace) throw new Error(t('delete_space_update_failed'));
 
         revalidatePath("/spaces");
         return space;
@@ -39,7 +36,6 @@ export const handleDeleteSpace = async (spaceId: number) => {
             throw new Error(error.message)
         }
 
-        //throw new Error(t('errors.deleting_space'));
-        throw new Error("Error deleting space");
+        throw new Error(t('deleting_space'));
     }
 }
