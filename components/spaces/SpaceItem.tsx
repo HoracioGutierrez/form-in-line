@@ -24,9 +24,10 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const { data: authUser } = await supabase.auth.getUser()
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
 
+    const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
     return (
-        <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1">
+        <div key={space.id} className={cn("border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1 hover:bg-black/50" ,spaceBackground )}>
             <div className="flex justify-between items-start">
                 <div className="truncate">
                     <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
@@ -36,11 +37,16 @@ async function SpaceItem({ space }: SpaceItemProps) {
                         {space.subject}
                     </p>
                 </div>
-                <div className={cn(
-                    "rounded-full px-2 py-1 text-xs",
-                    space.is_active ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
-                )}>
-                    {space.is_active ? "active" : "inactive"}
+                <div className="flex gap-2 items-center flex-col sm:flex-row">
+                    {space.queues && space.queues.length > 0 && (
+                        <div className="rounded-full px-2 py-1 text-xs bg-accent animate-pulse">active queue!</div>
+                    )}
+                    <div className={cn(
+                        "rounded-full px-2 py-1 text-xs",
+                        space.is_active ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+                    )}>
+                        {space.is_active ? "active" : "inactive"}
+                    </div>
                 </div>
             </div>
             <div className="flex gap-2 items-center flex-col xs:flex-row xs:justify-between">
