@@ -24,56 +24,58 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const { data: authUser } = await supabase.auth.getUser()
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
 
+
+    return (
+        <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1">
+            <div className="flex justify-between items-start">
+                <div className="truncate">
+                    <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
+                        {space.name}
+                    </h2>
+                    <p className="text-muted-foreground mb-8 truncate text-sm lg:text-base">
+                        {space.subject}
+                    </p>
+                </div>
+                <div className={cn(
+                    "rounded-full px-2 py-1 text-xs",
+                    space.is_active ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+                )}>
+                    {space.is_active ? "active" : "inactive"}
+                </div>
+            </div>
+            <div className="flex gap-2 items-center flex-col xs:flex-row xs:justify-between">
+                <div className="flex gap-2 items-center">
+                    {loggedUser && space.users_id == loggedUser.id && (
+                        <>
+                            {space.queues && space.queues.length > 0 && (
+                                <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
+                            )}
+                            <DeleteSpaceButton space={space} />
+                            <SpaceForm icon={<Edit />} variant="ghost" space={space} edit />
+                            <ActivateFormButton space={space} />
+                        </>
+                    )}
+                </div>
+                <div className="flex gap-2 items-center">
+                    <Button variant="ghost" className="flex items-center gap-1">
+                        {space.queue_members.length}
+                        <Users className="size-4" />
+                    </Button>|
+                    <Button variant="ghost" size="icon" className="p-0">
+                        <Link className="block" href={`/spaces/${space.slug}`}>
+                            <LogIn className="size-5" />
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
         <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1">
             <div className="flex justify-between">
-                <div>
-                    <h2 className="text-2xl font-bold flex items-start gap-2 leading-none mb-1">
-                        {space.name}
-                    </h2>
-                    <p className="text-muted-foreground mb-8 flex gap-1 items-center">
-                        {space.subject}
-                    </p>
-                    <div className="flex gap-2">
-                        {space.spaces_activation_times.map((time, index) => {
-                            return (
-                                <div key={index} className="rounded-full px-2 py-1 text-xs bg-muted flex items-center justify-center">
-                                    {time.day_of_week}
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
                 <div className="flex flex-col justify-between gap-2 items-end">
-                    <div className="flex gap-2 items-center">
-                        <div className={cn(
-                            "rounded-full px-2 py-1 text-xs",
-                            space.is_active ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
-                        )}>
-                            {space.is_active ? "active" : "inactive"}
-                        </div>
-                    </div>
-                    <div className="flex gap-2 items-center">
-                        <Button variant="ghost" className="flex items-center gap-1">
-                            {space.queue_members.length}
-                            <Users className="size-4" />
-                        </Button>|
-                        <Button variant="ghost" size="icon" className="p-0">
-                            <Link className="block" href={`/spaces/${space.slug}`}>
-                                <LogIn className="size-5" />
-                            </Link>
-                        </Button>
-                        {loggedUser && space.users_id == loggedUser.id && (
-                            <>
-                                {space.queues && space.queues.length > 0 && (
-                                    <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
-                                )}
-                                <DeleteSpaceButton space={space} />
-                                <SpaceForm icon={<Edit />} variant="ghost" space={space} edit />
-                                <ActivateFormButton space={space} />
-                            </>
-                        )}
-                    </div>
+
                 </div>
             </div>
         </div>
