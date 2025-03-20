@@ -1,0 +1,313 @@
+{
+    "hello": "Olá",
+    "dashboard": {
+        "title": "Painel",
+        "metadata_title": "Painel de Controle",
+        "no_name": "Nome não definido",
+        "not_set": "Não definido",
+        "no_spaces": "Você ainda não criou nenhum espaço!",
+        "sections": {
+            "account": {
+                "title": "Conta"
+            },
+            "personal_info": {
+                "title": "Informações Pessoais",
+                "first_name": "Nome",
+                "last_name": "Sobrenome",
+                "email": "E-mail",
+                "phone": "Telefone"
+            },
+            "my_spaces": {
+                "title": "Meus Espaços",
+                "create_space": "Criar Espaço"
+            }
+        },
+        "account-modal": {
+            "title": "Editar Informações da Conta",
+            "description": "Esta ação não pode ser desfeita. Isso modificará permanentemente sua conta.",
+            "loading": "Atualizando detalhes da conta",
+            "success": "Detalhes da conta atualizados",
+            "error": "Erro ao atualizar detalhes da conta",
+            "fields": {
+                "email": {
+                    "label": "E-mail",
+                    "placeholder": "exemplo@email"
+                },
+                "phone": {
+                    "label": "Telefone",
+                    "placeholder": "telefone"
+                },
+                "first_name": {
+                    "label": "Nome",
+                    "placeholder": "nome"
+                },
+                "last_name": {
+                    "label": "Sobrenome",
+                    "placeholder": "sobrenome"
+                }
+            },
+            "buttons": {
+                "close": "Fechar",
+                "submit": "Salvar",
+                "loading": "Salvando"
+            }
+        }
+    },
+    "home": {
+        "metadata_title": "Início",
+        "title": {
+            "first": "Form",
+            "middle": "-in-",
+            "last": "line"
+        },
+        "description": "A forma mais fácil de gerenciar suas filas de pessoas e aulas online, permitindo que elas entrem na fila e esperem sua vez!",
+        "button-get-started": "Começar",
+        "button-learn-more": "Saiba mais"
+    },
+    "signup": {
+        "title": "Cadastrar",
+        "email": {
+            "placeholder": "exemplo@email",
+            "label": "E-mail"
+        },
+        "password": {
+            "placeholder": "senha",
+            "label": "Senha"
+        },
+        "button": "Cadastrar",
+        "button-loading": "Cadastrando",
+        "google": "Cadastrar com Google"
+    },
+    "google-auth": "Acessar com Google",
+    "signin": {
+        "title": "Entrar",
+        "email": {
+            "placeholder": "exemplo@email",
+            "label": "E-mail"
+        },
+        "password": {
+            "placeholder": "senha",
+            "label": "Senha"
+        },
+        "button": "Entrar",
+        "button-loading": "Entrando",
+        "google": "Entrar com Google"
+    },
+    "spaces": {
+        "title": "Espaços",
+        "metadata_title": "Espaços",
+        "description": "Crie e gerencie seus espaços",
+        "form": {
+            "create": "Criar Espaço",
+            "edit": "Editar Espaço",
+            "loading_create": "Criando...",
+            "loading_edit": "Editando...",
+            "create_description": "Uma vez criado o espaço, você poderá compartilhar sua URL com outras pessoas",
+            "edit_description": "Edite os detalhes do espaço. Uma vez feito isso, as alterações serão refletidas",
+            "name_label": "Nome",
+            "name_placeholder": "Espaço do João",
+            "subject_label": "Assunto",
+            "subject_placeholder": "Revisão de matemática",
+            "url_label": "URL personalizada",
+            "url_placeholder": "joao-revisao-matematica",
+            "activation_times": "Horários de Ativação",
+            "add_time": "Adicionar horário",
+            "cancel": "Cancelar",
+            "days_placeholder": "Selecione o dia",
+            "hours_abbr": "h",
+            "days": {
+                "monday": "Segunda-feira",
+                "tuesday": "Terça-feira",
+                "wednesday": "Quarta-feira",
+                "thursday": "Quinta-feira",
+                "friday": "Sexta-feira",
+                "saturday": "Sábado",
+                "sunday": "Domingo"
+            }
+        },
+        "activate": {
+            "activate_title": "Ativar {name}",
+            "deactivate_title": "Desativar {name}",
+            "activate_description": "Quando ativado, os usuários podem entrar na fila deste espaço.",
+            "deactivate_description": "Quando desativado, os usuários não podem entrar na fila deste espaço.",
+            "activating": "Ativando espaço...",
+            "activated": "Espaço ativado",
+            "deactivating": "Desativando espaço...",
+            "deactivated": "Espaço desativado",
+            "activate_queue_only": "Ativar apenas fila",
+            "queue_activated": "Fila ativada",
+            "activate_button": "Ativar",
+            "deactivate_button": "Desativar",
+            "activating_button": "Ativando...",
+            "deactivating_button": "Desativando..."
+        },
+        "delete": {
+            "title": "Excluir {name}",
+            "description": "Esta ação não pode ser desfeita. Isso excluirá permanentemente o espaço e todos os dados associados.",
+            "deleting": "Excluindo espaço...",
+            "success": "Espaço excluído",
+            "confirm": "Excluir",
+            "loading": "Excluindo..."
+        },
+        "detail": {
+            "not_found_title": "Espaço não encontrado",
+            "current_speaker": "Orador Atual",
+            "no_current_speaker": "Ninguém está falando no momento",
+            "members_queue": "Fila de Membros",
+            "no_people_waitlist": "Ninguém está na lista de espera no momento",
+            "be_first": "Seja o primeiro a entrar!",
+            "waitlist_not_active": "A lista de espera não está ativa"
+        },
+        "queue": {
+            "join_waitlist": "Entrar na Fila",
+            "join_title": "Entrar na Lista de Espera",
+            "name_label": "Nome",
+            "name_placeholder": "Seu nome",
+            "subject_label": "Assunto",
+            "subject_placeholder": "O que você gostaria de discutir?",
+            "joining": "Entrando na lista de espera...",
+            "joined": "Você entrou na lista de espera",
+            "error_joining": "Erro ao entrar na lista de espera",
+            "join_button": "Entrar",
+            "joining_button": "Entrando..."
+        }
+    },
+    "history": {
+        "title": "Histórico",
+        "metadata_title": "Histórico",
+        "description": "Aqui você pode ver suas sessões anteriores",
+        "not_available": "N/D",
+        "duration_format": "{hours}h {minutes}m",
+        "table": {
+            "queue_id": "ID",
+            "status": "Status",
+            "space": "Espaço",
+            "created_at": "Criado",
+            "started_at": "Iniciado",
+            "ended_at": "Finalizado",
+            "duration": "Duração"
+        },
+        "status": {
+            "active": "Ativo",
+            "ended": "Finalizado"
+        }
+    },
+    "layout": {
+        "links": {
+            "home": "início",
+            "signup": "cadastrar",
+            "login": "entrar",
+            "dashboard": "painel",
+            "logout": "sair",
+            "spaces": "espaços",
+            "history": "histórico"
+        },
+        "locale": {
+            "loading": "Mudando idioma..."
+        },
+        "footer": {
+            "copyright": "Todos os direitos reservados.",
+            "created_by": "Criado por"
+        },
+        "drawer": {
+            "close": "fechar",
+            "menu": "Menu"
+        }
+    },
+    "errors": {
+        "space_id_required": "ID do espaço é obrigatório",
+        "space_not_exist_or_inactive": "O espaço não existe ou está inativo",
+        "space_already_active": "O espaço já está ativo",
+        "space_already_has_active_queue": "O espaço já tem uma fila ativa",
+        "space_name_required": "Nome do espaço é obrigatório",
+        "space_name_too_short": "O nome do espaço é muito curto; deve ter pelo menos 2 caracteres",
+        "space_subject_required": "Assunto do espaço é obrigatório",
+        "space_subject_too_short": "O assunto do espaço é muito curto; deve ter pelo menos 2 caracteres",
+        "creating_new_queue": "Erro ao criar nova fila",
+        "activating_new_queue": "Erro ao ativar nova fila",
+        "activating_space": "Erro ao ativar o espaço",
+        "creating_queue_for_space": "Erro ao criar fila para o espaço",
+        "activating_space_generic": "Erro ao ativar o espaço",
+        "getting_user_supabase": "Erro ao obter usuário do Supabase",
+        "user_not_found_db": "Usuário não encontrado no banco de dados",
+        "creating_space_try_later": "Erro ao criar espaço. Por favor, tente mais tarde",
+        "creating_space": "Erro ao criar espaço",
+        "deactivating_space": "Erro ao desativar espaço",
+        "finding_active_queue": "Nenhuma fila ativa encontrada",
+        "ending_queue_for_space": "Erro ao finalizar fila do espaço",
+        "deactivating_space_generic": "Erro ao desativar espaço",
+        "deleting_activation_time": "Erro ao excluir horário de ativação",
+        "deleting_activation_time_generic": "Erro ao excluir horário de ativação",
+        "delete_space_not_found": "Espaço não encontrado",
+        "delete_space_update_failed": "Erro ao atualizar status do espaço",
+        "deleting_space": "Erro ao excluir espaço",
+        "invalid_user_data": "Dados de usuário inválidos",
+        "updating_user_profile": "Erro ao atualizar perfil de usuário",
+        "invalid_space_data": "Dados do espaço inválidos",
+        "editing_space": "Erro ao editar espaço",
+        "editing_space_generic": "Erro ao editar espaço",
+        "no_available_spaces": "Não há espaços disponíveis",
+        "getting_available_spaces": "Erro ao obter espaços disponíveis",
+        "getting_space_report": "Erro ao obter relatório de espaços",
+        "no_spaces_found": "Nenhum espaço encontrado",
+        "space_not_found": "Espaço não encontrado",
+        "getting_space": "Erro ao obter espaço",
+        "getting_user_spaces": "Erro ao obter espaços do usuário",
+        "email_required": "E-mail é obrigatório",
+        "user_not_found": "Usuário não encontrado",
+        "getting_user": "Erro ao obter usuário",
+        "member_not_found": "Membro não encontrado",
+        "no_next_member": "Não há próximo membro na fila",
+        "updating_current_position": "Erro ao atualizar posição atual",
+        "updating_next_position": "Erro ao atualizar próxima posição",
+        "moving_down_member": "Erro ao mover membro para baixo",
+        "no_previous_member": "Não há membro anterior na fila",
+        "updating_previous_position": "Erro ao atualizar posição anterior",
+        "moving_up_member": "Erro ao mover membro para cima",
+        "updating_current_speaker": "Erro ao atualizar orador atual",
+        "no_next_speaker": "Não há próximo orador na fila",
+        "updating_next_speaker": "Erro ao atualizar próximo orador",
+        "next_speaker_generic": "Erro ao passar para o próximo orador",
+        "email_password_required": "E-mail e senha são obrigatórios",
+        "invalid_credentials": "Credenciais inválidas",
+        "signin_failed": "Erro ao entrar",
+        "signout_failed": "Erro ao sair",
+        "signout_generic": "Erro ao sair",
+        "signup_failed": "Erro ao cadastrar",
+        "creating_user": "Erro ao criar usuário",
+        "signup_generic": "Erro durante o cadastro",
+        "name_subject_required": "Nome e assunto são obrigatórios",
+        "joining_queue": "Erro ao entrar na fila",
+        "joining_queue_generic": "Erro ao entrar na fila",
+        "google_login_failed": "Erro ao entrar com Google",
+        "google_signup_failed": "Erro ao cadastrar com Google",
+        "google_auth_generic": "Erro com autenticação do Google",
+        "no_queue_members": "Nenhum membro na fila encontrado",
+        "no_current_speaker": "Nenhum orador atual",
+        "source_space_not_found": "Espaço de origem não encontrado",
+        "source_space_no_active_queue": "Espaço de origem não tem fila ativa",
+        "target_space_not_found": "Espaço de destino não encontrado",
+        "target_space_has_active_queue": "Espaço de destino já tem uma fila ativa",
+        "target_space_already_active": "Espaço de destino já está ativo",
+        "activating_target_space": "Erro ao ativar espaço de destino",
+        "transferring_queue": "Erro ao transferir fila",
+        "transferring_members": "Erro ao transferir membros",
+        "deactivating_source_space": "Erro ao desativar espaço de origem",
+        "transferring_queue_generic": "Erro ao transferir fila",
+        "queue_id_required": "ID da fila é obrigatório",
+        "logged_user_id_required": "ID do usuário conectado é obrigatório",
+        "new_space_id_required": "ID do novo espaço é obrigatório",
+        "queue_not_found_or_inactive": "Fila não encontrada ou inativa",
+        "current_space_not_found_or_inactive": "Espaço atual não encontrado ou inativo",
+        "new_space_not_found": "Novo espaço não encontrado",
+        "queue_no_members": "A fila não tem membros",
+        "no_permission_to_transfer_queue": "Sem permissão para transferir fila",
+        "cannot_transfer_to_own_space": "Não é possível transferir para seu próprio espaço",
+        "updating_current_queue": "Erro ao atualizar fila atual",
+        "name_required": "Nome é obrigatório",
+        "slug_required": "URL personalizada é obrigatória"
+    },
+    "success": {
+        "queue_transferred": "Fila transferida com sucesso"
+    }
+}
