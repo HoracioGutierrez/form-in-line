@@ -5,10 +5,13 @@ import { ActivationDay } from "@/lib/types"
 import { prisma } from "@/prisma/prisma-client"
 import { revalidatePath } from "next/cache"
 import { getI18n } from "@/locales/server"
+import { getTranslations } from "next-intl/server"
+import { ValidationError } from "yup"
 
 export const handleEditSpace = async (formData: FormData, spaceId: number, activationDays: ActivationDay[]) => {
-    //const t = await getI18n();
-    
+    const t = await getTranslations("errors")
+
+
     try {
         const name = formData.get('name') as string
         const subject = formData.get('subject') as string
@@ -16,7 +19,6 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
 
         const space = { name, subject, slug }
 
-        //if (!spaceSchema.isValidSync(space)) throw new Error(t('errors.invalid_space_data'));
         await spaceSchema.validate(space, { abortEarly: true })
 
         const editedSpace = await prisma.spaces.update({
@@ -55,8 +57,7 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
             }
         }
 
-        //if (!editedSpace) throw new Error(t('errors.editing_space'));
-        if (!editedSpace) throw new Error("Error editing space")
+        if (!editedSpace) throw new Error(t('errors.editing_space'));
 
         revalidatePath('/spaces')
 
@@ -67,6 +68,14 @@ export const handleEditSpace = async (formData: FormData, spaceId: number, activ
         }
 
     } catch (error) {
+        if (error instanceof ValidationError) {
+            return {
+                data: null,
+                errorMessage: t(`${error.errors[0]}`),
+                hasError: true
+            }
+        }
+
         if (error instanceof Error) {
             throw new Error(error.message)
         }
