@@ -78,7 +78,9 @@
         "button-loading": "Cadastrando",
         "google": "Cadastrar com Google"
     },
-    "google-auth": "Acessar com Google",
+    "google": {
+        "auth": "Autenticar com Google"
+    },
     "signin": {
         "title": "Entrar",
         "email": {

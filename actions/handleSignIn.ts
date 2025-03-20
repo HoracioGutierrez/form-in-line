@@ -6,7 +6,7 @@ import { getI18n } from "@/locales/server"
 
 export const handleSignIn = async (formData: FormData) => {
     //const t = await getI18n();
-    
+
     try {
         const email = formData.get('email') as string
         const password = formData.get('password') as string
@@ -17,6 +17,7 @@ export const handleSignIn = async (formData: FormData) => {
         }
 
         const supabase = await createClient()
+        
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password

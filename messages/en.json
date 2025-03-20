@@ -78,7 +78,9 @@
         "button-loading": "Signing up",
         "google": "Sign Up with Google"
     },
-    "google-auth": "Access with Google",
+    "google": {
+        "auth": "Access with Google"
+    },
     "signin": {
         "title": "Sign In",
         "email": {

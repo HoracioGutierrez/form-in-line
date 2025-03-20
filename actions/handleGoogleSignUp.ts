@@ -1,9 +1,7 @@
 "use server"
 
-import { prisma } from "@/prisma/prisma-client"
 import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
-import { getI18n } from "@/locales/server"
 
 export const handleGoogleSignUp = async () => {
     const supabase = await createClient()

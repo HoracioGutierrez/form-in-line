@@ -16,24 +16,7 @@ type SpaceDetailsPageProps = {
     params: Promise<{ slug: string }>,
 }
 
-/* export async function generateMetadata({ params }: any): Promise<Metadata> {
-    const { slug } = await params;
-    const { data } = await getSpaceBySlug(slug);
-    const t = await getI18n();
-    
-    if (!data) {
-        return {
-            title: t("detail.not_found_title"),
-        };
-    }
-    
-    return {
-        title: data.name,
-    };
-} */
-
 async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
-    //const t = await getI18n()
     const t = await getTranslations("spaces")
     const { slug } = await params
     const { data } = await getSpaceBySlug(slug)
@@ -54,8 +37,12 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
                 <div>
                     <h2 className="font-bold text-2xl capitalize">{data.name}</h2>
                     <p className="text-muted-foreground">{data.subject}</p>
-                    <SpaceForm icon={<Edit />} variant="ghost" space={data} edit />
-                    <ActivateFormButton space={data} />
+                    {loggedUser && loggedUser.id == data.users_id && (
+                        <>
+                            <SpaceForm icon={<Edit />} variant="ghost" space={data} edit />
+                            <ActivateFormButton space={data} />
+                        </>
+                    )}
                 </div>
             </div>
             <div className="mb-10">
