@@ -8,7 +8,6 @@ import { spaces } from "@/prisma/generated/prisma-client-js"
 import toast from "react-hot-toast"
 import { handleDeleteSpace } from "@/actions/handleDeleteSpace"
 import DeleteFormButton from "./delete-form-button"
-import { useI18n } from "@/locales/client"
 import { useTranslations } from "next-intl"
 
 type DeleteSpaceButtonProps = {
@@ -16,8 +15,8 @@ type DeleteSpaceButtonProps = {
 }
 
 function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
-    //const t = useI18n();
     const t = useTranslations("spaces")
+    const q = useTranslations("tooltip")
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -37,7 +36,7 @@ function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Borrar espacio">
+                <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={q("queue.deleteSpace")}>
                     <Trash />
                 </Button>
             </DialogTrigger>

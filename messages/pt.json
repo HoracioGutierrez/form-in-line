@@ -317,5 +317,17 @@
     },
     "success": {
         "queue_transferred": "Fila transferida com sucesso"
+    },
+    "tooltip": {
+        "queue": {
+            "down": "Mover para baixo na fila",
+            "up": "Mover para cima na fila",
+            "toggleSpace": "Ativar/Desativar espaço",
+            "leave": "Sair da fila",
+            "deleteSpace": "Excluir espaço",
+            "transfer": "Transferir fila para outro espaço",
+            "queueAmount": "Cantidad de pessoas na fila",
+            "enterSpace": "Entrar no espaço"
+        }
     }
 }

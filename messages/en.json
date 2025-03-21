@@ -313,5 +313,17 @@
     },
     "success": {
         "queue_transferred": "Queue transferred successfully"
+    },
+    "tooltip" : {
+        "queue": {
+            "down": "Move down in line one position",
+            "up": "Move up in line one position",
+            "toggleSpace": "Activate/Deactivate space",
+            "leave": "Leave the queue",
+            "deleteSpace": "Delete space",
+            "transfer": "Transfer queue members to another space",
+            "queueAmount": "Number of people in the queue",
+            "enterSpace": "Enter the space"
+        }
     }
 }

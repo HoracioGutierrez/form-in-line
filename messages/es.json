@@ -173,7 +173,7 @@
             "join_button": "Unirse",
             "joining_button": "Uniéndose..."
         },
-        "item" : {
+        "item": {
             "activeTag": "Activo",
             "inactiveTag": "Inactivo",
             "activeQueue": "Lista de Espera Activa",
@@ -317,5 +317,17 @@
     },
     "success": {
         "queue_transferred": "Cola transferida exitosamente"
+    },
+    "tooltip": {
+        "queue": {
+            "down": "Bajar de posición en la fila",
+            "up": "Subir de posición en la fila",
+            "toggleSpace": "Activar/Desactivar espacio",
+            "leave": "Salir de la fila",
+            "deleteSpace": "Eliminar espacio",
+            "transfer": "Transferir usuarios restantes a otro espacio",
+            "queueAmount": "Cantidad de miembros en la fila",
+            "enterSpace": "Entrar al espacio"
+        }
     }
 }

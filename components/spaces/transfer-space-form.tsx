@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import TransferSpaceButton from "./transfer-space-button"
 import toast from "react-hot-toast"
 import { handleTransferQueue } from "@/actions/handleTransferQueue"
+import { useTranslations } from "next-intl"
 
 type TransferSpaceFormProps = {
     spaceId: number
@@ -23,6 +24,7 @@ function TransferSpaceForm({ spaceId, userId, queueId }: TransferSpaceFormProps)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [availableSpaces, setAvailableSpaces] = useState<spaces[]>([])
     const [selectedSpace, setSelectedSpace] = useState("")
+    const t = useTranslations("tooltip")
 
     const handleGetAvailableSpaces = async () => {
         const spaces = await getAvailableSpaces(spaceId, userId)
@@ -66,7 +68,7 @@ function TransferSpaceForm({ spaceId, userId, queueId }: TransferSpaceFormProps)
     return (
         <Dialog open={isModalOpen} onOpenChange={handleToggleModal}>
             <DialogTrigger asChild>
-                <Button variant="ghost" data-tooltip-id="tooltip" data-tooltip-content="Transferir usuarios restantes a otro espacio">
+                <Button variant="ghost" data-tooltip-id="tooltip" data-tooltip-content={t("queue.transfer")}>
                     <ArrowLeftRight />
                 </Button>
             </DialogTrigger>

@@ -26,6 +26,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const { data: authUser } = await supabase.auth.getUser()
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
     const t = await getTranslations("spaces")
+    const q = await getTranslations("tooltip")
 
     const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
@@ -65,11 +66,11 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     )}
                 </div>
                 <div className="flex gap-2 items-center">
-                    <Button variant="ghost" className="flex items-center gap-1" data-tooltip-id="tooltip" data-tooltip-content="Cantidad de miembros en la cola">
+                    <Button variant="ghost" className="flex items-center gap-1" data-tooltip-id="tooltip" data-tooltip-content={q("queue.queueAmount")}>
                         {space.queue_members.length}
                         <Users className="size-4" />
                     </Button>|
-                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Ingresar al espacio">
+                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={q("queue.enterSpace")}>
                         <Link className="block" href={`/spaces/${space.slug}`}>
                             <LogIn className="size-5" />
                         </Link>

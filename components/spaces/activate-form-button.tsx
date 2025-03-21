@@ -10,7 +10,6 @@ import ActivateButton from "./activate-button"
 import { handleDeactivateSpace } from "@/actions/handleDeactivateSpace"
 import { handleActivateSpace } from "@/actions/handleActivateSpace"
 import { handleActivateNewQueue } from "@/actions/handleActivateNewQueue"
-import { useI18n } from "@/locales/client"
 import { useTranslations } from "next-intl"
 
 type ActivateFormButtonProps = {
@@ -22,8 +21,8 @@ type ActivateFormButtonProps = {
 }
 
 function ActivateFormButton({ space }: ActivateFormButtonProps) {
-    //const t = useI18n();
     const t = useTranslations("spaces")
+    const q = useTranslations("tooltip")
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -68,7 +67,7 @@ function ActivateFormButton({ space }: ActivateFormButtonProps) {
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={`Activar/desactivar espacio`}>
+                <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={q("queue.toggleSpace")}>
                     {space.is_active ? <ZapOff /> : <ZapIcon />}
                 </Button>
             </DialogTrigger>

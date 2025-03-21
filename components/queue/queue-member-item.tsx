@@ -3,6 +3,7 @@ import { Button } from "../ui/button"
 import { Trash } from "lucide-react"
 import MoveUpSpeakerForm from "./moveup-speaker-form"
 import MoveDownSpeakerForm from "./movedown-speaker-form"
+import { getTranslations } from "next-intl/server"
 
 type QueueMemberItemProps = {
     member: queue_members & {
@@ -11,7 +12,10 @@ type QueueMemberItemProps = {
     membersLength: number
 }
 
-function QueueMemberItem({ member, membersLength }: QueueMemberItemProps) {
+async function QueueMemberItem({ member, membersLength }: QueueMemberItemProps) {
+
+    const t = await getTranslations("tooltip")
+
     return (
         <div className="border dark:border-muted p-4 rounded-lg flex items-center justify-between mb-4">
             <div>
@@ -24,7 +28,7 @@ function QueueMemberItem({ member, membersLength }: QueueMemberItemProps) {
             <div className="flex gap-2 flex-col items-end">
                 <p className="text-muted px-2 py-1 bg-blue-300 rounded-md">{`#${member.position}`}</p>
                 <div className="flex gap-2 items-center">
-                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Remove from queue">
+                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={t("queue.leave")}>
                         <Trash />
                     </Button>
                     {member.is_current === true && member.position == 1 && (

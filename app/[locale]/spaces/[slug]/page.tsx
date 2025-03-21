@@ -5,11 +5,9 @@ import NextSpeakerForm from "@/components/queue/next-speaker-form"
 import QueueMemberItem from "@/components/queue/queue-member-item"
 import ActivateFormButton from "@/components/spaces/activate-form-button"
 import SpaceForm from "@/components/spaces/SpaceForm"
-import { getI18n } from "@/locales/server"
 import { createClient } from "@/supabase/server"
 import { Edit } from "lucide-react"
 import { redirect } from "next/navigation"
-import type { Metadata } from "next"
 import { getTranslations } from "next-intl/server"
 
 type SpaceDetailsPageProps = {

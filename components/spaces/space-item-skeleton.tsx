@@ -20,15 +20,15 @@ function SpaceItemSkeleton() {
             <div className="flex gap-2 items-center flex-col xs:flex-row xs:justify-between">
                 <div className="flex gap-2 items-center">
 
-                    <Button variant="ghost" data-tooltip-id="tooltip" data-tooltip-content="Transferir usuarios restantes a otro espacio">
+                    <Button variant="ghost" >
                         <ArrowLeftRight />
                     </Button>
                 </div>
                 <div className="flex gap-2 items-center">
-                    <Button variant="ghost" className="flex items-center gap-1" data-tooltip-id="tooltip" data-tooltip-content="Cantidad de miembros en la cola">
+                    <Button variant="ghost" className="flex items-center gap-1">
                         <Users className="size-4" />
                     </Button>|
-                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Ingresar al espacio">
+                    <Button variant="ghost" size="icon" className="p-0" >
                         <LogIn className="size-5" />
                     </Button>
                 </div>
