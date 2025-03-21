@@ -1,31 +1,39 @@
 "use server"
 
 import { prisma as client, prisma } from "@/prisma/prisma-client"
-import { getI18n } from "@/locales/server"
 
-export const handleGetAllSpaces = async () => {
-    //const t = await getI18n();
-    
+export const handleGetAllSpaces = async (type: string) => {
+
+    const whereFilters: { [key: string]: boolean } = {
+        is_deleted: false,
+    }
+
+    if (type === "active") {
+        whereFilters.is_active = true
+    }
+
+    if (type === "inactive") {
+        whereFilters.is_active = false
+    }
+
     try {
 
         const spaces = await client.spaces.findMany({
-            where: {
-                is_deleted: false
-            },
+            where: whereFilters,
             include: {
                 spaces_activation_times: true,
                 queue_members: {
                     where: {
                         has_spoken: false,
-                        position : {
+                        position: {
                             gt: 0
                         },
-                        queue_ended : false
+                        queue_ended: false
                     }
                 },
-                queues : {
-                    where : {
-                        is_active : true,
+                queues: {
+                    where: {
+                        is_active: true,
                     }
                 }
             }

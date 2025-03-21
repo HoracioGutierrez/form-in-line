@@ -9,6 +9,7 @@ import "./globals.css";
 import { NextIntlClientProvider, Locale, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 
 const geistSans = Geist({
@@ -49,15 +50,16 @@ async function RootLayout({ children, params }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-            <NextIntlClientProvider locale={locale}>
-              <Header />
-              <main className="p-2 md:p-4 grow flex-col flex">
+          <NextIntlClientProvider locale={locale}>
+            <Header />
+            <main className="p-2 md:p-4 grow flex-col flex">
+              <NuqsAdapter>
                 {children}
-              </main>
-              <Footer />
-              <Toaster />
-              {/* <Tooltip id="tooltip"/> */}
-            </NextIntlClientProvider>
+              </NuqsAdapter>
+            </main>
+            <Footer />
+            <Toaster />
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>
