@@ -172,6 +172,12 @@
             "error_joining": "Error al unirse a la lista de espera",
             "join_button": "Unirse",
             "joining_button": "Uniéndose..."
+        },
+        "item" : {
+            "activeTag": "Activo",
+            "inactiveTag": "Inactivo",
+            "activeQueue": "Lista de Espera Activa",
+            "inactiveQueue": "Lista de Espera Inactiva"
         }
     },
     "history": {

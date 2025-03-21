@@ -10,6 +10,7 @@ import Link from "next/link"
 import { Button } from "../ui/button"
 import TransferSpaceForm from "./transfer-space-form"
 import SpaceItemContainer from "./space-item-container"
+import { getTranslations } from "next-intl/server"
 
 type SpaceItemProps = {
     space: spaces & {
@@ -24,6 +25,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const supabase = await createClient()
     const { data: authUser } = await supabase.auth.getUser()
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
+    const t = await getTranslations("spaces")
 
     const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
@@ -39,14 +41,13 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     </p>
                 </div>
                 <div className="flex gap-2 items-center flex-col sm:flex-row">
-                    {space.queues && space.queues.length > 0 && (
-                        <div className="rounded-full px-2 py-1 text-xs bg-accent animate-pulse">active queue!</div>
-                    )}
+                    <div className="rounded-full px-2 py-1 text-xs bg-accent animate-pulse">
+                        {space.queues && space.queues.length > 0 ? t("item.activeQueue") : t("item.inactiveQueue")}</div>
                     <div className={cn(
                         "rounded-full px-2 py-1 text-xs",
                         space.is_active ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
                     )}>
-                        {space.is_active ? "active" : "inactive"}
+                        {space.is_active ? t("item.activeTag") : t("item.inactiveTag")}
                     </div>
                 </div>
             </div>

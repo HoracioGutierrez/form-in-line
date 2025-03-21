@@ -21,7 +21,14 @@ async function SpacesPage() {
         </div>
         {data.user && <SpaceForm />}
       </div>
-      <Suspense fallback={<SpaceItemSkeleton />}>
+      <Suspense fallback={(
+        <div className="flex flex-col gap-4">
+          <SpaceItemSkeleton />
+          <SpaceItemSkeleton />
+          <SpaceItemSkeleton />
+          <SpaceItemSkeleton />
+        </div>
+      )}>
         <SpacesList />
       </Suspense>
     </section>

@@ -172,6 +172,12 @@
             "error_joining": "Erro ao entrar na lista de espera",
             "join_button": "Entrar",
             "joining_button": "Entrando..."
+        },
+        "item": {
+            "activeTag": "Ativo",
+            "inactiveTag": "Inativo",
+            "activeQueue": "Fila Ativa",
+            "inactiveQueue": "Fila Inativa"
         }
     },
     "history": {

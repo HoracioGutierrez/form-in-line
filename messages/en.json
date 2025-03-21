@@ -172,6 +172,12 @@
             "error_joining": "Error joining the waitlist",
             "join_button": "Join",
             "joining_button": "Joining..."
+        },
+        "item" : {
+            "activeTag": "Active",
+            "inactiveTag": "Inactive",
+            "activeQueue": "Active Queue",
+            "inactiveQueue": "Inactive Queue"
         }
     },
     "history": {
