@@ -1,5 +1,6 @@
 import { handleGetAllSpaces } from "@/actions/handleGetAllSpaces"
 import SpaceForm from "./SpaceForm"
+import SpaceListMotion from "./space-list-motion"
 import SpaceItem from "./SpaceItem"
 
 async function SpacesList() {
@@ -17,13 +18,13 @@ async function SpacesList() {
     )
 
     return (
-        <div className="flex flex-col gap-4">
+        <SpaceListMotion>
             {data.map(space => {
                 return (
                     <SpaceItem key={space.id} space={space} />
                 )
             })}
-        </div>
+        </SpaceListMotion>
     )
 }
 export default SpacesList

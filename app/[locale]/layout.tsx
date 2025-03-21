@@ -5,12 +5,11 @@ import Header from "@/components/main-layout/header";
 import { ThemeProvider } from "@/components/main-layout/theme-provider";
 import Footer from "@/components/main-layout/footer";
 import { Toaster } from 'react-hot-toast';
-import { getCurrentLocale, getStaticParams } from "@/locales/server";
-import { I18nProviderClient } from "@/locales/client";
 import "./globals.css";
 import { NextIntlClientProvider, Locale, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +29,7 @@ export const metadata: Metadata = {
   description: "Form in line is a virtual queue app that allows you to create and manage user queues for your online classes.",
 };
 
-/* export function generateStaticParams() {
-  return getStaticParams()
-}
- */
+
 async function RootLayout({ children, params }: RootLayoutProps) {
 
   const { locale } = await params;
@@ -53,7 +49,6 @@ async function RootLayout({ children, params }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          {/* <I18nProviderClient locale={locale}> */}
             <NextIntlClientProvider locale={locale}>
               <Header />
               <main className="p-2 md:p-4 grow flex-col flex">
@@ -61,36 +56,12 @@ async function RootLayout({ children, params }: RootLayoutProps) {
               </main>
               <Footer />
               <Toaster />
+              {/* <Tooltip id="tooltip"/> */}
             </NextIntlClientProvider>
-          {/* </I18nProviderClient> */}
         </ThemeProvider>
       </body>
     </html>
   );
-
-  /* return (
-    <html lang={await getCurrentLocale() || "es"} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-dvh flex flex-col`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <I18nProviderClient locale={await getCurrentLocale() || "es"}>
-            <Header />
-            <main className="p-2 md:p-4 grow flex-col flex">
-              {children}
-            </main>
-            <Footer />
-            <Toaster />
-          </I18nProviderClient>
-        </ThemeProvider>
-      </body>
-    </html>
-  ); */
 }
 
 export default RootLayout;

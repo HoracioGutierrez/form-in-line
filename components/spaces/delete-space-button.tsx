@@ -37,7 +37,7 @@ function DeleteSpaceButton({ space }: DeleteSpaceButtonProps) {
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" size="icon" className="p-0">
+                <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Borrar espacio">
                     <Trash />
                 </Button>
             </DialogTrigger>

@@ -9,6 +9,7 @@ import ActivateFormButton from "./activate-form-button"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import TransferSpaceForm from "./transfer-space-form"
+import SpaceItemContainer from "./space-item-container"
 
 type SpaceItemProps = {
     space: spaces & {
@@ -27,7 +28,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
     const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
     return (
-        <div key={space.id} className={cn("border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1 dark:hover:bg-black/50 hover:bg-gray-100/50" ,spaceBackground )}>
+        <SpaceItemContainer spaceBackground={spaceBackground}>
             <div className="flex justify-between items-start">
                 <div className="truncate">
                     <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
@@ -63,28 +64,18 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     )}
                 </div>
                 <div className="flex gap-2 items-center">
-                    <Button variant="ghost" className="flex items-center gap-1">
+                    <Button variant="ghost" className="flex items-center gap-1" data-tooltip-id="tooltip" data-tooltip-content="Cantidad de miembros en la cola">
                         {space.queue_members.length}
                         <Users className="size-4" />
                     </Button>|
-                    <Button variant="ghost" size="icon" className="p-0">
+                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content="Ingresar al espacio">
                         <Link className="block" href={`/spaces/${space.slug}`}>
                             <LogIn className="size-5" />
                         </Link>
                     </Button>
                 </div>
             </div>
-        </div>
-    )
-
-    return (
-        <div key={space.id} className="border dark:border-muted p-4 rounded-lg bg-background shadow-sm shadow-accent hover:shadow-lg transition duration-200 hover:-translate-y-1">
-            <div className="flex justify-between">
-                <div className="flex flex-col justify-between gap-2 items-end">
-
-                </div>
-            </div>
-        </div>
+        </SpaceItemContainer>
     )
 }
 export default SpaceItem

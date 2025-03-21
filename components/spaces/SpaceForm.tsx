@@ -145,7 +145,9 @@ function SpaceForm({ buttonText, edit = false, space, icon, variant }: SpaceForm
     return (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
             <DialogTrigger asChild>
-                <Button variant={variant}>{icon ? icon : buttonText || defaultButtonText}</Button>
+                <Button variant={variant} data-tooltip-id="tooltip" data-tooltip-content={`${edit ? t('form.edit') : t('form.create')}`} >
+                    {icon ? icon : buttonText || defaultButtonText}
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

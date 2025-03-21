@@ -66,7 +66,7 @@ function TransferSpaceForm({ spaceId, userId, queueId }: TransferSpaceFormProps)
     return (
         <Dialog open={isModalOpen} onOpenChange={handleToggleModal}>
             <DialogTrigger asChild>
-                <Button variant="ghost">
+                <Button variant="ghost" data-tooltip-id="tooltip" data-tooltip-content="Transferir usuarios restantes a otro espacio">
                     <ArrowLeftRight />
                 </Button>
             </DialogTrigger>
