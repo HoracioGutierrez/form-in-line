@@ -6,7 +6,7 @@ export const filterSearchParams = {
     //latitude: parseAsFloat.withDefault(0),
     //longitude: parseAsFloat.withDefault(0)
     type : parseAsString.withDefault("all"),
-    
+    queueType : parseAsString.withDefault("all"),
 }
 
 export const loadSearchParams = createLoader(filterSearchParams)

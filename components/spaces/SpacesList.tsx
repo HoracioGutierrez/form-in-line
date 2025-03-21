@@ -3,11 +3,14 @@ import SpaceForm from "./SpaceForm"
 import SpaceListMotion from "./space-list-motion"
 import SpaceItem from "./SpaceItem"
 
+type SpacesListProps = {
+    type: string
+    queueType: string
+}
 
+async function SpacesList({ type = "all", queueType = "all" }: SpacesListProps) {
 
-async function SpacesList({ type = "all" }: { type: string }) {
-
-    const { data } = await handleGetAllSpaces(type)
+    const { data } = await handleGetAllSpaces(type, queueType)
 
     if (data.length === 0) return (
         <div className="border-dashed border dark:border-muted p-4 rounded-lg">
