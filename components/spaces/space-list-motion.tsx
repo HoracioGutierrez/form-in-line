@@ -16,7 +16,7 @@ function SpaceListMotion({ children }: SpaceListMotionProps) {
     }
 
     return (
-        <motion.div className="flex flex-col gap-4" initial="initial" animate="animate" exit="exit" variants={variants}>
+        <motion.div className="flex flex-col gap-4 grow" initial="initial" animate="animate" exit="exit" variants={variants}>
             {children}
         </motion.div>
     )

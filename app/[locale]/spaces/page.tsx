@@ -17,7 +17,7 @@ async function SpacesPage({ searchParams }: SpaceProps) {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
-  const { type , queueType } = await loadSearchParams(searchParams)
+  const { type, queueType, page, limit } = await loadSearchParams(searchParams)
 
   return (
     <section className="grow flex flex-col">
@@ -41,7 +41,7 @@ async function SpacesPage({ searchParams }: SpaceProps) {
             <SpaceItemSkeleton />
           </div>
         )}>
-        <SpacesList type={type} queueType={queueType}/>
+        <SpacesList type={type} queueType={queueType} page={page} limit={limit} />
       </Suspense>
     </section>
   )

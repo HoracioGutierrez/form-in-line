@@ -7,6 +7,8 @@ export const filterSearchParams = {
     //longitude: parseAsFloat.withDefault(0)
     type : parseAsString.withDefault("all"),
     queueType : parseAsString.withDefault("all"),
+    page : parseAsString.withDefault("1"),
+    limit : parseAsString.withDefault("10"),
 }
 
 export const loadSearchParams = createLoader(filterSearchParams)

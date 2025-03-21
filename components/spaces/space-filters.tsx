@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils'
 function SpaceFilters() {
     const [type, setType] = useQueryState("type", { ...parseAsString.withDefault("all"), shallow: false })
     const [queueType, setQueueType] = useQueryState("queueType", { ...parseAsString.withDefault("all"), shallow: false })
-    console.log("🚀 ~ SpaceFilters ~ queueType:", queueType)
 
     return (
         <div className="flex gap-2 mb-4">

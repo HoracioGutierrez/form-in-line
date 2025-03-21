@@ -2,17 +2,20 @@ import { handleGetAllSpaces } from "@/actions/handleGetAllSpaces"
 import SpaceForm from "./SpaceForm"
 import SpaceListMotion from "./space-list-motion"
 import SpaceItem from "./SpaceItem"
+import PaginationFilter from "./pagination-filter"
 
 type SpacesListProps = {
     type: string
     queueType: string
+    page?: string
+    limit?: string
 }
 
-async function SpacesList({ type = "all", queueType = "all" }: SpacesListProps) {
+async function SpacesList({ type = "all", queueType = "all", page = "1", limit = "10" }: SpacesListProps) {
 
-    const { data } = await handleGetAllSpaces(type, queueType)
+    const { data: { spaces, total } } = await handleGetAllSpaces(type, queueType, page, limit)
 
-    if (data.length === 0) return (
+    if (spaces.length === 0) return (
         <div className="border-dashed border dark:border-muted p-4 rounded-lg">
             <p className="text-muted-foreground text-center">There's no spaces created yet!</p>
             <p className="text-muted-foreground text-center mb-8">Start by creating a new space and share it's URL to someone else</p>
@@ -23,13 +26,16 @@ async function SpacesList({ type = "all", queueType = "all" }: SpacesListProps) 
     )
 
     return (
-        <SpaceListMotion>
-            {data.map(space => {
-                return (
-                    <SpaceItem key={space.id} space={space} />
-                )
-            })}
-        </SpaceListMotion>
+        <>
+            <SpaceListMotion>
+                {spaces.map(space => {
+                    return (
+                        <SpaceItem key={space.id} space={space} />
+                    )
+                })}
+            </SpaceListMotion>
+            <PaginationFilter dataLength={total} />
+        </>
     )
 }
 export default SpacesList

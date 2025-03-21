@@ -2,7 +2,7 @@
 
 import { prisma as client, prisma } from "@/prisma/prisma-client"
 
-export const handleGetAllSpaces = async (type: string, queueType: string) => {
+export const handleGetAllSpaces = async (type: string, queueType: string, page: string, limit: string) => {
 
     const whereFilters: { [key: string]: any } = {
         is_deleted: false,
@@ -52,30 +52,44 @@ export const handleGetAllSpaces = async (type: string, queueType: string) => {
                         is_active: true,
                     }
                 }
-            }
+            },
+            take: Number(limit),
+            skip: Number(page) === 1 ? 0 : Number(page) * Number(limit) - Number(limit),
         })
-        console.log("🚀 ~ handleGetAllSpaces ~ spaces:", spaces)
 
         if (!spaces) {
             //throw new Error(t('errors.no_spaces_found'));
             throw new Error("No spaces found");
         }
 
+        const spacesTotal = await client.spaces.count({
+            where: whereFilters,
+        })
+
         return {
-            data: spaces,
+            data: {
+                spaces,
+                total: spacesTotal,
+            },
             hasError: false,
             errorMessage: "",
         }
     } catch (error) {
         if (error instanceof Error) {
             return {
-                data: [],
+                data: {
+                    spaces: [],
+                    total: 0,
+                },
                 hasError: true,
                 errorMessage: error.message,
             }
         }
         return {
-            data: [],
+            data: {
+                spaces: [],
+                total: 0,
+            },
             hasError: true,
             //errorMessage: t('errors.getting_spaces'),
             errorMessage: "Error getting spaces",

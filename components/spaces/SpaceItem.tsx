@@ -37,7 +37,7 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
                         {space.name}
                     </h2>
-                    <p className="text-muted-foreground mb-8 truncate text-sm lg:text-base">
+                    <p className="text-muted-foreground truncate text-sm lg:text-base">
                         {space.subject}
                     </p>
                 </div>
