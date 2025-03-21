@@ -8,7 +8,7 @@ function MoveDownSpeakerButton() {
 
     const { pending } = useFormStatus()
     return (
-        <Button type="submit" variant="ghost">
+        <Button type="submit" variant="ghost" data-tooltip-id="tooltip" data-tooltip-content="Bajar de posición">
             {pending ? <Loader className="animate-spin" /> : <ArrowDown />}
         </Button>
     )
