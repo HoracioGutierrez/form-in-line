@@ -8,7 +8,7 @@ function SpaceFilters() {
     const [queueType, setQueueType] = useQueryState("queueType", { ...parseAsString.withDefault("all"), shallow: false })
 
     return (
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-4 flex-wrap">
             <Button onClick={() => setType("all")} size="sm" variant={"secondary"} className={cn(type === "all" && "bg-primary text-primary-foreground")}>
                 all
             </Button>

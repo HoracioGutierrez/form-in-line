@@ -11,6 +11,7 @@ import { Button } from "../ui/button"
 import TransferSpaceForm from "./transfer-space-form"
 import SpaceItemContainer from "./space-item-container"
 import { getTranslations } from "next-intl/server"
+import { DateTime } from "luxon"
 
 type SpaceItemProps = {
     space: spaces & {
@@ -30,9 +31,15 @@ async function SpaceItem({ space }: SpaceItemProps) {
 
     const spaceBackground = space.is_active ? "hover:shadow-green-500/20" : "hover:shadow-red-500/20"
 
+    const formatFromUTC = (date: string | null) => {
+        if (!date) return t("not_available")
+        const localDateTime = DateTime.fromISO(date, { zone: "utc" }).setZone(Intl.DateTimeFormat().resolvedOptions().timeZone);
+        return localDateTime.toFormat("HH:mm")
+    }
+
     return (
         <SpaceItemContainer spaceBackground={spaceBackground}>
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start mb-4">
                 <div className="truncate">
                     <h2 className="text-xl lg:text-2xl font-bold leading-none mb-1 truncate">
                         {space.name}
@@ -52,17 +59,40 @@ async function SpaceItem({ space }: SpaceItemProps) {
                     </div>
                 </div>
             </div>
-            <div className="flex gap-2 items-center flex-col xs:flex-row xs:justify-between">
-                <div className="flex gap-2 items-center">
-                    {loggedUser && space.users_id == loggedUser.id && (
-                        <>
-                            {space.queues && space.queues.length > 0 && (
-                                <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
-                            )}
-                            <DeleteSpaceButton space={space} />
-                            <SpaceForm icon={<Edit />} variant="ghost" space={space} edit />
-                            <ActivateFormButton space={space} />
-                        </>
+            <div className="flex gap-2 items-end flex-col xs:flex-row xs:justify-between">
+                <div className="flex gap-2 flex-col">
+                    <div className="flex gap-2 flex-wrap">
+                        {loggedUser && space.users_id == loggedUser.id && (
+                            <>
+                                {space.queues && space.queues.length > 0 && (
+                                    <TransferSpaceForm spaceId={space.id} userId={loggedUser.id} queueId={space.queues[0].id} />
+                                )}
+                                <DeleteSpaceButton space={space} />
+                                <SpaceForm icon={<Edit />} variant="ghost" space={space} edit />
+                                <ActivateFormButton space={space} />
+                            </>
+                        )}
+                    </div>
+                    {space.spaces_activation_times && space.spaces_activation_times.length > 0 && (
+                        <div className="flex gap-2 items-center flex-wrap">
+                            {space.spaces_activation_times.sort((a, b) => {
+                                const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                                const aIndex = days.indexOf(a.day_of_week)
+                                const bIndex = days.indexOf(b.day_of_week)
+                                return aIndex - bIndex
+                            }).map((activationTime) => {
+                                return (
+                                    <div
+                                        className="rounded-full px-2 py-1 text-xs bg-accent animate-pulse"
+                                        key={activationTime.id}
+                                        data-tooltip-id="tooltip"
+                                        data-tooltip-content={formatFromUTC(activationTime.start_time) + "hs"}
+                                    >
+                                        {activationTime.day_of_week}
+                                    </div>
+                                )
+                            })}
+                        </div>
                     )}
                 </div>
                 <div className="flex gap-2 items-center">
