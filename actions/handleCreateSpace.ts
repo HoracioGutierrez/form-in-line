@@ -6,6 +6,7 @@ import { createClient } from "@/supabase/server"
 import { revalidatePath } from "next/cache"
 import { getTranslations } from "next-intl/server"
 import { ValidationError } from "yup"
+import { formatError } from "@/lib/errors"
 
 export const handleCreateSpace = async (formData: FormData, activationDays: ActivationDay[]) => {
     const t = await getTranslations("errors")
@@ -72,20 +73,12 @@ export const handleCreateSpace = async (formData: FormData, activationDays: Acti
         }
 
     } catch (error) {
-        if(error instanceof ValidationError){
-            return {
-                data: null,
-                errorMessage: t(`${error.errors[0]}`),
-                hasError: true
-            }
+        if (error instanceof ValidationError) {
+            return formatError({ error: t(`${error.errors[0]}`) })
         }
 
         if (error instanceof Error) {
-            return {
-                data: null,
-                errorMessage: error.message,
-                hasError: true
-            }
+            return formatError({ error: error.message })
         }
 
         return {
