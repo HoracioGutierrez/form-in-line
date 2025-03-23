@@ -33,7 +33,7 @@ export const handleActivateNewQueue = async (spaceId: number) => {
 
         if (space.is_active) {
             //throw new Error(t("errors.space_already_active"));
-            throw new Error("Space not exist or inactive");
+            throw new Error("Space is already active and should have a queue");
         }
 
         if (space.queues.length > 0) {
