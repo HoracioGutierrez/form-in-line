@@ -93,7 +93,10 @@
         },
         "button": "Entrar",
         "button-loading": "Entrando",
-        "google": "Entrar com Google"
+        "google": "Entrar com Google",
+        "forgot_password": {
+            "label": "Esqueci minha senha"
+        }
     },
     "spaces": {
         "title": "Espaços",

@@ -25,17 +25,32 @@ export const handleSignIn = async (formData: FormData) => {
 
         if (error) {
             //throw new Error(t("errors.invalid_credentials"))
-            throw new Error("Invalid credentials")
+            //throw new Error("Invalid credentials")
+            return {
+                data : null,
+                hasError : true,
+                errorMessage : error.message
+            }
         }
 
         redirect("/dashboard")
 
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error(error.message)
+            //throw new Error(error.message)
+            return {
+                data : null,
+                hasError : true,
+                errorMessage : error.message
+            }
         }
 
         //throw new Error(t("errors.signin_failed"))
-        throw new Error("Sign in failed")
+        //throw new Error("Sign in failed")
+        return {
+            data : null,
+            hasError : true,
+            errorMessage : "Sign in failed"
+        }
     }
 }

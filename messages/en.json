@@ -93,7 +93,10 @@
         },
         "button": "Sign In",
         "button-loading": "Signing in",
-        "google": "Sign In with Google"
+        "google": "Sign In with Google",
+        "forgot_password": {
+            "label": "Forgot Password?"
+        }
     },
     "spaces": {
         "title": "Spaces",

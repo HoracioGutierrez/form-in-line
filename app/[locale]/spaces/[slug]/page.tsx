@@ -18,6 +18,7 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
     const t = await getTranslations("spaces")
     const { slug } = await params
     const { data } = await getSpaceBySlug(slug)
+    console.log("🚀 ~ SpaceDetailsPage ~ data:", data)
     const supabase = await createClient()
     const { data: authUser } = await supabase.auth.getUser()
     const { data: loggedUser } = await getUserByEmail(authUser.user?.email || "")
@@ -25,6 +26,7 @@ async function SpaceDetailsPage({ params }: SpaceDetailsPageProps) {
     if (!data) {
         redirect("/spaces")
     }
+
 
     const currentSpeaker = data.queue_members.find(member => member.is_current)
     const hasActiveQueue = data.queues.length > 0 && data.queues[0].is_active

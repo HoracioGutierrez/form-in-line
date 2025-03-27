@@ -93,7 +93,10 @@
         },
         "button": "Iniciar Sesión",
         "button-loading": "Iniciando Sesión",
-        "google": "Iniciar Sesión con Google"
+        "google": "Iniciar Sesión con Google",
+        "forgot_password": {
+            "label": "Olvidé mi contraseña"
+        }
     },
     "spaces": {
         "title": "Espacios",

@@ -28,9 +28,9 @@ async function QueueMemberItem({ member, membersLength }: QueueMemberItemProps) 
             <div className="flex gap-2 flex-col items-end">
                 <p className="text-muted px-2 py-1 bg-blue-300 rounded-md">{`#${member.position}`}</p>
                 <div className="flex gap-2 items-center">
-                    <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={t("queue.leave")}>
+                    {/* <Button variant="ghost" size="icon" className="p-0" data-tooltip-id="tooltip" data-tooltip-content={t("queue.leave")}>
                         <Trash />
-                    </Button>
+                    </Button> */}
                     {member.is_current === true && member.position == 1 && (
                         <MoveDownSpeakerForm speaker={member} />
                     )}

@@ -3,6 +3,7 @@
 import { createClient } from "@/supabase/server"
 import { redirect } from "next/navigation"
 import { getI18n } from "@/locales/server"
+import { revalidatePath } from "next/cache"
 
 export const handleSignOut = async () => {
     //const t = await getI18n();
@@ -16,7 +17,7 @@ export const handleSignOut = async () => {
             throw new Error("Sign out failed")
         }
 
-        redirect("/")
+        revalidatePath("/")
 
     } catch (error) {
         if (error instanceof Error) {
