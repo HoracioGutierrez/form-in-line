@@ -8,6 +8,7 @@ import { getI18n, getStaticParams } from '@/locales/server';
 import { setStaticParamsLocale } from 'next-international/server';
 import { getTranslations } from 'next-intl/server';
 import Form from 'next/form'
+import Link from 'next/link'
 
 /* export const metadata: Metadata = {
     title: "Sign Up",
@@ -38,6 +39,12 @@ async function SignupPage(/* { params }: { params: Promise<{ locale: string }> }
                 </div>
                 <SignUpButton />
                 <GoogleAuthButton />
+                <p className="text-sm text-center text-muted-foreground">
+                    {t("have_account")}{" "}
+                    <Link href="/login" className="text-blue-500 hover:underline">
+                        {t("login_here")}
+                    </Link>
+                </p>
             </Form>
         </section>
     )

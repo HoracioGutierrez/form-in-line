@@ -43,6 +43,12 @@ async function LoginPage(/* { params }: { params: Promise<{ locale: string }> } 
                     {t("forgot_password.label")}
                 </Link>
                 <GoogleAuthButton />
+                <p className="text-sm text-center text-muted-foreground">
+                    {t("no_account")}{" "}
+                    <Link href="/signup" className="text-blue-500 hover:underline">
+                        {t("register_here")}
+                    </Link>
+                </p>
             </SignInForm>
         </section>
     )

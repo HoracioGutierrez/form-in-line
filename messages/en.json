@@ -76,7 +76,9 @@
         },
         "button": "Sign Up",
         "button-loading": "Signing up",
-        "google": "Sign Up with Google"
+        "google": "Sign Up with Google",
+        "have_account": "Already have an account?",
+        "login_here": "Log in here"
     },
     "google": {
         "auth": "Access with Google"
@@ -96,7 +98,9 @@
         "google": "Sign In with Google",
         "forgot_password": {
             "label": "Forgot Password?"
-        }
+        },
+        "no_account": "Don't have an account?",
+        "register_here": "Register here"
     },
     "spaces": {
         "title": "Spaces",

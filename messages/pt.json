@@ -76,7 +76,9 @@
         },
         "button": "Cadastrar",
         "button-loading": "Cadastrando",
-        "google": "Cadastrar com Google"
+        "google": "Cadastrar com Google",
+        "have_account": "Já tem uma conta?",
+        "login_here": "Entre aqui"
     },
     "google": {
         "auth": "Autenticar com Google"
@@ -96,7 +98,9 @@
         "google": "Entrar com Google",
         "forgot_password": {
             "label": "Esqueci minha senha"
-        }
+        },
+        "no_account": "Não tem uma conta?",
+        "register_here": "Cadastre-se aqui"
     },
     "spaces": {
         "title": "Espaços",

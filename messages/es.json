@@ -76,7 +76,9 @@
         },
         "button": "Registrarse",
         "button-loading": "Registrando",
-        "google": "Registrarse con Google"
+        "google": "Registrarse con Google",
+        "have_account": "¿Ya tenés cuenta?",
+        "login_here": "Iniciá sesión acá"
     },
     "google": {
         "auth": "Acceder con Google"
@@ -96,7 +98,9 @@
         "google": "Iniciar Sesión con Google",
         "forgot_password": {
             "label": "Olvidé mi contraseña"
-        }
+        },
+        "no_account": "¿No tenés cuenta?",
+        "register_here": "Registrate acá"
     },
     "spaces": {
         "title": "Espacios",
