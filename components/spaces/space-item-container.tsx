@@ -12,7 +12,7 @@ function SpaceItemContainer({ children, spaceBackground }: SpaceItemContainerPro
 
     const variants = {
         initial: { opacity: 0, y: 50 },
-        animate: { opacity: 1, y: 0, transition: { type: "spring", bounce: 0.75 } },
+        animate: { opacity: 1, y: 0, transition: { type: "spring" as const, bounce: 0.75 } },
         exit: { opacity: 0, y: 50 },
     }
 
